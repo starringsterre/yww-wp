@@ -1,6 +1,124 @@
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+
+function TestimonialsCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const testimonials = [
+    {
+      name: "Melanie de Reus",
+      date: "Deelnemer September 2023",
+      quote:
+        "Een weekend waarbij je in alle rust kan reflecteren op je leven en nieuwe inzichten over jezelf kan opdoen, gesteund door andere mooie vrouwen. We hebben als jonge vrouwen van elkaar mogen leren en elkaar mogen helpen. Ontzettend mooie en waardevolle inzichten opgedaan!",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fc5eef54d11c9437abf49ea4fe7b69596?format=webp&width=800",
+    },
+    {
+      name: "Aïsha Lankhorst",
+      date: "Deelnemer Januari 2025",
+      quote:
+        "Ik heb een superfijn weekend gehad met Karen, Ella en de andere meiden in een geweldig huis in de natuur in Friesland. De sfeer was zo veilig en warm, er werd echt naar elkaar geluisterd. We hebben veel van Karen en Ella geleerd, maar ook van elkaar als groep.",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fb56ba9e008fe487cbc9f8dae8d42a849?format=webp&width=800",
+    },
+    {
+      name: "Julia",
+      date: "Deelnemer September 2023",
+      quote:
+        "Dit weekend gaf me richting, helderheid en de drive om in beweging te komen!",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Ff29681ec3e8841db98437ca5e7175eb1?format=webp&width=800",
+    },
+  ];
+
+  const goToPrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const current = testimonials[currentIndex];
+
+  return (
+    <div className="flex gap-8 md:gap-12 items-start">
+      {/* Profile Image - Left Side */}
+      <div className="flex-shrink-0 hidden sm:block">
+        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden shadow-lg">
+          <img
+            src={current.image}
+            alt={current.name}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Testimonial Content - Right Side */}
+      <div className="flex-grow">
+        <div className="flex items-start gap-3 mb-4">
+          <span className="text-4xl text-gray-300 font-bold leading-none">
+            "
+          </span>
+          <p className="text-lg text-gray-700 italic leading-relaxed">
+            {current.quote}
+          </p>
+        </div>
+        <p className="font-medium text-gray-900 mb-1">{current.name}</p>
+        <p className="text-sm text-gray-600 mb-6">{current.date}</p>
+
+        {/* Navigation Dots and Arrows */}
+        <div className="flex items-center gap-4">
+          {/* Dots */}
+          <div className="flex gap-2">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`transition-all ${
+                  index === currentIndex
+                    ? "bg-pink-300 w-6 h-2 rounded-full"
+                    : "w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Navigation Arrows */}
+          <div className="flex gap-2 ml-4">
+            <button
+              onClick={goToPrevious}
+              className="p-2 rounded-lg transition-colors"
+              style={{
+                backgroundColor: "rgba(80, 70, 61, 0.2)",
+                color: "rgba(80, 70, 61, 1)",
+              }}
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="p-2 rounded-lg transition-colors"
+              style={{
+                backgroundColor: "rgb(255, 181, 192)",
+                color: "white",
+              }}
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -158,6 +276,10 @@ export default function Home() {
             </p>
           </div>
 
+          <p className="max-w-3xl mx-auto text-center text-gray-700 mb-12">
+            Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat.
+          </p>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Coach Card 1 - Ella */}
             <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
@@ -262,38 +384,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials Carousel */}
       <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Wat voorgaande deelneemsters zeggen
           </h2>
 
-          <div className="space-y-6">
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <p className="text-gray-700 italic mb-4">
-                "Een weekend waarbij je in alle rust kan reflecteren op je leven en nieuwe inzichten over jezelf kan opdoen, gesteund door andere mooie vrouwen. We hebben als jonge vrouwen van elkaar mogen leren en elkaar mogen helpen. Ontzettend mooie en waardevolle inzichten opgedaan!"
-              </p>
-              <p className="font-medium text-gray-900">Melanie de Reus</p>
-              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <p className="text-gray-700 italic mb-4">
-                "Ik heb een superfijn weekend gehad met Karen, Ella en de andere meiden in een geweldig huis in de natuur in Friesland. De sfeer was zo veilig en warm, er werd echt naar elkaar geluisterd. We hebben veel van Karen en Ella geleerd, maar ook van elkaar als groep."
-              </p>
-              <p className="font-medium text-gray-900">Aïsha Lankhorst</p>
-              <p className="text-sm text-gray-600">Deelnemer Januari 2025</p>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <p className="text-gray-700 italic mb-4">
-                "Dit weekend gaf me richting, helderheid en de drive om in beweging te komen!"
-              </p>
-              <p className="font-medium text-gray-900">Julia</p>
-              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
-            </div>
-          </div>
+          <TestimonialsCarousel />
         </div>
       </section>
 

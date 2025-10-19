@@ -18,15 +18,31 @@ function TestimonialsCarousel() {
       name: "Aïsha Lankhorst",
       date: "Deelnemer Januari 2025",
       quote:
-        "Ik heb een superfijn weekend gehad met Karen, Ella en de andere meiden in een geweldig huis in de natuur in Friesland. De sfeer was zo veilig en warm, er werd echt naar elkaar geluisterd. We hebben veel van Karen en Ella geleerd, maar ook van elkaar als groep.",
+        "Ik heb een superfijn weekend gehad met Karen, Ella en de andere meiden in een geweldig huis in de natuur in Friesland. De sfeer was zo veilig en warm, er werd echt naar elkaar geluisterd. We hebben veel van Karen en Ella geleerd, maar ook van elkaar als groep. Ik heb echt het gevoel dat ik weer een stapje verder kan zetten, zowel op persoonlijk als op professioneel vlak.",
       image:
         "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fb56ba9e008fe487cbc9f8dae8d42a849?format=webp&width=800",
+    },
+    {
+      name: "Lisanne de Moel",
+      date: "Deelnemer Januari 2025",
+      quote:
+        "Een heel fijn weekend gehad op de boerderij in Friesland. Wat is het leuk om een weekend te spenderen met allemaal vrouwen die elkaar aanmoedigen en van wie je kan leren. Ik vond het een hele waardevolle ervaring, waarbij je echt even tijd voor jezelf mag en kan nemen.",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fc5eef54d11c9437abf49ea4fe7b69596?format=webp&width=800",
     },
     {
       name: "Julia",
       date: "Deelnemer September 2023",
       quote:
-        "Dit weekend gaf me richting, helderheid en de drive om in beweging te komen!",
+        "Het young wise women retreat was een hele fijne en leerzame ervaring. Vol oefeningen maar ook ruimte voor eigen ideeën. De begeleiding is professioneel en duidelijk, waar zowel lichaam en geest aan bod komen.",
+      image:
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Ff29681ec3e8841db98437ca5e7175eb1?format=webp&width=800",
+    },
+    {
+      name: "Julia Bleeker",
+      date: "Deelnemer September 2023",
+      quote:
+        "Het retreat van Ella en Wineke was voor mij een ontzettend fijn en betekenisvol weekend. Door middel van opdrachten en verbindende gesprekken, heb ik in een veilige en rustige setting veel helderheid en inzicht gekregen in mijn behoeftes en talenten. We waren midden in de natuur en alles werd voor ons verzorgd.",
       image:
         "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Ff29681ec3e8841db98437ca5e7175eb1?format=webp&width=800",
     },
@@ -72,48 +88,30 @@ function TestimonialsCarousel() {
         <p className="font-medium text-gray-900 mb-1">{current.name}</p>
         <p className="text-sm text-gray-600 mb-6">{current.date}</p>
 
-        {/* Navigation Dots and Arrows */}
-        <div className="flex items-center gap-4">
-          {/* Dots */}
-          <div className="flex gap-2">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`transition-all ${
-                  index === currentIndex
-                    ? "bg-pink-300 w-6 h-2 rounded-full"
-                    : "w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Navigation Arrows */}
-          <div className="flex gap-2 ml-4">
-            <button
-              onClick={goToPrevious}
-              className="p-2 rounded-lg transition-colors"
-              style={{
-                backgroundColor: "rgba(80, 70, 61, 0.2)",
-                color: "rgba(80, 70, 61, 1)",
-              }}
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <button
-              onClick={goToNext}
-              className="p-2 rounded-lg transition-colors"
-              style={{
-                backgroundColor: "rgb(255, 181, 192)",
-                color: "white",
-              }}
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+        {/* Navigation Arrows Only */}
+        <div className="flex gap-2">
+          <button
+            onClick={goToPrevious}
+            className="p-2 rounded-lg transition-colors"
+            style={{
+              backgroundColor: "rgba(80, 70, 61, 0.2)",
+              color: "rgba(80, 70, 61, 1)",
+            }}
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={goToNext}
+            className="p-2 rounded-lg transition-colors"
+            style={{
+              backgroundColor: "rgb(255, 181, 192)",
+              color: "white",
+            }}
+            aria-label="Next testimonial"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </div>
@@ -386,12 +384,14 @@ export default function Home() {
 
       {/* Testimonials Carousel */}
       <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Wat voorgaande deelneemsters zeggen
           </h2>
 
-          <TestimonialsCarousel />
+          <div className="max-w-4xl mx-auto">
+            <TestimonialsCarousel />
+          </div>
         </div>
       </section>
 

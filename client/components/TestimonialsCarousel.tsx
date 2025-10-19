@@ -42,7 +42,13 @@ export default function TestimonialsCarousel({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex gap-8 md:gap-12 items-start w-full justify-center mb-4">
+      <div
+        className="flex gap-8 md:gap-12 items-start w-full justify-center mb-4 transition-transform duration-500"
+        style={{
+          transform: `translateX(-${currentIndex * 100}%)`,
+          minWidth: "100%",
+        }}
+      >
         {/* Profile Image & Info - Left Side */}
         <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mb-4">

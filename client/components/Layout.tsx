@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Instagram, Linkedin } from "lucide-react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,34 +10,34 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/verhaal", label: "Ons verhaal" },
-    { href: "/kalender", label: "Community kalender" },
+    { href: "/verhaal", label: "About" },
+    { href: "/kalender", label: "Schedule" },
     { href: "/contact", label: "Contact" },
   ];
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
+        <div className="max-w-full px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-neutral-900">
-                Young Wise Women
+              <h1 className="text-lg font-medium text-gray-900 tracking-wide">
+                young wise women
               </h1>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex gap-8">
+            <nav className="hidden md:flex gap-12">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
                   className={`text-sm font-medium transition-colors ${
                     isActive(link.href)
-                      ? "text-primary border-b-2 border-primary pb-1"
-                      : "text-neutral-600 hover:text-neutral-900"
+                      ? "text-primary"
+                      : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
                   {link.label}
@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <nav className="md:hidden pb-4 flex flex-col gap-2">
+            <nav className="md:hidden pb-4 flex flex-col gap-3 border-t border-gray-200 pt-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -69,7 +69,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   className={`text-sm font-medium py-2 transition-colors ${
                     isActive(link.href)
                       ? "text-primary"
-                      : "text-neutral-600 hover:text-neutral-900"
+                      : "text-gray-600 hover:text-gray-900"
                   }`}
                 >
                   {link.label}
@@ -84,29 +84,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-grow">{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-neutral-200 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {/* Company Info */}
+      <footer className="bg-gray-800 text-gray-100">
+        <div className="max-w-7xl mx-auto px-8 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            {/* About */}
             <div>
-              <h3 className="font-bold text-neutral-900 mb-4">
-                Young Wise Women
+              <h3 className="text-white font-medium mb-4">
+                young wise women
               </h3>
-              <p className="text-sm text-neutral-600">
-                Weekend retreats voor jonge vrouwen op zoek naar persoonlijke
-                groei, reflectie en betekenisvolle verbinding.
+              <p className="text-sm text-gray-300">
+                Find your balance and inner peace through mindful practice and
+                expert guidance.
               </p>
             </div>
 
-            {/* Navigation Links */}
+            {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-neutral-900 mb-4">Navigatie</h4>
+              <h4 className="text-white font-medium mb-4">Quick Links</h4>
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+                      className="text-sm text-gray-300 hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -115,38 +115,54 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </ul>
             </div>
 
-            {/* Contact Info */}
+            {/* Classes */}
             <div>
-              <h4 className="font-semibold text-neutral-900 mb-4">Contact</h4>
-              <div className="space-y-2 text-sm text-neutral-600">
-                <p>
-                  Email:{" "}
-                  <a
-                    href="mailto:info@awarenessinbusiness.com"
-                    className="hover:text-neutral-900 transition-colors"
-                  >
-                    info@awarenessinbusiness.com
+              <h4 className="text-white font-medium mb-4">Retreat</h4>
+              <ul className="space-y-2">
+                <li>
+                  <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                    Personal Growth
                   </a>
-                </p>
-                <p>
-                  Telefoon:{" "}
-                  <a
-                    href="tel:+31655334728"
-                    className="hover:text-neutral-900 transition-colors"
-                  >
-                    +31 (0)6 55334728
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                    Inner Wisdom
                   </a>
-                </p>
-                <p>Blaricum, Nederland</p>
+                </li>
+                <li>
+                  <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                    Energy & Motivation
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Connect */}
+            <div>
+              <h4 className="text-white font-medium mb-4">Connect</h4>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className="text-gray-300 hover:text-white transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-300 hover:text-white transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </a>
               </div>
             </div>
           </div>
 
           {/* Copyright */}
-          <div className="border-t border-neutral-200 pt-8">
-            <p className="text-sm text-neutral-600 text-center">
-              © {new Date().getFullYear()} Young Wise Women. Alle rechten
-              voorbehouden.
+          <div className="border-t border-gray-700 pt-8">
+            <p className="text-sm text-gray-400 text-center">
+              © 2025 Young Wise Women. All rights reserved.
             </p>
           </div>
         </div>

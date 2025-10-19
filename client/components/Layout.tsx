@@ -84,7 +84,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-grow">{children}</main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-gray-100">
+      <footer className="text-gray-100" style={{ backgroundColor: "rgba(80, 70, 61, 1)" }}>
         <div className="max-w-7xl mx-auto px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* About */}

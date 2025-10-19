@@ -32,61 +32,59 @@ export default function TestimonialsCarousel({
   const current = testimonials[currentIndex];
 
   return (
-    <div className="flex gap-8 md:gap-12 items-start">
-      {/* Profile Image - Left Side */}
-      <div className="flex-shrink-0 hidden sm:block">
-        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg">
-          <img
-            src={current.image}
-            alt={current.name}
-            className="w-full h-full object-cover"
-          />
+    <div className="flex flex-col items-center">
+      <div className="flex gap-8 md:gap-12 items-start w-full justify-center mb-12">
+        {/* Profile Image & Info - Left Side */}
+        <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">
+          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mb-4">
+            <img
+              src={current.image}
+              alt={current.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <p className="font-medium text-gray-900 text-center">{current.name}</p>
+          <p className="text-sm text-gray-600 text-center">{current.date}</p>
+        </div>
+
+        {/* Testimonial Quote - Right Side */}
+        <div className="flex-grow max-w-2xl flex flex-col h-full">
+          <div className="flex items-start gap-3 flex-grow mb-4">
+            <span
+              className="text-7xl leading-none flex-shrink-0 -mt-4"
+              style={{
+                color: "rgba(80, 70, 61, 1)",
+                fontFamily: "Georgia, serif",
+                fontWeight: "bold",
+              }}
+            >
+              "
+            </span>
+            <p className="text-lg text-gray-700 italic leading-relaxed min-h-72">
+              {current.quote}
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Testimonial Content - Right Side */}
-      <div className="flex-grow flex flex-col h-full">
-        <div className="flex items-start gap-3 mb-4 flex-grow">
-          <span
-            className="text-7xl leading-none flex-shrink-0 -mt-4"
-            style={{ color: "rgba(80, 70, 61, 1)", fontFamily: "Georgia, serif", fontWeight: "bold" }}
-          >
-            "
-          </span>
-          <p className="text-lg text-gray-700 italic leading-relaxed min-h-72">
-            {current.quote}
-          </p>
-        </div>
-        <div>
-          <p className="font-medium text-gray-900 mb-1">{current.name}</p>
-          <p className="text-sm text-gray-600 mb-6">{current.date}</p>
-        </div>
-
-        {/* Navigation Arrows Only */}
-        <div className="flex gap-2">
+      {/* Navigation Dots - Centered Below */}
+      <div className="flex gap-3 justify-center">
+        {testimonials.map((_, index) => (
           <button
-            onClick={goToPrevious}
-            className="p-2 rounded-lg transition-colors"
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            className="rounded-full transition-all"
             style={{
-              backgroundColor: "rgba(80, 70, 61, 0.2)",
-              color: "rgba(80, 70, 61, 1)",
+              width: "12px",
+              height: "12px",
+              backgroundColor:
+                index === currentIndex
+                  ? "rgb(255, 181, 192)"
+                  : "rgba(200, 200, 200, 0.5)",
             }}
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="p-2 rounded-lg transition-colors"
-            style={{
-              backgroundColor: "rgb(255, 181, 192)",
-              color: "white",
-            }}
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
+            aria-label={`Go to testimonial ${index + 1}`}
+          />
+        ))}
       </div>
     </div>
   );

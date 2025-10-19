@@ -48,15 +48,15 @@ export default function TestimonialsCarousel({
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{
-            transform: `translateX(calc(-${currentIndex * 100}% - ${currentIndex * 32}px))`,
+            transform: `translateX(calc(-${currentIndex * 100}%))`,
           }}
         >
           {/* Each testimonial item - full width */}
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="flex gap-8 md:gap-12 items-start flex-shrink-0 px-4"
-              style={{ width: "100%", boxSizing: "border-box" }}
+              className="flex gap-8 md:gap-12 items-start flex-shrink-0"
+              style={{ width: "100%", boxSizing: "border-box", minWidth: "100%" }}
             >
               {/* Profile Image & Info - Left Side */}
               <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">

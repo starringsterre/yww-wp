@@ -51,14 +51,10 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
-            atmosphere
+            Sfeer & Omgeving
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-            Young Wise Women is a modern community space where everyone can
-            find their perfect practice. We've created a welcoming space with
-            professional guidance to help you achieve harmony, strength, and
-            flexibility. Our retreat suits all levels—from beginners to advanced
-            practitioners.
+            Young Wise Women is een prachtige omgeving in de natuur waar jonge professionals (24+) ruimte krijgen voor reflectie, rust en persoonlijke groei. Met professionele begeleiding helpen we je om harmonie, kracht en flexibiliteit in je leven te bereiken.
           </p>
 
           {/* Three Image Cards */}
@@ -92,59 +88,59 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-light text-center mb-16 text-gray-900">
-            the santosha yoga space
+            Wat je Meeneemt uit het Retreat
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Benefit 1 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">🧘</div>
+                <div className="text-4xl">💫</div>
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Certified Instructors
+                Persoonlijke Groei
               </h3>
               <p className="text-sm text-gray-600">
-                Expert guidance for your practice
+                Of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling
               </p>
             </div>
 
             {/* Benefit 2 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">🌱</div>
+                <div className="text-4xl">🌟</div>
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Eco-friendly Materials
+                Eigen Wijsheid
               </h3>
               <p className="text-sm text-gray-600">
-                Sustainable and natural
+                De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen
               </p>
             </div>
 
             {/* Benefit 3 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">🎯</div>
+                <div className="text-4xl">⚡</div>
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Multiple Styles
+                Energie & Motivatie
               </h3>
               <p className="text-sm text-gray-600">
-                Find your perfect practice
+                Je voelt richting, duidelijkheid en de drive om in beweging te komen
               </p>
             </div>
 
             {/* Benefit 4 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">☕</div>
+                <div className="text-4xl">🛠️</div>
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Practical Tools
+                Praktische Handvatten
               </h3>
               <p className="text-sm text-gray-600">
-                Tea and community space
+                Nieuwe, praktische tools die je direct kunt toepassen in je leven en carrière
               </p>
             </div>
           </div>
@@ -156,10 +152,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
-              our coaches
+              Onze Coaches
             </h2>
             <p className="text-gray-600">
-              Experienced and inspiring instructors with years of practice
+              Ervaren en inspirerende trainers met jaren van praktijk en begeleiding
             </p>
           </div>
 
@@ -178,7 +174,7 @@ export default function Home() {
                   Ella
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Certified Vinyasa Flow and meditation instructor
+                  Certified Vinyasa Flow en meditatie instructeur
                 </p>
               </div>
             </div>
@@ -197,9 +193,111 @@ export default function Home() {
                   Liene
                 </h3>
                 <p className="text-sm text-gray-600">
-                  Certified Hatha Yoga and stretching instructor
+                  Certified Hatha Yoga en stretchings instructeur
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Next Retreat Section */}
+      <section className="py-20 px-4 md:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
+            Volgende Editie: 17-19 oktober 2025
+          </h2>
+
+          <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <h3 className="text-xl font-medium text-gray-900 mb-4">
+                  Weekend Retreat
+                </h3>
+                <p className="text-gray-700 mb-3">
+                  Ervaar rust en ruimte op een prachtige locatie in de natuur, samen met gelijkgestemde jonge professionals (24+).
+                </p>
+                <p className="text-sm text-gray-600 font-medium">
+                  Vrijdag 17:30 uur - Zondag 17:00 uur
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-medium text-gray-900 mb-4">
+                  Wat is Inbegrepen
+                </h3>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li>✓ Intake met coach</li>
+                  <li>✓ Motivation Factor test (€145 waarde)</li>
+                  <li>✓ Professionele begeleiding van twee coaches</li>
+                  <li>✓ 2 nachten accommodatie</li>
+                  <li>✓ Alle maaltijden</li>
+                  <li>✓ Werkboek & praktische tools</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 pt-8">
+              <h3 className="font-medium text-gray-900 mb-4">
+                Investering in jezelf
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <p className="text-sm text-gray-600 mb-2">Via Werkgever</p>
+                  <p className="text-3xl font-bold text-primary">€1.120</p>
+                  <p className="text-xs text-gray-600">incl. BTW</p>
+                </div>
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <p className="text-sm text-gray-600 mb-2">Particulier</p>
+                  <p className="text-3xl font-bold text-primary">€600</p>
+                  <p className="text-xs text-gray-600">excl. BTW • Betaling in 3 termijnen mogelijk</p>
+                </div>
+              </div>
+
+              <Button
+                size="lg"
+                className="w-full bg-primary text-white hover:bg-primary/90 py-3"
+                asChild
+              >
+                <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
+                  Plaats je Reservering
+                </a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
+            Wat Deelneemsters Zeggen
+          </h2>
+
+          <div className="space-y-6">
+            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
+              <p className="text-gray-700 italic mb-4">
+                "Een weekend waarbij je in alle rust kan reflecteren op je leven en nieuwe inzichten over jezelf kan opdoen, gesteund door andere mooie vrouwen. We hebben als jonge vrouwen van elkaar mogen leren en elkaar mogen helpen. Ontzettend mooie en waardevolle inzichten opgedaan!"
+              </p>
+              <p className="font-medium text-gray-900">Melanie de Reus</p>
+              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
+              <p className="text-gray-700 italic mb-4">
+                "Ik heb een superfijn weekend gehad met Karen, Ella en de andere meiden in een geweldig huis in de natuur in Friesland. De sfeer was zo veilig en warm, er werd echt naar elkaar geluisterd. We hebben veel van Karen en Ella geleerd, maar ook van elkaar als groep."
+              </p>
+              <p className="font-medium text-gray-900">Aïsha Lankhorst</p>
+              <p className="text-sm text-gray-600">Deelnemer Januari 2025</p>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
+              <p className="text-gray-700 italic mb-4">
+                "Dit weekend gaf me richting, helderheid en de drive om in beweging te komen!"
+              </p>
+              <p className="font-medium text-gray-900">Julia</p>
+              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
             </div>
           </div>
         </div>
@@ -215,18 +313,17 @@ export default function Home() {
         <div className="max-w-3xl mx-auto relative z-10">
           <div className="bg-white rounded-lg p-8 md:p-12 shadow-xl">
             <h2 className="text-3xl font-light text-gray-900 mb-2">
-              Stay updated for the next edition
+              Blijf op de hoogte voor de volgende editie
             </h2>
             <p className="text-gray-600 mb-6">
-              Subscribe to get notified about our upcoming Young Wise Women
-              retreats in 2026.
+              Abonneer je op onze nieuwsbrief en ontvang meldingen over toekomstige Young Wise Women retreats.
             </p>
 
             <form className="space-y-4">
               <div>
                 <input
                   type="text"
-                  placeholder="Name"
+                  placeholder="Je naam"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
@@ -234,24 +331,24 @@ export default function Home() {
               <div>
                 <input
                   type="email"
-                  placeholder="Email"
+                  placeholder="je@email.com"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
               </div>
               <div>
                 <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option>Select preferred month</option>
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
+                  <option>Kies gewenste maand</option>
+                  <option>Januari</option>
+                  <option>Februari</option>
+                  <option>Maart</option>
                   <option>April</option>
-                  <option>May</option>
-                  <option>June</option>
-                  <option>July</option>
-                  <option>August</option>
+                  <option>Mei</option>
+                  <option>Juni</option>
+                  <option>Juli</option>
+                  <option>Augustus</option>
                   <option>September</option>
-                  <option>October</option>
+                  <option>Oktober</option>
                   <option>November</option>
                   <option>December</option>
                 </select>
@@ -262,7 +359,7 @@ export default function Home() {
                 asChild
               >
                 <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
-                  Submit
+                  Inschrijven
                 </a>
               </Button>
             </form>

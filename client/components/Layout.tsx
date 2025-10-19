@@ -10,8 +10,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/verhaal", label: "About" },
-    { href: "/kalender", label: "Schedule" },
+    { href: "/verhaal", label: "Ons Verhaal" },
+    { href: "/kalender", label: "Kalender" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -93,14 +93,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 young wise women
               </h3>
               <p className="text-sm text-gray-300">
-                Find your balance and inner peace through mindful practice and
-                expert guidance.
+                Reflectie, rust en ruimte voor jonge vrouwen die op zoek zijn naar persoonlijke groei en betekenis.
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-white font-medium mb-4">Quick Links</h4>
+              <h4 className="text-white font-medium mb-4">Navigatie</h4>
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.href}>
@@ -117,21 +116,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Classes */}
             <div>
-              <h4 className="text-white font-medium mb-4">Retreat</h4>
+              <h4 className="text-white font-medium mb-4">Thema's</h4>
               <ul className="space-y-2">
                 <li>
                   <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
-                    Personal Growth
+                    Persoonlijke Groei
                   </a>
                 </li>
                 <li>
                   <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
-                    Inner Wisdom
+                    Eigen Wijsheid
                   </a>
                 </li>
                 <li>
                   <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
-                    Energy & Motivation
+                    Energie & Motivatie
                   </a>
                 </li>
               </ul>
@@ -139,7 +138,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Connect */}
             <div>
-              <h4 className="text-white font-medium mb-4">Connect</h4>
+              <h4 className="text-white font-medium mb-4">Contact</h4>
+              <div className="space-y-2 text-sm text-gray-300 mb-4">
+                <p>info@awarenessinbusiness.com</p>
+                <p>+31 (0)6 55334728</p>
+              </div>
               <div className="flex gap-4">
                 <a
                   href="#"
@@ -162,7 +165,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Copyright */}
           <div className="border-t border-gray-700 pt-8">
             <p className="text-sm text-gray-400 text-center">
-              © 2025 Young Wise Women. All rights reserved.
+              © 2025 Young Wise Women. Alle rechten voorbehouden.
             </p>
           </div>
         </div>

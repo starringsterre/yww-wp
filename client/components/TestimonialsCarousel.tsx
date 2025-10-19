@@ -33,7 +33,7 @@ export default function TestimonialsCarousel({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex gap-8 md:gap-12 items-start w-full justify-center mb-12">
+      <div className="flex gap-8 md:gap-12 items-start w-full justify-center mb-4">
         {/* Profile Image & Info - Left Side */}
         <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mb-4">

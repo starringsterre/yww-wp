@@ -76,17 +76,19 @@ function TestimonialsCarousel() {
       </div>
 
       {/* Testimonial Content - Right Side */}
-      <div className="flex-grow">
-        <div className="flex items-start gap-3 mb-4">
-          <span className="text-4xl text-gray-300 font-bold leading-none">
+      <div className="flex-grow flex flex-col">
+        <div className="flex items-start gap-3 mb-4 flex-grow">
+          <span className="text-4xl text-gray-300 font-bold leading-none flex-shrink-0">
             "
           </span>
-          <p className="text-lg text-gray-700 italic leading-relaxed">
+          <p className="text-lg text-gray-700 italic leading-relaxed min-h-40">
             {current.quote}
           </p>
         </div>
-        <p className="font-medium text-gray-900 mb-1">{current.name}</p>
-        <p className="text-sm text-gray-600 mb-6">{current.date}</p>
+        <div>
+          <p className="font-medium text-gray-900 mb-1">{current.name}</p>
+          <p className="text-sm text-gray-600 mb-6">{current.date}</p>
+        </div>
 
         {/* Navigation Arrows Only */}
         <div className="flex gap-2">

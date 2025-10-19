@@ -24,8 +24,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
               <h1 className="text-lg font-medium text-gray-900 tracking-wide">
-                young wise women
-              </h1>
+              Young Wise Women
+            </h1>
             </Link>
 
             {/* Desktop Navigation */}

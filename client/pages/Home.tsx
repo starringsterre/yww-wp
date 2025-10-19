@@ -79,7 +79,7 @@ export default function Home() {
 
         {/* Content Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 z-10">
-          <h1 className="text-5xl md:text-7xl font-light mb-4 max-w-3xl">
+          <h1 className="text-5xl md:text-7xl font-light max-w-3xl" style={{ margin: "3px 0 16px" }}>
             Young Wise Women
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-200">
@@ -90,8 +90,8 @@ export default function Home() {
             className="bg-pink-300 text-gray-900 hover:bg-pink-400 border-0"
             asChild
           >
-            <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
-              Bekijk Retreat
+            <a href="/kalender" style={{ cursor: "pointer", pointerEvents: "auto" }}>
+              <p>Bekijk de Community kalender</p>
             </a>
           </Button>
         </div>

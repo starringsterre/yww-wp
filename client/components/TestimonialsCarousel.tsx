@@ -42,43 +42,59 @@ export default function TestimonialsCarousel({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div
-        className="flex gap-8 md:gap-12 items-start w-full justify-center mb-4 transition-transform duration-500"
-        style={{
-          transform: `translateX(-${currentIndex * 100}%)`,
-          minWidth: "100%",
-        }}
-      >
-        {/* Profile Image & Info - Left Side */}
-        <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mb-4">
-            <img
-              src={current.image}
-              alt={current.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <p className="font-medium text-gray-900 text-center">{current.name}</p>
-          <p className="text-sm text-gray-600 text-center">{current.date}</p>
-        </div>
-
-        {/* Testimonial Quote - Right Side */}
-        <div className="flex-grow max-w-2xl flex flex-col h-full">
-          <div className="flex items-start gap-3 flex-grow mb-4">
-            <span
-              className="text-7xl leading-none flex-shrink-0 -mt-4"
-              style={{
-                color: "rgba(80, 70, 61, 1)",
-                fontFamily: "Georgia, serif",
-                fontWeight: "bold",
-              }}
+      {/* Carousel Container with overflow hidden */}
+      <div className="w-full overflow-hidden mb-4">
+        {/* Inner carousel that slides */}
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{
+            transform: `translateX(calc(-${currentIndex * 100}% - ${currentIndex * 32}px))`,
+          }}
+        >
+          {/* Each testimonial item - full width */}
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={index}
+              className="flex gap-8 md:gap-12 items-start flex-shrink-0 px-4"
+              style={{ width: "100%", boxSizing: "border-box" }}
             >
-              "
-            </span>
-            <p className="text-lg text-gray-700 italic leading-relaxed min-h-72">
-              {current.quote}
-            </p>
-          </div>
+              {/* Profile Image & Info - Left Side */}
+              <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">
+                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mb-4">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <p className="font-medium text-gray-900 text-center">
+                  {testimonial.name}
+                </p>
+                <p className="text-sm text-gray-600 text-center">
+                  {testimonial.date}
+                </p>
+              </div>
+
+              {/* Testimonial Quote - Right Side */}
+              <div className="flex-grow max-w-2xl flex flex-col h-full">
+                <div className="flex items-start gap-3 flex-grow mb-4">
+                  <span
+                    className="text-7xl leading-none flex-shrink-0 -mt-4"
+                    style={{
+                      color: "rgba(80, 70, 61, 1)",
+                      fontFamily: "Georgia, serif",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    "
+                  </span>
+                  <p className="text-lg text-gray-700 italic leading-relaxed min-h-72">
+                    {testimonial.quote}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

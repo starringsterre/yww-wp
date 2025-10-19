@@ -25,7 +25,7 @@ export default function Contact() {
     const mailtoLink = `mailto:info@awarenessinbusiness.com?subject=${encodeURIComponent(
       formData.subject
     )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
+      `Naam: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
     )}`;
     window.location.href = mailtoLink;
   };
@@ -36,13 +36,10 @@ export default function Contact() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            contact us
+            Contact
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Young Wise Women is a modern community space where everyone can find
-            their perfect practice. We've created a welcoming space with
-            professional guidance to help you achieve harmony, strength, and
-            flexibility.
+            Heb je vragen? We helpen je graag verder!
           </p>
         </div>
       </section>
@@ -54,57 +51,78 @@ export default function Contact() {
             {/* Contact Information */}
             <div>
               <h2 className="text-3xl font-light text-gray-900 mb-8">
-                Contact information
+                Contactgegevens
               </h2>
 
               <p className="text-gray-700 mb-8">
-                Young Wise Women is a modern community space where everyone can
-                find their perfect practice. We've created a welcoming space
-                with professional guidance to help you achieve harmony, strength
-                and flexibility.
+                Neem gerust contact op als je vragen hebt over het retreat, groepsretreats of andere mogelijkheden.
               </p>
 
               <div className="space-y-6 mb-8">
-                <div>
-                  <p className="font-medium text-gray-900 mb-1">Address</p>
-                  <p className="text-gray-600">
-                    Saint-Petersburg
-                    <br />
-                    Peace st. 42
-                  </p>
+                <div className="flex gap-4">
+                  <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium text-gray-900">E-mail</p>
+                    <a
+                      href="mailto:info@awarenessinbusiness.com"
+                      className="text-primary hover:underline"
+                    >
+                      info@awarenessinbusiness.com
+                    </a>
+                  </div>
                 </div>
 
-                <div>
-                  <p className="font-medium text-gray-900 mb-1">Phone</p>
-                  <a
-                    href="tel:+31655334728"
-                    className="text-primary hover:underline"
-                  >
-                    +31 (0)6 55334728
-                  </a>
+                <div className="flex gap-4">
+                  <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium text-gray-900">Telefoon</p>
+                    <a
+                      href="tel:+31655334728"
+                      className="text-primary hover:underline"
+                    >
+                      +31 (0)6 55334728
+                    </a>
+                  </div>
                 </div>
 
-                <div>
-                  <p className="font-medium text-gray-900 mb-1">Email</p>
-                  <a
-                    href="mailto:info@awarenessinbusiness.com"
-                    className="text-primary hover:underline"
-                  >
-                    info@awarenessinbusiness.com
-                  </a>
+                <div className="flex gap-4">
+                  <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <p className="font-medium text-gray-900">Adres</p>
+                    <p className="text-gray-600">
+                      1261 TD Blaricum
+                      <br />
+                      Nederland
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                <span className="text-gray-500">Map placeholder</span>
+              {/* WhatsApp Link */}
+              <div className="bg-green-50 p-6 rounded-lg border border-green-200">
+                <p className="text-gray-700 mb-4 font-medium">
+                  Of stuur een bericht via WhatsApp:
+                </p>
+                <Button
+                  size="lg"
+                  className="w-full bg-green-600 text-white hover:bg-green-700"
+                  asChild
+                >
+                  <a
+                    href="https://api.whatsapp.com/send?phone=0655334728"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Chat via WhatsApp
+                  </a>
+                </Button>
               </div>
             </div>
 
             {/* Contact Form */}
             <div>
               <h2 className="text-3xl font-light text-gray-900 mb-8">
-                Send us a message
+                Stuur ons een Bericht
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -113,7 +131,7 @@ export default function Contact() {
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-900 mb-2"
                   >
-                    Name
+                    Jouw Naam
                   </label>
                   <input
                     type="text"
@@ -123,7 +141,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Your name"
+                    placeholder="Je naam"
                   />
                 </div>
 
@@ -132,7 +150,7 @@ export default function Contact() {
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-900 mb-2"
                   >
-                    Email
+                    Jouw E-mail
                   </label>
                   <input
                     type="email"
@@ -142,7 +160,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="your@email.com"
+                    placeholder="je@email.com"
                   />
                 </div>
 
@@ -151,7 +169,7 @@ export default function Contact() {
                     htmlFor="subject"
                     className="block text-sm font-medium text-gray-900 mb-2"
                   >
-                    Subject
+                    Onderwerp
                   </label>
                   <input
                     type="text"
@@ -161,7 +179,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="What is this about?"
+                    placeholder="Waar gaat je bericht over?"
                   />
                 </div>
 
@@ -170,7 +188,7 @@ export default function Contact() {
                     htmlFor="message"
                     className="block text-sm font-medium text-gray-900 mb-2"
                   >
-                    Message
+                    Bericht
                   </label>
                   <textarea
                     id="message"
@@ -180,7 +198,7 @@ export default function Contact() {
                     required
                     rows={5}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                    placeholder="Your message..."
+                    placeholder="Wat wil je ons vertellen?"
                   />
                 </div>
 
@@ -189,7 +207,7 @@ export default function Contact() {
                   size="lg"
                   className="w-full bg-primary text-white hover:bg-primary/90 py-3"
                 >
-                  Send Message
+                  Verstuur Bericht
                 </Button>
               </form>
             </div>
@@ -197,111 +215,56 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Quick Contact Methods */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-light text-center text-gray-900 mb-12">
-            Other Ways to Reach Us
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Email */}
-            <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-              <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Email</h3>
-              <a
-                href="mailto:info@awarenessinbusiness.com"
-                className="text-primary hover:underline"
-              >
-                info@awarenessinbusiness.com
-              </a>
-            </div>
-
-            {/* Phone */}
-            <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-              <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Phone</h3>
-              <a href="tel:+31655334728" className="text-primary hover:underline">
-                +31 (0)6 55334728
-              </a>
-            </div>
-
-            {/* WhatsApp */}
-            <div className="bg-white p-8 rounded-lg shadow-lg text-center">
-              <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                WhatsApp
-              </h3>
-              <a
-                href="https://api.whatsapp.com/send?phone=0655334728"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                Send a message
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
-            Frequently Asked Questions
+            Veelgestelde Vragen
           </h2>
 
           <div className="space-y-6">
-            <div className="border-b border-gray-200 pb-6">
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Can I still register if I missed the deadline?
+                Kan ik me nog aanmelden als ik de deadline gemist heb?
               </h3>
               <p className="text-gray-700">
-                Yes, you can! Please contact us via email or phone. We're happy
-                to help and explore options.
+                Ja, dat kan! Neem contact met ons op via e-mail of telefoon. We helpen je graag verder en kijken naar mogelijkheden.
               </p>
             </div>
 
-            <div className="border-b border-gray-200 pb-6">
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Is there a payment plan available?
+                Is er een betalingsplan mogelijk?
               </h3>
               <p className="text-gray-700">
-                Yes, for individuals, payment in 3 installments is possible.
-                Contact us for more information about payment options.
+                Ja, voor particulieren is betaling in 3 termijnen mogelijk. Neem contact op voor meer informatie over de betalingsopties.
               </p>
             </div>
 
-            <div className="border-b border-gray-200 pb-6">
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Do you organize group retreats?
+                Organiseren jullie ook groepsretreats?
               </h3>
               <p className="text-gray-700">
-                Yes, group retreats are available upon request. This can be very
-                interesting for teams or groups. Let us know and we'll discuss
-                the possibilities!
+                Ja, groepsretreats zijn mogelijk op aanvraag. Dit kan heel interessant zijn voor teams of groepen. Laat het ons weten en we bespreken de mogelijkheden!
               </p>
             </div>
 
-            <div className="border-b border-gray-200 pb-6">
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                What if I can't attend the scheduled date?
+                Wat als ik niet kan op de geplande datum?
               </h3>
               <p className="text-gray-700">
-                Subscribe to the newsletter so you stay informed about upcoming
-                editions. We organize new retreats regularly.
+                Schrijf je in voor de nieuwsbrief zodat je op de hoogte bent van volgende edities. We organiseren regelmatig nieuwe retreats.
               </p>
             </div>
 
-            <div>
+            <div className="bg-white p-8 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                How do I prepare for the retreat?
+                Hoe voorberei ik me voor op het retreat?
               </h3>
               <p className="text-gray-700">
-                After registration, you'll receive all information and have a
-                personal intake with one of our coaches. This helps us tailor
-                the retreat perfectly for you.
+                Na je inschrijving krijg je alle informatie en ontvang je een persoonlijke intake met een van onze coaches. Dit helpt ons om het retreat perfect op jou af te stemmen.
               </p>
             </div>
           </div>

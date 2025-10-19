@@ -5,131 +5,46 @@ export default function OnsVerhaal() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            about
+            Ons Verhaal
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Young Wise Women is a modern community space where everyone can
-            find their perfect practice
+            Ontdek wat Young Wise Women betekent en wat ons drijft
           </p>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Three Pillars */}
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
-                Our Mission
-              </h2>
-              <p className="text-gray-700 mb-4">
-                We believe that young women deserve to take time for themselves.
-                Time for reflection, rest, and space to grow.
-              </p>
-              <p className="text-gray-700 mb-4">
-                Young Wise Women offers a safe space where you can be completely
-                yourself, ask your questions, and listen to your inner wisdom.
-              </p>
-              <p className="text-gray-700">
-                We help you make conscious choices in your career and life, so
-                you can grow into the best version of yourself.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
-                For Whom
-              </h2>
-              <p className="text-gray-700 mb-4">
-                This retreat is specially designed for young professionals (24+)
-                who:
-              </p>
-              <ul className="space-y-3">
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span className="text-gray-700">
-                    Are looking for more meaning in their work and life
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span className="text-gray-700">
-                    Need space to pause and reflect on their goals
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span className="text-gray-700">
-                    Want to grow with support from like-minded women
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span className="text-gray-700">
-                    Want to redefine their career path
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-primary font-bold">•</span>
-                  <span className="text-gray-700">
-                    Are looking for practical tools for their life and work
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Three Pillars */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            Three Pillars of the Retreat
+            De Drie Pijlers van het Retreat
           </h2>
 
           <div className="space-y-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
               <h3 className="text-2xl font-light text-gray-900 mb-4">
-                1. Reflection
+                1. Reflectie
               </h3>
               <p className="text-gray-700 mb-3">
-                A beautiful environment in which you can think about your
-                personal goals, your patterns, your (meaningful) work and your
-                own energy management.
-              </p>
-              <p className="text-gray-700">
-                With the help of a workbook and trainings, we dive deep into
-                what you really want and what's holding you back.
+                De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
               <h3 className="text-2xl font-light text-gray-900 mb-4">
-                2. Rest & Space
+                2. Rust & Ruimte
               </h3>
               <p className="text-gray-700 mb-3">
-                You deserve to let go of your daily responsibilities. In a
-                beautiful location in nature, you'll find the rest and space
-                you need.
-              </p>
-              <p className="text-gray-700">
-                Everything is taken care of for you, so you can fully focus on
-                yourself and the group.
+                Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24+). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
               <h3 className="text-2xl font-light text-gray-900 mb-4">
-                3. Inspiration & Tools
+                3. Inspiratie & Nieuwe Tools
               </h3>
               <p className="text-gray-700 mb-3">
-                Learn from experienced coaches and inspiring women in the group.
-                Get practical tools and insights that you can apply immediately.
-              </p>
-              <p className="text-gray-700">
-                This weekend will help you go home with more clarity, energy and
-                confidence.
+                Een weekend (re)treat waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en nieuwe praktische tools krijgt aangereikt voor nu en je toekomst als bevordering voor jou als young professional in je carrière.
               </p>
             </div>
           </div>
@@ -137,48 +52,87 @@ export default function OnsVerhaal() {
       </section>
 
       {/* What You Experience */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            What You Let Go & What You Gain
+            Jouw Transformatie
           </h2>
 
           <div className="space-y-8">
-            <div className="border-l-4 border-primary pl-6">
+            <div className="border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg">
               <h3 className="text-2xl font-light text-gray-900 mb-3">
-                What You Let Go
+                Waar je Afscheid van Neemt
               </h3>
-              <p className="text-gray-700">
-                Say goodbye to your 'please behavior', constantly adapting
-                yourself and having to meet standards and expectations.
+              <p className="text-gray-700 mb-2">
+                Zeg vaarwel aan je 'please-gedrag' - jezelf voortdurend aanpassen en moeten voldoen aan standaarden en verwachtingen.
               </p>
-              <p className="text-gray-700 mt-2">
-                Let go of bullshit jobs, FOMO and the risk of burnout.
+              <p className="text-gray-700">
+                Neem afscheid van bullshitbanen, FOMO en de kans op een burnout.
               </p>
             </div>
 
-            <div className="border-l-4 border-primary pl-6">
+            <div className="border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg">
               <h3 className="text-2xl font-light text-gray-900 mb-3">
-                What You Gain
+                Wat je Meeneemt
               </h3>
-              <p className="text-gray-700">
-                A new perspective on yourself, your talents and your
-                possibilities. A group of women who reflect you and support you.
+              <p className="text-gray-700 mb-2">
+                Persoonlijke groei - of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling.
               </p>
-              <p className="text-gray-700 mt-2">
-                Practical tools, clarity about your choices and the drive to
-                move forward.
+              <p className="text-gray-700 mb-2">
+                Eigen wijsheid - de andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen.
+              </p>
+              <p className="text-gray-700">
+                Nieuwe energie en motivatie - thema's die al langer in je leven spelen, worden helderder. Je voelt richting, duidelijkheid én de drive om in beweging te komen.
               </p>
             </div>
 
-            <div className="border-l-4 border-primary pl-6">
+            <div className="border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg">
               <h3 className="text-2xl font-light text-gray-900 mb-3">
-                Your Next Step
+                Jouw Volgende Stap
               </h3>
               <p className="text-gray-700">
-                From now on you can make choices that are right for you. Not by
-                working harder or doing what others do, but by following your
-                own unique path and making conscious choices.
+                Kies nu voor betekenisvol, vitaal en gelukkig leven en werken en word die geweldige vrouw die je bedoeld bent te zijn. Niet door harder te werken of te doen wat anderen doen, maar je eigen unieke koers te volgen en bewuste keuzes te maken.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* For Whom */}
+      <section className="py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
+            Voor Wie is dit Retreat
+          </h2>
+
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
+            Dit retreat is speciaal ontworpen voor jonge professionals (24+) die:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-700">
+                ✓ Op zoek zijn naar meer betekenis in hun werk en leven
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-700">
+                ✓ Ruimte nodig hebben om stil te staan bij hun doelen
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-700">
+                ✓ Willen groeien met steun van een groep gelijkgestemde vrouwen
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-700">
+                ✓ Hun carrière opnieuw willen definiëren
+              </p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-700">
+                ✓ Praktische tools zoeken voor hun leven en werk
               </p>
             </div>
           </div>
@@ -189,48 +143,32 @@ export default function OnsVerhaal() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            What Participants Say
+            Stemmen van Deelneemsters
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+          <div className="space-y-6">
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
               <p className="text-gray-700 italic mb-4">
-                "A weekend where you can reflect on your life in all peace and
-                gain new insights about yourself, supported by other beautiful
-                women. We were able to learn from each other and help each other.
-                Very valuable insights!"
+                "Een heel fijn weekend gehad op de boerderij in Friesland. Wat is het leuk om een weekend te spenderen met allemaal vrouwen die elkaar aanmoedigen en van wie je kan leren. Ik vond het een hele waardevolle ervaring, waarbij je echt even tijd voor jezelf mag en kan nemen."
               </p>
-              <p className="font-medium text-gray-900">Melanie de Reus</p>
-              <p className="text-sm text-gray-600">Participant September 2023</p>
+              <p className="font-medium text-gray-900">Lisanne de Moel</p>
+              <p className="text-sm text-gray-600">Deelnemer Januari 2025</p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
               <p className="text-gray-700 italic mb-4">
-                "I had a great weekend with Karen, Ella and the other girls in
-                an amazing house in nature in Friesland. The atmosphere was so
-                safe and warm, there was really listening to each other."
-              </p>
-              <p className="font-medium text-gray-900">Aïsha Lankhorst</p>
-              <p className="text-sm text-gray-600">Participant January 2025</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <p className="text-gray-700 italic mb-4">
-                "This weekend gave me direction, clarity and the drive to move
-                forward!"
+                "Het young wise women retreat was een hele fijne en leerzame ervaring. Vol oefeningen maar ook ruimte voor eigen ideeën. De begeleiding is professioneel en duidelijk, waar zowel lichaam en geest aan bod komen."
               </p>
               <p className="font-medium text-gray-900">Julia</p>
-              <p className="text-sm text-gray-600">Participant September 2023</p>
+              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-lg">
+            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
               <p className="text-gray-700 italic mb-4">
-                "A very pleasant and instructive weekend. Full of exercises but
-                also space for your own ideas. The guidance is professional and
-                clear, where both body and mind come into play."
+                "Het retreat van Ella en Wineke was voor mij een ontzettend fijn en betekenisvol weekend. Door middel van opdrachten en verbindende gesprekken, heb ik in een veilige en rustige setting veel helderheid en inzicht gekregen in mijn behoeftes en talenten. We waren midden in de natuur en alles werd voor ons verzorgd."
               </p>
-              <p className="font-medium text-gray-900">Julia</p>
-              <p className="text-sm text-gray-600">Participant September 2023</p>
+              <p className="font-medium text-gray-900">Julia Bleeker</p>
+              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
             </div>
           </div>
         </div>

@@ -37,7 +37,11 @@ export default function TestimonialsCarousel({
   const current = testimonials[currentIndex];
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className="flex flex-col items-center"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="flex gap-8 md:gap-12 items-start w-full justify-center mb-4">
         {/* Profile Image & Info - Left Side */}
         <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">

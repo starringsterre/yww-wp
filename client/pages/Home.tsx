@@ -50,32 +50,32 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
-            Sfeer & Omgeving
+            Evenementen voor persoonlijke ontwikkeling
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-            Young Wise Women is een prachtige omgeving in de natuur waar jonge professionals (24+) ruimte krijgen voor reflectie, rust en persoonlijke groei. Met professionele begeleiding helpen we je om harmonie, kracht en flexibiliteit in je leven te bereiken.
+            Young Wise Women organiseert verschillende evenementen waarin jonge professionals (24+) samenkomen voor persoonlijke groei. Van meerdaagse retreats tot middagjes waar we verhalen en kennis uitwisselen - allemaal onder begeleiding en met gelijkgestemden die dezelfde waarden delen.
           </p>
 
           {/* Three Image Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
-                src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=600&fit=crop"
-                alt="Yoga practice"
+                src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fe09ac73d09854b79ab26b9a2f1b621b1?format=webp&width=800"
+                alt="Sunset nature moment"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
-                src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=600&fit=crop"
-                alt="Wellness meditation"
+                src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F359000dab9a94eb6b59fca5e2668ce4f?format=webp&width=800"
+                alt="Community group gathering"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
-                src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=600&fit=crop"
-                alt="Mindfulness"
+                src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fba09bc28922e4f28ae356e7db1c5a2f4?format=webp&width=800"
+                alt="Mentoring and connection"
                 className="w-full h-full object-cover"
               />
             </div>

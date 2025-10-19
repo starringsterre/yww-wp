@@ -1,3 +1,56 @@
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+
+const testimonials = [
+  {
+    name: "Lisanne de Moel",
+    date: "Deelnemer Januari 2025",
+    quote:
+      "Een heel fijn weekend gehad op de boerderij in Friesland. Wat is het leuk om een weekend te spenderen met allemaal vrouwen die elkaar aanmoedigen en van wie je kan leren. Ik vond het een hele waardevolle ervaring, waarbij je echt even tijd voor jezelf mag en kan nemen. Ella en Karin stelden de juiste vragen, waardoor je interessante inzichten over jezelf doet.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F8bd83a1cca6e455095fbc2cce26f0452?format=webp&width=800",
+  },
+  {
+    name: "Melanie de Reus",
+    date: "Deelnemer September 2023",
+    quote:
+      "Een weekend waarbij je in alle rust kan reflecteren op je leven en nieuwe inzichten over jezelf kan op doen, gesteund door andere mooie vrouwen. We hebben als jonge vrouwen van elkaar mogen leren en elkaar mogen helpen. Ontzettend mooie en waardevolle inzichten op gedaan!",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fc5eef54d11c9437abf49ea4fe7b69596?format=webp&width=800",
+  },
+  {
+    name: "Aïsha Lankhorst",
+    date: "Deelnemer Januari 2025",
+    quote:
+      "Ik heb een superfijn weekend gehad met Karen, Ella en de andere meiden in een geweldig huis in de natuur in Friesland. De sfeer was zo veilig en warm, er werd echt naar elkaar geluisterd. We hebben veel van Karen en Ella geleerd, maar ook van elkaar als groep. Ik heb echt het gevoel dat ik weer een stapje verder kan zetten, zowel op persoonlijk als op professioneel vlak. Wat ik ook erg waardeerde was dat er naast alle diepe en mooie gespreken veel ruimte was voor luchtigheid en gezelligheid met elkaar. Ik kan dit retreat echt aanraden, want de inzichten en ervaringen die ik heb opgedaan, neem ik voor de rest van mijn leven mee.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fb56ba9e008fe487cbc9f8dae8d42a849?format=webp&width=800",
+  },
+  {
+    name: "Marina Feyz",
+    date: "Deelnemer",
+    quote:
+      "Ik heb er geen andere woorden voor dan 'echt geweldig'! Ondanks dat ik de andere meiden van tevoren niet kende, voelde het vrijwel direct zo vertrouwd en zo warm. Ik had het gevoel dat iedereen helemaal zichzelf kon zijn en er een hele veilige omgeving was om je kwetsbaar op te stellen. Zowel Ella als Wineke zijn beiden prachtige vrouwen die mij nieuwe inzichten hebben gegeven, die ik tot op de dag vandaag nog steeds toepas. Wat vullen jullie elkaar goed aan! En dat allemaal in een prachtige omgeving in de natuur. Ik had niet meer kunnen wensen. Onwijs dankbaar voor deze onvergetelijke ervaring.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F6a36df5bf8b047eaafd0b1579b1fcf62?format=webp&width=800",
+  },
+  {
+    name: "Julia",
+    date: "Deelnemer September 2023",
+    quote:
+      "Het young wise women retreat was een hele fijne en leerzame ervaring. Vol oefeningen maar ook ruimte voor eigen ideeën. De begeleiding van Ella en Wineke is professioneel en duidelijk, waar zowel lichaam en geest aan bod komen. Ik heb zo veel inspiratie en wijsheid gehaald uit hun oefeningen en ideeën, maar ook uit de verhalen van andere deelnemers. Het is niet erg als je niet met een specifieke leervraag naar dit weekend komt, zie het als een jaarlijkse 'APK' van je mentale gezondheid. Heel erg waardevol!",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Ff29681ec3e8841db98437ca5e7175eb1?format=webp&width=800",
+  },
+  {
+    name: "Julia Bleeker",
+    date: "Deelnemer September 2023",
+    quote:
+      "Het retreat van Ella en Wineke was voor mij een ontzettend fijn en betekenisvol weekend. Door middel van opdrachten en verbindende gesprekken, heb ik in een veilige en rustige setting veel helderheid en inzicht gekregen in mijn behoeftes en talenten. We waren midden in de natuur en alles werd voor ons verzorgd. Naast dat ik het fijn vond met de andere meiden in de groep, heb ik veel geleerd wat ik kan toepassen in de keuzes voor jezelf en in mijn werk.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fbdc3b23ee87f40b48865669c690e579d?format=webp&width=800",
+  },
+];
+
 export default function OnsVerhaal() {
   return (
     <div className="w-full">
@@ -139,37 +192,15 @@ export default function OnsVerhaal() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials Carousel */}
       <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Stemmen van Deelneemsters
           </h2>
 
-          <div className="space-y-6">
-            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-              <p className="text-gray-700 italic mb-4">
-                "Een heel fijn weekend gehad op de boerderij in Friesland. Wat is het leuk om een weekend te spenderen met allemaal vrouwen die elkaar aanmoedigen en van wie je kan leren. Ik vond het een hele waardevolle ervaring, waarbij je echt even tijd voor jezelf mag en kan nemen."
-              </p>
-              <p className="font-medium text-gray-900">Lisanne de Moel</p>
-              <p className="text-sm text-gray-600">Deelnemer Januari 2025</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-              <p className="text-gray-700 italic mb-4">
-                "Het young wise women retreat was een hele fijne en leerzame ervaring. Vol oefeningen maar ook ruimte voor eigen ideeën. De begeleiding is professioneel en duidelijk, waar zowel lichaam en geest aan bod komen."
-              </p>
-              <p className="font-medium text-gray-900">Julia</p>
-              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-              <p className="text-gray-700 italic mb-4">
-                "Het retreat van Ella en Wineke was voor mij een ontzettend fijn en betekenisvol weekend. Door middel van opdrachten en verbindende gesprekken, heb ik in een veilige en rustige setting veel helderheid en inzicht gekregen in mijn behoeftes en talenten. We waren midden in de natuur en alles werd voor ons verzorgd."
-              </p>
-              <p className="font-medium text-gray-900">Julia Bleeker</p>
-              <p className="text-sm text-gray-600">Deelnemer September 2023</p>
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <TestimonialsCarousel testimonials={testimonials} />
           </div>
         </div>
       </section>

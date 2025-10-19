@@ -15,18 +15,24 @@ export default function TestimonialsCarousel({
   testimonials,
 }: TestimonialsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-    );
-  };
+  const [isHovered, setIsHovered] = useState(false);
 
   const goToNext = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  // Auto-advance carousel every 3 seconds, but pause on hover
+  useEffect(() => {
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      goToNext();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isHovered, testimonials.length]);
 
   const current = testimonials[currentIndex];
 

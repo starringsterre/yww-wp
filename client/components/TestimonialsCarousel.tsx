@@ -48,12 +48,12 @@ export default function TestimonialsCarousel({
       <div className="flex-grow flex flex-col h-full">
         <div className="flex items-start gap-3 mb-4 flex-grow">
           <span
-            className="text-6xl font-serif leading-none flex-shrink-0"
-            style={{ color: "rgba(80, 70, 61, 1)" }}
+            className="text-6xl leading-none flex-shrink-0"
+            style={{ color: "rgba(80, 70, 61, 1)", fontFamily: "Georgia, serif" }}
           >
             "
           </span>
-          <p className="text-lg text-gray-700 italic leading-relaxed min-h-56">
+          <p className="text-lg text-gray-700 italic leading-relaxed min-h-96">
             {current.quote}
           </p>
         </div>

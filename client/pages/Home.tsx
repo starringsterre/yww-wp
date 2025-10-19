@@ -29,15 +29,14 @@ export default function Home() {
         {/* Content Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 z-10">
           <h1 className="text-5xl md:text-7xl font-light mb-4 max-w-3xl">
-            young wise women
+            Young Wise Women
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-200">
             De community voor jonge wijze vrouwen
           </p>
           <Button
             size="lg"
-            variant="outline"
-            className="border-white text-white hover:bg-white hover:text-black"
+            className="bg-pink-300 text-gray-900 hover:bg-pink-400 border-0"
             asChild
           >
             <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
@@ -243,14 +242,9 @@ export default function Home() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-2">Via Werkgever</p>
+                  <p className="text-sm text-gray-600 mb-2">We gaan ervan uit dat je werkgever het vergoed</p>
                   <p className="text-3xl font-bold text-primary">€1.120</p>
                   <p className="text-xs text-gray-600">incl. BTW</p>
-                </div>
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-2">Particulier</p>
-                  <p className="text-3xl font-bold text-primary">€600</p>
-                  <p className="text-xs text-gray-600">excl. BTW • Betaling in 3 termijnen mogelijk</p>
                 </div>
               </div>
 
@@ -272,7 +266,7 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
-            Wat Deelneemsters Zeggen
+            Wat voorgaande deelneemsters zeggen
           </h2>
 
           <div className="space-y-6">

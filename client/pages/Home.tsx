@@ -12,9 +12,9 @@ export default function Home() {
             Reflectie, Rust & Ruimte
           </h1>
           <p className="text-xl md:text-2xl text-neutral-600 mb-8 max-w-2xl mx-auto">
-            Een weekend weekend voor jonge professionals (24+) op zoek naar
-            persoonlijke groei, betekenisvolle verbinding en een nieuwe koers
-            in hun carrière.
+            Een weekend voor jonge professionals (24+) op zoek naar persoonlijke
+            groei, betekenisvolle verbinding en een nieuwe koers in hun
+            carrière.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

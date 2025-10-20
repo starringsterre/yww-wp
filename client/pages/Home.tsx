@@ -172,7 +172,7 @@ export default function Home() {
             {/* Benefit 3 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">⚡</div>
+                <div className="text-4xl">���</div>
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Energie & Motivatie
@@ -261,8 +261,8 @@ export default function Home() {
                   <li>✓ Motivation Factor test (€145 waarde)</li>
                   <li>✓ Professionele begeleiding van twee coaches</li>
                   <li>✓ 2 nachten accommodatie</li>
-                  <li>✓ Alle maaltijden</li>
-                  <li>✓ Werkboek & praktische tools</li>
+                  <li><p>✓ Alle maaltijden en dranken</p></li>
+                  <li><p>✓ Werkboek en praktische tools</p></li>
                 </ul>
               </div>
             </div>

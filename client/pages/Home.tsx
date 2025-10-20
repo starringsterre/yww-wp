@@ -300,7 +300,7 @@ export default function Home() {
                         <span><span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling</span>
                       </li>
                       <li className="text-gray-700 flex items-start gap-3">
-                        <Yin size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
+                        <Heart size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
                         <span><span className="font-medium">Eigen wijsheid</span> – je wordt uitgedaagd jezelf volledig te omarmen</span>
                       </li>
                       <li className="text-gray-700 flex items-start gap-3">

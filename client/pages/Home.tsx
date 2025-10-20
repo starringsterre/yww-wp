@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import CoachCardsGrid from "@/components/CoachCardsGrid";
-import { Flower, Lotus, Yin } from "lucide-react";
+import { Flower, Sparkles, Yin } from "lucide-react";
 
 const testimonials = [
   {

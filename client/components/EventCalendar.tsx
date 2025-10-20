@@ -60,15 +60,30 @@ const dutchMonthNames = [
 const getEventColor = (type: string) => {
   switch (type) {
     case "retreat":
-      return "bg-[#8f9467] text-white border-[#8f9467]";
+      return "text-white border-[#8f9467]";
     case "mini-retreat":
-      return "bg-[#cdb3a2] text-gray-900 border-[#cdb3a2]";
+      return "text-gray-900 border-[#cdb3a2]";
     case "sunday-gathering":
-      return "bg-[#555d41] text-white border-[#555d41]";
+      return "text-white border-[#555d41]";
     case "creative-event":
-      return "bg-[#c66e48] text-white border-[#c66e48]";
+      return "text-white border-[#504631]";
     default:
-      return "bg-gray-100 text-gray-900 border-gray-300";
+      return "text-gray-900 border-gray-300";
+  }
+};
+
+const getEventBgColor = (type: string) => {
+  switch (type) {
+    case "retreat":
+      return "rgba(143, 148, 103, 0.6)";
+    case "mini-retreat":
+      return "rgba(205, 179, 162, 0.6)";
+    case "sunday-gathering":
+      return "rgba(85, 93, 65, 0.6)";
+    case "creative-event":
+      return "rgba(80, 70, 61, 0.6)";
+    default:
+      return "rgba(229, 231, 235, 0.6)";
   }
 };
 

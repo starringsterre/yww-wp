@@ -55,10 +55,10 @@ export default function Kalender() {
                 <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    Prachtige Vakantiehuis in de Natuur
+                    Prachtige Vakantiehuis in de Natuur aan het water
                   </p>
                   <p className="text-gray-600">
-                    Nederland (afwisselend tussen Friesland en Limburg)
+                    Oudega, Friesland
                   </p>
                 </div>
               </div>

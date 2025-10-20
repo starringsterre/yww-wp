@@ -134,17 +134,6 @@ export default function Kalender() {
                 Opleidingstarief voor inschrijvingen vergoed door je werkgever
               </p>
             </div>
-
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-medium text-gray-900 mb-4">
-                Particulier
-              </h3>
-              <p className="text-5xl font-light text-primary mb-2">€600</p>
-              <p className="text-sm text-gray-600 mb-6">excl. BTW</p>
-              <p className="text-gray-700 text-sm">
-                Mogelijkheid tot betalen in 3 termijnen
-              </p>
-            </div>
           </div>
 
           <div className="bg-gray-50 p-8 rounded-lg mb-8">

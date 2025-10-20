@@ -304,7 +304,7 @@ export default function Home() {
                         <span><span className="font-medium">Eigen wijsheid</span> – je wordt uitgedaagd jezelf volledig te omarmen</span>
                       </li>
                       <li className="text-gray-700 flex gap-2">
-                        <Lotus size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                        <Sparkles size={18} className="text-primary flex-shrink-0 mt-0.5" />
                         <span><span className="font-medium">Nieuwe energie & praktische tools</span> – helderheid, richting en de drive om in beweging te komen</span>
                       </li>
                     </ul>

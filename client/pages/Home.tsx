@@ -38,7 +38,7 @@ const testimonials = [
   },
   {
     name: "Marina Feyz",
-    date: "Deelnemer",
+    date: "Deelnemer September 2023",
     quote:
       "Ik heb er geen andere woorden voor dan 'echt geweldig'! Ondanks dat ik de andere meiden van tevoren niet kende, voelde het vrijwel direct zo vertrouwd en zo warm. Ik had het gevoel dat iedereen helemaal zichzelf kon zijn en er een hele veilige omgeving was om je kwetsbaar op te stellen. Zowel Ella als Wineke zijn beiden prachtige vrouwen die mij nieuwe inzichten hebben gegeven, die ik tot op de dag vandaag nog steeds toepas. Wat vullen jullie elkaar goed aan! En dat allemaal in een prachtige omgeving in de natuur. Ik had niet meer kunnen wensen. Onwijs dankbaar voor deze onvergetelijke ervaring.",
     image:

@@ -147,6 +147,7 @@ export default function EventCalendar() {
                         className={`p-3 rounded border text-sm font-medium ${getEventColor(
                           event.type
                         )}`}
+                        style={{ backgroundColor: getEventBgColor(event.type) }}
                       >
                         {event.label}
                       </div>

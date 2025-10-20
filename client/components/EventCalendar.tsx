@@ -148,20 +148,20 @@ export default function EventCalendar() {
         {/* Legend */}
         <div className="mt-12 flex flex-wrap gap-6 justify-center">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-purple-100 border border-purple-300 rounded"></div>
-            <span className="text-sm text-gray-700">Retreat</span>
+            <div className="w-4 h-4 bg-[#8f9467] rounded"></div>
+            <span className="text-sm text-gray-700">Weekend retreat</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-blue-100 border border-blue-300 rounded"></div>
-            <span className="text-sm text-gray-700">Mini Retreat</span>
+            <div className="w-4 h-4 bg-[#cdb3a2] rounded"></div>
+            <span className="text-sm text-gray-700">Mini dag retreat</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-100 border border-green-300 rounded"></div>
-            <span className="text-sm text-gray-700">Sunday Gathering</span>
+            <div className="w-4 h-4 bg-[#555d41] rounded"></div>
+            <span className="text-sm text-gray-700">Community zondag</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-orange-100 border border-orange-300 rounded"></div>
-            <span className="text-sm text-gray-700">Creative Event</span>
+            <div className="w-4 h-4 bg-[#c66e48] rounded"></div>
+            <span className="text-sm text-gray-700">Community activiteit op open inschrijving</span>
           </div>
         </div>
       </div>

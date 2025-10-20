@@ -210,7 +210,7 @@ export default function Home() {
             </p>
           </div>
 
-          <p className="max-w-3xl mx-auto text-center text-gray-700 mb-12">
+          <p className="mx-auto text-center text-gray-700 mb-12" style={{ maxWidth: "817px" }}>
             Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat.
           </p>
 

@@ -9,21 +9,21 @@ interface CalendarEvent {
 
 const events: Record<number, CalendarEvent[]> = {
   2025: [
-    { month: 1, type: "retreat", label: "Retreat" },
-    { month: 7, type: "mini-retreat", label: "Mini Retreat" },
-    { month: 10, type: "retreat", label: "Retreat" },
-    { month: 12, type: "sunday-gathering", label: "Sunday Gathering" },
+    { month: 1, type: "retreat", label: "Weekend retreat" },
+    { month: 7, type: "mini-retreat", label: "Mini dag retreat" },
+    { month: 10, type: "retreat", label: "Weekend retreat" },
+    { month: 12, type: "sunday-gathering", label: "Community zondag" },
   ],
   2026: [
-    { month: 2, type: "retreat", label: "Retreat" },
-    { month: 3, type: "sunday-gathering", label: "Sunday Gathering" },
-    { month: 4, type: "retreat", label: "Retreat" },
-    { month: 5, type: "creative-event", label: "Creative Event" },
-    { month: 6, type: "retreat", label: "Retreat" },
-    { month: 8, type: "sunday-gathering", label: "Sunday Gathering" },
-    { month: 9, type: "retreat", label: "Retreat" },
-    { month: 11, type: "retreat", label: "Retreat" },
-    { month: 12, type: "sunday-gathering", label: "Sunday Gathering" },
+    { month: 2, type: "retreat", label: "Weekend retreat" },
+    { month: 3, type: "sunday-gathering", label: "Community zondag" },
+    { month: 4, type: "retreat", label: "Weekend retreat" },
+    { month: 5, type: "creative-event", label: "Community activiteit op open inschrijving" },
+    { month: 6, type: "retreat", label: "Weekend retreat" },
+    { month: 8, type: "sunday-gathering", label: "Community zondag" },
+    { month: 9, type: "retreat", label: "Weekend retreat" },
+    { month: 11, type: "retreat", label: "Weekend retreat" },
+    { month: 12, type: "sunday-gathering", label: "Community zondag" },
   ],
 };
 

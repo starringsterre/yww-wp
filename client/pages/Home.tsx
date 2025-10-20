@@ -232,7 +232,7 @@ export default function Home() {
       </section>
 
       {/* Next Retreat Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
+      <section className="py-20 px-4 md:px-8 bg-gray-50" style={{ marginRight: "15px" }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Volgende Editie: 17-19 oktober 2025

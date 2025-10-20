@@ -215,43 +215,19 @@ export default function Home() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Coach Card 1 - Ella */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-square overflow-hidden bg-gray-100">
-                <img
-                  src={ellaImageUrl}
-                  alt="Ella"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-8 text-center">
-                <h3 className="text-2xl font-medium text-gray-900 mb-2">
-                  Ella
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Certified Vinyasa Flow en meditatie instructeur
-                </p>
-              </div>
-            </div>
+            <CoachCard
+              name="Ella Taal"
+              image={ellaImageUrl}
+              title="Certified Vinyasa Flow en meditatie instructeur"
+              bio="In 2011 is Awareness in Business opgericht door Ella, ontstaan na een management buy-out bij haar vorige organisatie advies kantoor Second Nature. Al ruim 28 jaar heeft zij ervaring als coach, trainer en organisatie adviseur voor diverse opdrachtgevers in zowel binnen- als buitenland. Ze heeft ervaring van het geven van retreats voor o.a. Management teams, DGA's en CEO's. Ella heeft drie dochters van 27, 25 en 22 en wil graag iets terug doen voor de jongere generatie. Bijdragen aan het welzijn van jonge professionals is een passie die ze door het geven van deze retreats naleeft!"
+            />
 
-            {/* Coach Card 2 - Liene */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="aspect-square overflow-hidden bg-gray-100">
-                <img
-                  src={lieneImageUrl}
-                  alt="Liene"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-8 text-center">
-                <h3 className="text-2xl font-medium text-gray-900 mb-2">
-                  Liene
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Certified Hatha Yoga en stretchings instructeur
-                </p>
-              </div>
-            </div>
+            <CoachCard
+              name="Liene Molendijk"
+              image={lieneImageUrl}
+              title="Certified Hatha Yoga en stretchings instructeur"
+              bio="Liene (1997) heeft een achtergrond in Psychologie en Leiderschap & Verandering en werkt inmiddels drie jaar bij grote organisatieadviesbureaus. Ze begeleidt uiteenlopende verandertrajecten in het publieke domein, van teams die anders willen samenwerken tot individuen die zoeken naar persoonlijke groei. De mens staat altijd centraal in haar werk. Daarnaast verdiepte ze zich in yoga- en meditatiefilosofie, wat ze meeneemt in het retreat. Zelf bevindt ze zich op de grens van Gen Z en Millennial, waardoor ze zich goed kan inleven in de uitdagingen en verlangens van jonge professionals."
+            />
           </div>
         </div>
       </section>

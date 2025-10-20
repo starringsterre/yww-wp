@@ -174,7 +174,7 @@ export default function Kalender() {
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-light text-center text-gray-900 mb-4">
-            Deze Datum Past Niet in je Agenda?
+            Op de hoogte worden gehouden van evenementen?
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
             We organiseren regelmatig nieuwe edities van het Young Wise Women retreat. Schrijf je in voor de nieuwsbrief en wees als eerste op de hoogte van de volgende gelegenheid.

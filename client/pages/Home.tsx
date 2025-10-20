@@ -5,6 +5,14 @@ import CoachCardsGrid from "@/components/CoachCardsGrid";
 
 const testimonials = [
   {
+    name: "Julia Weekenstro",
+    date: "Deelnemer Oktober 2025",
+    quote:
+      "Wauw wat een prachtige ervaring heb ik gehad tijdens het Young Wise Women Retreat! Zowel op cognitief niveau als gevoelsniveau hebben we samen een heel mooie \"reis\" mogen maken in onze ontwikkeling. Vooral dat samen aangaan, met de andere vrouwen, heeft me veel gebracht. Zo mooi en betekenisvol hoe we elkaar echt konden inspireren en helpen. Grote complimenten richting de trainers Ella en Liene en de host Esther die dit hebben gefaciliteerd. Op een prachtige plek in de natuur waar ik me al meteen heel veilig en thuis voelde. Ik gun elke vrouw zo'n betekenisvol en verbindend weekend 🙏🏼☀️",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F7895d36c45374c71a02e2f8dae447dda?format=webp&width=800",
+  },
+  {
     name: "Lisanne de Moel",
     date: "Deelnemer Januari 2025",
     quote:

@@ -67,7 +67,7 @@ export default function Kalender() {
                 <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    Voor Jonge Professionals 24+
+                    Voor Jonge Professional Vrouwen (24-30)
                   </p>
                   <p className="text-gray-600">
                     Beperkte plaatsen beschikbaar

@@ -282,9 +282,9 @@ export default function Home() {
                     Investering in jezelf
                   </h3>
                   <div className="bg-gray-50 p-6 rounded-lg">
-                    <p className="text-sm text-gray-600 mb-2">Vergoed uit het opleidingstarief van je werkgever</p>
-                    <p className="text-3xl font-bold text-primary">€1.120</p>
-                    <p className="text-xs text-gray-600">excl. BTW</p>
+                    <p className="text-4xl font-bold text-primary mb-2">€1.120</p>
+                    <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
+                    <p className="text-xs text-gray-600 italic">Vergoed uit het opleidingstarief van je werkgever</p>
                   </div>
                 </div>
 

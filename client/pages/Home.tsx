@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import CoachCard from "@/components/CoachCard";
 
 const testimonials = [
   {

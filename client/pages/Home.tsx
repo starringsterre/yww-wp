@@ -172,7 +172,7 @@ export default function Home() {
             {/* Benefit 3 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">���</div>
+                <div className="text-4xl">⚡</div>
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Energie & Motivatie
@@ -273,9 +273,9 @@ export default function Home() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-2">We gaan ervan uit dat je werkgever het vergoed</p>
+                  <p className="text-sm text-gray-600 mb-2">Vergoed uit het opleidingstarief van je werkgever</p>
                   <p className="text-3xl font-bold text-primary">€1.120</p>
-                  <p className="text-xs text-gray-600">incl. BTW</p>
+                  <p className="text-xs text-gray-600">excl. BTW</p>
                 </div>
               </div>
 

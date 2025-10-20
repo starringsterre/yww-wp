@@ -292,17 +292,19 @@ export default function Home() {
                   <h3 className="font-medium text-gray-900 mb-4">
                     Wat er jou oplevert
                   </h3>
-                  <ul className="space-y-3 text-sm">
-                    <li className="text-gray-700">
-                      <span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling
-                    </li>
-                    <li className="text-gray-700">
-                      <span className="font-medium">Eigen wijsheid</span> – je worden uitgedaagd jezelf volledig te omarmen
-                    </li>
-                    <li className="text-gray-700">
-                      <span className="font-medium">Nieuwe energie</span> – helderheid, richting en de drive om in beweging te komen
-                    </li>
-                  </ul>
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <ul className="space-y-3 text-sm">
+                      <li className="text-gray-700">
+                        <span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-medium">Eigen wijsheid</span> – je worden uitgedaagd jezelf volledig te omarmen
+                      </li>
+                      <li className="text-gray-700">
+                        <span className="font-medium">Nieuwe energie</span> – helderheid, richting en de drive om in beweging te komen
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 

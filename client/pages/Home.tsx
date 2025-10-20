@@ -155,7 +155,7 @@ export default function Home() {
             {/* Benefit 1 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">💫</div>
+                <Flower size={40} style={{ color: "rgb(152, 139, 129)" }} />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Persoonlijke Groei
@@ -168,7 +168,7 @@ export default function Home() {
             {/* Benefit 2 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">🌟</div>
+                <Heart size={40} style={{ color: "rgb(152, 139, 129)" }} />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Eigen Wijsheid
@@ -181,7 +181,7 @@ export default function Home() {
             {/* Benefit 3 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">⚡</div>
+                <Zap size={40} style={{ color: "rgb(152, 139, 129)" }} />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Energie & Motivatie
@@ -194,7 +194,7 @@ export default function Home() {
             {/* Benefit 4 */}
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <div className="text-4xl">🛠️</div>
+                <Hammer size={40} style={{ color: "rgb(152, 139, 129)" }} />
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Praktische Handvatten

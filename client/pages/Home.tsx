@@ -294,17 +294,17 @@ export default function Home() {
                     Wat er jou oplevert
                   </h3>
                   <div className="bg-gray-50 p-6 rounded-lg">
-                    <ul className="space-y-3 text-sm">
-                      <li className="text-gray-700 flex gap-2">
-                        <Flower size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                    <ul className="space-y-4 text-sm">
+                      <li className="text-gray-700 flex items-start gap-3">
+                        <Flower size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
                         <span><span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling</span>
                       </li>
-                      <li className="text-gray-700 flex gap-2">
-                        <Yin size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <li className="text-gray-700 flex items-start gap-3">
+                        <Yin size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
                         <span><span className="font-medium">Eigen wijsheid</span> – je wordt uitgedaagd jezelf volledig te omarmen</span>
                       </li>
-                      <li className="text-gray-700 flex gap-2">
-                        <Sparkles size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                      <li className="text-gray-700 flex items-start gap-3">
+                        <Sparkles size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
                         <span><span className="font-medium">Nieuwe energie & praktische tools</span> – helderheid, richting en de drive om in beweging te komen</span>
                       </li>
                     </ul>

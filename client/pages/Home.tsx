@@ -276,14 +276,33 @@ export default function Home() {
             </div>
 
             <div className="border-t border-gray-200 pt-8">
-              <h3 className="font-medium text-gray-900 mb-4">
-                Investering in jezelf
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="text-sm text-gray-600 mb-2">Vergoed uit het opleidingstarief van je werkgever</p>
-                  <p className="text-3xl font-bold text-primary">€1.120</p>
-                  <p className="text-xs text-gray-600">excl. BTW</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-4">
+                    Investering in jezelf
+                  </h3>
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-2">Vergoed uit het opleidingstarief van je werkgever</p>
+                    <p className="text-3xl font-bold text-primary">€1.120</p>
+                    <p className="text-xs text-gray-600">excl. BTW</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-4">
+                    Wat er jou oplevert
+                  </h3>
+                  <ul className="space-y-3 text-sm">
+                    <li className="text-gray-700">
+                      <span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling
+                    </li>
+                    <li className="text-gray-700">
+                      <span className="font-medium">Eigen wijsheid</span> – je worden uitgedaagd jezelf volledig te omarmen
+                    </li>
+                    <li className="text-gray-700">
+                      <span className="font-medium">Nieuwe energie</span> – helderheid, richting en de drive om in beweging te komen
+                    </li>
+                  </ul>
                 </div>
               </div>
 

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users } from "lucide-react";
+import EventCalendar from "@/components/EventCalendar";
 
 export default function Kalender() {
   return (
@@ -15,6 +16,9 @@ export default function Kalender() {
           </p>
         </div>
       </section>
+
+      {/* Event Calendar */}
+      <EventCalendar />
 
       {/* Upcoming Retreat */}
       <section className="py-20 px-4 md:px-8 bg-white">

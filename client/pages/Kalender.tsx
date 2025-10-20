@@ -9,10 +9,10 @@ export default function Kalender() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Kalender
+            Community Kalender
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Volgende retreats en bijeenkomsten van Young Wise Women
+            Volgende evenementen en retreats van Young Wise Women
           </p>
         </div>
       </section>

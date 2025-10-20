@@ -298,10 +298,11 @@ export default function Home() {
                         <span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling
                       </li>
                       <li className="text-gray-700">
-                        <span className="font-medium">Eigen wijsheid</span> – je worden uitgedaagd jezelf volledig te omarmen
+                        <span className="font-medium">Eigen wijsheid</span>
+                        <p>– je wordt uitgedaagd jezelf volledig te omarmen</p>
                       </li>
                       <li className="text-gray-700">
-                        <span className="font-medium">Nieuwe energie</span> – helderheid, richting en de drive om in beweging te komen
+                        <span className="font-medium">Nieuwe energie & praktische tools</span> – helderheid, richting en de drive om in beweging te komen
                       </li>
                     </ul>
                   </div>

@@ -134,6 +134,23 @@ export default function Kalender() {
                 Opleidingstarief voor inschrijvingen vergoed door je werkgever
               </p>
             </div>
+
+            <div className="bg-white p-8 rounded-lg shadow-lg border-l-4 border-primary">
+              <h3 className="text-2xl font-medium text-gray-900 mb-4">
+                Wat er jou oplevert
+              </h3>
+              <ul className="space-y-3">
+                <li className="text-gray-700 text-sm">
+                  <span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling
+                </li>
+                <li className="text-gray-700 text-sm">
+                  <span className="font-medium">Eigen wijsheid</span> – je worden uitgedaagd jezelf volledig te omarmen
+                </li>
+                <li className="text-gray-700 text-sm">
+                  <span className="font-medium">Nieuwe energie</span> – helderheid, richting en de drive om in beweging te komen
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div className="bg-gray-50 p-8 rounded-lg mb-8">

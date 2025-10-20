@@ -140,7 +140,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="text-white font-medium mb-4">Contact</h4>
               <div className="space-y-2 text-sm text-gray-300 mb-4">
-                <p>info@awarenessinbusiness.com</p>
+                <p>info@youngwisewomen.nl</p>
                 <p>+31 (0)6 55334728</p>
               </div>
               <div className="flex gap-4">

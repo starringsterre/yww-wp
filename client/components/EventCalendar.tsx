@@ -164,19 +164,19 @@ export default function EventCalendar() {
         {/* Legend */}
         <div className="mt-12 flex flex-wrap gap-6 justify-center">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#8f9467] rounded"></div>
+            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(143, 148, 103, 0.6)" }}></div>
             <span className="text-sm text-gray-700">Weekend retreat</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#cdb3a2] rounded"></div>
+            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(205, 179, 162, 0.6)" }}></div>
             <span className="text-sm text-gray-700">Mini dag retreat</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#555d41] rounded"></div>
+            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(85, 93, 65, 0.6)" }}></div>
             <span className="text-sm text-gray-700">Community zondag</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-[#c66e48] rounded"></div>
+            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(80, 70, 61, 0.6)" }}></div>
             <span className="text-sm text-gray-700">Community activiteit op open inschrijving</span>
           </div>
         </div>

@@ -281,10 +281,10 @@ export default function Home() {
                   <h3 className="font-medium text-gray-900 mb-4">
                     Investering in jezelf
                   </h3>
-                  <div className="bg-gray-50 p-6 rounded-lg">
+                  <div className="bg-gray-50 rounded-lg" style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}>
                     <p className="text-4xl font-bold text-primary mb-2">€1.120</p>
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
-                    <p className="text-xs text-gray-600 italic">Vergoed uit het opleidingstarief van je werkgever</p>
+                    <p className="text-xs text-gray-600 italic"><br />Vergoed uit het opleidingstarief van je werkgever</p>
                   </div>
                 </div>
 

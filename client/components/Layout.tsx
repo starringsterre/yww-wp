@@ -145,7 +145,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </div>
               <div className="flex gap-4">
                 <a
-                  href="#"
+                  href="http://instagram.com/youngwisewomen"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white transition-colors"
                   aria-label="Instagram"
                 >

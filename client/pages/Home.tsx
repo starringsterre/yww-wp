@@ -104,7 +104,7 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
             Evenementen voor persoonlijke ontwikkeling
           </h2>
-          <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+          <p className="text-center text-gray-600 mx-auto mb-12" style={{ maxWidth: "735px" }}>
             Young Wise Women organiseert verschillende evenementen waarin jonge professionals (24+) samenkomen voor persoonlijke groei. Van meerdaagse retreats tot middagjes waar we verhalen en kennis uitwisselen - allemaal onder begeleiding en met gelijkgestemden die dezelfde waarden delen.
           </p>
 

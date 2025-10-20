@@ -60,13 +60,13 @@ const dutchMonthNames = [
 const getEventColor = (type: string) => {
   switch (type) {
     case "retreat":
-      return "bg-purple-100 text-purple-900 border-purple-300";
+      return "bg-[#8f9467] text-white border-[#8f9467]";
     case "mini-retreat":
-      return "bg-blue-100 text-blue-900 border-blue-300";
+      return "bg-[#cdb3a2] text-gray-900 border-[#cdb3a2]";
     case "sunday-gathering":
-      return "bg-green-100 text-green-900 border-green-300";
+      return "bg-[#555d41] text-white border-[#555d41]";
     case "creative-event":
-      return "bg-orange-100 text-orange-900 border-orange-300";
+      return "bg-[#c66e48] text-white border-[#c66e48]";
     default:
       return "bg-gray-100 text-gray-900 border-gray-300";
   }

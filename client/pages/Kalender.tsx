@@ -43,10 +43,10 @@ export default function Kalender() {
                 <Calendar className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    17 - 19 oktober 2025
+                    13 - 15 februari 2026
                   </p>
                   <p className="text-gray-600">
-                    Vrijdag 17:30 uur tot Zondag 17:00 uur
+                    Vrijdag 17:30 uur tot Zondag 16:00 uur
                   </p>
                 </div>
               </div>

@@ -277,23 +277,23 @@ export default function Home() {
             </div>
 
             <div className="border-t border-gray-200 pt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 auto-rows-fr">
+                <div className="flex flex-col">
                   <h3 className="font-medium text-gray-900 mb-4">
                     Investering in jezelf
                   </h3>
-                  <div className="bg-gray-50 rounded-lg" style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}>
+                  <div className="bg-gray-50 rounded-lg flex-1" style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}>
                     <p className="text-4xl font-bold text-primary mb-2">€1.120</p>
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
                     <p className="text-xs text-gray-600 italic"><br />Vergoed uit het opleidingstarief van je werkgever</p>
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col">
                   <h3 className="font-medium text-gray-900 mb-4">
                     Wat er jou oplevert
                   </h3>
-                  <div className="bg-gray-50 p-6 rounded-lg">
+                  <div className="bg-gray-50 p-6 rounded-lg flex-1">
                     <ul className="space-y-4 text-sm">
                       <li className="text-gray-700 flex items-start gap-3">
                         <Flower size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />

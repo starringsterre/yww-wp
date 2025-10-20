@@ -90,7 +90,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* About */}
             <div>
               <h3 className="text-white font-medium mb-4">
-                young wise women
+                Young Wise Women
               </h3>
               <p className="text-sm text-gray-300">
                 Reflectie, rust en ruimte voor jonge vrouwen die op zoek zijn naar persoonlijke groei en betekenis.

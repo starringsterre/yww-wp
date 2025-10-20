@@ -24,8 +24,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
               <h1 className="text-lg font-medium text-gray-900 tracking-wide">
-              Young Wise Women
-            </h1>
+                Young Wise Women
+              </h1>
             </Link>
 
             {/* Desktop Navigation */}
@@ -84,16 +84,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-grow">{children}</main>
 
       {/* Footer */}
-      <footer className="text-gray-100" style={{ backgroundColor: "rgba(80, 70, 61, 1)" }}>
+      <footer
+        className="text-gray-100"
+        style={{ backgroundColor: "rgba(80, 70, 61, 1)" }}
+      >
         <div className="max-w-7xl mx-auto px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* About */}
             <div>
-              <h3 className="text-white font-medium mb-4">
-                Young Wise Women
-              </h3>
+              <h3 className="text-white font-medium mb-4">Young Wise Women</h3>
               <p className="text-sm text-gray-300">
-                Reflectie, rust en ruimte voor jonge vrouwen die op zoek zijn naar persoonlijke groei en betekenis.
+                Reflectie, rust en ruimte voor jonge vrouwen die op zoek zijn
+                naar persoonlijke groei en betekenis.
               </p>
             </div>
 
@@ -119,17 +121,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <h4 className="text-white font-medium mb-4">Thema's</h4>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                  >
                     Persoonlijke Groei
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                  >
                     Eigen Wijsheid
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-sm text-gray-300 hover:text-white transition-colors">
+                  <a
+                    href="#"
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                  >
                     Energie & Motivatie
                   </a>
                 </li>

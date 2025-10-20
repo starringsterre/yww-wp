@@ -57,9 +57,7 @@ export default function Kalender() {
                   <p className="font-medium text-gray-900 text-lg">
                     Prachtige Vakantiehuis in de Natuur aan het water
                   </p>
-                  <p className="text-gray-600">
-                    Oudega, Friesland
-                  </p>
+                  <p className="text-gray-600">Oudega, Friesland</p>
                 </div>
               </div>
 
@@ -69,9 +67,7 @@ export default function Kalender() {
                   <p className="font-medium text-gray-900 text-lg">
                     Voor Jonge Professional Vrouwen (24-30)
                   </p>
-                  <p className="text-gray-600">
-                    Beperkte plaatsen beschikbaar
-                  </p>
+                  <p className="text-gray-600">Beperkte plaatsen beschikbaar</p>
                 </div>
               </div>
             </div>
@@ -83,21 +79,39 @@ export default function Kalender() {
               </h4>
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="font-medium text-gray-900 mb-2">Dag 1 - Vrijdag</p>
+                  <p className="font-medium text-gray-900 mb-2">
+                    Dag 1 - Vrijdag
+                  </p>
                   <p className="text-gray-700 text-sm">
-                    Aankomst vanaf 17:30 uur • Kennismaking met de andere vrouwen • Bespreken van bevindingen uit Motivation Factor test • Avondwandeling of rust • Deelronde, reflectiemomenten en ademsessie voor een goede nachtrust
+                    Aankomst vanaf 17:30 uur • Kennismaking met de andere
+                    vrouwen • Bespreken van bevindingen uit Motivation Factor
+                    test • Avondwandeling of rust • Deelronde, reflectiemomenten
+                    en ademsessie voor een goede nachtrust
                   </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="font-medium text-gray-900 mb-2">Dag 2 - Zaterdag</p>
+                  <p className="font-medium text-gray-900 mb-2">
+                    Dag 2 - Zaterdag
+                  </p>
                   <p className="text-gray-700 text-sm">
-                    Ochtend: yogasessie of fysieke activiteit • Ontbijt • Verlangens (zakelijk en privé): richting vinden, omgaan met twijfel en heldere keuzes maken • Lunch • Werken aan beperkende overtuigingen en blokkades; mentale en fysieke loslating • 1-op-1 coaching • Reflectiemomenten en rust • Avond: deelronde buiten bij het vuur
+                    Ochtend: yogasessie of fysieke activiteit • Ontbijt •
+                    Verlangens (zakelijk en privé): richting vinden, omgaan met
+                    twijfel en heldere keuzes maken • Lunch • Werken aan
+                    beperkende overtuigingen en blokkades; mentale en fysieke
+                    loslating • 1-op-1 coaching • Reflectiemomenten en rust •
+                    Avond: deelronde buiten bij het vuur
                   </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <p className="font-medium text-gray-900 mb-2">Dag 3 - Zondag</p>
+                  <p className="font-medium text-gray-900 mb-2">
+                    Dag 3 - Zondag
+                  </p>
                   <p className="text-gray-700 text-sm">
-                    Ochtend: fysieke activiteit (yoga/wandeling/energetisch lichaamswerk) • Ontbijt • Loslaten van niet-dienende zaken; manifesteren van verlangens met Motivation Factor werkboek • Lunch • Middag: afsluiting met een spel om energie, vertrouwen en focus te brengen • Vertrek rond 17:00 uur
+                    Ochtend: fysieke activiteit (yoga/wandeling/energetisch
+                    lichaamswerk) • Ontbijt • Loslaten van niet-dienende zaken;
+                    manifesteren van verlangens met Motivation Factor werkboek •
+                    Lunch • Middag: afsluiting met een spel om energie,
+                    vertrouwen en focus te brengen • Vertrek rond 17:00 uur
                   </p>
                 </div>
               </div>
@@ -108,7 +122,11 @@ export default function Kalender() {
               className="w-full bg-primary text-white hover:bg-primary/90 py-3"
               asChild
             >
-              <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://eepurl.com/h-ZlwT"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Plaats je Reservering
               </a>
             </Button>
@@ -141,13 +159,16 @@ export default function Kalender() {
               </h3>
               <ul className="space-y-3">
                 <li className="text-gray-700 text-sm">
-                  <span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling
+                  <span className="font-medium">Persoonlijke groei</span> – een
+                  volgende stap in je ontwikkeling
                 </li>
                 <li className="text-gray-700 text-sm">
-                  <span className="font-medium">Eigen wijsheid</span> – je worden uitgedaagd jezelf volledig te omarmen
+                  <span className="font-medium">Eigen wijsheid</span> – je
+                  worden uitgedaagd jezelf volledig te omarmen
                 </li>
                 <li className="text-gray-700 text-sm">
-                  <span className="font-medium">Nieuwe energie</span> – helderheid, richting en de drive om in beweging te komen
+                  <span className="font-medium">Nieuwe energie</span> –
+                  helderheid, richting en de drive om in beweging te komen
                 </li>
               </ul>
             </div>
@@ -160,15 +181,22 @@ export default function Kalender() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
               <div className="flex gap-3">
                 <span className="text-primary">✓</span>
-                <span>Intake van tevoren met de coach om je behoeften in kaart te brengen</span>
+                <span>
+                  Intake van tevoren met de coach om je behoeften in kaart te
+                  brengen
+                </span>
               </div>
               <div className="flex gap-3">
                 <span className="text-primary">✓</span>
-                <span>Motivation Factor self-assessment ter waarde van €145</span>
+                <span>
+                  Motivation Factor self-assessment ter waarde van €145
+                </span>
               </div>
               <div className="flex gap-3">
                 <span className="text-primary">✓</span>
-                <span>Persoonlijke professionele begeleiding van twee coaches</span>
+                <span>
+                  Persoonlijke professionele begeleiding van twee coaches
+                </span>
               </div>
               <div className="flex gap-3">
                 <span className="text-primary">✓</span>
@@ -176,7 +204,9 @@ export default function Kalender() {
               </div>
               <div className="flex gap-3">
                 <span className="text-primary">✓</span>
-                <span>2 nachten accommodatie in comfortabele tweepersoonskamers</span>
+                <span>
+                  2 nachten accommodatie in comfortabele tweepersoonskamers
+                </span>
               </div>
               <div className="flex gap-3">
                 <span className="text-primary">✓</span>
@@ -194,7 +224,9 @@ export default function Kalender() {
             Op de hoogte worden gehouden van evenementen?
           </h2>
           <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
-            We organiseren regelmatig nieuwe edities van het Young Wise Women retreat. Schrijf je in voor de nieuwsbrief en wees als eerste op de hoogte van de volgende gelegenheid.
+            We organiseren regelmatig nieuwe edities van het Young Wise Women
+            retreat. Schrijf je in voor de nieuwsbrief en wees als eerste op de
+            hoogte van de volgende gelegenheid.
           </p>
 
           <div className="bg-gray-50 p-8 rounded-lg border border-gray-200 text-center">
@@ -220,9 +252,7 @@ export default function Kalender() {
                 className="bg-primary text-white hover:bg-primary/90 py-3"
                 asChild
               >
-                <a href="mailto:info@awarenessinbusiness.com">
-                  E-mail
-                </a>
+                <a href="mailto:info@awarenessinbusiness.com">E-mail</a>
               </Button>
             </div>
           </div>

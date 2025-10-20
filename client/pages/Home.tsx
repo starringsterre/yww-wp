@@ -9,7 +9,7 @@ const testimonials = [
     name: "Julia Weekenstro",
     date: "Deelnemer Oktober 2025",
     quote:
-      "Wauw wat een prachtige ervaring heb ik gehad tijdens het Young Wise Women Retreat! Zowel op cognitief niveau als gevoelsniveau hebben we samen een heel mooie \"reis\" mogen maken in onze ontwikkeling. Vooral dat samen aangaan, met de andere vrouwen, heeft me veel gebracht. Zo mooi en betekenisvol hoe we elkaar echt konden inspireren en helpen. Grote complimenten richting de trainers Ella en Liene en de host Esther die dit hebben gefaciliteerd. Op een prachtige plek in de natuur waar ik me al meteen heel veilig en thuis voelde. Ik gun elke vrouw zo'n betekenisvol en verbindend weekend 🙏🏼☀��",
+      'Wauw wat een prachtige ervaring heb ik gehad tijdens het Young Wise Women Retreat! Zowel op cognitief niveau als gevoelsniveau hebben we samen een heel mooie "reis" mogen maken in onze ontwikkeling. Vooral dat samen aangaan, met de andere vrouwen, heeft me veel gebracht. Zo mooi en betekenisvol hoe we elkaar echt konden inspireren en helpen. Grote complimenten richting de trainers Ella en Liene en de host Esther die dit hebben gefaciliteerd. Op een prachtige plek in de natuur waar ik me al meteen heel veilig en thuis voelde. Ik gun elke vrouw zo\'n betekenisvol en verbindend weekend 🙏🏼☀��',
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F7895d36c45374c71a02e2f8dae447dda?format=webp&width=800",
   },
@@ -89,7 +89,10 @@ export default function Home() {
 
         {/* Content Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 z-10">
-          <h1 className="text-5xl md:text-7xl font-light max-w-3xl" style={{ margin: "3px 0 16px" }}>
+          <h1
+            className="text-5xl md:text-7xl font-light max-w-3xl"
+            style={{ margin: "3px 0 16px" }}
+          >
             Young Wise Women
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-200">
@@ -100,7 +103,10 @@ export default function Home() {
             className="bg-pink-300 text-gray-900 hover:bg-pink-400 border-0"
             asChild
           >
-            <a href="/kalender" style={{ cursor: "pointer", pointerEvents: "auto" }}>
+            <a
+              href="/kalender"
+              style={{ cursor: "pointer", pointerEvents: "auto" }}
+            >
               <p>Bekijk de Community kalender</p>
             </a>
           </Button>
@@ -113,8 +119,15 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
             Evenementen voor persoonlijke ontwikkeling
           </h2>
-          <p className="text-center text-gray-600 mx-auto mb-12" style={{ maxWidth: "735px" }}>
-            Young Wise Women organiseert verschillende evenementen waarin jonge professionals (24+) samenkomen voor persoonlijke groei. Van meerdaagse retreats tot middagjes waar we verhalen en kennis uitwisselen - allemaal onder begeleiding en met gelijkgestemden die dezelfde waarden delen.
+          <p
+            className="text-center text-gray-600 mx-auto mb-12"
+            style={{ maxWidth: "735px" }}
+          >
+            Young Wise Women organiseert verschillende evenementen waarin jonge
+            professionals (24+) samenkomen voor persoonlijke groei. Van
+            meerdaagse retreats tot middagjes waar we verhalen en kennis
+            uitwisselen - allemaal onder begeleiding en met gelijkgestemden die
+            dezelfde waarden delen.
           </p>
 
           {/* Three Image Cards */}
@@ -161,7 +174,8 @@ export default function Home() {
                 Persoonlijke Groei
               </h3>
               <p className="text-sm text-gray-600">
-                Of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling
+                Of je nu net een zaadje plant of al als een stevige boom staat,
+                je maakt altijd een volgende stap in je ontwikkeling
               </p>
             </div>
 
@@ -174,7 +188,8 @@ export default function Home() {
                 Eigen Wijsheid
               </h3>
               <p className="text-sm text-gray-600">
-                De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen
+                De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt
+                jezelf en je innerlijke wijsheid volledig te omarmen
               </p>
             </div>
 
@@ -187,7 +202,8 @@ export default function Home() {
                 Energie & Motivatie
               </h3>
               <p className="text-sm text-gray-600">
-                Je voelt richting, duidelijkheid en de drive om in beweging te komen
+                Je voelt richting, duidelijkheid en de drive om in beweging te
+                komen
               </p>
             </div>
 
@@ -200,7 +216,8 @@ export default function Home() {
                 Praktische Handvatten
               </h3>
               <p className="text-sm text-gray-600">
-                Nieuwe, praktische tools die je direct kunt toepassen in je leven en carrière
+                Nieuwe, praktische tools die je direct kunt toepassen in je
+                leven en carrière
               </p>
             </div>
           </div>
@@ -215,12 +232,21 @@ export default function Home() {
               Onze Coaches
             </h2>
             <p className="text-gray-600">
-              Ervaren en inspirerende trainers met jaren van praktijk en begeleiding
+              Ervaren en inspirerende trainers met jaren van praktijk en
+              begeleiding
             </p>
           </div>
 
-          <p className="mx-auto text-center text-gray-700 mb-12" style={{ maxWidth: "817px" }}>
-            Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat.
+          <p
+            className="mx-auto text-center text-gray-700 mb-12"
+            style={{ maxWidth: "817px" }}
+          >
+            Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig
+            inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis,
+            warmte en betrokkenheid creëren zij een veilige ruimte waarin jij
+            jezelf volledig mag zijn. Onder hun begeleiding ontdek je je
+            innerlijke wijsheid en krijg je praktische tools mee voor je leven
+            na het retreat.
           </p>
 
           <CoachCardsGrid
@@ -228,20 +254,23 @@ export default function Home() {
               {
                 name: "Ella Taal",
                 image: ellaImageUrl,
-                bio: "In 2011 is Awareness in Business opgericht door Ella, ontstaan na een management buy-out bij haar vorige organisatie advies kantoor Second Nature. Al ruim 28 jaar heeft zij ervaring als coach, trainer en organisatie adviseur voor diverse opdrachtgevers in zowel binnen- als buitenland. Ze heeft ervaring van het geven van retreats voor o.a. Management teams, DGA's en CEO's. Ella heeft drie dochters van 27, 25 en 22 en wil graag iets terug doen voor de jongere generatie. Bijdragen aan het welzijn van jonge professionals is een passie die ze door het geven van deze retreats naleeft!"
+                bio: "In 2011 is Awareness in Business opgericht door Ella, ontstaan na een management buy-out bij haar vorige organisatie advies kantoor Second Nature. Al ruim 28 jaar heeft zij ervaring als coach, trainer en organisatie adviseur voor diverse opdrachtgevers in zowel binnen- als buitenland. Ze heeft ervaring van het geven van retreats voor o.a. Management teams, DGA's en CEO's. Ella heeft drie dochters van 27, 25 en 22 en wil graag iets terug doen voor de jongere generatie. Bijdragen aan het welzijn van jonge professionals is een passie die ze door het geven van deze retreats naleeft!",
               },
               {
                 name: "Liene Molendijk",
                 image: lieneImageUrl,
-                bio: "Liene (1997) heeft een achtergrond in Psychologie en Leiderschap & Verandering en werkt inmiddels drie jaar bij grote organisatieadviesbureaus. Ze begeleidt uiteenlopende verandertrajecten in het publieke domein, van teams die anders willen samenwerken tot individuen die zoeken naar persoonlijke groei. De mens staat altijd centraal in haar werk. Daarnaast verdiepte ze zich in yoga- en meditatiefilosofie, wat ze meeneemt in het retreat. Zelf bevindt ze zich op de grens van Gen Z en Millennial, waardoor ze zich goed kan inleven in de uitdagingen en verlangens van jonge professionals."
-              }
+                bio: "Liene (1997) heeft een achtergrond in Psychologie en Leiderschap & Verandering en werkt inmiddels drie jaar bij grote organisatieadviesbureaus. Ze begeleidt uiteenlopende verandertrajecten in het publieke domein, van teams die anders willen samenwerken tot individuen die zoeken naar persoonlijke groei. De mens staat altijd centraal in haar werk. Daarnaast verdiepte ze zich in yoga- en meditatiefilosofie, wat ze meeneemt in het retreat. Zelf bevindt ze zich op de grens van Gen Z en Millennial, waardoor ze zich goed kan inleven in de uitdagingen en verlangens van jonge professionals.",
+              },
             ]}
           />
         </div>
       </section>
 
       {/* Next Retreat Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50" style={{ marginRight: "15px" }}>
+      <section
+        className="py-20 px-4 md:px-8 bg-gray-50"
+        style={{ marginRight: "15px" }}
+      >
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Volgende Editie: 17-19 oktober 2025
@@ -254,7 +283,8 @@ export default function Home() {
                   Weekend Retreat
                 </h3>
                 <p className="text-gray-700 mb-3">
-                  Ervaar rust en ruimte op een prachtige locatie in de natuur, samen met gelijkgestemde jonge professionals (24+).
+                  Ervaar rust en ruimte op een prachtige locatie in de natuur,
+                  samen met gelijkgestemde jonge professionals (24+).
                 </p>
                 <p className="text-sm text-gray-600 font-medium">
                   Vrijdag 17:30 uur - Zondag 17:00 uur
@@ -270,8 +300,12 @@ export default function Home() {
                   <li>✓ Motivation Factor test (€145 waarde)</li>
                   <li>✓ Professionele begeleiding van twee coaches</li>
                   <li>✓ 2 nachten accommodatie</li>
-                  <li><p>✓ Alle maaltijden en dranken</p></li>
-                  <li><p>✓ Werkboek en praktische tools</p></li>
+                  <li>
+                    <p>✓ Alle maaltijden en dranken</p>
+                  </li>
+                  <li>
+                    <p>✓ Werkboek en praktische tools</p>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -282,10 +316,18 @@ export default function Home() {
                   <h3 className="font-medium text-gray-900 mb-4">
                     Investering in jezelf
                   </h3>
-                  <div className="bg-gray-50 rounded-lg flex-1" style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}>
-                    <p className="text-4xl font-bold text-primary mb-2">€1.120</p>
+                  <div
+                    className="bg-gray-50 rounded-lg flex-1"
+                    style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}
+                  >
+                    <p className="text-4xl font-bold text-primary mb-2">
+                      €1.120
+                    </p>
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
-                    <p className="text-xs text-gray-600 italic"><br />Vergoed uit het opleidingstarief van je werkgever</p>
+                    <p className="text-xs text-gray-600 italic">
+                      <br />
+                      Vergoed uit het opleidingstarief van je werkgever
+                    </p>
                   </div>
                 </div>
 
@@ -296,16 +338,42 @@ export default function Home() {
                   <div className="bg-gray-50 p-6 rounded-lg flex-1">
                     <ul className="space-y-4 text-sm">
                       <li className="text-gray-700 flex items-start gap-3">
-                        <Flower size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
-                        <span><span className="font-medium">Persoonlijke groei</span> – een volgende stap in je ontwikkeling</span>
+                        <Flower
+                          size={20}
+                          className="text-primary flex-shrink-0 mt-1"
+                          style={{ color: "rgb(152, 139, 129)" }}
+                        />
+                        <span>
+                          <span className="font-medium">
+                            Persoonlijke groei
+                          </span>{" "}
+                          – een volgende stap in je ontwikkeling
+                        </span>
                       </li>
                       <li className="text-gray-700 flex items-start gap-3">
-                        <Heart size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
-                        <span><span className="font-medium">Eigen wijsheid</span> – je wordt uitgedaagd jezelf volledig te omarmen</span>
+                        <Heart
+                          size={20}
+                          className="text-primary flex-shrink-0 mt-1"
+                          style={{ color: "rgb(152, 139, 129)" }}
+                        />
+                        <span>
+                          <span className="font-medium">Eigen wijsheid</span> –
+                          je wordt uitgedaagd jezelf volledig te omarmen
+                        </span>
                       </li>
                       <li className="text-gray-700 flex items-start gap-3">
-                        <Zap size={20} className="text-primary flex-shrink-0 mt-1" style={{ color: "rgb(152, 139, 129)" }} />
-                        <span><span className="font-medium">Nieuwe energie & praktische tools</span> – helderheid, richting en de drive om in beweging te komen</span>
+                        <Zap
+                          size={20}
+                          className="text-primary flex-shrink-0 mt-1"
+                          style={{ color: "rgb(152, 139, 129)" }}
+                        />
+                        <span>
+                          <span className="font-medium">
+                            Nieuwe energie & praktische tools
+                          </span>{" "}
+                          – helderheid, richting en de drive om in beweging te
+                          komen
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -317,7 +385,11 @@ export default function Home() {
                 className="w-full bg-primary text-white hover:bg-primary/90 py-3"
                 asChild
               >
-                <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://eepurl.com/h-ZlwT"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Plaats je Reservering
                 </a>
               </Button>
@@ -352,7 +424,8 @@ export default function Home() {
               Blijf op de hoogte voor de volgende editie
             </h2>
             <p className="text-gray-600 mb-6">
-              Abonneer je op onze nieuwsbrief en ontvang meldingen over toekomstige Young Wise Women retreats.
+              Abonneer je op onze nieuwsbrief en ontvang meldingen over
+              toekomstige Young Wise Women retreats.
             </p>
 
             <form className="space-y-4">
@@ -394,7 +467,11 @@ export default function Home() {
                 className="w-full bg-primary text-white hover:bg-primary/90 py-3"
                 asChild
               >
-                <a href="https://eepurl.com/h-ZlwT" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://eepurl.com/h-ZlwT"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Inschrijven
                 </a>
               </Button>

@@ -18,7 +18,11 @@ const events: Record<number, CalendarEvent[]> = {
     { month: 2, type: "retreat", label: "Weekend retreat" },
     { month: 3, type: "sunday-gathering", label: "Community zondag" },
     { month: 4, type: "retreat", label: "Weekend retreat" },
-    { month: 5, type: "creative-event", label: "Community activiteit op open inschrijving" },
+    {
+      month: 5,
+      type: "creative-event",
+      label: "Community activiteit op open inschrijving",
+    },
     { month: 6, type: "retreat", label: "Weekend retreat" },
     { month: 8, type: "sunday-gathering", label: "Community zondag" },
     { month: 9, type: "retreat", label: "Weekend retreat" },
@@ -128,7 +132,9 @@ export default function EventCalendar() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {dutchMonthNames.map((monthName, monthIndex) => {
             const monthNumber = monthIndex + 1;
-            const monthEventsList = yearEvents.filter((e) => e.month === monthNumber);
+            const monthEventsList = yearEvents.filter(
+              (e) => e.month === monthNumber,
+            );
 
             return (
               <div
@@ -145,7 +151,7 @@ export default function EventCalendar() {
                       <div
                         key={idx}
                         className={`p-3 rounded border text-sm font-medium ${getEventColor(
-                          event.type
+                          event.type,
                         )}`}
                         style={{ backgroundColor: getEventBgColor(event.type) }}
                       >
@@ -164,20 +170,34 @@ export default function EventCalendar() {
         {/* Legend */}
         <div className="mt-12 flex flex-wrap gap-6 justify-center">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(143, 148, 103, 0.6)" }}></div>
+            <div
+              className="w-4 h-4 rounded"
+              style={{ backgroundColor: "rgba(143, 148, 103, 0.6)" }}
+            ></div>
             <span className="text-sm text-gray-700">Weekend retreat</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(205, 179, 162, 0.6)" }}></div>
+            <div
+              className="w-4 h-4 rounded"
+              style={{ backgroundColor: "rgba(205, 179, 162, 0.6)" }}
+            ></div>
             <span className="text-sm text-gray-700">Mini dag retreat</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(85, 93, 65, 0.6)" }}></div>
+            <div
+              className="w-4 h-4 rounded"
+              style={{ backgroundColor: "rgba(85, 93, 65, 0.6)" }}
+            ></div>
             <span className="text-sm text-gray-700">Community zondag</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "rgba(80, 70, 61, 0.6)" }}></div>
-            <span className="text-sm text-gray-700">Community activiteit op open inschrijving</span>
+            <div
+              className="w-4 h-4 rounded"
+              style={{ backgroundColor: "rgba(80, 70, 61, 0.6)" }}
+            ></div>
+            <span className="text-sm text-gray-700">
+              Community activiteit op open inschrijving
+            </span>
           </div>
         </div>
       </div>

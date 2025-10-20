@@ -45,13 +45,13 @@ export default function CoachCardsGrid({ coaches }: CoachCardsGridProps) {
             >
               {/* Front side - Photo */}
               <div
-                className="absolute w-full h-full bg-white rounded-lg shadow-lg overflow-hidden"
+                className="absolute w-full h-full bg-white rounded-lg shadow-lg overflow-hidden flex items-center justify-center"
                 style={{ backfaceVisibility: "hidden" }}
               >
                 <img
                   src={displayImage}
                   alt={coach.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
 

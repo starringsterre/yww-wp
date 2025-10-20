@@ -30,7 +30,7 @@ export default function Kalender() {
           <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 border-2 border-primary">
             <div className="mb-8">
               <p className="text-sm font-medium text-primary mb-2">
-                3DE EDITIE
+                4DE EDITIE
               </p>
               <h3 className="text-4xl font-light text-gray-900 mb-2">
                 Young Wise Women Weekend Retreat

@@ -28,18 +28,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
+      <header
+        className="sticky top-0 z-50 transition-all duration-300"
+        style={{
+          backgroundColor: location.pathname === "/" && !hasScrolled
+            ? "transparent"
+            : "rgb(229, 219, 206)",
+          borderBottom: hasScrolled || location.pathname !== "/" ? "1px solid rgba(0, 0, 0, 0.1)" : "none",
+        }}
+      >
         <div className="max-w-full px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              <h1 className="text-lg font-medium text-gray-900 tracking-wide">
-                Young Wise Women
-              </h1>
-            </Link>
+            {/* Logo - Only show on non-home pages or when scrolled */}
+            {(location.pathname !== "/" || hasScrolled) && (
+              <Link to="/" className="flex-shrink-0">
+                <h1 className="text-lg font-medium text-gray-900 tracking-wide">
+                  Young Wise Women
+                </h1>
+              </Link>
+            )}
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex gap-12">
+            {/* Desktop Navigation - Centered */}
+            <nav className="hidden md:flex gap-12 flex-1 justify-center">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -47,7 +57,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   className={`text-sm font-medium transition-colors ${
                     isActive(link.href)
                       ? "text-primary"
-                      : "text-gray-600 hover:text-gray-900"
+                      : location.pathname === "/" && !hasScrolled
+                        ? "text-white hover:text-gray-200"
+                        : "text-gray-700 hover:text-gray-900"
                   }`}
                 >
                   {link.label}
@@ -55,10 +67,36 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
 
+            {/* Right Section - Logo on home, Button on others */}
+            <div className="flex items-center gap-4 ml-auto">
+              {location.pathname === "/" && !hasScrolled && (
+                <Link to="/" className="flex-shrink-0">
+                  <h1 className="text-lg font-medium text-white tracking-wide">
+                    Young Wise Women
+                  </h1>
+                </Link>
+              )}
+
+              {/* Booking Button */}
+              <Link
+                to="/kalender"
+                className="hidden md:inline-block px-6 py-2 rounded-lg font-medium transition-colors text-sm"
+                style={{
+                  backgroundColor: location.pathname === "/" && !hasScrolled ? "rgba(152, 139, 129, 0.8)" : "#98a481",
+                  color: "white",
+                }}
+              >
+                Reserveer je plek
+              </Link>
+            </div>
+
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2"
+              style={{
+                color: location.pathname === "/" && !hasScrolled ? "white" : "black",
+              }}
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -70,7 +108,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <nav className="md:hidden pb-4 flex flex-col gap-3 border-t border-gray-200 pt-4">
+            <nav className="md:hidden pb-4 flex flex-col gap-3 border-t pt-4" style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -85,6 +123,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                to="/kalender"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-6 py-2 rounded-lg font-medium transition-colors text-sm text-white mt-2"
+                style={{ backgroundColor: "#98a481" }}
+              >
+                Reserveer je plek
+              </Link>
             </nav>
           )}
         </div>

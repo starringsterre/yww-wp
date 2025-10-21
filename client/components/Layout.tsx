@@ -21,6 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/verhaal", label: "Ons Verhaal" },
+    { href: "/retreats", label: "Retreats" },
     { href: "/kalender", label: "Kalender" },
     { href: "/contact", label: "Contact" },
   ];
@@ -76,9 +77,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Right Section - Button */}
             <div className="flex items-center gap-4 ml-auto">
-              {/* Booking Button */}
+              {/* Lid worden Button */}
               <Link
-                to="/kalender"
+                to="#"
                 className="hidden md:inline-block px-6 py-2 rounded-lg font-medium transition-colors text-sm"
                 style={{
                   backgroundColor: location.pathname === "/" && !hasScrolled ? "transparent" : "#98a481",
@@ -86,7 +87,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   border: location.pathname === "/" && !hasScrolled ? "1px solid white" : "none",
                 }}
               >
-                Reserveer je plek
+                Lid worden
               </Link>
             </div>
 
@@ -133,12 +134,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 );
               })}
               <Link
-                to="/kalender"
+                to="#"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-6 py-2 rounded-lg font-medium transition-colors text-sm text-white mt-2"
                 style={{ backgroundColor: "#98a481" }}
               >
-                Reserveer je plek
+                Lid worden
               </Link>
             </nav>
           )}

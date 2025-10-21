@@ -33,7 +33,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         style={{
           backgroundColor: location.pathname === "/" && !hasScrolled
             ? "transparent"
-            : "rgb(229, 219, 206)",
+            : "rgb(251, 249, 245)",
           borderBottom: hasScrolled || location.pathname !== "/" ? "1px solid rgba(0, 0, 0, 0.1)" : "none",
         }}
       >
@@ -51,8 +51,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Desktop Navigation - Centered */}
             <nav className="hidden md:flex gap-12 flex-1 justify-center">
               {navLinks.map((link) => {
-                // Hide "Home" link on home page when not scrolled
-                if (location.pathname === "/" && !hasScrolled && link.href === "/") {
+                // Hide "Home" link always
+                if (link.href === "/") {
                   return null;
                 }
                 return (

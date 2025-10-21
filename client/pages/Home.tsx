@@ -171,7 +171,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Benefit 1 */}
-            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+            <div className="rounded-2xl p-8 text-center shadow-sm" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Flower size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -187,7 +187,7 @@ export default function Home() {
             </div>
 
             {/* Benefit 2 */}
-            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+            <div className="rounded-2xl p-8 text-center shadow-sm" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Heart size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -203,7 +203,7 @@ export default function Home() {
             </div>
 
             {/* Benefit 3 */}
-            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+            <div className="rounded-2xl p-8 text-center shadow-sm" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Zap size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -219,7 +219,7 @@ export default function Home() {
             </div>
 
             {/* Benefit 4 */}
-            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+            <div className="rounded-2xl p-8 text-center shadow-sm" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Hammer size={32} style={{ color: "rgb(152, 139, 129)" }} />

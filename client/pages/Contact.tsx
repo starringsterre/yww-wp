@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
@@ -9,6 +9,31 @@ export default function Contact() {
     subject: "",
     message: "",
   });
+
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: "Kan ik me nog aanmelden als ik de deadline gemist heb?",
+      answer: "Ja, dat kan! Neem contact met ons op via e-mail of telefoon. We helpen je graag verder en kijken naar mogelijkheden.",
+    },
+    {
+      question: "Is er een betalingsplan mogelijk?",
+      answer: "Ja, voor particulieren is betaling in 3 termijnen mogelijk. Neem contact op voor meer informatie over de betalingsopties.",
+    },
+    {
+      question: "Organiseren jullie ook groepsretreats?",
+      answer: "Ja, groepsretreats zijn mogelijk op aanvraag. Dit kan heel interessant zijn voor teams of groepen. Laat het ons weten en we bespreken de mogelijkheden!",
+    },
+    {
+      question: "Wat als ik niet kan op de geplande datum?",
+      answer: "Schrijf je in voor de nieuwsbrief zodat je op de hoogte bent van volgende edities. We organiseren regelmatig nieuwe retreats.",
+    },
+    {
+      question: "Hoe voorberei ik me voor op het retreat?",
+      answer: "Na je inschrijving krijg je alle informatie en ontvang je een persoonlijke intake met een van onze coaches. Dit helpt ons om het retreat perfect op jou af te stemmen.",
+    },
+  ];
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

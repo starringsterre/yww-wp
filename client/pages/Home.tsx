@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#E8E8E8" }}>
+      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">

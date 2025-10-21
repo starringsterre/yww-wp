@@ -272,7 +272,22 @@ export default function Contact() {
                       />
                     )}
                   </div>
-                  <h3 className="text-base font-medium transition-colors group-hover:text-green-700" style={{ color: "rgb(0, 0, 0)" }}>
+                  <h3
+                    className="text-base font-medium transition-colors cursor-pointer"
+                    style={{
+                      color: expandedFaq === index ? "#5a6d4f" : "rgb(0, 0, 0)"
+                    }}
+                    onMouseEnter={(e) => {
+                      if (expandedFaq !== index) {
+                        e.currentTarget.style.color = "#5a6d4f";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (expandedFaq !== index) {
+                        e.currentTarget.style.color = "rgb(0, 0, 0)";
+                      }
+                    }}
+                  >
                     {faq.question}
                   </h3>
                 </button>

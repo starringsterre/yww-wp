@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     { href: "/verhaal", label: "Ons Verhaal" },
     { href: "/retreats", label: "Retreats" },
     { href: "/kalender", label: "Kalender" },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact", label: "Ons Verhaal" },
   ];
 
   return (

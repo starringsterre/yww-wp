@@ -86,7 +86,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Footer */}
       <footer
         className="text-gray-700"
-        style={{ backgroundColor: "rgb(251, 249, 245)" }}
+        style={{ backgroundColor: "rgb(229, 219, 206)" }}
       >
         <div className="max-w-7xl mx-auto px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">

@@ -257,12 +257,9 @@ export default function Contact() {
                   onClick={() =>
                     setExpandedFaq(expandedFaq === index ? null : index)
                   }
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
+                  className="w-full px-6 py-4 flex items-center gap-4 hover:bg-gray-50 transition-colors text-left"
                 >
-                  <h3 className="text-base font-medium text-gray-900">
-                    {faq.question}
-                  </h3>
-                  <div className="flex-shrink-0 ml-4">
+                  <div className="flex-shrink-0">
                     {expandedFaq === index ? (
                       <Minus
                         className="w-5 h-5 text-gray-600"
@@ -275,6 +272,9 @@ export default function Contact() {
                       />
                     )}
                   </div>
+                  <h3 className="text-base font-medium text-gray-900">
+                    {faq.question}
+                  </h3>
                 </button>
 
                 {expandedFaq === index && (

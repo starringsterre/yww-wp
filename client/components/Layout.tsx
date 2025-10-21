@@ -136,7 +136,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow" style={{ paddingTop: location.pathname === "/" ? "0" : "80px" }}>{children}</main>
 
       {/* Footer */}
       <footer

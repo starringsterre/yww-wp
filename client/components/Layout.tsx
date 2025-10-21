@@ -85,15 +85,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Footer */}
       <footer
-        className="text-gray-100"
-        style={{ backgroundColor: "rgba(80, 70, 61, 1)" }}
+        className="text-gray-700"
+        style={{ backgroundColor: "#b7b7a4" }}
       >
         <div className="max-w-7xl mx-auto px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             {/* About */}
             <div>
-              <h3 className="text-white font-medium mb-4">Young Wise Women</h3>
-              <p className="text-sm text-gray-300">
+              <h3 className="text-gray-900 font-medium mb-4">Young Wise Women</h3>
+              <p className="text-sm text-gray-600">
                 Reflectie, rust en ruimte voor jonge vrouwen die op zoek zijn
                 naar persoonlijke groei en betekenis.
               </p>
@@ -101,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-white font-medium mb-4">Navigatie</h4>
+              <h4 className="text-gray-900 font-medium mb-4">Navigatie</h4>
               <ul className="space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.href}>
@@ -118,7 +118,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Classes */}
             <div>
-              <h4 className="text-white font-medium mb-4">Thema's</h4>
+              <h4 className="text-gray-900 font-medium mb-4">Thema's</h4>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -149,8 +149,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Connect */}
             <div>
-              <h4 className="text-white font-medium mb-4">Contact</h4>
-              <div className="space-y-2 text-sm text-gray-300 mb-4">
+              <h4 className="text-gray-900 font-medium mb-4">Contact</h4>
+              <div className="space-y-2 text-sm text-gray-600 mb-4">
                 <p>info@youngwisewomen.nl</p>
                 <p>+31 (0)6 55334728</p>
               </div>
@@ -159,14 +159,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   href="http://instagram.com/youngwisewomen"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="transition-colors"
+                  style={{ color: "#98a481" }}
                   aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a
                   href="#"
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="transition-colors"
+                  style={{ color: "#98a481" }}
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-5 h-5" />
@@ -176,8 +178,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Copyright */}
-          <div className="border-t border-gray-700 pt-8">
-            <p className="text-sm text-gray-400 text-center">
+          <div className="border-t border-gray-500 pt-8">
+            <p className="text-sm text-gray-600 text-center">
               © 2025 Young Wise Women. Alle rechten voorbehouden.
             </p>
           </div>

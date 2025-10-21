@@ -257,7 +257,20 @@ export default function Contact() {
                   onClick={() =>
                     setExpandedFaq(expandedFaq === index ? null : index)
                   }
-                  className="w-full px-6 py-4 flex items-center gap-4 hover:bg-gray-50 transition-colors text-left"
+                  className="w-full px-6 py-4 flex items-center gap-4 transition-colors text-left"
+                  style={{
+                    backgroundColor: expandedFaq === index ? "#a39880" : "transparent",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (expandedFaq !== index) {
+                      e.currentTarget.style.backgroundColor = "#9a8f76";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (expandedFaq !== index) {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                    }
+                  }}
                 >
                   <div className="flex-shrink-0">
                     {expandedFaq === index ? (

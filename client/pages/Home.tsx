@@ -160,62 +160,75 @@ export default function Home() {
       {/* Benefits Section */}
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-16 text-gray-900">
-            Wat je meeneemt uit het Retreat
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+              Wat je meeneemt uit het Retreat
+            </h2>
+            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
+              Elk retreat is zorgvuldig ontworpen ter ondersteuning van jouw reis van zelfontdekking en persoonlijke transformatie.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Benefit 1 */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <Flower size={40} style={{ color: "rgb(152, 139, 129)" }} />
+            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Flower size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Persoonlijke Groei
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Of je nu net een zaadje plant of al als een stevige boom staat,
                 je maakt altijd een volgende stap in je ontwikkeling
               </p>
             </div>
 
             {/* Benefit 2 */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <Heart size={40} style={{ color: "rgb(152, 139, 129)" }} />
+            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Heart size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Eigen Wijsheid
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt
                 jezelf en je innerlijke wijsheid volledig te omarmen
               </p>
             </div>
 
             {/* Benefit 3 */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <Zap size={40} style={{ color: "rgb(152, 139, 129)" }} />
+            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Zap size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Energie & Motivatie
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Je voelt richting, duidelijkheid en de drive om in beweging te
                 komen
               </p>
             </div>
 
             {/* Benefit 4 */}
-            <div className="text-center">
-              <div className="mb-4 flex justify-center">
-                <Hammer size={40} style={{ color: "rgb(152, 139, 129)" }} />
+            <div className="bg-white rounded-lg p-8 text-center shadow-sm">
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Hammer size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 Praktische Handvatten
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Nieuwe, praktische tools die je direct kunt toepassen in je
                 leven en carrière
               </p>

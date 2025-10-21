@@ -431,12 +431,12 @@ export default function Home() {
           backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=400&fit=crop')`,
         }}
       >
-        <div className="max-w-3xl mx-auto relative z-10">
-          <div className="bg-white rounded-lg p-8 md:p-12 shadow-xl">
-            <h2 className="text-3xl font-light text-gray-900 mb-2">
+        <div className="max-w-2xl mx-auto relative z-10">
+          <div className="bg-white rounded-lg p-6 md:p-8 shadow-xl">
+            <h2 className="text-xl md:text-2xl font-light text-gray-900 mb-2">
               Blijf op de hoogte voor de volgende editie
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-sm text-gray-600 mb-4">
               Abonneer je op onze nieuwsbrief en ontvang meldingen over
               toekomstige Young Wise Women retreats.
             </p>

@@ -51,8 +51,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Desktop Navigation - Centered */}
             <nav className="hidden md:flex gap-12 flex-1 justify-center">
               {navLinks.map((link) => {
-                // Hide "Home" link always
+                // Hide "Home" link always, and hide all other links on splash screen
                 if (link.href === "/") {
+                  return null;
+                }
+                if (location.pathname === "/" && !hasScrolled) {
                   return null;
                 }
                 return (
@@ -62,9 +65,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     className={`text-sm font-medium transition-colors ${
                       isActive(link.href)
                         ? "text-primary"
-                        : location.pathname === "/" && !hasScrolled
-                          ? "text-white hover:text-gray-200"
-                          : "text-gray-700 hover:text-gray-900"
+                        : "text-gray-700 hover:text-gray-900"
                     }`}
                   >
                     {link.label}

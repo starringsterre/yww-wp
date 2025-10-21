@@ -58,7 +58,7 @@ export default function OnsVerhaal() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Ons Verhaal
+            Retreats
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Ontdek wat Young Wise Women betekent en wat ons drijft

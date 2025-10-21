@@ -76,7 +76,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Video Section */}
-      <section className="relative w-full h-screen min-h-96 bg-black overflow-hidden">
+      <section className="relative w-full h-screen min-h-96 bg-black overflow-hidden" style={{ marginTop: "0" }}>
         <video
           autoPlay
           muted

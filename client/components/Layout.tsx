@@ -50,40 +50,39 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Desktop Navigation - Centered */}
             <nav className="hidden md:flex gap-12 flex-1 justify-center">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive(link.href)
-                      ? "text-primary"
-                      : location.pathname === "/" && !hasScrolled
-                        ? "text-white hover:text-gray-200"
-                        : "text-gray-700 hover:text-gray-900"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                // Hide "Home" link on home page when not scrolled
+                if (location.pathname === "/" && !hasScrolled && link.href === "/") {
+                  return null;
+                }
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={`text-sm font-medium transition-colors ${
+                      isActive(link.href)
+                        ? "text-primary"
+                        : location.pathname === "/" && !hasScrolled
+                          ? "text-white hover:text-gray-200"
+                          : "text-gray-700 hover:text-gray-900"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
 
-            {/* Right Section - Logo on home, Button on others */}
+            {/* Right Section - Button */}
             <div className="flex items-center gap-4 ml-auto">
-              {location.pathname === "/" && !hasScrolled && (
-                <Link to="/" className="flex-shrink-0">
-                  <h1 className="text-lg font-medium text-white tracking-wide">
-                    Young Wise Women
-                  </h1>
-                </Link>
-              )}
-
               {/* Booking Button */}
               <Link
                 to="/kalender"
                 className="hidden md:inline-block px-6 py-2 rounded-lg font-medium transition-colors text-sm"
                 style={{
-                  backgroundColor: location.pathname === "/" && !hasScrolled ? "rgba(152, 139, 129, 0.8)" : "#98a481",
+                  backgroundColor: location.pathname === "/" && !hasScrolled ? "transparent" : "#98a481",
                   color: "white",
+                  border: location.pathname === "/" && !hasScrolled ? "1px solid white" : "none",
                 }}
               >
                 Reserveer je plek

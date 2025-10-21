@@ -161,7 +161,7 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
               Wat je meeneemt uit het Retreat
             </h2>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
@@ -281,11 +281,11 @@ export default function Home() {
 
       {/* Next Retreat Section */}
       <section
-        className="py-20 px-4 md:px-8 bg-gray-50"
-        style={{ marginRight: "15px" }}
+        className="py-20 px-4 md:px-8"
+        style={{ backgroundColor: "#b7b7a4", marginRight: "15px" }}
       >
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
+          <h2 className="text-4xl font-light text-center text-white mb-12">
             Volgende Editie: 17-19 oktober 2025
           </h2>
 

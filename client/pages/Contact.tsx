@@ -241,57 +241,51 @@ export default function Contact() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
+      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
+          <h2 className="text-4xl font-light text-center text-white mb-12">
             Veelgestelde Vragen
           </h2>
 
-          <div className="space-y-6">
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Kan ik me nog aanmelden als ik de deadline gemist heb?
-              </h3>
-              <p className="text-gray-700">
-                Ja, dat kan! Neem contact met ons op via e-mail of telefoon. We helpen je graag verder en kijken naar mogelijkheden.
-              </p>
-            </div>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden"
+              >
+                <button
+                  onClick={() =>
+                    setExpandedFaq(expandedFaq === index ? null : index)
+                  }
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
+                >
+                  <h3 className="text-base font-medium text-gray-900">
+                    {faq.question}
+                  </h3>
+                  <div className="flex-shrink-0 ml-4">
+                    {expandedFaq === index ? (
+                      <Minus
+                        className="w-5 h-5 text-gray-600"
+                        style={{ color: "#98a481" }}
+                      />
+                    ) : (
+                      <Plus
+                        className="w-5 h-5 text-gray-600"
+                        style={{ color: "#98a481" }}
+                      />
+                    )}
+                  </div>
+                </button>
 
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Is er een betalingsplan mogelijk?
-              </h3>
-              <p className="text-gray-700">
-                Ja, voor particulieren is betaling in 3 termijnen mogelijk. Neem contact op voor meer informatie over de betalingsopties.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Organiseren jullie ook groepsretreats?
-              </h3>
-              <p className="text-gray-700">
-                Ja, groepsretreats zijn mogelijk op aanvraag. Dit kan heel interessant zijn voor teams of groepen. Laat het ons weten en we bespreken de mogelijkheden!
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Wat als ik niet kan op de geplande datum?
-              </h3>
-              <p className="text-gray-700">
-                Schrijf je in voor de nieuwsbrief zodat je op de hoogte bent van volgende edities. We organiseren regelmatig nieuwe retreats.
-              </p>
-            </div>
-
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Hoe voorberei ik me voor op het retreat?
-              </h3>
-              <p className="text-gray-700">
-                Na je inschrijving krijg je alle informatie en ontvang je een persoonlijke intake met een van onze coaches. Dit helpt ons om het retreat perfect op jou af te stemmen.
-              </p>
-            </div>
+                {expandedFaq === index && (
+                  <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>

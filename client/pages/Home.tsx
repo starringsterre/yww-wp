@@ -100,7 +100,8 @@ export default function Home() {
           </p>
           <Button
             size="lg"
-            className="bg-pink-300 text-gray-900 hover:bg-pink-400 border-0"
+            className="text-white hover:opacity-90 border-0"
+            style={{ backgroundColor: "#98a481" }}
             asChild
           >
             <a

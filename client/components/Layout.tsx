@@ -123,7 +123,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <li>
                   <a
                     href="#"
-                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                    className="text-sm text-black hover:text-gray-700 transition-colors"
                   >
                     Persoonlijke Groei
                   </a>
@@ -131,7 +131,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <li>
                   <a
                     href="#"
-                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                    className="text-sm text-black hover:text-gray-700 transition-colors"
                   >
                     Eigen Wijsheid
                   </a>
@@ -139,7 +139,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <li>
                   <a
                     href="#"
-                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                    className="text-sm text-black hover:text-gray-700 transition-colors"
                   >
                     Energie & Motivatie
                   </a>

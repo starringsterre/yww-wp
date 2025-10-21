@@ -107,7 +107,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-sm text-gray-300 hover:text-white transition-colors"
+                      className="text-sm text-black hover:text-gray-700 transition-colors"
                     >
                       {link.label}
                     </Link>

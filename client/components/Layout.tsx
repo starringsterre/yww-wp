@@ -109,20 +109,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
             <nav className="md:hidden pb-4 flex flex-col gap-3 border-t pt-4" style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}>
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-sm font-medium py-2 transition-colors ${
-                    isActive(link.href)
-                      ? "text-primary"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                // Hide "Home" link always, and hide all other links on splash screen
+                if (link.href === "/") {
+                  return null;
+                }
+                if (location.pathname === "/" && !hasScrolled) {
+                  return null;
+                }
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-sm font-medium py-2 transition-colors ${
+                      isActive(link.href)
+                        ? "text-primary"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
               <Link
                 to="/kalender"
                 onClick={() => setMobileMenuOpen(false)}

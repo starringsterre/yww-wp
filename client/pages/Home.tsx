@@ -324,7 +324,7 @@ export default function Home() {
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li>✓ Intake met coach</li>
-                  <li>✓ Motivation Factor test (��145 waarde)</li>
+                  <li>✓ Motivation Factor test (€145 waarde)</li>
                   <li>✓ Professionele begeleiding van twee coaches</li>
                   <li>✓ 2 nachten accommodatie</li>
                   <li>
@@ -428,9 +428,15 @@ export default function Home() {
       {/* Testimonials Carousel */}
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
+          <motion.h2
+            className="text-4xl font-light text-center text-gray-900 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5 }}
+            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+          >
             Wat voorgaande deelneemsters zeggen
-          </h2>
+          </motion.h2>
 
           <div className="max-w-4xl mx-auto">
             <TestimonialsCarousel testimonials={testimonials} />

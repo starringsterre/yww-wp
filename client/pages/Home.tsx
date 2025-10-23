@@ -100,7 +100,7 @@ export default function Home() {
           </p>
           <Button
             size="lg"
-            className="text-white hover:opacity-90 border-0"
+            className="text-white hover:opacity-90 border-0 animate-fade-in-up"
             style={{ backgroundColor: "#98a481" }}
             asChild
           >

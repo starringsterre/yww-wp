@@ -163,15 +163,9 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <motion.h2
-              className="text-4xl md:text-5xl font-light text-white mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            >
+            <ScrollFadeInUp className="text-4xl md:text-5xl font-light text-white mb-4">
               Wat je meeneemt uit het Retreat
-            </motion.h2>
+            </ScrollFadeInUp>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
               Elk retreat is zorgvuldig ontworpen ter ondersteuning van jouw reis van zelfontdekking en persoonlijke transformatie.
             </p>

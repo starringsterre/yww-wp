@@ -243,15 +243,9 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <motion.h2
-              className="text-4xl md:text-5xl font-light mb-4 text-gray-900"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.5 }}
-              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            >
+            <ScrollFadeInUp className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
               Onze Coaches
-            </motion.h2>
+            </ScrollFadeInUp>
             <p className="text-gray-600">
               Ervaren en inspirerende trainers met jaren van praktijk en
               begeleiding

@@ -162,7 +162,7 @@ export default function Home() {
       <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-4 animate-fade-in-up">
               Wat je meeneemt uit het Retreat
             </h2>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>

@@ -416,15 +416,9 @@ export default function Home() {
       {/* Testimonials Carousel */}
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
-          <motion.h2
-            className="text-4xl font-light text-center text-gray-900 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.5 }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-          >
+          <ScrollFadeInUp className="text-4xl font-light text-center text-gray-900 mb-12">
             Wat voorgaande deelneemsters zeggen
-          </motion.h2>
+          </ScrollFadeInUp>
 
           <div className="max-w-4xl mx-auto">
             <TestimonialsCarousel testimonials={testimonials} />

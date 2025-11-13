@@ -61,7 +61,7 @@ export default function LidWorden() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="py-20 px-4 md:px-8 bg-gradient-to-b from-gray-50 to-white">
+      <section className="pt-20 px-4 md:px-8 bg-gradient-to-b from-gray-50 to-white" style={{ marginBottom: "-4px" }}>
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
             Lid worden van de Young Wise Women Community
@@ -84,7 +84,7 @@ export default function LidWorden() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="pb-20 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-light text-gray-900 mb-4 text-center">
             Voordelen van Lidmaatschap

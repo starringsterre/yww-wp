@@ -5,14 +5,38 @@ interface MemberStatsProps {
 }
 
 export default function MemberStats({ memberCount }: MemberStatsProps) {
-  const [displayCount, setDisplayCount] = useState(45);
+  const [displayCount, setDisplayCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    if (memberCount > displayCount) {
+    // Initial animation from 0 to memberCount on mount
+    if (!hasAnimated && memberCount > 0) {
+      let current = 0;
+      const target = memberCount;
+      const increment = Math.ceil(target / 40);
+
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          setDisplayCount(target);
+          setHasAnimated(true);
+          clearInterval(interval);
+        } else {
+          setDisplayCount(current);
+        }
+      }, 30);
+
+      return () => clearInterval(interval);
+    }
+  }, [memberCount, hasAnimated]);
+
+  // Handle updates when memberCount increases (new member added)
+  useEffect(() => {
+    if (hasAnimated && memberCount > displayCount) {
       const difference = memberCount - displayCount;
       let current = displayCount;
-      const increment = Math.ceil(difference / 30);
-      
+      const increment = Math.ceil(difference / 20);
+
       const interval = setInterval(() => {
         current += increment;
         if (current >= memberCount) {
@@ -25,7 +49,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
 
       return () => clearInterval(interval);
     }
-  }, [memberCount, displayCount]);
+  }, [memberCount, displayCount, hasAnimated]);
 
   return (
     <section className="py-0 px-4 md:px-8 bg-white">
@@ -34,7 +58,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
           {/* Left Column - Image */}
           <div className="flex justify-center">
             <img
-              src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F4311546e9b81421890414f3b83697e67?format=webp&width=800"
+              src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F026a017e57a343fa888f19e29258f0ac?format=webp&width=800"
               alt="Young Wise Women Community"
               className="w-full h-auto rounded-lg shadow-md max-w-md"
             />

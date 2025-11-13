@@ -288,7 +288,7 @@ export default function Home() {
       >
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-white mb-12">
-            Volgende Editie: 17-19 oktober 2025
+            Volgende Editie: 13-15 februari 2025
           </h2>
 
           <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
@@ -341,7 +341,7 @@ export default function Home() {
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
                     <p className="text-xs text-gray-600 italic">
                       <br />
-                      Vergoed uit het opleidingstarief van je werkgever
+                      Vergoed uit het opleidingstarief van je werkgever.
                     </p>
                   </div>
                 </div>

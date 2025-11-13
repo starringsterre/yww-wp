@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { useState } from "react";
+import MemberStats from "@/components/MemberStats";
 
 export default function LidWorden() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function LidWorden() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [memberCount, setMemberCount] = useState(45);
 
   const benefits = [
     {
@@ -43,9 +45,13 @@ export default function LidWorden() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Replace with actual API call to handle member registration
-    // For now, we'll simulate the submission
     console.log("Form submitted:", formData);
+
+    // Increment member count if mailchimp is checked
+    if (formData.mailchimp) {
+      setMemberCount(prev => prev + 1);
+    }
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -72,16 +78,8 @@ export default function LidWorden() {
         </div>
       </section>
 
-      {/* Community Image Section */}
-      <section className="py-12 px-4 md:px-8 bg-white">
-        <div className="max-w-2xl mx-auto">
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Ff83c08d1368d4698b87f6a4561d20428?format=webp&width=800"
-            alt="Young Wise Women Community"
-            className="w-full h-auto rounded-lg shadow-md"
-          />
-        </div>
-      </section>
+      {/* Member Stats Section */}
+      <MemberStats memberCount={memberCount} />
 
       {/* Benefits Section */}
       <section className="pb-20 px-4 md:px-8 bg-white">

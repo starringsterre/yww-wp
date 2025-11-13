@@ -78,7 +78,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-4 ml-auto">
               {/* Lid worden Button */}
               <Link
-                to="#"
+                to="/lid-worden"
                 className="hidden md:inline-block px-6 py-2 rounded-lg font-medium transition-colors text-sm"
                 style={{
                   backgroundColor: location.pathname === "/" && !hasScrolled ? "transparent" : "#98a481",
@@ -133,7 +133,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 );
               })}
               <Link
-                to="#"
+                to="/lid-worden"
                 onClick={() => setMobileMenuOpen(false)}
                 className="px-6 py-2 rounded-lg font-medium transition-colors text-sm text-white mt-2"
                 style={{ backgroundColor: "#98a481" }}

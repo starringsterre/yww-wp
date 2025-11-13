@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { useState } from "react";
-import MemberStats from "@/components/MemberStats";
+import FloatingBrandsSection from "@/components/FloatingBrandsSection";
+import HeroSection from "@/components/HeroSection";
+import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 
 export default function LidWorden() {
   const [formData, setFormData] = useState({
@@ -12,7 +14,6 @@ export default function LidWorden() {
   });
 
   const [submitted, setSubmitted] = useState(false);
-  const [memberCount, setMemberCount] = useState(45);
 
   const benefits = [
     {
@@ -21,7 +22,7 @@ export default function LidWorden() {
     },
     {
       title: "Samen Samenkomen",
-      description: "Ontmoet andere vrouwen in de community op regelmatige bijeenkomsten en events.",
+      description: "Ontmoet andere vrouwen in het Netwerk op regelmatige bijeenkomsten en events.",
     },
     {
       title: "Samen Dingen Organiseren",
@@ -43,13 +44,47 @@ export default function LidWorden() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-    // Increment member count if mailchimp is checked
+    // Split naam into first and last name
+    const nameParts = formData.naam.trim().split(" ");
+    const firstName = nameParts[0] || "";
+    const lastName = nameParts.slice(1).join(" ") || "";
+
+    // Submit to n8n webhook if checkbox is checked
     if (formData.mailchimp) {
-      setMemberCount(prev => prev + 1);
+      try {
+        const n8nWebhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+
+        if (!n8nWebhookUrl) {
+          console.warn("n8n webhook URL not configured. Please set VITE_N8N_WEBHOOK_URL environment variable.");
+        } else {
+          const response = await fetch(n8nWebhookUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              firstName: firstName,
+              lastName: lastName,
+              phone: formData.telefoonnummer,
+              fullName: formData.naam,
+              subscribeToNewsletter: true,
+              subscribedAt: new Date().toISOString()
+            })
+          });
+
+          if (!response.ok) {
+            console.error("n8n webhook error:", response.statusText);
+          }
+        }
+
+      } catch (err) {
+        console.error("n8n webhook submission error:", err);
+      }
     }
 
     setSubmitted(true);
@@ -67,28 +102,20 @@ export default function LidWorden() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="pt-20 px-4 md:px-8 bg-gradient-to-b from-gray-50 to-white" style={{ marginBottom: "-4px" }}>
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Lid worden van de Young Wise Women Community
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Sluit je aan bij een groep vrouwen die elkaar ondersteunen, inspireren en groeien samen.
-          </p>
-        </div>
-      </section>
-
-      {/* Member Stats Section */}
-      <MemberStats memberCount={memberCount} />
+      <HeroSection
+        backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F86170904cb9547f4ad68517ede94266e?format=webp&width=2000"
+        title="Lid worden van het Young Wise Women Netwerk"
+        subtitle="Sluit je aan bij een groep young professionals die elkaar ondersteunen, inspireren en samen groeien. Lidmaatschap is gratis."
+      />
 
       {/* Benefits Section */}
-      <section className="pb-20 px-4 md:px-8 bg-white">
+      <section className="min-h-screen pt-20 pb-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-light text-gray-900 mb-4 text-center">
             Voordelen van Lidmaatschap
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-            De Young Wise Women Community is een plek waar je jezelf volledig kunt uiten en groeien.
+            Het Young Wise Women Netwerk is een plek waar je jezelf volledig kunt uiten en groeien. Deelname is volledig gratis.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -100,7 +127,7 @@ export default function LidWorden() {
                 <div className="flex items-start gap-4 mb-4">
                   <div
                     className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-                    style={{ backgroundColor: "#ffb5c0" }}
+                    style={{ backgroundColor: "#B46555" }}
                   >
                     <Check className="w-4 h-4 text-white" />
                   </div>
@@ -117,8 +144,11 @@ export default function LidWorden() {
         </div>
       </section>
 
+      {/* Companies Section */}
+      <FloatingBrandsSection />
+
       {/* Registration Form Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
+      <section className="py-14 px-4 md:px-8" style={{ backgroundColor: "#FBF9F5" }}>
         <div className="max-w-2xl mx-auto">
           <h2 className="text-4xl font-light text-gray-900 mb-4 text-center">
             Schrijf je in
@@ -210,7 +240,7 @@ export default function LidWorden() {
                 htmlFor="mailchimp"
                 className="text-sm text-gray-700 cursor-pointer"
               >
-                Ja, ik wil me aanmelden voor de nieuwsbrief van Young Wise Women en op de hoogte blijven van updates, events en aanbiedingen.
+                Ja, ik wil in de WhatsApp Community groepchats en op de hoogte gehouden worden!
               </label>
             </div>
 
@@ -218,19 +248,20 @@ export default function LidWorden() {
             <Button
               type="submit"
               size="lg"
-              className="w-full py-3 text-base"
-              style={{ backgroundColor: "#98a481", color: "white" }}
+              className="w-full py-3 text-base bg-primary text-white hover:bg-accent hover:scale-105"
             >
-              Ik word lid van de community
+              Ik word gratis lid van het Netwerk
             </Button>
 
             {/* Note */}
             <p className="text-xs text-gray-600 text-center mt-6">
-              We respecteren je privacy. Je gegevens worden alleen gebruikt om je in aanraking te brengen met de Young Wise Women Community.
+              We respecteren je privacy. Je gegevens worden alleen gebruikt om je in aanraking te brengen met het Young Wise Women Netwerk.
             </p>
           </form>
         </div>
       </section>
+
+      <RetreatTestimonialsSection />
     </div>
   );
 }

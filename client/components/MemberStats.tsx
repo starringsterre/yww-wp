@@ -52,9 +52,9 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
   }, [memberCount, displayCount, hasAnimated]);
 
   return (
-    <section className="py-0 px-4 md:px-8 bg-white">
+    <section className="py-0 bg-white" style={{ padding: "0 60px 0 56px" }}>
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "60px", marginBottom: "55px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "60px", marginBottom: "83px" }}>
           {/* Left Column - Image */}
           <div className="flex justify-center">
             <img
@@ -71,7 +71,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
                 {displayCount}
               </div>
               <p className="text-xl text-gray-700 leading-relaxed">
-                jonge wijze vrouwen tussen de 24-30 in de community
+                jonge wijze vrouwen tussen de 24-30 in de Young Wise Women community
               </p>
             </div>
 

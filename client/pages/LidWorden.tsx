@@ -121,7 +121,7 @@ export default function LidWorden() {
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-4xl font-light text-gray-900 mb-4 text-center">
-            Schrijf je In
+            Schrijf je in
           </h2>
           <p className="text-center text-gray-600 mb-12">
             Vul het formulier in en sluit je aan! Het lidmaatschap is gratis.
@@ -221,7 +221,7 @@ export default function LidWorden() {
               className="w-full py-3 text-base"
               style={{ backgroundColor: "#98a481", color: "white" }}
             >
-              Schrijf Me In - Gratis!
+              Ik word lid van de community
             </Button>
 
             {/* Note */}

@@ -54,7 +54,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
   return (
     <section className="py-0 px-4 md:px-8 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "60px", marginBottom: "55px" }}>
           {/* Left Column - Image */}
           <div className="flex justify-center">
             <img
@@ -75,7 +75,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
               </p>
             </div>
 
-            <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-6 rounded-lg border border-pink-100">
+            <div className="p-6 rounded-lg border border-pink-100">
               <p className="text-gray-600 text-sm">
                 ✨ Elke dag groeien we verder. Sluit je aan en word onderdeel van onze groeiende communitygroep!
               </p>

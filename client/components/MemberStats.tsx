@@ -13,7 +13,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
     if (!hasAnimated && memberCount > 0) {
       let current = 0;
       const target = memberCount;
-      const increment = Math.ceil(target / 40);
+      const increment = Math.ceil(target / 60);
 
       const interval = setInterval(() => {
         current += increment;
@@ -24,7 +24,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
         } else {
           setDisplayCount(current);
         }
-      }, 30);
+      }, 60);
 
       return () => clearInterval(interval);
     }
@@ -35,7 +35,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
     if (hasAnimated && memberCount > displayCount) {
       const difference = memberCount - displayCount;
       let current = displayCount;
-      const increment = Math.ceil(difference / 20);
+      const increment = Math.ceil(difference / 30);
 
       const interval = setInterval(() => {
         current += increment;
@@ -45,7 +45,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
         } else {
           setDisplayCount(current);
         }
-      }, 30);
+      }, 60);
 
       return () => clearInterval(interval);
     }

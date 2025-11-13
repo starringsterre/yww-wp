@@ -74,7 +74,7 @@ export default function LidWorden() {
 
       {/* Community Image Section */}
       <section className="py-12 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <img
             src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Ff83c08d1368d4698b87f6a4561d20428?format=webp&width=800"
             alt="Young Wise Women Community"

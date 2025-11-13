@@ -127,7 +127,7 @@ export default function Kalender() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Plaats je Reservering
+                Bevestig je deelname
               </a>
             </Button>
           </div>

@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {(location.pathname !== "/" || hasScrolled) && (
               <Link to="/" className="flex-shrink-0">
                 <img
-                  src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa463bfc1137448a2860bc09eea274a45?format=webp&width=800"
+                  src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7d902ac805d74bcca6b1cd2c0ed07af5?format=webp&width=800"
                   alt="Young Wise Women"
                   className="h-10 w-auto"
                 />
@@ -169,7 +169,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Logo */}
             <div className="flex items-center">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa463bfc1137448a2860bc09eea274a45?format=webp&width=800"
+                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7d902ac805d74bcca6b1cd2c0ed07af5?format=webp&width=800"
                 alt="Young Wise Women"
                 className="h-40 w-auto"
               />

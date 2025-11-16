@@ -42,9 +42,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Logo - Only show on non-home pages or when scrolled */}
             {(location.pathname !== "/" || hasScrolled) && (
               <Link to="/" className="flex-shrink-0">
-                <h1 className="text-lg font-medium text-gray-900 tracking-wide">
-                  Young Wise Women
-                </h1>
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa463bfc1137448a2860bc09eea274a45?format=webp&width=800"
+                  alt="Young Wise Women"
+                  className="h-10 w-auto"
+                />
               </Link>
             )}
 

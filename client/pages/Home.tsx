@@ -460,23 +460,6 @@ export default function Home() {
                   required
                 />
               </div>
-              <div>
-                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option>Kies gewenste maand</option>
-                  <option>Januari</option>
-                  <option>Februari</option>
-                  <option>Maart</option>
-                  <option>April</option>
-                  <option>Mei</option>
-                  <option>Juni</option>
-                  <option>Juli</option>
-                  <option>Augustus</option>
-                  <option>September</option>
-                  <option>Oktober</option>
-                  <option>November</option>
-                  <option>December</option>
-                </select>
-              </div>
               <Button
                 type="submit"
                 className="w-full bg-primary text-white hover:bg-primary/90 py-3"

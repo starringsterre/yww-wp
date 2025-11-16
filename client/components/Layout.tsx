@@ -226,7 +226,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Copyright */}
           <div className="border-t border-gray-500 pt-8">
             <p className="text-sm text-gray-600 text-center">
-              © 2025 Young Wise Women. Alle rechten voorbehouden.
+              © 2025 Young Wise Women. Alle rechten voorbehouden. By{" "}
+              <i>Starring</i>.
             </p>
           </div>
         </div>

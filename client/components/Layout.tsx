@@ -227,7 +227,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="border-t border-gray-500 pt-8">
             <p className="text-sm text-gray-600 text-center">
               © 2025 Young Wise Women. Alle rechten voorbehouden. By{" "}
-              <i>Starring</i>.
+              <a
+                href="https://www.sterremolendijk.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-700 transition-colors"
+              >
+                <i>Starring</i>
+              </a>.
             </p>
           </div>
         </div>

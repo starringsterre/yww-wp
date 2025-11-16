@@ -45,7 +45,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7d902ac805d74bcca6b1cd2c0ed07af5?format=webp&width=800"
                   alt="Young Wise Women"
-                  className="h-10 w-auto"
+                  className="h-16 w-auto"
                 />
               </Link>
             )}

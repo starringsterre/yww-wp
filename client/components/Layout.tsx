@@ -166,7 +166,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </p>
             </div>
 
-            {/* Quick Links */}
+            {/* Logo */}
+            <div className="flex items-center">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa463bfc1137448a2860bc09eea274a45?format=webp&width=800"
+                alt="Young Wise Women"
+                className="h-16 w-auto"
+              />
+            </div>
+
+            {/* Navigation */}
             <div>
               <h4 className="text-gray-900 font-medium mb-4">Navigatie</h4>
               <ul className="space-y-2">
@@ -180,37 +189,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     </Link>
                   </li>
                 ))}
-              </ul>
-            </div>
-
-            {/* Classes */}
-            <div>
-              <h4 className="text-gray-900 font-medium mb-4">Thema's</h4>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm text-black hover:text-gray-700 transition-colors"
-                  >
-                    Persoonlijke Groei
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm text-black hover:text-gray-700 transition-colors"
-                  >
-                    Eigen Wijsheid
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-sm text-black hover:text-gray-700 transition-colors"
-                  >
-                    Energie & Motivatie
-                  </a>
-                </li>
               </ul>
             </div>
 

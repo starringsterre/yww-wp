@@ -161,8 +161,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h3 className="text-gray-900 font-medium mb-4">Young Wise Women</h3>
               <p className="text-sm text-gray-600">
-                Reflectie, rust en ruimte voor jonge vrouwen die op zoek zijn
-                naar persoonlijke groei en betekenis.
+                De Community waar jonge vrouwen reflectie, rust en ruimte
+                ervaren en op zoek zijn naar persoonlijke groei en
+                betekenis.
               </p>
             </div>
 

@@ -138,7 +138,7 @@ export default function Contact() {
       {/* FAQ Section */}
       <section className="px-4 md:px-8" style={{ backgroundColor: "#b7b7a4", padding: "0 32px 80px" }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-white mb-12">
+          <h2 className="text-4xl font-light text-center text-white mb-12" style={{ paddingTop: "40px" }}>
             Veelgestelde Vragen
           </h2>
 

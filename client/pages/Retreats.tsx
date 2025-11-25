@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, Brain, Wind, Lightbulb } from "lucide-react";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 
 import { testimonials } from "@/lib/testimonials";
@@ -44,36 +44,59 @@ export default function Retreats() {
       </section>
 
       {/* Three Pillars */}
-      <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            De Drie Pijlers van het Retreat
-          </h2>
+      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
+              De Drie Pijlers van het Retreat
+            </h2>
+            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
+              Het fundament van onze retreats rust op drie kernpijlers die samen zorgen voor een diepgaande transformatie.
+            </p>
+          </div>
 
-          <div className="space-y-8">
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">
-                1. Reflectie
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Pillar 1 */}
+            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Brain size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Reflectie
               </h3>
-              <p className="text-gray-700 mb-3">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt.
               </p>
             </div>
 
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">
-                2. Rust & Ruimte
+            {/* Pillar 2 */}
+            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Wind size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Rust & Ruimte
               </h3>
-              <p className="text-gray-700 mb-3">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24+). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.
               </p>
             </div>
 
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">
-                3. Inspiratie & Nieuwe Tools
+            {/* Pillar 3 */}
+            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+              <div className="mb-6 flex justify-center">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
+                  <Lightbulb size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Inspiratie & Nieuwe Tools
               </h3>
-              <p className="text-gray-700 mb-3">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Een weekend (re)treat waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en nieuwe praktische tools krijgt aangereikt voor nu en je toekomst als bevordering voor jou als young professional in je carrière.
               </p>
             </div>

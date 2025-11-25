@@ -49,26 +49,32 @@ export default function Home() {
           <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-200">
             De community voor jonge wijze vrouwen
           </p>
-          <Button
-            size="lg"
-            className="text-white border-0 animate-fade-in-up transition-all duration-300 hover:scale-110"
-            style={{ backgroundColor: "#98a481", opacity: 0.85 }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.opacity = "1";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.opacity = "0.85";
-            }}
-            asChild
-          >
-            <a
-              href="/kalender"
-              style={{ cursor: "pointer", pointerEvents: "auto" }}
-            >
-              <p>Bekijk de Community kalender</p>
-            </a>
-          </Button>
         </div>
+
+        {/* CTA Button at Bottom of Hero */}
+        {showCTA && (
+          <div className="absolute bottom-12 left-0 right-0 flex justify-center z-20 animate-fade-in-up">
+            <Button
+              size="lg"
+              className="text-white border-0 transition-all duration-300 hover:scale-110"
+              style={{ backgroundColor: "#98a481", opacity: 0.85 }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = "1";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = "0.85";
+              }}
+              asChild
+            >
+              <a
+                href="/kalender"
+                style={{ cursor: "pointer", pointerEvents: "auto" }}
+              >
+                <p>Bekijk de Community kalender</p>
+              </a>
+            </Button>
+          </div>
+        )}
       </section>
 
       {/* Atmosphere Section */}

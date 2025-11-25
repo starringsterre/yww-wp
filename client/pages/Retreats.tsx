@@ -308,7 +308,7 @@ export default function Retreats() {
                 src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F3bf1b5040abc4fb09c258d48babfc1c8?format=webp&width=800"
                 alt="Oudegaasterbrekken Friesland"
                 className="w-full h-full object-cover"
-                style={{ minHeight: "500px" }}
+                style={{ minHeight: "500px", transform: "rotate(90deg)" }}
               />
             </div>
 
@@ -321,7 +321,7 @@ export default function Retreats() {
                 loading="lazy"
                 allowFullScreen=""
                 referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2411.7829537836557!2d5.8766!3d53.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b5d8d8d8d8d8d9%3A0x0!2sOudegaasterbrekken%2C%20Friesland%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4823.565907567312!2d5.8766!3d53.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b5d8d8d8d8d8d9%3A0x0!2sOudegaasterbrekken%2C%20Friesland%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890"
               ></iframe>
             </div>
           </div>

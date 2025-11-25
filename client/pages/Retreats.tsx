@@ -293,7 +293,7 @@ export default function Retreats() {
       <section
         className="relative py-32 px-4 md:px-8 flex items-center justify-center min-h-screen bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F17498a95cf7349ee8fef0ccbd8a9f40a?format=webp&width=800')`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=800')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
@@ -304,7 +304,7 @@ export default function Retreats() {
             Op een inspirerende locatie in Nederland
           </h2>
           <p className="text-lg md:text-xl text-gray-100 mx-auto">
-            Veel van onze retreats vinden plaats in het schilderachtige Friesland
+            Veel van onze retreats vinden plaats in het prachtige Friesland
           </p>
         </div>
       </section>

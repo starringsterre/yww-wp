@@ -26,8 +26,8 @@ export default function Contact() {
     const distance = scrollY - elementTop;
     const speed = direction === "slower" ? 0.5 : 1;
     const offset = distance * speed;
-    // Limit parallax movement to prevent gaps
-    return Math.max(-120, Math.min(120, offset));
+    // Limit parallax movement to prevent gaps (smaller for square images)
+    return Math.max(-80, Math.min(80, offset));
   };
 
   const faqs = [

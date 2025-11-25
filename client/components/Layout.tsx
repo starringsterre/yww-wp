@@ -64,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   <Link
                     key={link.href}
                     to={link.href}
-                    className={`text-sm font-medium transition-colors ${
+                    className={`text-sm font-medium transition-all duration-300 hover:scale-110 inline-block origin-center ${
                       isActive(link.href)
                         ? "text-primary"
                         : "text-gray-700 hover:text-gray-900"

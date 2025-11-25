@@ -67,6 +67,206 @@ export default function Contact() {
       </section>
 
 
+      {/* Four Blocks with Parallax */}
+      <section
+        ref={blocksRef}
+        className="py-20 px-4 md:px-8 bg-white overflow-hidden"
+      >
+        <div className="max-w-6xl mx-auto space-y-20">
+          {/* Block 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-gray-900">
+                Ons Verhaal Blok 1
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg">
+              <img
+                src={image1Url}
+                alt="Story 1"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
+              <img
+                src={image2Url}
+                alt="Story 1 Bottom"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+            <div className="space-y-4 order-1 md:order-2">
+              <p className="text-gray-700 leading-relaxed">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+
+          {/* Block 2 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-gray-900">
+                Ons Verhaal Blok 2
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg">
+              <img
+                src={image2Url}
+                alt="Story 2"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
+              <img
+                src={image1Url}
+                alt="Story 2 Bottom"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+            <div className="space-y-4 order-1 md:order-2">
+              <p className="text-gray-700 leading-relaxed">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+
+          {/* Block 3 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-gray-900">
+                Ons Verhaal Blok 3
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg">
+              <img
+                src={image1Url}
+                alt="Story 3"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
+              <img
+                src={image2Url}
+                alt="Story 3 Bottom"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+            <div className="space-y-4 order-1 md:order-2">
+              <p className="text-gray-700 leading-relaxed">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+
+          {/* Block 4 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-light text-gray-900">
+                Ons Verhaal Blok 4
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg">
+              <img
+                src={image2Url}
+                alt="Story 4"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
+              <img
+                src={image1Url}
+                alt="Story 4 Bottom"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset("slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+            <div className="space-y-4 order-1 md:order-2">
+              <p className="text-gray-700 leading-relaxed">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-4xl mx-auto">

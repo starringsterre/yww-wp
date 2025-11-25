@@ -171,6 +171,7 @@ export default function Retreats() {
                   src={image}
                   alt={`Retreat moment ${index + 1}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  style={index === 7 ? { transform: "rotate(90deg)" } : {}}
                 />
               </button>
             ))}
@@ -197,6 +198,7 @@ export default function Retreats() {
                 src={allSlideImages[modalSlideIndex]}
                 alt={`Retreat photo ${modalSlideIndex + 1}`}
                 className="max-w-full max-h-full object-contain"
+                style={modalSlideIndex === 7 ? { transform: "rotate(90deg)" } : {}}
               />
 
               {/* Previous Button */}

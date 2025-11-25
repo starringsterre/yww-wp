@@ -73,9 +73,9 @@ export default function Contact() {
         className="bg-white overflow-hidden"
         style={{ padding: "9px 0 200px" }}
       >
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           {/* Left Column - Text */}
-          <div className="w-1/2 px-8 flex items-center" style={{ minHeight: "320px" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "320px" }}>
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-gray-900">
                 Ons Verhaal
@@ -90,7 +90,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Image Top */}
-          <div className="w-1/2 relative overflow-hidden" style={{ height: "320px" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "320px" }}>
             <img
               src={image1Url}
               alt="Story Top Right"
@@ -104,9 +104,9 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="flex" style={{ margin: "48px 0 179px" }}>
+        <div className="flex flex-col-reverse md:flex-row" style={{ margin: "48px 0 179px" }}>
           {/* Left Column - Image Bottom */}
-          <div className="w-1/2 relative overflow-hidden order-2" style={{ height: "569px" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "569px" }}>
             <img
               src={image2Url}
               alt="Story Bottom Left"
@@ -119,7 +119,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Text */}
-          <div className="w-1/2 px-8 flex items-center order-1">
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center">
             <div className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
                 Duis aute irure dolor in reprehenderit in voluptate velit esse

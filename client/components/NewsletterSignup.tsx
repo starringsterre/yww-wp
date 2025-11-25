@@ -14,7 +14,7 @@ export default function NewsletterSignup() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/newsletter/subscribe", {
+      const response = await fetch("/api/mailchimp/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

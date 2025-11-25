@@ -407,7 +407,10 @@ export default function Home() {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-primary text-white hover:bg-primary/90 py-3"
+                className="w-full text-white py-3 transition-all duration-300 hover:scale-105"
+                style={{
+                  backgroundColor: "#98a481"
+                }}
                 asChild
               >
                 <a

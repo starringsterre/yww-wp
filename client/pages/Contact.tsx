@@ -64,7 +64,7 @@ export default function Contact() {
             Ons Verhaal
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Hoe zijn we begonnen?
+            Twee generaties, één missie
           </p>
         </div>
       </section>

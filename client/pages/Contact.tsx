@@ -103,9 +103,9 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="flex flex-col-reverse md:flex-row" style={{ margin: "0" }}>
+        <div className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
-          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
+          <div className="w-full md:w-1/2 relative" style={{ height: "640px", overflow: "hidden" }}>
             <img
               src={image2Url}
               alt="Story Bottom Left"
@@ -118,7 +118,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Text */}
-          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "640px", overflow: "hidden" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ height: "640px", position: "sticky", top: "0" }}>
             <div className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
                 Duis aute irure dolor in reprehenderit in voluptate velit esse

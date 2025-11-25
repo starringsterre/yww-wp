@@ -125,6 +125,73 @@ export default function Retreats() {
         </div>
       </section>
 
+      {/* Retreat Photo Gallery */}
+      <section className="py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+              Beleef het Retreat
+            </h2>
+            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
+              Een blik op de ervaring van vorige edities
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            {galleryImages.map((image, index) => (
+              <div key={index} className="aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+                <img
+                  src={image}
+                  alt={`Retreat moment ${index + 1}`}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex justify-center">
+            <div className="relative w-full max-w-2xl">
+              <div className="aspect-video rounded-lg overflow-hidden shadow-lg bg-black">
+                <img
+                  src={galleryImages[gallerySlideIndex]}
+                  alt={`Retreat slide ${gallerySlideIndex + 1}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors z-10"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft size={24} className="text-gray-900" />
+              </button>
+
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors z-10"
+                aria-label="Next slide"
+              >
+                <ChevronRight size={24} className="text-gray-900" />
+              </button>
+
+              <div className="flex justify-center gap-2 mt-6">
+                {galleryImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setGallerySlideIndex(index)}
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      index === gallerySlideIndex ? "w-8 bg-gray-900" : "w-2 bg-gray-400 hover:bg-gray-600"
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* What You Experience */}
       <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">

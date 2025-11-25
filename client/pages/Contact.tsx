@@ -92,7 +92,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Image Top */}
-          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ minHeight: "140vh" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ aspectRatio: "1 / 1" }}>
             <img
               src={image1Url}
               alt="Story Top Right"

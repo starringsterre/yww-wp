@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScrollFadeInUp from "@/components/ScrollFadeInUp";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import CoachCardsGrid from "@/components/CoachCardsGrid";

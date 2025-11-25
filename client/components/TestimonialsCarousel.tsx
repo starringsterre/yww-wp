@@ -110,7 +110,7 @@ export default function TestimonialsCarousel({
               height: "12px",
               backgroundColor:
                 index === currentIndex
-                  ? "rgb(255, 181, 192)"
+                  ? "#98a481"
                   : "rgba(200, 200, 200, 0.5)",
             }}
             aria-label={`Go to testimonial ${index + 1}`}

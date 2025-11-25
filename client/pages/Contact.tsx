@@ -70,8 +70,8 @@ export default function Contact() {
       {/* One Block with Parallax */}
       <section
         ref={blocksRef}
-        className="bg-white overflow-hidden"
-        style={{ padding: "9px 0 0" }}
+        className="bg-white"
+        style={{ padding: "9px 0 0", overflow: "hidden" }}
       >
         <div className="flex flex-col md:flex-row">
           {/* Left Column - Text */}

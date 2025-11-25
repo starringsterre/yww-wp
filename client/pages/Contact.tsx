@@ -1,4 +1,3 @@
-import { Plus, Minus } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 export default function Contact() {

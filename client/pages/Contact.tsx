@@ -5,6 +5,7 @@ export default function Contact() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const [scrollY, setScrollY] = useState(0);
   const blocksRef = useRef<HTMLDivElement>(null);
+  const blocks2Ref = useRef<HTMLDivElement>(null);
 
   const image1Url =
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F2acad583f0d54543a360b7ba2774caaf?format=webp&width=800";
@@ -20,9 +21,9 @@ export default function Contact() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const getParallaxOffset = (direction: "slower" | "faster" = "slower") => {
-    if (!blocksRef.current) return 0;
-    const elementTop = blocksRef.current.getBoundingClientRect().top + scrollY;
+  const getParallaxOffset = (ref: React.RefObject<HTMLDivElement>, direction: "slower" | "faster" = "slower") => {
+    if (!ref.current) return 0;
+    const elementTop = ref.current.getBoundingClientRect().top + scrollY;
     const distance = scrollY - elementTop;
     const speed = direction === "slower" ? 0.5 : 1;
     const offset = distance * speed;

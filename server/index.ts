@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleMailchimpSubscribe } from "./routes/mailchimp";
+import { handleNewsletterSubscribe } from "./routes/newsletter";
 
 export function createServer() {
   const app = express();
@@ -20,6 +21,7 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
   app.post("/api/mailchimp/subscribe", handleMailchimpSubscribe);
+  app.post("/api/newsletter/subscribe", handleNewsletterSubscribe);
 
   return app;
 }

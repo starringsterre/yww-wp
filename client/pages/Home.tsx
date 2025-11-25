@@ -230,7 +230,7 @@ export default function Home() {
       >
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-white mb-12">
-            Volgende Editie: 13-15 februari 2025
+            Volgende Editie: 12-14 juni 2025
           </h2>
 
           <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
@@ -278,12 +278,13 @@ export default function Home() {
                     style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}
                   >
                     <p className="text-4xl font-bold text-primary mb-2">
-                      €1.120
+                      €1.450
                     </p>
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
                     <p className="text-xs text-gray-600 italic">
                       <br />
                       Vergoed uit het opleidingstarief van je werkgever.
+                      Boek de training via het portaal.
                     </p>
                   </div>
                 </div>
@@ -376,13 +377,13 @@ export default function Home() {
         }}
       >
         <div className="max-w-2xl mx-auto relative z-10">
-          <div className="bg-white rounded-lg p-6 md:p-8 shadow-xl">
+          <div className="rounded-lg p-6 md:p-8 shadow-xl" style={{ backgroundColor: "rgba(255, 255, 255, 0.57)" }}>
             <h2 className="text-xl md:text-2xl font-light text-gray-900 mb-2">
               Blijf op de hoogte voor de volgende editie
             </h2>
             <p className="text-sm text-gray-600 mb-4">
               Abonneer je op onze nieuwsbrief en ontvang meldingen over
-              toekomstige Young Wise Women retreats.
+              toekomstige Young Wise Women evenementen.
             </p>
 
             <form className="space-y-4">
@@ -391,6 +392,7 @@ export default function Home() {
                   type="text"
                   placeholder="Je naam"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                   required
                 />
               </div>
@@ -399,6 +401,7 @@ export default function Home() {
                   type="email"
                   placeholder="je@email.com"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                   required
                 />
               </div>

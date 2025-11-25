@@ -122,7 +122,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Text */}
-          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ height: "640px", position: "sticky", top: "0" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ aspectRatio: "1 / 1", position: "sticky", top: "0" }}>
             <div className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
                 Duis aute irure dolor in reprehenderit in voluptate velit esse

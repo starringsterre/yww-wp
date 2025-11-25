@@ -71,7 +71,7 @@ export default function Contact() {
       <section
         ref={blocksRef}
         className="bg-white overflow-hidden"
-        style={{ padding: "9px 0 200px" }}
+        style={{ padding: "9px 0 0" }}
       >
         <div className="flex flex-col md:flex-row">
           {/* Left Column - Text */}

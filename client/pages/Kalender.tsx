@@ -217,45 +217,66 @@ export default function Kalender() {
         </div>
       </section>
 
-      {/* Newsletter */}
-      <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-light text-center text-gray-900 mb-4">
-            Op de hoogte worden gehouden van evenementen?
-          </h2>
-          <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
-            We organiseren regelmatig nieuwe edities van het Young Wise Women
-            retreat. Schrijf je in voor de nieuwsbrief en wees als eerste op de
-            hoogte van de volgende gelegenheid.
-          </p>
-
-          <div className="bg-gray-50 p-8 rounded-lg border border-gray-200 text-center">
-            <p className="text-gray-700 mb-6 font-medium">
-              Of neem contact op via WhatsApp of e-mail
+      {/* Newsletter CTA Section */}
+      <section
+        className="py-20 px-4 md:px-8 bg-cover bg-center relative"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=400&fit=crop')`,
+        }}
+      >
+        <div className="max-w-2xl mx-auto relative z-10">
+          <div className="rounded-lg p-6 md:p-8 shadow-xl" style={{ backgroundColor: "rgba(255, 255, 255, 0.57)" }}>
+            <h2 className="text-xl md:text-2xl font-light text-gray-900 mb-2">
+              Blijf op de hoogte voor de volgende editie
+            </h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Abonneer je op onze nieuwsbrief en ontvang meldingen over
+              toekomstige Young Wise Women evenementen.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            <form className="space-y-4">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Je naam"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  placeholder="je@email.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
+                  required
+                />
+              </div>
               <Button
-                size="lg"
-                className="text-white py-3 transition-opacity hover:opacity-90"
-                style={{ backgroundColor: "#7c8869" }}
+                type="submit"
+                className="w-full text-white py-3 transition-all duration-300 hover:scale-105"
+                style={{
+                  backgroundColor: "rgb(120, 110, 100)",
+                  opacity: 1
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "0.75";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                }}
                 asChild
               >
                 <a
-                  href="https://api.whatsapp.com/send?phone=0655334728"
+                  href="https://eepurl.com/h-ZlwT"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  WhatsApp
+                  Inschrijven
                 </a>
               </Button>
-              <Button
-                size="lg"
-                className="bg-primary text-white hover:bg-primary/90 py-3"
-                asChild
-              >
-                <a href="mailto:info@awarenessinbusiness.com">E-mail</a>
-              </Button>
-            </div>
+            </form>
           </div>
         </div>
       </section>

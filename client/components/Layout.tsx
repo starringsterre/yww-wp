@@ -81,11 +81,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               {/* Lid worden Button */}
               <Link
                 to="/lid-worden"
-                className="hidden md:inline-block px-6 py-2 rounded-lg font-medium transition-colors text-sm"
+                className="hidden md:inline-block px-6 py-2 rounded-lg font-medium text-sm transition-all duration-300 hover:scale-110 hover:bg-green-700"
                 style={{
                   backgroundColor: location.pathname === "/" && !hasScrolled ? "transparent" : "#98a481",
                   color: "white",
                   border: location.pathname === "/" && !hasScrolled ? "1px solid white" : "none",
+                  transitionProperty: "all",
+                  transitionDuration: "300ms"
+                }}
+                onMouseEnter={(e) => {
+                  if (location.pathname === "/" && !hasScrolled) {
+                    e.currentTarget.style.backgroundColor = "#98a481";
+                    e.currentTarget.style.border = "none";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (location.pathname === "/" && !hasScrolled) {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.border = "1px solid white";
+                  }
                 }}
               >
                 Lid worden

@@ -1,15 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Plus, Minus } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
 
   const faqs = [

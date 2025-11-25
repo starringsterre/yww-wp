@@ -14,7 +14,7 @@ export default function NewsletterSignup() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://guidocroon.com/n8n/webhook/nieuwsbrief", {
+      const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

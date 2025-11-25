@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
 export default function Contact() {
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
   const [scrollY, setScrollY] = useState(0);
   const blocksRef = useRef<HTMLDivElement>(null);
   const blocks2Ref = useRef<HTMLDivElement>(null);

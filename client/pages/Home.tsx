@@ -57,7 +57,7 @@ export default function Home() {
 
         {/* CTA Button at Bottom of Hero */}
         {showCTA && (
-          <div className="absolute bottom-12 left-0 right-0 flex justify-center z-20 animate-fade-in-up">
+          <div className="absolute bottom-12 left-0 right-0 flex justify-center z-20" style={{ animation: "fadeInUp 0.3s ease-out" }}>
             <Button
               size="lg"
               className="text-white border-0 transition-all duration-300 hover:scale-110"

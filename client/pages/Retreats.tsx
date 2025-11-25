@@ -6,6 +6,27 @@ import { testimonials } from "@/lib/testimonials";
 
 export default function Retreats() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+  const [gallerySlideIndex, setGallerySlideIndex] = useState(0);
+
+  const galleryImages = [
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7a71bde85c8a499ea2bd4af0b6755fc4?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa07f32a91d3a47298e9d8f93c1ee532c?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F83bc1cad84b64bc5bf179476a883178b?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0c9c89796f6a451cad25ef33b9bfd178?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F1a42d8ce7d884dd285837d12b0b1ffb7?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fad40a89daf624765aca520c9bf2d3bd5?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6420ed9ac504161856d9dcfebc9cb02?format=webp&width=800",
+  ];
+
+  const nextSlide = () => {
+    setGallerySlideIndex((prevIndex) => (prevIndex + 1) % galleryImages.length);
+  };
+
+  const prevSlide = () => {
+    setGallerySlideIndex((prevIndex) => (prevIndex - 1 + galleryImages.length) % galleryImages.length);
+  };
 
   const faqs = [
     {

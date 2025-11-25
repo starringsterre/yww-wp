@@ -81,13 +81,19 @@ export default function Contact() {
           <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ aspectRatio: "1 / 1", position: "sticky", top: "0", backgroundColor: "#fbf9f6" }}>
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-gray-900">
-                Ons Verhaal
+                Het Begin van Ons Avontuur
               </h3>
               <p className="text-gray-700 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                Young Wise Women is geboren uit een passie om jonge professionals
+                te ondersteunen in hun persoonlijke en professionele groei. We
+                geloven dat de beste versie van jezelf niet alleen goed is voor
+                jouw wellbeing, maar ook voor de wereld om je heen.
+              </p>
+              <p className="text-gray-700 leading-relaxed">
+                Onze missie is om vrouwen in de leeftijd van 24+ te helpen een
+                betekenisvol leven te leiden, waarbij ze hun unieke talenten en
+                wijsheid volledig kunnen omarmen. We creëren ruimte voor reflectie,
+                groei en inspiratie.
               </p>
             </div>
           </div>

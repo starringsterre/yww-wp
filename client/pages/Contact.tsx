@@ -73,9 +73,9 @@ export default function Contact() {
         className="bg-white"
         style={{ padding: "9px 0 0", overflow: "hidden" }}
       >
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row relative">
           {/* Left Column - Text */}
-          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "640px", overflow: "hidden" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ height: "640px", position: "sticky", top: "0" }}>
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-gray-900">
                 Ons Verhaal
@@ -90,7 +90,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Image Top */}
-          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
+          <div className="w-full md:w-1/2 relative" style={{ height: "640px", overflow: "hidden" }}>
             <img
               src={image1Url}
               alt="Story Top Right"

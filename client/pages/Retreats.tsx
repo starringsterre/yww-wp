@@ -297,20 +297,33 @@ export default function Retreats() {
               Op een inspirerende locatie in Nederland
             </h2>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              Eerste Molenweg 6, Blaricum
+              Veel van onze retreats vinden plaats in het schilderachtige Friesland, waar rust en natuur samenkomen
             </p>
           </div>
 
-          <div className="rounded-lg overflow-hidden shadow-lg" style={{ height: "500px" }}>
-            <iframe
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen=""
-              referrerPolicy="no-referrer-when-downgrade"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8956747889656!2d5.246399!3d52.2635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5c8d8c8d8c8d9%3A0x0!2sEerste%20Molenweg%206%2C%201261%20CB%20Blaricum!5e0!3m2!1sen!2snl!4v1234567890"
-            ></iframe>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Image Column */}
+            <div className="rounded-lg overflow-hidden shadow-lg">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F3bf1b5040abc4fb09c258d48babfc1c8?format=webp&width=800"
+                alt="Oudegaasterbrekken Friesland"
+                className="w-full h-full object-cover"
+                style={{ minHeight: "500px" }}
+              />
+            </div>
+
+            {/* Map Column */}
+            <div className="rounded-lg overflow-hidden shadow-lg" style={{ height: "500px" }}>
+              <iframe
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen=""
+                referrerPolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2411.7829537836557!2d5.8766!3d53.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b5d8d8d8d8d8d9%3A0x0!2sOudegaasterbrekken%2C%20Friesland%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>

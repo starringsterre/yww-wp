@@ -70,7 +70,8 @@ export default function Contact() {
       {/* One Block with Parallax */}
       <section
         ref={blocksRef}
-        className="py-20 px-4 md:px-8 bg-white overflow-hidden"
+        className="px-4 md:px-8 bg-white overflow-hidden"
+        style={{ padding: "9px 32px 200px" }}
       >
         <div className="max-w-6xl mx-auto space-y-12">
           {/* Top Row: Text Left, Image Right */}
@@ -86,7 +87,7 @@ export default function Contact() {
                 nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
-            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg">
+            <div className="relative overflow-hidden rounded-lg shadow-lg" style={{ height: "320px" }}>
               <img
                 src={image1Url}
                 alt="Story Top Right"
@@ -94,14 +95,15 @@ export default function Contact() {
                 style={{
                   transform: `translateY(${getParallaxOffset("slower")}px)`,
                   transition: "transform 0.1s ease-out",
+                  marginBottom: "157px",
                 }}
               />
             </div>
           </div>
 
           {/* Bottom Row: Image Left, Text Right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="relative h-80 overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ margin: "48px 0 179px" }}>
+            <div className="relative overflow-hidden rounded-lg shadow-lg order-2 md:order-1" style={{ height: "569px" }}>
               <img
                 src={image2Url}
                 alt="Story Bottom Left"

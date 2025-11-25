@@ -25,7 +25,9 @@ export default function Contact() {
     const elementTop = blocksRef.current.getBoundingClientRect().top + scrollY;
     const distance = scrollY - elementTop;
     const speed = direction === "slower" ? 0.5 : 1;
-    return distance * speed;
+    const offset = distance * speed;
+    // Limit parallax movement to prevent gaps
+    return Math.max(-120, Math.min(120, offset));
   };
 
   const faqs = [

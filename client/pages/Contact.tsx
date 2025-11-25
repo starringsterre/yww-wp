@@ -130,12 +130,21 @@ export default function Contact() {
 
           {/* Right Column - Text */}
           <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ aspectRatio: "1 / 1", position: "sticky", top: "0", backgroundColor: "#fbf9f7" }}>
-            <div className="space-y-4">
-              <p className="text-gray-700 leading-relaxed">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
+            <div className="space-y-6 text-center">
+              <h3 className="text-3xl md:text-4xl font-light text-gray-900 tracking-wide">
+                JOUW TRANSFORMATIE BEGINT HIER
+              </h3>
+              <div className="flex justify-center">
+                <div className="w-16 h-px bg-gray-400"></div>
+              </div>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                Tijdens het retreat leer je jezelf beter kennen. Door reflectie, groepsondersteuning en praktische tools ontdek je wat je echt wilt en wat je tegenhoudt. Je maakt bewuste keuzes in plaats van op autopilot je leven in te vullen.
+              </p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                In een veilige setting van gelijkgestemde vrouwen werk je aan persoonlijke groei. Je deelt ervaringen, je luistert naar ander perspectief en je voelt je ondersteund. Die verbinding is waardevol en blijft lang nawerken.
+              </p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                Je gaat naar huis met duidelijkheid, nieuwe energie en vertrouwen in jezelf. Met praktische tools en inzichten ben je beter uitgerust om je eigen unieke koers te volgen en de impact te maken waar je naar verlangt.
               </p>
             </div>
           </div>

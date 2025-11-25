@@ -75,7 +75,7 @@ export default function Contact() {
       >
         <div className="flex flex-col md:flex-row">
           {/* Left Column - Text */}
-          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "640px" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "640px", overflow: "hidden" }}>
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-gray-900">
                 Ons Verhaal

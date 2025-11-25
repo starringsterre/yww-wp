@@ -96,7 +96,7 @@ export default function Contact() {
               alt="Story Top Right"
               className="w-full h-full object-cover"
               style={{
-                transform: `translateY(${getParallaxOffset(blocksRef, "slower")}px)`,
+                transform: `translateY(${getParallaxOffset("slower")}px)`,
                 transition: "transform 0.1s ease-out",
               }}
             />

@@ -1,8 +1,32 @@
 import { Plus, Minus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Contact() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+  const [scrollY, setScrollY] = useState(0);
+  const blocksRef = useRef<HTMLDivElement>(null);
+
+  const image1Url =
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F2acad583f0d54543a360b7ba2774caaf?format=webp&width=800";
+  const image2Url =
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa3d9da8a58614d01b654adc4425fe752?format=webp&width=800";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const getParallaxOffset = (direction: "slower" | "faster" = "slower") => {
+    if (!blocksRef.current) return 0;
+    const elementTop = blocksRef.current.getBoundingClientRect().top + scrollY;
+    const distance = scrollY - elementTop;
+    const speed = direction === "slower" ? 0.5 : 1;
+    return distance * speed;
+  };
 
   const faqs = [
     {

@@ -293,7 +293,7 @@ export default function Retreats() {
       <section
         className="relative py-32 px-4 md:px-8 flex items-center justify-center min-h-screen bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=800')`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=2000')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",

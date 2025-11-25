@@ -107,7 +107,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
+        <div ref={blocks2Ref} className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
           <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ aspectRatio: "1 / 1" }}>
             <img
@@ -116,7 +116,7 @@ export default function Contact() {
               className="w-full object-cover"
               style={{
                 height: "120%",
-                transform: `translateY(${getParallaxOffset("slower")}px)`,
+                transform: `translateY(${getParallaxOffset(blocks2Ref, "slower")}px)`,
                 transition: "transform 0.1s ease-out",
               }}
             />

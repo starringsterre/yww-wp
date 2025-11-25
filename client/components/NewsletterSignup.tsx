@@ -1,6 +1,57 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function NewsletterSignup() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("https://guidocroon.com/n8n/webhook/nieuwsbrief", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to subscribe");
+      }
+
+      toast({
+        title: "Ingeschreven!",
+        description: "Je bent succesvol ingeschreven voor de nieuwsbrief.",
+        duration: 5000,
+      });
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast({
+        title: "Fout bij inschrijving",
+        description: "Er is iets misgegaan. Probeer het alstublieft opnieuw.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section
       className="py-20 px-4 md:px-8 bg-cover bg-center relative"
@@ -18,12 +69,14 @@ export default function NewsletterSignup() {
             toekomstige Young Wise Women evenementen.
           </p>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <input
                   type="text"
                   placeholder="Voornaam"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                   required
@@ -33,6 +86,8 @@ export default function NewsletterSignup() {
                 <input
                   type="text"
                   placeholder="Achternaam"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                   required
@@ -43,6 +98,8 @@ export default function NewsletterSignup() {
               <input
                 type="email"
                 placeholder="je@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 style={{ backgroundColor: "rgba(255, 255, 255, 1)" }}
                 required
@@ -50,26 +107,24 @@ export default function NewsletterSignup() {
             </div>
             <Button
               type="submit"
+              disabled={isLoading}
               className="w-full text-white py-3 transition-all duration-300 hover:scale-105"
               style={{
                 backgroundColor: "rgb(120, 110, 100)",
-                opacity: 1
+                opacity: isLoading ? 0.6 : 1,
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = "0.75";
+                if (!isLoading) {
+                  e.currentTarget.style.opacity = "0.75";
+                }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = "1";
+                if (!isLoading) {
+                  e.currentTarget.style.opacity = "1";
+                }
               }}
-              asChild
             >
-              <a
-                href="https://eepurl.com/h-ZlwT"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Inschrijven
-              </a>
+              {isLoading ? "Bezig met inschrijven..." : "Inschrijven"}
             </Button>
           </form>
         </div>

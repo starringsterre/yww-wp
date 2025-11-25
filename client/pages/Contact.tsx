@@ -106,10 +106,6 @@ export default function Contact() {
               src={image2Url}
               alt="Story Bottom Left"
               className="w-full h-full object-cover"
-              style={{
-                transform: `translateY(${getParallaxOffset("slower")}px)`,
-                transition: "transform 0.1s ease-out",
-              }}
             />
           </div>
 

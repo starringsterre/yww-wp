@@ -90,7 +90,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Image Top */}
-          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "320px" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
             <img
               src={image1Url}
               alt="Story Top Right"

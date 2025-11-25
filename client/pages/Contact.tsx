@@ -126,7 +126,7 @@ export default function Contact() {
           <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ aspectRatio: "1 / 1", position: "sticky", top: "0", backgroundColor: "#fbf9f7" }}>
             <div className="space-y-6 text-center">
               <h3 className="text-3xl md:text-4xl font-light text-gray-900 tracking-wide">
-                UNIEKE KRACHT
+                Unieke Kracht
               </h3>
               <div className="flex justify-center">
                 <div className="w-16 h-px bg-gray-400"></div>

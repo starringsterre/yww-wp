@@ -151,7 +151,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Link
                 to="/lid-worden"
                 onClick={() => setMobileMenuOpen(false)}
-                className="px-6 py-2 rounded-lg font-medium transition-colors text-sm text-white mt-2"
+                className="px-6 py-2 rounded-lg font-medium text-sm text-white mt-2 transition-all duration-300 hover:scale-105"
                 style={{ backgroundColor: "#98a481" }}
               >
                 Lid worden

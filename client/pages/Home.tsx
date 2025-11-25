@@ -413,7 +413,17 @@ export default function Home() {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-primary text-white py-3 transition-all duration-300 hover:scale-105"
+                className="w-full text-white py-3 transition-all duration-300 hover:scale-105"
+                style={{
+                  backgroundColor: "rgb(120, 110, 100)",
+                  opacity: 1
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "0.75";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                }}
                 asChild
               >
                 <a

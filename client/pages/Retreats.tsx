@@ -289,6 +289,32 @@ export default function Retreats() {
         </div>
       </section>
 
+      {/* Location Map */}
+      <section className="py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+              Op een inspirerende locatie in Nederland
+            </h2>
+            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
+              Eerste Molenweg 6, Blaricum
+            </p>
+          </div>
+
+          <div className="rounded-lg overflow-hidden shadow-lg" style={{ height: "500px" }}>
+            <iframe
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen=""
+              referrerPolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8956747889656!2d5.246399!3d52.2635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5c8d8c8d8c8d9%3A0x0!2sEerste%20Molenweg%206%2C%201261%20CB%20Blaricum!5e0!3m2!1sen!2snl!4v1234567890"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
       {/* For Whom */}
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">

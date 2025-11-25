@@ -25,9 +25,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/verhaal", label: "Retreats" },
+    { href: "/retreats", label: "Retreats" },
     { href: "/kalender", label: "Kalender" },
-    { href: "/contact", label: "Ons Verhaal" },
+    { href: "/ons-verhaal", label: "Ons Verhaal" },
   ];
 
   return (

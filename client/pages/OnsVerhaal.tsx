@@ -1,15 +1,44 @@
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import { useEffect, useRef, useState } from "react";
 
-import { testimonials } from "@/lib/testimonials";
+const image1Url =
+  "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcf6849fa4e1a4b76b17b1abaac301ee1?format=webp&width=800";
+const image2Url =
+  "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F945ca90893154576b796be7856f99f8e?format=webp&width=800";
 
 export default function OnsVerhaal() {
+  const [scrollY, setScrollY] = useState(0);
+  const section1Ref = useRef<HTMLDivElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const getParallaxOffset = (
+    elementRef: React.RefObject<HTMLDivElement>,
+    direction: "slower" | "faster" = "slower"
+  ) => {
+    if (!elementRef.current) return 0;
+
+    const elementTop = elementRef.current.getBoundingClientRect().top + scrollY;
+    const distance = scrollY - elementTop;
+    const speed = direction === "slower" ? 0.5 : 1;
+
+    return distance * speed;
+  };
+
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-20 px-4 md:px-8 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Retreats
+            Ons Verhaal
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Ontdek wat Young Wise Women betekent en wat ons drijft
@@ -17,142 +46,130 @@ export default function OnsVerhaal() {
         </div>
       </section>
 
-      {/* Three Pillars */}
-      <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            De Drie Pijlers van het Retreat
-          </h2>
-
-          <div className="space-y-8">
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">
-                1. Reflectie
-              </h3>
-              <p className="text-gray-700 mb-3">
-                De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">
-                2. Rust & Ruimte
-              </h3>
-              <p className="text-gray-700 mb-3">
-                Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24+). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-200">
-              <h3 className="text-2xl font-light text-gray-900 mb-4">
-                3. Inspiratie & Nieuwe Tools
-              </h3>
-              <p className="text-gray-700 mb-3">
-                Een weekend (re)treat waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en nieuwe praktische tools krijgt aangereikt voor nu en je toekomst als bevordering voor jou als young professional in je carrière.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* What You Experience */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            Jouw Transformatie
-          </h2>
-
-          <div className="space-y-8">
-            <div className="border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg">
-              <h3 className="text-2xl font-light text-gray-900 mb-3">
-                Waar je Afscheid van Neemt
-              </h3>
-              <p className="text-gray-700 mb-2">
-                Zeg vaarwel aan je 'please-gedrag' - jezelf voortdurend aanpassen en moeten voldoen aan standaarden en verwachtingen.
-              </p>
-              <p className="text-gray-700">
-                Neem afscheid van bullshitbanen, FOMO en de kans op een burnout.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg">
-              <h3 className="text-2xl font-light text-gray-900 mb-3">
-                Wat je Meeneemt
-              </h3>
-              <p className="text-gray-700 mb-2">
-                Persoonlijke groei - of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling.
-              </p>
-              <p className="text-gray-700 mb-2">
-                Eigen wijsheid - de andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen.
-              </p>
-              <p className="text-gray-700">
-                Nieuwe energie en motivatie - thema's die al langer in je leven spelen, worden helderder. Je voelt richting, duidelijkheid én de drive om in beweging te komen.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg">
-              <h3 className="text-2xl font-light text-gray-900 mb-3">
-                Jouw Volgende Stap
-              </h3>
-              <p className="text-gray-700">
-                Kies nu voor betekenisvol, vitaal en gelukkig leven en werken en word die geweldige vrouw die je bedoeld bent te zijn. Niet door harder te werken of te doen wat anderen doen, maar je eigen unieke koers te volgen en bewuste keuzes te maken.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* For Whom */}
-      <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            Voor Wie is dit Retreat
-          </h2>
-
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
-            Dit retreat is speciaal ontworpen voor jonge professionals (24+) die:
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700">
-                ✓ Op zoek zijn naar meer betekenis in hun werk en leven
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700">
-                ✓ Ruimte nodig hebben om stil te staan bij hun doelen
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700">
-                ✓ Willen groeien met steun van een groep gelijkgestemde vrouwen
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700">
-                ✓ Hun carrière opnieuw willen definiëren
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <p className="text-gray-700">
-                ✓ Praktische tools zoeken voor hun leven en werk
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Carousel */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
+      {/* Section 1: Text Left, Image Right (with parallax) */}
+      <section
+        ref={section1Ref}
+        className="py-20 px-4 md:px-8 bg-white overflow-hidden"
+      >
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
-            Stemmen van Deelneemsters
-          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Text Content */}
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-5xl font-light text-gray-900">
+                Het Begin van Ons Avontuur
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Young Wise Women is geboren uit een passie om jonge professionals
+                te ondersteunen in hun persoonlijke en professionele groei. We
+                geloven dat de beste versie van jezelf niet alleen goed is voor
+                jouw wellbeing, maar ook voor de wereld om je heen.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                Onze missie is om vrouwen in de leeftijd van 24+ te helpen een
+                betekenisvol leven te leiden, waarbij ze hun unieke talenten en
+                wijsheid volledig kunnen omarmen. We creëren ruimte voor reflectie,
+                groei en inspiratie.
+              </p>
+            </div>
 
-          <div className="max-w-4xl mx-auto">
-            <TestimonialsCarousel testimonials={testimonials} />
+            {/* Image with Parallax Effect */}
+            <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg">
+              <img
+                src={image1Url}
+                alt="Young Wise Women"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset(section1Ref, "slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Section 2: Image Left, Text Right (mirrored with parallax) */}
+      <section
+        ref={section2Ref}
+        className="py-20 px-4 md:px-8 bg-gray-50 overflow-hidden"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Image with Parallax Effect (mirrored position) */}
+            <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
+              <img
+                src={image2Url}
+                alt="Young Wise Women Community"
+                className="w-full h-full object-cover"
+                style={{
+                  transform: `translateY(${getParallaxOffset(section2Ref, "slower")}px)`,
+                  transition: "transform 0.1s ease-out",
+                }}
+              />
+            </div>
+
+            {/* Text Content (mirrored order) */}
+            <div className="space-y-6 order-1 md:order-2">
+              <h2 className="text-4xl md:text-5xl font-light text-gray-900">
+                Onze Waarden
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                We geloven in de kracht van authenticiteit, zelfkennis en
+                ondersteuning van elkaar. Elke vrouw heeft waardevolle wijsheid
+                in zich, en het is ons doel om die naar boven te brengen.
+              </p>
+              <div className="space-y-4 pt-4">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                    ✓
+                  </div>
+                  <p className="text-gray-700">
+                    Authentieke verbinding met jezelf en anderen
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                    ✓
+                  </div>
+                  <p className="text-gray-700">
+                    Ruimte voor reflectie en persoonlijke groei
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                    ✓
+                  </div>
+                  <p className="text-gray-700">
+                    Steun en inspiratie van gelijkgestemde vrouwen
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                    ✓
+                  </div>
+                  <p className="text-gray-700">
+                    Praktische tools voor betekenisvolle verandering
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 md:px-8 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+            Ben je klaar voor je volgende stap?
+          </h2>
+          <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+            Sluit je aan bij onze community van jonge professionals en ontdek
+            wat er in jou zit. Samen groeien we naar onze beste versie.
+          </p>
+          <button className="px-8 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium">
+            Ontdek Onze Retreats
+          </button>
         </div>
       </section>
     </div>

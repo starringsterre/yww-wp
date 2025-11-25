@@ -8,6 +8,7 @@ import { testimonials } from "@/lib/testimonials";
 
 export default function Home() {
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
 
   const videoUrl =
     "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
@@ -15,6 +16,13 @@ export default function Home() {
     "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fedaf553c26414cd5af248f8c42bec4bb?format=webp&width=800";
   const lieneImageUrl =
     "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F11834262257d4b5287de33d164171bdd?format=webp&width=800";
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCTA(true);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="w-full">

@@ -90,11 +90,15 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Image Top */}
-          <div className="w-full md:w-1/2 relative" style={{ height: "640px", overflow: "hidden" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
             <img
               src={image1Url}
               alt="Story Top Right"
               className="w-full h-full object-cover"
+              style={{
+                transform: `translateY(${getParallaxOffset(blocksRef, "slower")}px)`,
+                transition: "transform 0.1s ease-out",
+              }}
             />
           </div>
         </div>

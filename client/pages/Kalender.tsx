@@ -43,7 +43,7 @@ export default function Kalender() {
                 <Calendar className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    13 - 15 februari 2026
+                    12 - 14 juni 2026
                   </p>
                   <p className="text-gray-600">
                     Vrijdag 17:30 uur tot Zondag 16:00 uur
@@ -146,10 +146,10 @@ export default function Kalender() {
               <h3 className="text-2xl font-medium text-gray-900 mb-4">
                 Via Werkgever
               </h3>
-              <p className="text-5xl font-light text-primary mb-2">€1.120</p>
-              <p className="text-sm text-gray-600 mb-6">incl. BTW</p>
+              <p className="text-5xl font-light text-primary mb-2">€1.450</p>
+              <p className="text-sm text-gray-600 mb-6">excl. BTW</p>
               <p className="text-gray-700 text-sm">
-                Opleidingstarief voor inschrijvingen vergoed door je werkgever
+                Opleidingstarief voor inschrijvingen vergoed door je werkgever.
               </p>
             </div>
 

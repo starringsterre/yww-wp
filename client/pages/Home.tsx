@@ -18,10 +18,14 @@ export default function Home() {
     "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F11834262257d4b5287de33d164171bdd?format=webp&width=800";
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowCTA(true);
-    }, 5000);
-    return () => clearTimeout(timer);
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShowCTA(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (

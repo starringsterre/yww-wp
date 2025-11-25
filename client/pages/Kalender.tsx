@@ -236,7 +236,8 @@ export default function Kalender() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-green-600 text-white hover:bg-green-700 py-3"
+                className="text-white py-3 transition-opacity hover:opacity-90"
+                style={{ backgroundColor: "#7c8869" }}
                 asChild
               >
                 <a

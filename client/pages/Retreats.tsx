@@ -181,6 +181,71 @@ export default function Retreats() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="px-4 md:px-8" style={{ backgroundColor: "#b7b7a4", padding: "0 32px 80px" }}>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-light text-center text-white mb-12" style={{ paddingTop: "40px" }}>
+            Veelgestelde Vragen
+          </h2>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden"
+              >
+                <button
+                  onClick={() =>
+                    setExpandedFaq(expandedFaq === index ? null : index)
+                  }
+                  className="w-full px-6 py-4 flex items-center gap-4 transition-colors text-left group"
+                >
+                  <div className="flex-shrink-0">
+                    {expandedFaq === index ? (
+                      <Minus
+                        className="w-5 h-5"
+                        style={{ color: "#98a481" }}
+                      />
+                    ) : (
+                      <Plus
+                        className="w-5 h-5"
+                        style={{ color: "#98a481" }}
+                      />
+                    )}
+                  </div>
+                  <h3
+                    className="text-base font-medium transition-colors cursor-pointer"
+                    style={{
+                      color: expandedFaq === index ? "#5a6d4f" : "rgb(0, 0, 0)"
+                    }}
+                    onMouseEnter={(e) => {
+                      if (expandedFaq !== index) {
+                        e.currentTarget.style.color = "#5a6d4f";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (expandedFaq !== index) {
+                        e.currentTarget.style.color = "rgb(0, 0, 0)";
+                      }
+                    }}
+                  >
+                    {faq.question}
+                  </h3>
+                </button>
+
+                {expandedFaq === index && (
+                  <div className="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                    <p className="text-gray-700 text-sm leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

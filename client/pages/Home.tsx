@@ -43,8 +43,14 @@ export default function Home() {
           </p>
           <Button
             size="lg"
-            className="text-white hover:opacity-90 border-0 animate-fade-in-up"
-            style={{ backgroundColor: "#98a481" }}
+            className="text-white border-0 animate-fade-in-up transition-all duration-300 hover:scale-110"
+            style={{ backgroundColor: "#98a481", opacity: 0.85 }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = "1";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = "0.85";
+            }}
             asChild
           >
             <a

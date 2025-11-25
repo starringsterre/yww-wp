@@ -409,7 +409,13 @@ export default function Home() {
                 type="submit"
                 className="w-full text-white py-3 transition-all duration-300 hover:scale-105"
                 style={{
-                  backgroundColor: "#98a481"
+                  backgroundColor: "rgb(152, 139, 129)"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#98a481";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgb(152, 139, 129)";
                 }}
                 asChild
               >

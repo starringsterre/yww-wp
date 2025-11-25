@@ -94,10 +94,13 @@ export default function Contact() {
             <img
               src={image1Url}
               alt="Story Top Right"
-              className="w-full h-full object-cover"
+              className="w-full object-cover"
               style={{
+                height: "100%",
                 transform: `translateY(${getParallaxOffset("slower")}px)`,
                 transition: "transform 0.1s ease-out",
+                minHeight: "800px",
+                objectPosition: "center",
               }}
             />
           </div>

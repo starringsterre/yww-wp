@@ -293,7 +293,7 @@ export default function Retreats() {
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            Voor Wie is dit Retreat
+            Voor wie zijn onze Retreats
           </h2>
 
           <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
@@ -301,27 +301,27 @@ export default function Retreats() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div className="p-6 rounded-lg border border-gray-200" style={{ backgroundColor: "rgba(183, 183, 164, 0.5)" }}>
               <p className="text-gray-700">
                 ✓ Op zoek zijn naar meer betekenis in hun werk en leven
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div className="p-6 rounded-lg border border-gray-200" style={{ backgroundColor: "rgba(183, 183, 164, 0.5)" }}>
               <p className="text-gray-700">
                 ✓ Ruimte nodig hebben om stil te staan bij hun doelen
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div className="p-6 rounded-lg border border-gray-200" style={{ backgroundColor: "rgba(183, 183, 164, 0.5)" }}>
               <p className="text-gray-700">
                 ✓ Willen groeien met steun van een groep gelijkgestemde vrouwen
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div className="p-6 rounded-lg border border-gray-200" style={{ backgroundColor: "rgba(183, 183, 164, 0.5)" }}>
               <p className="text-gray-700">
                 ✓ Hun carrière opnieuw willen definiëren
               </p>
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <div className="p-6 rounded-lg border border-gray-200" style={{ backgroundColor: "rgba(183, 183, 164, 0.5)" }}>
               <p className="text-gray-700">
                 ✓ Praktische tools zoeken voor hun leven en werk
               </p>

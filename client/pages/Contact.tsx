@@ -78,7 +78,7 @@ export default function Contact() {
       >
         <div className="flex flex-col md:flex-row relative">
           {/* Left Column - Text */}
-          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ aspectRatio: "1 / 1", position: "sticky", top: "0" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center z-10" style={{ aspectRatio: "1 / 1", position: "sticky", top: "0", backgroundColor: "#fbf9f6" }}>
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-gray-900">
                 Ons Verhaal

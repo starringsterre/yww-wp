@@ -160,60 +160,85 @@ export default function Retreats() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-            {galleryImages.map((image, index) => (
-              <div key={index} className="aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {gridImages.map((image, index) => (
+              <button
+                key={index}
+                onClick={() => openModal(index)}
+                className="aspect-square rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group"
+              >
                 <img
                   src={image}
                   alt={`Retreat moment ${index + 1}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-              </div>
+              </button>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="flex justify-center">
-            <div className="relative w-full max-w-2xl">
-              <div className="aspect-video rounded-lg overflow-hidden shadow-lg bg-black">
-                <img
-                  src={galleryImages[gallerySlideIndex]}
-                  alt={`Retreat slide ${gallerySlideIndex + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+      {/* Photo Gallery Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4" onClick={() => setModalOpen(false)}>
+          <div className="relative w-full h-full max-w-6xl max-h-screen flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            {/* Close Button */}
+            <button
+              onClick={() => setModalOpen(false)}
+              className="absolute top-4 right-4 z-50 bg-white rounded-full p-2 hover:bg-gray-200 transition-colors"
+              aria-label="Close gallery"
+            >
+              <X size={28} className="text-gray-900" />
+            </button>
 
+            {/* Main Image */}
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={allSlideImages[modalSlideIndex]}
+                alt={`Retreat photo ${modalSlideIndex + 1}`}
+                className="max-w-full max-h-full object-contain"
+              />
+
+              {/* Previous Button */}
               <button
                 onClick={prevSlide}
                 className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors z-10"
-                aria-label="Previous slide"
+                aria-label="Previous photo"
               >
-                <ChevronLeft size={24} className="text-gray-900" />
+                <ChevronLeft size={32} className="text-gray-900" />
               </button>
 
+              {/* Next Button */}
               <button
                 onClick={nextSlide}
                 className="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100 transition-colors z-10"
-                aria-label="Next slide"
+                aria-label="Next photo"
               >
-                <ChevronRight size={24} className="text-gray-900" />
+                <ChevronRight size={32} className="text-gray-900" />
               </button>
 
-              <div className="flex justify-center gap-2 mt-6">
-                {galleryImages.map((_, index) => (
+              {/* Image Counter */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm">
+                {modalSlideIndex + 1} / {allSlideImages.length}
+              </div>
+
+              {/* Dot Indicators */}
+              <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-md">
+                {allSlideImages.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setGallerySlideIndex(index)}
+                    onClick={() => setModalSlideIndex(index)}
                     className={`h-2 rounded-full transition-all duration-300 ${
-                      index === gallerySlideIndex ? "w-8 bg-gray-900" : "w-2 bg-gray-400 hover:bg-gray-600"
+                      index === modalSlideIndex ? "w-6 bg-white" : "w-2 bg-gray-400 hover:bg-gray-300"
                     }`}
-                    aria-label={`Go to slide ${index + 1}`}
+                    aria-label={`Go to photo ${index + 1}`}
                   />
                 ))}
               </div>
             </div>
           </div>
         </div>
-      </section>
+      )}
 
       {/* What You Experience */}
       <section className="py-20 px-4 md:px-8 bg-gray-50">

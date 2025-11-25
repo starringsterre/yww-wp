@@ -105,11 +105,15 @@ export default function Contact() {
 
         <div className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
-          <div className="w-full md:w-1/2 relative" style={{ height: "640px", overflow: "hidden" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
             <img
               src={image2Url}
               alt="Story Bottom Left"
               className="w-full h-full object-cover"
+              style={{
+                transform: `translateY(${getParallaxOffset("slower")}px)`,
+                transition: "transform 0.1s ease-out",
+              }}
             />
           </div>
 

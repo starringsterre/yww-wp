@@ -106,12 +106,13 @@ export default function Contact() {
 
         <div className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
-          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ height: "640px" }}>
             <img
               src={image2Url}
               alt="Story Bottom Left"
-              className="w-full h-full object-cover"
+              className="w-full object-cover"
               style={{
+                height: "110%",
                 transform: `translateY(${getParallaxOffset("slower")}px)`,
                 transition: "transform 0.1s ease-out",
               }}

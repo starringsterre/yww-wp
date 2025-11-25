@@ -98,7 +98,6 @@ export default function Contact() {
               style={{
                 transform: `translateY(${getParallaxOffset("slower")}px)`,
                 transition: "transform 0.1s ease-out",
-                marginBottom: "157px",
               }}
             />
           </div>

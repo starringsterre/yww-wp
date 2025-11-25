@@ -289,42 +289,23 @@ export default function Retreats() {
         </div>
       </section>
 
-      {/* Location Map */}
-      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#fbf9f6" }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-              Op een inspirerende locatie in Nederland
-            </h2>
-            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              Veel van onze retreats vinden plaats in het schilderachtige Friesland, waar rust en natuur samenkomen
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Image Column */}
-            <div className="rounded-lg overflow-hidden shadow-lg">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F3bf1b5040abc4fb09c258d48babfc1c8?format=webp&width=800"
-                alt="Oudegaasterbrekken Friesland"
-                className="w-full h-full object-cover"
-                style={{ minHeight: "500px", transform: "rotate(90deg)" }}
-              />
-            </div>
-
-            {/* Map Column */}
-            <div className="rounded-lg overflow-hidden shadow-lg" style={{ height: "500px" }}>
-              <iframe
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen=""
-                referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4823.565907567312!2d5.8766!3d53.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b5d8d8d8d8d8d9%3A0x0!2sOudegaasterbrekken%2C%20Friesland%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890"
-              ></iframe>
-            </div>
-          </div>
+      {/* Location Hero */}
+      <section
+        className="relative py-32 px-4 md:px-8 flex items-center justify-center min-h-screen bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F17498a95cf7349ee8fef0ccbd8a9f40a?format=webp&width=800')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="text-center max-w-4xl mx-auto relative z-10">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6">
+            Op een inspirerende locatie in Nederland
+          </h2>
+          <p className="text-lg md:text-xl text-gray-100 mx-auto">
+            Veel van onze retreats vinden plaats in het schilderachtige Friesland
+          </p>
         </div>
       </section>
 

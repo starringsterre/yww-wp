@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import OnsVerhaal from "./pages/OnsVerhaal";
+import Retreats from "./pages/Retreats";
 import Kalender from "./pages/Kalender";
 import Contact from "./pages/Contact";
 import LidWorden from "./pages/LidWorden";

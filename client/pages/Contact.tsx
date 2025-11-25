@@ -133,7 +133,7 @@ export default function Contact() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
+      <section className="px-4 md:px-8" style={{ backgroundColor: "#b7b7a4", padding: "0 32px 80px" }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-white mb-12">
             Veelgestelde Vragen

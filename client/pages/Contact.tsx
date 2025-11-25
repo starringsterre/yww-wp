@@ -118,7 +118,7 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Text */}
-          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "640px" }}>
+          <div className="w-full md:w-1/2 px-4 md:px-8 flex items-center" style={{ minHeight: "640px", overflow: "hidden" }}>
             <div className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
                 Duis aute irure dolor in reprehenderit in voluptate velit esse

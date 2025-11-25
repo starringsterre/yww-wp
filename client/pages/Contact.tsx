@@ -104,9 +104,9 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="flex flex-col-reverse md:flex-row" style={{ margin: "48px 0 0" }}>
+        <div className="flex flex-col-reverse md:flex-row" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
-          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "320px" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
             <img
               src={image2Url}
               alt="Story Bottom Left"

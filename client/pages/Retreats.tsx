@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Minus, Brain, Wind, Lightbulb } from "lucide-react";
+import { Plus, Minus, Brain, Wind, Lightbulb, ChevronLeft, ChevronRight } from "lucide-react";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 
 import { testimonials } from "@/lib/testimonials";

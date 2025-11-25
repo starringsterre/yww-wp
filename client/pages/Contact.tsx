@@ -108,7 +108,7 @@ export default function Contact() {
 
         <div className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
-          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ minHeight: "140vh" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ aspectRatio: "1 / 1" }}>
             <img
               src={image2Url}
               alt="Story Bottom Left"

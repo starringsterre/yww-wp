@@ -17,7 +17,7 @@ export default function Retreats() {
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F83bc1cad84b64bc5bf179476a883178b?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0c9c89796f6a451cad25ef33b9bfd178?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F1a42d8ce7d884dd285837d12b0b1ffb7?format=webp&width=800",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fad40a89daf624765aca520c9bf2d3bd5?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0454f106b58340f2b1d9e58f52316087?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6420ed9ac504161856d9dcfebc9cb02?format=webp&width=800",
   ];
 
@@ -29,7 +29,7 @@ export default function Retreats() {
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F83bc1cad84b64bc5bf179476a883178b?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0c9c89796f6a451cad25ef33b9bfd178?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F1a42d8ce7d884dd285837d12b0b1ffb7?format=webp&width=800",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fad40a89daf624765aca520c9bf2d3bd5?format=webp&width=800",
+    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0454f106b58340f2b1d9e58f52316087?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6420ed9ac504161856d9dcfebc9cb02?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7b95dc37c38247c9813a6ee7bdb6b379?format=webp&width=800",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc5b0ea28095644428588e919756c54d3?format=webp&width=800",

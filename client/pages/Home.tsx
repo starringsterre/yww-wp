@@ -68,7 +68,7 @@ export default function Home() {
   const [videoPlaying, setVideoPlaying] = useState(false);
 
   const videoUrl =
-    "https://cdn.builder.io/o/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fff3c28b82bd343dc903d1bfef5e504da?alt=media&token=47e967c1-89fe-450d-9158-d14f401ac477&apiKey=5a9469c697e2499eab1b2d92d6c4e731";
+    "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
   const ellaImageUrl =
     "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fedaf553c26414cd5af248f8c42bec4bb?format=webp&width=800";
   const lieneImageUrl =

@@ -9,8 +9,7 @@ interface CalendarEvent {
 
 const events: Record<number, CalendarEvent[]> = {
   2025: [
-    { month: 1, type: "retreat", label: "Weekend retreat" },
-    { month: 7, type: "mini-retreat", label: "Mini dag retreat" },
+    { month: 1, type: "mini-retreat", label: "Mini retreat" },
     { month: 10, type: "retreat", label: "Weekend retreat" },
     { month: 12, type: "sunday-gathering", label: "Community zondag" },
   ],

@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { Menu, X, Instagram, Linkedin } from "lucide-react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {

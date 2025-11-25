@@ -100,7 +100,7 @@ export default function Contact() {
               className="w-full object-cover"
               style={{
                 height: "120%",
-                transform: `translateY(${getParallaxOffset("slower")}px)`,
+                transform: `translateY(${getParallaxOffset(blocksRef, "slower")}px)`,
                 transition: "transform 0.1s ease-out",
               }}
             />

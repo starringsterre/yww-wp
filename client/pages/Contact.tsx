@@ -90,17 +90,15 @@ export default function Contact() {
           </div>
 
           {/* Right Column - Image Top */}
-          <div className="w-full md:w-1/2 relative overflow-hidden" style={{ height: "640px" }}>
+          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ height: "640px" }}>
             <img
               src={image1Url}
               alt="Story Top Right"
               className="w-full object-cover"
               style={{
-                height: "100%",
+                height: "110%",
                 transform: `translateY(${getParallaxOffset("slower")}px)`,
                 transition: "transform 0.1s ease-out",
-                minHeight: "800px",
-                objectPosition: "center",
               }}
             />
           </div>

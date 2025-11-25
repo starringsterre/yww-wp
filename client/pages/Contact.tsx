@@ -70,12 +70,12 @@ export default function Contact() {
       {/* One Block with Parallax */}
       <section
         ref={blocksRef}
-        className="px-4 md:px-8 bg-white overflow-hidden"
-        style={{ padding: "9px 32px 200px" }}
+        className="bg-white overflow-hidden"
+        style={{ padding: "9px 0 200px" }}
       >
-        <div className="max-w-6xl mx-auto space-y-12">
-          {/* Top Row: Text Left, Image Right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div className="flex">
+          {/* Left Column - Text */}
+          <div className="w-1/2 px-8 flex items-center" style={{ minHeight: "320px" }}>
             <div className="space-y-4">
               <h3 className="text-2xl font-light text-gray-900">
                 Ons Verhaal
@@ -87,34 +87,40 @@ export default function Contact() {
                 nisi ut aliquip ex ea commodo consequat.
               </p>
             </div>
-            <div className="relative overflow-hidden rounded-lg shadow-lg" style={{ height: "320px" }}>
-              <img
-                src={image1Url}
-                alt="Story Top Right"
-                className="w-full h-full object-cover"
-                style={{
-                  transform: `translateY(${getParallaxOffset("slower")}px)`,
-                  transition: "transform 0.1s ease-out",
-                  marginBottom: "157px",
-                }}
-              />
-            </div>
           </div>
 
-          {/* Bottom Row: Image Left, Text Right */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ margin: "48px 0 179px" }}>
-            <div className="relative overflow-hidden rounded-lg shadow-lg order-2 md:order-1" style={{ height: "569px" }}>
-              <img
-                src={image2Url}
-                alt="Story Bottom Left"
-                className="w-full h-full object-cover"
-                style={{
-                  transform: `translateY(${getParallaxOffset("slower")}px)`,
-                  transition: "transform 0.1s ease-out",
-                }}
-              />
-            </div>
-            <div className="space-y-4 order-1 md:order-2">
+          {/* Right Column - Image Top */}
+          <div className="w-1/2 relative overflow-hidden" style={{ height: "320px" }}>
+            <img
+              src={image1Url}
+              alt="Story Top Right"
+              className="w-full h-full object-cover"
+              style={{
+                transform: `translateY(${getParallaxOffset("slower")}px)`,
+                transition: "transform 0.1s ease-out",
+                marginBottom: "157px",
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="flex" style={{ margin: "48px 0 179px" }}>
+          {/* Left Column - Image Bottom */}
+          <div className="w-1/2 relative overflow-hidden order-2" style={{ height: "569px" }}>
+            <img
+              src={image2Url}
+              alt="Story Bottom Left"
+              className="w-full h-full object-cover"
+              style={{
+                transform: `translateY(${getParallaxOffset("slower")}px)`,
+                transition: "transform 0.1s ease-out",
+              }}
+            />
+          </div>
+
+          {/* Right Column - Text */}
+          <div className="w-1/2 px-8 flex items-center order-1">
+            <div className="space-y-4">
               <p className="text-gray-700 leading-relaxed">
                 Duis aute irure dolor in reprehenderit in voluptate velit esse
                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat

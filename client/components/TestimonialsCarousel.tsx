@@ -77,22 +77,51 @@ export default function TestimonialsCarousel({
 
               {/* Testimonial Quote - Right Side */}
               <div className="flex-grow max-w-2xl flex flex-col h-full relative">
-                {/* Decorative quote mark - top right */}
-                <span
-                  className="absolute z-10"
+                {/* SVG Quote Icon - top right */}
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                   style={{
-                    right: 0,
-                    top: 0,
-                    fontSize: "88px",
-                    color: "#D9E9DF",
-                    opacity: 0.8,
-                    lineHeight: "1",
-                    fontFamily: "Inter, DM Sans, sans-serif",
-                    fontWeight: "300",
+                    position: "absolute",
+                    right: "16px",
+                    top: "16px",
+                    zIndex: 10,
                   }}
                 >
-                  "
-                </span>
+                  {/* Left quote */}
+                  <g>
+                    <rect x="4" y="8" width="12" height="12" rx="2" fill="#D9E9DF" />
+                    <text
+                      x="10"
+                      y="18"
+                      textAnchor="middle"
+                      fill="#ffffff"
+                      fontSize="10"
+                      fontWeight="bold"
+                      fontFamily="Georgia, serif"
+                    >
+                      "
+                    </text>
+                  </g>
+                  {/* Right quote */}
+                  <g>
+                    <rect x="20" y="8" width="12" height="12" rx="2" fill="#D9E9DF" />
+                    <text
+                      x="26"
+                      y="18"
+                      textAnchor="middle"
+                      fill="#ffffff"
+                      fontSize="10"
+                      fontWeight="bold"
+                      fontFamily="Georgia, serif"
+                    >
+                      "
+                    </text>
+                  </g>
+                </svg>
 
                 <div
                   className="relative"

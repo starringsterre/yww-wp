@@ -76,13 +76,14 @@ export default function TestimonialsCarousel({
               </div>
 
               {/* Testimonial Quote - Right Side */}
-              <div className="flex-grow max-w-2xl flex flex-col h-full">
-                <div className="flex items-start gap-4 flex-grow mb-4">
+              <div className="flex-grow max-w-2xl flex flex-col h-full relative">
+                <div className="relative pl-12 pt-4">
                   <span
-                    className="leading-none flex-shrink-0 -mt-6"
+                    className="absolute top-0 left-0 leading-none"
                     style={{
-                      fontSize: "5rem",
-                      color: "#98a481",
+                      fontSize: "64px",
+                      color: "#D9E9DF",
+                      opacity: 0.5,
                       fontFamily: "Georgia, serif",
                       fontWeight: "bold",
                       lineHeight: "1",
@@ -90,7 +91,14 @@ export default function TestimonialsCarousel({
                   >
                     "
                   </span>
-                  <p className="text-lg text-gray-700 italic leading-relaxed min-h-72">
+                  <p
+                    className="text-gray-700"
+                    style={{
+                      fontSize: "20px",
+                      lineHeight: "1.6",
+                      fontStyle: "italic",
+                    }}
+                  >
                     {testimonial.quote}
                   </p>
                 </div>

@@ -270,7 +270,7 @@ export default function Home() {
             Volgende Editie: 12-14 juni 2025
           </h2>
 
-          <BlurReveal className="rounded-lg">
+          <ScrollFadeInUp className="rounded-lg">
             <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div>
@@ -391,7 +391,7 @@ export default function Home() {
               </Button>
             </div>
             </div>
-          </BlurReveal>
+          </ScrollFadeInUp>
         </div>
       </section>
 
@@ -402,9 +402,9 @@ export default function Home() {
             Wat voorgaande deelneemsters zeggen
           </ScrollFadeInUp>
 
-          <BlurReveal className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <TestimonialsCarousel testimonials={testimonials} />
-          </BlurReveal>
+          </div>
         </div>
       </section>
 

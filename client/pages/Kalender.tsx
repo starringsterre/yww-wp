@@ -2,21 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users } from "lucide-react";
 import EventCalendar from "@/components/EventCalendar";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import HeroSection from "@/components/HeroSection";
 
 export default function Kalender() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Community Kalender
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Volgende evenementen en retreats van Young Wise Women
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        backgroundImage="https://images.pexels.com/photos/7551752/pexels-photo-7551752.jpeg"
+        title="Community Kalender"
+        subtitle="Volgende evenementen en retreats van Young Wise Women"
+      />
 
       {/* Event Calendar */}
       <EventCalendar />

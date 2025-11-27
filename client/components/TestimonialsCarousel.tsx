@@ -94,26 +94,17 @@ export default function TestimonialsCarousel({
                   "
                 </span>
 
-                <div className="relative pl-12 pt-4 pr-12">
-                  <span
-                    className="absolute top-0 left-0 leading-none"
-                    style={{
-                      fontSize: "64px",
-                      color: "#D9E9DF",
-                      opacity: 0.5,
-                      fontFamily: "Georgia, serif",
-                      fontWeight: "bold",
-                      lineHeight: "1",
-                    }}
-                  >
-                    "
-                  </span>
+                <div
+                  className="relative"
+                  style={{ padding: "16px 48px 0" }}
+                >
                   <p
                     className="text-gray-700"
                     style={{
                       fontSize: "20px",
                       lineHeight: "1.6",
                       fontStyle: "italic",
+                      marginLeft: "-1px",
                     }}
                   >
                     {testimonial.quote}

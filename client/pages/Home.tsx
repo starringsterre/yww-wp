@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import ScrollFadeInUp from "@/components/ScrollFadeInUp";
+import SlideInLeft from "@/components/SlideInLeft";
+import SlideInRight from "@/components/SlideInRight";
+import BlurReveal from "@/components/BlurReveal";
+import StaggerChildren from "@/components/StaggerChildren";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import CoachCardsGrid from "@/components/CoachCardsGrid";
 import NewsletterSignup from "@/components/NewsletterSignup";
@@ -100,29 +104,33 @@ export default function Home() {
           </p>
 
           {/* Three Image Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+          <StaggerChildren
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            animationType="blur-reveal"
+            staggerDelay={200}
+          >
+            <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fe09ac73d09854b79ab26b9a2f1b621b1?format=webp&width=4000"
                 alt="Sunset nature moment"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+            <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F359000dab9a94eb6b59fca5e2668ce4f?format=webp&width=4000"
                 alt="Community group gathering"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+            <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fba09bc28922e4f28ae356e7db1c5a2f4?format=webp&width=4000"
                 alt="Mentoring and connection"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
@@ -138,9 +146,13 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggerChildren
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            animationType="slide-in-left"
+            staggerDelay={150}
+          >
             {/* Benefit 1 */}
-            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Flower size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -156,7 +168,7 @@ export default function Home() {
             </div>
 
             {/* Benefit 2 */}
-            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Heart size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -172,7 +184,7 @@ export default function Home() {
             </div>
 
             {/* Benefit 3 */}
-            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Zap size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -188,7 +200,7 @@ export default function Home() {
             </div>
 
             {/* Benefit 4 */}
-            <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
               <div className="mb-6 flex justify-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
                   <Hammer size={32} style={{ color: "rgb(152, 139, 129)" }} />
@@ -202,7 +214,7 @@ export default function Home() {
                 leven en carrière
               </p>
             </div>
-          </div>
+          </StaggerChildren>
         </div>
       </section>
 
@@ -279,7 +291,7 @@ export default function Home() {
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li>✓ Intake met coach</li>
-                  <li>✓ Motivation Factor test (€145 waarde)</li>
+                  <li>�� Motivation Factor test (€145 waarde)</li>
                   <li>✓ Professionele begeleiding van twee coaches</li>
                   <li>✓ 2 nachten accommodatie</li>
                   <li>

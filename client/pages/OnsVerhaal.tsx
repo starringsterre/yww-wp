@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import HeroSection from "@/components/HeroSection";
 
 const image1Url =
   "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcf6849fa4e1a4b76b17b1abaac301ee1?format=webp&width=800";
@@ -35,16 +36,11 @@ export default function OnsVerhaal() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-8 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Ons Verhaal
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Ontdek wat Young Wise Women betekent en wat ons drijft
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        backgroundImage="https://images.pexels.com/photos/12198985/pexels-photo-12198985.jpeg"
+        title="Ons Verhaal"
+        subtitle="Ontdek wat Young Wise Women betekent en wat ons drijft"
+      />
 
       {/* Section 1: Text Left, Image Right (with parallax) */}
       <section

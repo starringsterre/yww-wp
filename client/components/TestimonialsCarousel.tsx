@@ -77,13 +77,15 @@ export default function TestimonialsCarousel({
 
               {/* Testimonial Quote - Right Side */}
               <div className="flex-grow max-w-2xl flex flex-col h-full">
-                <div className="flex items-start gap-3 flex-grow mb-4">
+                <div className="flex items-start gap-4 flex-grow mb-4">
                   <span
-                    className="text-7xl leading-none flex-shrink-0 -mt-4"
+                    className="leading-none flex-shrink-0 -mt-6"
                     style={{
-                      color: "rgba(80, 70, 61, 1)",
+                      fontSize: "5rem",
+                      color: "#98a481",
                       fontFamily: "Georgia, serif",
                       fontWeight: "bold",
+                      lineHeight: "1",
                     }}
                   >
                     "

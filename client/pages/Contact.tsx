@@ -35,8 +35,8 @@ export default function Contact() {
       {/* Hero */}
       <HeroSection
         backgroundImage="https://images.pexels.com/photos/5387294/pexels-photo-5387294.jpeg"
-        title="Contact"
-        subtitle="Neem contact met ons op"
+        title="Ons Verhaal"
+        subtitle="Hoe twee generaties elkaar versterken"
       />
 
 

@@ -77,7 +77,24 @@ export default function TestimonialsCarousel({
 
               {/* Testimonial Quote - Right Side */}
               <div className="flex-grow max-w-2xl flex flex-col h-full relative">
-                <div className="relative pl-12 pt-4">
+                {/* Decorative quote mark - top right */}
+                <span
+                  className="absolute z-10"
+                  style={{
+                    right: 0,
+                    top: 0,
+                    fontSize: "88px",
+                    color: "#D9E9DF",
+                    opacity: 0.8,
+                    lineHeight: "1",
+                    fontFamily: "Inter, DM Sans, sans-serif",
+                    fontWeight: "300",
+                  }}
+                >
+                  "
+                </span>
+
+                <div className="relative pl-12 pt-4 pr-12">
                   <span
                     className="absolute top-0 left-0 leading-none"
                     style={{

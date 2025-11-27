@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import HeroSection from "@/components/HeroSection";
 
 export default function Contact() {
   const [scrollY, setScrollY] = useState(0);
@@ -32,16 +33,11 @@ export default function Contact() {
   return (
     <div className="w-full">
       {/* Hero */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Ons Verhaal
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Twee generaties, één missie
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        backgroundImage="https://images.pexels.com/photos/5387294/pexels-photo-5387294.jpeg"
+        title="Contact"
+        subtitle="Neem contact met ons op"
+      />
 
 
       {/* One Block with Parallax */}

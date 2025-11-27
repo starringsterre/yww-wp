@@ -9,7 +9,7 @@ export default function Kalender() {
     <div className="w-full">
       {/* Hero */}
       <HeroSection
-        backgroundImage="https://images.pexels.com/photos/7551752/pexels-photo-7551752.jpeg"
+        backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F291b0682317740babd189a82623e6509?format=webp&width=2000"
         title="Community Kalender"
         subtitle="Volgende evenementen en retreats van Young Wise Women"
       />

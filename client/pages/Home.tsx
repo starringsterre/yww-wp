@@ -409,7 +409,9 @@ export default function Home() {
       </section>
 
       {/* Newsletter CTA Section */}
-      <NewsletterSignup />
+      <ScrollFadeInUp>
+        <NewsletterSignup />
+      </ScrollFadeInUp>
     </div>
   );
 }

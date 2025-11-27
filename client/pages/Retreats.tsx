@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus, Minus, Brain, Wind, Lightbulb, ChevronLeft, ChevronRight, X } from "lucide-react";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import HeroSection from "@/components/HeroSection";
 
 import { testimonials } from "@/lib/testimonials";
 
@@ -76,16 +77,11 @@ export default function Retreats() {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-6">
-            Onze Retreats
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Ontdek wat Young Wise Women betekent en wat ons drijft
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        backgroundImage="https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"
+        title="Onze Retreats"
+        subtitle="Ontdek wat Young Wise Women betekent en wat ons drijft"
+      />
 
       {/* Three Pillars */}
       <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>

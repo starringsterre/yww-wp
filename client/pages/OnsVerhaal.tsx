@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import HeroSection from "@/components/HeroSection";
 
 const image1Url =
-  "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcf6849fa4e1a4b76b17b1abaac301ee1?format=webp&width=800";
+  "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcf6849fa4e1a4b76b17b1abaac301ee1?format=webp&width=2000";
 const image2Url =
-  "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F945ca90893154576b796be7856f99f8e?format=webp&width=800";
+  "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0d90a266ca424594832a2ec389092bb3?format=webp&width=2000";
 
 export default function OnsVerhaal() {
   const [scrollY, setScrollY] = useState(0);

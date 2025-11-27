@@ -402,9 +402,9 @@ export default function Home() {
             Wat voorgaande deelneemsters zeggen
           </ScrollFadeInUp>
 
-          <div className="max-w-4xl mx-auto">
+          <BlurReveal className="max-w-4xl mx-auto">
             <TestimonialsCarousel testimonials={testimonials} />
-          </div>
+          </BlurReveal>
         </div>
       </section>
 

@@ -93,7 +93,6 @@ export default function TestimonialsCarousel({
                 >
                   {/* Left quote */}
                   <g>
-                    <rect x="4" y="8" width="12" height="12" rx="2" fill="#D9E9DF" />
                     <text
                       x="10"
                       y="18"
@@ -108,7 +107,6 @@ export default function TestimonialsCarousel({
                   </g>
                   {/* Right quote */}
                   <g>
-                    <rect x="20" y="8" width="12" height="12" rx="2" fill="#D9E9DF" />
                     <text
                       x="26"
                       y="18"
@@ -133,7 +131,7 @@ export default function TestimonialsCarousel({
                       fontSize: "20px",
                       lineHeight: "1.6",
                       fontStyle: "italic",
-                      marginLeft: "-1px",
+                      margin: "-2px 0 0 -1px",
                     }}
                   >
                     {testimonial.quote}

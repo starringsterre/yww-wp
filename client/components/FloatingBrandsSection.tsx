@@ -58,7 +58,8 @@ const brands: BrandLogo[] = [
 
 export default function FloatingBrandsSection() {
   const [isMobile, setIsMobile] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrollOffset, setScrollOffset] = useState(0);
+  const [isInView, setIsInView] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -73,22 +74,44 @@ export default function FloatingBrandsSection() {
   }, []);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isInView) return;
+
     const handleScroll = () => {
       if (!sectionRef.current) return;
 
       const sectionRect = sectionRef.current.getBoundingClientRect();
       const sectionTop = sectionRect.top;
-      const sectionHeight = sectionRect.height;
       const viewportHeight = window.innerHeight;
 
-      // Calculate progress: 0 when section is below viewport, 1 when fully passed
-      const progress = Math.max(0, Math.min(1, (viewportHeight - sectionTop) / (viewportHeight + sectionHeight)));
-      setScrollProgress(progress * 50); // 50px max movement
+      // Calculate parallax offset (0 to 40px movement)
+      // When section is at bottom of viewport: 0px
+      // When section is at top of viewport: 40px movement
+      const offset = Math.max(0, Math.min(40, (viewportHeight - sectionTop) / viewportHeight * 40));
+      setScrollOffset(offset);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isInView]);
 
   return (
     <section
@@ -119,19 +142,22 @@ export default function FloatingBrandsSection() {
                 left: brand.left,
                 right: brand.right,
                 top: brand.top,
-                transform: `translate(0, calc(-50% - ${scrollProgress}px)) ${hoveredId === brand.id ? "scale(1.1)" : "scale(1)"}`,
+                transform: `translate(0, calc(-50% - ${scrollOffset}px))`,
                 margin: "40px",
-                transition: "transform 0.2s ease-out",
+                transition: "transform 800ms ease-out",
               }}
             >
               <ScrollFadeInUp>
                 <div
-                  className="bg-white rounded-2xl p-8 shadow-sm cursor-pointer flex items-center justify-center w-40 h-40"
+                  className="bg-white rounded-2xl p-8 flex items-center justify-center w-40 h-40 cursor-pointer"
                   style={{
-                    boxShadow: hoveredId === brand.id ? "0 20px 25px -5px rgba(0, 0, 0, 0.1)" : "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-                    transition: "box-shadow 0.3s ease",
+                    transform: hoveredId === brand.id ? "scale(1.08)" : "scale(1)",
+                    boxShadow: hoveredId === brand.id
+                      ? "0 15px 20px rgba(0, 0, 0, 0.1)"
+                      : "0 1px 3px rgba(0, 0, 0, 0.1)",
+                    transition: "transform 250ms ease-out, box-shadow 250ms ease-out",
                   }}
-                  onMouseEnter={() => setHoveredId(brand.id)}
+                  onMouseEnter={() => !isMobile && setHoveredId(brand.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
                   {brand.isText ? (

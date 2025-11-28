@@ -21,7 +21,7 @@ const brands: BrandWithDelay[] = [
     name: "Accenture",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Accenture.svg/1200px-Accenture.svg.png",
     left: "18%",
-    top: "5%",
+    top: "calc(5% + 80px)",
     delay: 0,
   },
   {
@@ -29,7 +29,7 @@ const brands: BrandWithDelay[] = [
     name: "Paulig Group",
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F4f9cf333764a4f4789ed4f6b90d0a098?format=webp&width=800",
     right: "10%",
-    top: "10%",
+    top: "calc(10% + 80px)",
     delay: 120,
   },
   {
@@ -37,7 +37,7 @@ const brands: BrandWithDelay[] = [
     name: "Boer & Croon",
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc4ba7e79ff3546f5896050313c0cc0f1?format=webp&width=800",
     left: "6%",
-    top: "42%",
+    top: "calc(42% + 80px)",
     delay: 240,
   },
   {
@@ -45,7 +45,7 @@ const brands: BrandWithDelay[] = [
     name: "Calco",
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F282018727da84a5bba3e9c6c0fc526bc?format=webp&width=800",
     right: "6%",
-    top: "45%",
+    top: "calc(45% + 80px)",
     delay: 360,
   },
   {
@@ -53,7 +53,7 @@ const brands: BrandWithDelay[] = [
     name: "Adidas",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png",
     left: "22%",
-    top: "75%",
+    top: "calc(75% + 80px)",
     delay: 480,
   },
   {
@@ -61,7 +61,7 @@ const brands: BrandWithDelay[] = [
     name: "Schiphol",
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F807f66344dac49a6aaa9d37c3145a319?format=webp&width=800",
     right: "15%",
-    top: "78%",
+    top: "calc(78% + 80px)",
     delay: 600,
   },
 ];

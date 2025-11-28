@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ScrollFadeInUp from "@/components/ScrollFadeInUp";
 
 interface BrandLogo {
@@ -73,7 +73,7 @@ const getPositionClasses = (position: string, isMobile: boolean) => {
 
 export default function FloatingBrandsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {

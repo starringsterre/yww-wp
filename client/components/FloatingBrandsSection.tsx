@@ -90,8 +90,8 @@ const brands: BrandWithDelay[] = [
   {
     id: "placeholder",
     name: "Partner Logo",
-    left: "30%",
-    bottom: "7%",
+    right: "15%",
+    bottom: "0%",
     delay: 720,
     zIndex: 1,
     disableHover: true,

@@ -112,10 +112,10 @@ export default function FloatingBrandsSection() {
       const sectionTop = sectionRect.top;
       const viewportHeight = window.innerHeight;
 
-      // Calculate parallax offset (0 to 120px movement - stronger effect)
+      // Calculate SAFE parallax offset (0 to 60px movement - safe for absolute positioned elements)
       // When section is at bottom of viewport: 0px
-      // When section is at top of viewport: 120px movement
-      const offset = Math.max(0, Math.min(120, (viewportHeight - sectionTop) / viewportHeight * 120));
+      // When section is at top of viewport: 60px movement
+      const offset = Math.max(0, Math.min(60, (viewportHeight - sectionTop) / viewportHeight * 60));
       setScrollOffset(offset);
     };
 
@@ -153,18 +153,24 @@ export default function FloatingBrandsSection() {
                 right: brand.right,
                 top: brand.top,
                 margin: "40px",
+                // Safe parallax scroll effect: Move Y from 0px to -60px
+                transform: `translate(0, calc(-50% - ${scrollOffset}px))`,
+                transition: "transform 900ms ease-out",
               }}
             >
               <ScrollFadeInUp>
+                {/* Inner wrapper - handles hover effect */}
                 <div
                   className="bg-white rounded-2xl p-8 flex items-center justify-center w-40 h-40 cursor-pointer"
                   style={{
-                    transform: `translate(0, calc(-50% - ${scrollOffset}px)) scale(${hoveredId === brand.id ? 1.12 : 1})`,
+                    // Hover effect: scale and shadow on inner wrapper
+                    transform: hoveredId === brand.id ? "scale(1.08)" : "scale(1)",
                     boxShadow: hoveredId === brand.id
-                      ? "0px 12px 30px rgba(0, 0, 0, 0.08)"
+                      ? "0px 8px 24px rgba(0, 0, 0, 0.08)"
                       : "0 1px 3px rgba(0, 0, 0, 0.1)",
-                    transition: "transform 1000ms ease-out, box-shadow 250ms ease-out",
-                    transitionDelay: `${brand.delay}ms`,
+                    transition: "transform 200ms ease-out, box-shadow 200ms ease-out",
+                    // Staggered entrance delay (for fade-in animation)
+                    animationDelay: `${brand.delay}ms`,
                     transformOrigin: "center center",
                   }}
                   onMouseEnter={() => !isMobile && setHoveredId(brand.id)}

@@ -58,6 +58,8 @@ const brands: BrandLogo[] = [
 
 export default function FloatingBrandsSection() {
   const [isMobile, setIsMobile] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,8 +71,27 @@ export default function FloatingBrandsSection() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const sectionRect = sectionRef.current.getBoundingClientRect();
+      const sectionTop = sectionRect.top;
+      const sectionHeight = sectionRect.height;
+      const viewportHeight = window.innerHeight;
+
+      // Calculate progress: 0 when section is at bottom of viewport, 1 when at top
+      const progress = Math.max(0, Math.min(1, (viewportHeight - sectionTop) / (viewportHeight + sectionHeight)));
+      setScrollProgress(progress * 50); // 50px max movement
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="relative px-4 md:px-8"
       style={{
         backgroundColor: "rgba(152, 164, 129, 0.15)",
@@ -97,12 +118,13 @@ export default function FloatingBrandsSection() {
                 left: brand.left,
                 right: brand.right,
                 top: brand.top,
-                transform: "translate(0, -50%)",
+                transform: `translate(0, calc(-50% - ${scrollProgress}px))`,
                 margin: "40px",
+                transition: "transform 0.1s ease-out",
               }}
             >
               <ScrollFadeInUp>
-                <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 flex items-center justify-center w-40 h-40">
+                <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center w-40 h-40">
                   {brand.isText ? (
                     <span className="text-sm font-semibold text-gray-800 text-center px-2 leading-tight">
                       {brand.name}

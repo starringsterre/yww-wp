@@ -11,27 +11,18 @@ interface BrandLogo {
   top: string;
 }
 
-const brands: BrandLogo[] = [
+interface BrandWithDelay extends BrandLogo {
+  delay: number;
+}
+
+const brands: BrandWithDelay[] = [
   {
     id: "accenture",
     name: "Accenture",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Accenture.svg/1200px-Accenture.svg.png",
     left: "18%",
     top: "5%",
-  },
-  {
-    id: "boer-croon",
-    name: "Boer & Croon",
-    image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc4ba7e79ff3546f5896050313c0cc0f1?format=webp&width=800",
-    left: "6%",
-    top: "42%",
-  },
-  {
-    id: "adidas",
-    name: "Adidas",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png",
-    left: "22%",
-    top: "75%",
+    delay: 0,
   },
   {
     id: "paulig",
@@ -39,6 +30,15 @@ const brands: BrandLogo[] = [
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F4f9cf333764a4f4789ed4f6b90d0a098?format=webp&width=800",
     right: "10%",
     top: "10%",
+    delay: 120,
+  },
+  {
+    id: "boer-croon",
+    name: "Boer & Croon",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc4ba7e79ff3546f5896050313c0cc0f1?format=webp&width=800",
+    left: "6%",
+    top: "42%",
+    delay: 240,
   },
   {
     id: "calco",
@@ -46,6 +46,15 @@ const brands: BrandLogo[] = [
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F282018727da84a5bba3e9c6c0fc526bc?format=webp&width=800",
     right: "6%",
     top: "45%",
+    delay: 360,
+  },
+  {
+    id: "adidas",
+    name: "Adidas",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png",
+    left: "22%",
+    top: "75%",
+    delay: 480,
   },
   {
     id: "schiphol",
@@ -53,6 +62,7 @@ const brands: BrandLogo[] = [
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F807f66344dac49a6aaa9d37c3145a319?format=webp&width=800",
     right: "15%",
     top: "78%",
+    delay: 600,
   },
 ];
 
@@ -102,10 +112,10 @@ export default function FloatingBrandsSection() {
       const sectionTop = sectionRect.top;
       const viewportHeight = window.innerHeight;
 
-      // Calculate parallax offset (0 to 40px movement)
+      // Calculate parallax offset (0 to 120px movement - stronger effect)
       // When section is at bottom of viewport: 0px
-      // When section is at top of viewport: 40px movement
-      const offset = Math.max(0, Math.min(40, (viewportHeight - sectionTop) / viewportHeight * 40));
+      // When section is at top of viewport: 120px movement
+      const offset = Math.max(0, Math.min(120, (viewportHeight - sectionTop) / viewportHeight * 120));
       setScrollOffset(offset);
     };
 
@@ -142,20 +152,20 @@ export default function FloatingBrandsSection() {
                 left: brand.left,
                 right: brand.right,
                 top: brand.top,
-                transform: `translate(0, calc(-50% - ${scrollOffset}px))`,
                 margin: "40px",
-                transition: "transform 800ms ease-out",
               }}
             >
               <ScrollFadeInUp>
                 <div
                   className="bg-white rounded-2xl p-8 flex items-center justify-center w-40 h-40 cursor-pointer"
                   style={{
-                    transform: hoveredId === brand.id ? "scale(1.08)" : "scale(1)",
+                    transform: `translate(0, calc(-50% - ${scrollOffset}px)) scale(${hoveredId === brand.id ? 1.12 : 1})`,
                     boxShadow: hoveredId === brand.id
-                      ? "0 15px 20px rgba(0, 0, 0, 0.1)"
+                      ? "0px 12px 30px rgba(0, 0, 0, 0.08)"
                       : "0 1px 3px rgba(0, 0, 0, 0.1)",
-                    transition: "transform 250ms ease-out, box-shadow 250ms ease-out",
+                    transition: "transform 1000ms ease-out, box-shadow 250ms ease-out",
+                    transitionDelay: `${brand.delay}ms`,
+                    transformOrigin: "center center",
                   }}
                   onMouseEnter={() => !isMobile && setHoveredId(brand.id)}
                   onMouseLeave={() => setHoveredId(null)}

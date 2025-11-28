@@ -52,7 +52,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
   }, [memberCount, displayCount, hasAnimated]);
 
   return (
-    <section className="py-0 bg-white" style={{ padding: "0 60px 0 56px" }}>
+    <section className="min-h-screen py-0 bg-white flex items-center" style={{ padding: "0 60px 0 56px" }}>
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "60px", marginBottom: "83px" }}>
           {/* Left Column - Image */}

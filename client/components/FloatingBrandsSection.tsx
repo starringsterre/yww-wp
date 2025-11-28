@@ -83,7 +83,7 @@ const brands: BrandWithDelay[] = [
     left: "38%",
     top: "70%",
     delay: 0,
-    zIndex: 3,
+    zIndex: 1,
     disableHover: true,
   },
 ];

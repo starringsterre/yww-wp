@@ -9,6 +9,8 @@ interface BrandLogo {
   left?: string;
   right?: string;
   top: string;
+  zIndex?: number;
+  disableHover?: boolean;
 }
 
 interface BrandWithDelay extends BrandLogo {

@@ -59,6 +59,7 @@ const brands: BrandLogo[] = [
 export default function FloatingBrandsSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -80,12 +81,12 @@ export default function FloatingBrandsSection() {
       const sectionHeight = sectionRect.height;
       const viewportHeight = window.innerHeight;
 
-      // Calculate progress: 0 when section is at bottom of viewport, 1 when at top
+      // Calculate progress: 0 when section is below viewport, 1 when fully passed
       const progress = Math.max(0, Math.min(1, (viewportHeight - sectionTop) / (viewportHeight + sectionHeight)));
       setScrollProgress(progress * 50); // 50px max movement
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -118,13 +119,21 @@ export default function FloatingBrandsSection() {
                 left: brand.left,
                 right: brand.right,
                 top: brand.top,
-                transform: `translate(0, calc(-50% - ${scrollProgress}px))`,
+                transform: `translate(0, calc(-50% - ${scrollProgress}px)) ${hoveredId === brand.id ? "scale(1.1)" : "scale(1)"}`,
                 margin: "40px",
-                transition: "transform 0.1s ease-out",
+                transition: "transform 0.2s ease-out",
               }}
             >
               <ScrollFadeInUp>
-                <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer flex items-center justify-center w-40 h-40">
+                <div
+                  className="bg-white rounded-2xl p-8 shadow-sm cursor-pointer flex items-center justify-center w-40 h-40"
+                  style={{
+                    boxShadow: hoveredId === brand.id ? "0 20px 25px -5px rgba(0, 0, 0, 0.1)" : "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+                    transition: "box-shadow 0.3s ease",
+                  }}
+                  onMouseEnter={() => setHoveredId(brand.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                >
                   {brand.isText ? (
                     <span className="text-sm font-semibold text-gray-800 text-center px-2 leading-tight">
                       {brand.name}

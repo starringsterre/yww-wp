@@ -159,7 +159,7 @@ export default function FloatingBrandsSection() {
       {!isMobile ? (
         <div className="relative w-full max-w-7xl mx-auto" style={{ height: "800px" }}>
           {/* Title - Centered */}
-          <ScrollFadeInUp className="absolute inset-0 flex items-center justify-center z-10">
+          <ScrollFadeInUp className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 2 }}>
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 text-center max-w-2xl px-8">
               Krachtige vrouwen bij deze organisaties gingen je voor
             </h2>
@@ -174,9 +174,13 @@ export default function FloatingBrandsSection() {
                 left: brand.left,
                 right: brand.right,
                 top: brand.top,
+                zIndex: brand.zIndex || 1,
                 margin: "40px",
                 // Safe parallax scroll effect: Move Y from 0px to -60px
-                transform: `translate(0, calc(-50% - ${scrollOffset}px))`,
+                // For centered logos (Google, Valcon), apply translateX(-50%) and then adjust Y
+                transform: brand.left === "50%"
+                  ? `translateX(-50%) translateY(calc(-50% - ${scrollOffset}px))`
+                  : `translate(0, calc(-50% - ${scrollOffset}px))`,
                 transition: "transform 900ms ease-out",
               }}
             >
@@ -185,9 +189,9 @@ export default function FloatingBrandsSection() {
                 <div
                   className="bg-white rounded-2xl p-8 flex items-center justify-center w-40 h-40 cursor-pointer"
                   style={{
-                    // Hover effect: scale and shadow on inner wrapper
-                    transform: hoveredId === brand.id ? "scale(1.08)" : "scale(1)",
-                    boxShadow: hoveredId === brand.id
+                    // Hover effect: scale and shadow on inner wrapper (only if not disabled)
+                    transform: !brand.disableHover && hoveredId === brand.id ? "scale(1.08)" : "scale(1)",
+                    boxShadow: !brand.disableHover && hoveredId === brand.id
                       ? "0px 8px 24px rgba(0, 0, 0, 0.08)"
                       : "0 1px 3px rgba(0, 0, 0, 0.1)",
                     transition: "transform 200ms ease-out, box-shadow 200ms ease-out",
@@ -195,7 +199,7 @@ export default function FloatingBrandsSection() {
                     animationDelay: `${brand.delay}ms`,
                     transformOrigin: "center center",
                   }}
-                  onMouseEnter={() => !isMobile && setHoveredId(brand.id)}
+                  onMouseEnter={() => !isMobile && !brand.disableHover && setHoveredId(brand.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
                   {brand.isText ? (

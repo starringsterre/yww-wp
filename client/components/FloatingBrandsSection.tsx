@@ -134,10 +134,10 @@ export default function FloatingBrandsSection() {
       const sectionTop = sectionRect.top;
       const viewportHeight = window.innerHeight;
 
-      // Calculate SAFE parallax offset (0 to 60px movement - safe for absolute positioned elements)
+      // Calculate parallax offset (0 to 90px movement)
       // When section is at bottom of viewport: 0px
-      // When section is at top of viewport: 60px movement
-      const offset = Math.max(0, Math.min(60, (viewportHeight - sectionTop) / viewportHeight * 60));
+      // When section is at top of viewport: 90px movement
+      const offset = Math.max(0, Math.min(90, (viewportHeight - sectionTop) / viewportHeight * 90));
       setScrollOffset(offset);
     };
 

@@ -184,6 +184,7 @@ export default function FloatingBrandsSection() {
                 left: brand.left,
                 right: brand.right,
                 top: brand.top,
+                bottom: brand.bottom,
                 zIndex: brand.zIndex || 1,
                 margin: "40px",
                 // Safe parallax scroll effect: Move Y from 0px to -60px

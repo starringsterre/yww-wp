@@ -8,7 +8,8 @@ interface BrandLogo {
   isText?: boolean;
   left?: string;
   right?: string;
-  top: string;
+  top?: string;
+  bottom?: string;
   zIndex?: number;
   disableHover?: boolean;
 }

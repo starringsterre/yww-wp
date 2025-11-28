@@ -87,6 +87,15 @@ const brands: BrandWithDelay[] = [
     zIndex: 1,
     disableHover: true,
   },
+  {
+    id: "placeholder",
+    name: "Partner Logo",
+    left: "30%",
+    bottom: "7%",
+    delay: 720,
+    zIndex: 1,
+    disableHover: true,
+  },
 ];
 
 export default function FloatingBrandsSection() {

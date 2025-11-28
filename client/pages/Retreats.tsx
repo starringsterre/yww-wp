@@ -84,8 +84,8 @@ export default function Retreats() {
       />
 
       {/* Three Pillars */}
-      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
-        <div className="max-w-6xl mx-auto">
+      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#b7b7a4" }}>
+        <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
               De Drie Pijlers van het Retreat

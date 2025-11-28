@@ -66,6 +66,26 @@ const brands: BrandWithDelay[] = [
     top: "calc(78% + 80px)",
     delay: 600,
   },
+  {
+    id: "google",
+    name: "Google",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2/Google_Logo.svg/1200px-Google_Logo.svg.png",
+    left: "50%",
+    top: "32%",
+    delay: 0,
+    zIndex: 0,
+    disableHover: true,
+  },
+  {
+    id: "valcon",
+    name: "Valcon",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F807f66344dac49a6aaa9d37c3145a319?format=webp&width=800",
+    left: "50%",
+    top: "57%",
+    delay: 0,
+    zIndex: 3,
+    disableHover: true,
+  },
 ];
 
 export default function FloatingBrandsSection() {

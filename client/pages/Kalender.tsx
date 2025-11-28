@@ -18,7 +18,7 @@ export default function Kalender() {
       <EventCalendar />
 
       {/* Upcoming Retreat */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Volgende Retreat
@@ -132,7 +132,7 @@ export default function Kalender() {
       </section>
 
       {/* What's Included */}
-      <section className="py-20 px-4 md:px-8 bg-gray-50">
+      <section className="min-h-screen py-20 px-4 md:px-8 bg-gray-50 flex items-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
             Eenmalige Investering in jezelf

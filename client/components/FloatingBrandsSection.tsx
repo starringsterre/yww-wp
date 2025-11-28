@@ -39,7 +39,7 @@ const brands: BrandWithDelay[] = [
     id: "boer-croon",
     name: "Boer & Croon",
     image: "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc4ba7e79ff3546f5896050313c0cc0f1?format=webp&width=800",
-    left: "2%",
+    left: "0%",
     top: "calc(42% + 80px)",
     delay: 240,
   },

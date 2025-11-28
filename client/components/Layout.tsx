@@ -2,11 +2,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Menu, X, Instagram, Linkedin } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const location = useLocation();
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <CustomCursor />
+      {isDesktop && <CustomCursor />}
       {/* Header */}
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"

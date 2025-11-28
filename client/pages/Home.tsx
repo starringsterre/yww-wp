@@ -87,7 +87,7 @@ export default function Home() {
       </section>
 
       {/* Atmosphere Section */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
             Evenementen voor persoonlijke ontwikkeling
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4 md:px-8" style={{ backgroundColor: "#b7b7a4" }}>
+      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#b7b7a4" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <ScrollFadeInUp className="text-4xl md:text-5xl font-light text-white mb-4">
@@ -219,7 +219,7 @@ export default function Home() {
       </section>
 
       {/* Coaches Section */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <ScrollFadeInUp className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
@@ -262,7 +262,7 @@ export default function Home() {
 
       {/* Next Retreat Section */}
       <section
-        className="py-20 px-4 md:px-8"
+        className="min-h-screen py-20 px-4 md:px-8 flex items-center"
         style={{ backgroundColor: "#b7b7a4", marginRight: "15px" }}
       >
         <div className="max-w-4xl mx-auto">

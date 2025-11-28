@@ -95,8 +95,8 @@ export default function EventCalendar() {
   const yearEvents = events[selectedYear as keyof typeof events] || [];
 
   return (
-    <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
-      <div className="max-w-6xl mx-auto">
+    <section className="min-h-screen py-20 px-4 md:px-8 bg-white">
+      <div className="max-w-6xl mx-auto h-full flex flex-col justify-center">
         <div className="mb-12">
           <h2 className="text-4xl font-light text-center text-gray-900 mb-8">
             Event Kalender

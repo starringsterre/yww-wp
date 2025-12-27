@@ -292,7 +292,12 @@ export default function Home() {
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li>✓ Intake met coach</li>
-                  <li>�� Motivation Factor test (€145 waarde)</li>
+                  <li>
+                    <p>
+                      <span style={{ fontSize: "14px" }}>✓</span>{" "}
+                      Motivation Factor test (€145 waarde)
+                    </p>
+                  </li>
                   <li>✓ Professionele begeleiding van twee coaches</li>
                   <li>✓ 2 nachten accommodatie</li>
                   <li>

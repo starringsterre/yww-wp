@@ -162,3 +162,9 @@ const data: MyRouteResponse = await response.json();
 - Production-ready with multiple deployment options
 - Comprehensive UI component library included
 - Type-safe API communication via shared interfaces
+
+## Session Close Workflow
+
+- At the end of every work session, update `LOGBOOK.md` with a short "Lessons Learned" entry.
+- Include: date, what changed, what went wrong (if relevant), and reusable decisions for future sessions.
+- Keep entries concise and practical so future sessions can continue without re-discovery.

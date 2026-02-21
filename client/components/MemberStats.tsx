@@ -57,9 +57,9 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center" style={{ paddingTop: "60px", marginBottom: "83px" }}>
           {/* Left Column - Image */}
           <div className="flex justify-center">
-            <img
+            <img loading="lazy"
               src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F026a017e57a343fa888f19e29258f0ac?format=webp&width=4000"
-              alt="Young Wise Women Community"
+              alt="Young Wise Women Netwerk"
               className="w-full h-auto rounded-lg shadow-md max-w-md"
             />
           </div>
@@ -71,7 +71,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
                 {displayCount}
               </div>
               <p className="text-xl text-gray-700 leading-relaxed">
-                jonge wijze vrouwen tussen de 24-30 in de Young Wise Women community
+                jonge wijze vrouwen tussen de 24-30 in de Young Wise Women Netwerk
               </p>
             </div>
 

@@ -10,32 +10,32 @@ export default function Kalender() {
       {/* Hero */}
       <HeroSection
         backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F291b0682317740babd189a82623e6509?format=webp&width=2000"
-        title="Community Kalender"
-        subtitle="Volgende evenementen en retreats van Young Wise Women"
+        title="Evenementen Kalender"
+        subtitle="Volgende evenementen van het Young Wise Women Netwerk"
       />
 
       {/* Event Calendar */}
       <EventCalendar />
 
       {/* Upcoming Retreat */}
-      <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
+      <section className="py-14 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-gray-900 mb-12">
-            Volgende Retreat
+          <h2 className="text-3xl md:text-4xl font-light text-center text-gray-900 mb-8">
+            Volgende Weekend groepstraining
           </h2>
 
-          <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 border-2 border-primary">
-            <div className="mb-8">
+          <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 border-2 border-primary">
+            <div className="mb-6">
               <p className="text-sm font-medium text-primary mb-2">
                 4DE EDITIE
               </p>
               <h3 className="text-4xl font-light text-gray-900 mb-2">
-                Young Wise Women Weekend Retreat
+                Young Wise Women Weekend groepstraining
               </h3>
               <p className="text-gray-600">Reflectie, Rust & Ruimte</p>
             </div>
 
-            <div className="space-y-6 mb-10 pb-10 border-b border-gray-200">
+            <div className="space-y-5 mb-8 pb-8 border-b border-gray-200">
               <div className="flex gap-4">
                 <Calendar className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
@@ -70,7 +70,7 @@ export default function Kalender() {
             </div>
 
             {/* Program Overview */}
-            <div className="mb-10">
+            <div className="mb-8">
               <h4 className="text-xl font-medium text-gray-900 mb-6">
                 Programmaoverzicht
               </h4>
@@ -116,14 +116,10 @@ export default function Kalender() {
 
             <Button
               size="lg"
-              className="w-full bg-primary text-white hover:bg-primary/90 py-3"
+              className="w-full bg-primary text-white hover:bg-accent hover:scale-105 py-3"
               asChild
             >
-              <a
-                href="https://eepurl.com/h-ZlwT"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026">
                 Bevestig je deelname
               </a>
             </Button>

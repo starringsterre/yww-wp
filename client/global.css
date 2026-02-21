@@ -1,5 +1,5 @@
 /** @import must precede all other statements */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,33 +12,33 @@
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
+    --background: 40 56% 98%;
+    --foreground: 168 18% 13%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
+    --card: 40 56% 98%;
+    --card-foreground: 168 18% 13%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 40 56% 98%;
+    --popover-foreground: 168 18% 13%;
 
-    --primary: 28 10% 55%;
+    --primary: 75 10% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 95%;
-    --secondary-foreground: 40 3% 45%;
+    --secondary: 57 14% 68%;
+    --secondary-foreground: 168 18% 13%;
 
-    --muted: 0 0% 80%;
-    --muted-foreground: 0 0% 50%;
+    --muted: 57 14% 68%;
+    --muted-foreground: 168 10% 30%;
 
-    --accent: 28 10% 55%;
+    --accent: 9 39% 52%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 95%;
-    --ring: 28 10% 55%;
+    --border: 36 40% 80%;
+    --input: 36 40% 84%;
+    --ring: 75 10% 40%;
 
     --radius: 0.5rem;
 
@@ -105,6 +105,12 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Poppins", sans-serif;
+  }
+
+  h1,
+  h2 {
+    font-family: "Lora", Georgia, serif;
   }
 
   :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
@@ -116,6 +122,17 @@
   code {
     overflow-x: auto;
     white-space: pre;
+  }
+}
+
+@layer utilities {
+  .text-gray-900,
+  .text-black {
+    color: #1c2826 !important;
+  }
+
+  .hover\:text-gray-900:hover {
+    color: #1c2826 !important;
   }
 }
 

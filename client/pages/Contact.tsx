@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 
 export default function Contact() {
@@ -43,7 +44,7 @@ export default function Contact() {
       {/* One Block with Parallax */}
       <section
         ref={blocksRef}
-        className="bg-white"
+        className="min-h-screen bg-white"
         style={{ padding: "9px 0 0" }}
       >
         <div className="flex flex-col md:flex-row relative">
@@ -59,12 +60,20 @@ export default function Contact() {
               <p className="text-sm md:text-base text-gray-700 leading-relaxed">
                 Het idee voor dit retreat ontstond bij Ella Taal, zelf afkomstig uit Generatie X en moeder van drie dochters uit Generatie Z. Ze zag van dichtbij hoe jonge vrouwen vandaag de dag zoeken naar hun plek in het professionele werkveld, vaak zonder de begeleiding die ze verdienen. Ella voelde de wens om de kracht en wijsheid van eerdere generaties door te geven aan deze nieuwe generatie, die in een complexe wereld op eigenzinnige en bewuste wijze leiding durft te nemen. Zo wil zij bijdragen aan het versterken van vrouwen die leiderschap tonen – iets waar in deze tijd grote behoefte aan is.
               </p>
+              <div>
+                <Link
+                  to="/ons-verhaal"
+                  className="inline-block px-8 py-3 rounded-lg font-medium text-white bg-primary transition-all duration-300 hover:scale-105 hover:bg-accent"
+                >
+                  Meer over Founder Ella
+                </Link>
+              </div>
             </div>
           </div>
 
           {/* Right Column - Image Top */}
           <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ aspectRatio: "1 / 1" }}>
-            <img
+            <img loading="lazy"
               src={image1Url}
               alt="Story Top Right"
               className="w-full object-cover"
@@ -80,7 +89,7 @@ export default function Contact() {
         <div ref={blocks2Ref} className="flex flex-col-reverse md:flex-row relative" style={{ margin: "0" }}>
           {/* Left Column - Image Bottom */}
           <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ aspectRatio: "1 / 1" }}>
-            <img
+            <img loading="lazy"
               src={image2Url}
               alt="Story Bottom Left"
               className="w-full object-cover"

@@ -5,11 +5,13 @@ import SlideInLeft from "@/components/SlideInLeft";
 import SlideInRight from "@/components/SlideInRight";
 import BlurReveal from "@/components/BlurReveal";
 import StaggerChildren from "@/components/StaggerChildren";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import CoachCardsGrid from "@/components/CoachCardsGrid";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import InspirationCardsGrid from "@/components/InspirationCardsGrid";
+import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
+import FloatingBrandsSection from "@/components/FloatingBrandsSection";
+import GroeiScanSection from "@/components/GroeiScanSection";
 import { Flower, Zap, Heart, Hammer } from "lucide-react";
-import { testimonials } from "@/lib/testimonials";
 
 export default function Home() {
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -36,7 +38,7 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* Hero Video Section */}
-      <section className="relative w-full h-screen min-h-96 bg-black overflow-hidden" style={{ marginTop: "0" }}>
+      <section className="relative w-full h-screen min-h-screen bg-black overflow-hidden" style={{ marginTop: "0" }}>
         <video
           autoPlay
           muted
@@ -56,7 +58,7 @@ export default function Home() {
             Young Wise Women
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-200">
-            De community voor jonge wijze vrouwen
+            Het Netwerk voor jonge vrouwelijke professionals
           </p>
         </div>
 
@@ -65,8 +67,8 @@ export default function Home() {
           <div className="absolute bottom-12 left-0 right-0 flex justify-center z-20" style={{ animation: "fadeInUp 0.3s ease-out" }}>
             <Button
               size="lg"
-              className="text-white border-0 transition-all duration-300 hover:scale-110"
-              style={{ backgroundColor: "#98a481", opacity: 0.85 }}
+              className="bg-primary text-white border-0 transition-all duration-300 hover:scale-110 hover:bg-accent"
+              style={{ opacity: 0.85 }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.opacity = "1";
               }}
@@ -75,11 +77,8 @@ export default function Home() {
               }}
               asChild
             >
-              <a
-                href="/kalender"
-                style={{ cursor: "pointer", pointerEvents: "auto" }}
-              >
-                <p>Bekijk de Community kalender</p>
+              <a href="/inspiratie/evenementen" style={{ cursor: "pointer", pointerEvents: "auto" }}>
+                <p>Bekijk Evenementen</p>
               </a>
             </Button>
           </div>
@@ -110,39 +109,49 @@ export default function Home() {
             staggerDelay={200}
           >
             <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-              <img
+              <img loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fe09ac73d09854b79ab26b9a2f1b621b1?format=webp&width=4000"
                 alt="Sunset nature moment"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
             <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-              <img
+              <img loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F359000dab9a94eb6b59fca5e2668ce4f?format=webp&width=4000"
-                alt="Community group gathering"
+                alt="Netwerk group gathering"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
             <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-              <img
+              <img loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fba09bc28922e4f28ae356e7db1c5a2f4?format=webp&width=4000"
                 alt="Mentoring and connection"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
           </StaggerChildren>
+
+          <div className="mt-10 flex justify-center">
+            <Button
+              size="lg"
+              className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+              asChild
+            >
+              <a href="/inspiratie/evenementen">Bekijk evenementen</a>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#b7b7a4" }}>
+      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#B8B7A3" }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <ScrollFadeInUp className="text-4xl md:text-5xl font-light text-white mb-4">
-              Wat je meeneemt uit het Retreat
+            <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light text-white mb-4">
+              Wat Young Wise Women trajecten opleveren
             </ScrollFadeInUp>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              Elk retreat is zorgvuldig ontworpen ter ondersteuning van jouw reis van zelfontdekking en persoonlijke transformatie.
+              Of je nu kiest voor een workshop of weekendtraining: je ontwikkelt inzichten en tools die direct doorwerken in je werk en dagelijks leven.
             </p>
           </div>
 
@@ -152,10 +161,10 @@ export default function Home() {
             staggerDelay={150}
           >
             {/* Benefit 1 */}
-            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm relative top-0 transition-[top,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-top-3 hover:shadow-2xl cursor-pointer" style={{ backgroundColor: "#FBF9F5" }}>
               <div className="mb-6 flex justify-center">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
-                  <Flower size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(251, 249, 245, 0.85)" }}>
+                  <Flower size={32} style={{ color: "#6B705C" }} />
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
@@ -168,10 +177,10 @@ export default function Home() {
             </div>
 
             {/* Benefit 2 */}
-            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm relative top-0 transition-[top,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-top-3 hover:shadow-2xl cursor-pointer" style={{ backgroundColor: "#FBF9F5" }}>
               <div className="mb-6 flex justify-center">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
-                  <Heart size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(251, 249, 245, 0.85)" }}>
+                  <Heart size={32} style={{ color: "#6B705C" }} />
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
@@ -184,10 +193,10 @@ export default function Home() {
             </div>
 
             {/* Benefit 3 */}
-            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm relative top-0 transition-[top,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-top-3 hover:shadow-2xl cursor-pointer" style={{ backgroundColor: "#FBF9F5" }}>
               <div className="mb-6 flex justify-center">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
-                  <Zap size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(251, 249, 245, 0.85)" }}>
+                  <Zap size={32} style={{ color: "#6B705C" }} />
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
@@ -200,10 +209,10 @@ export default function Home() {
             </div>
 
             {/* Benefit 4 */}
-            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:shadow-md cursor-pointer" style={{ backgroundColor: "rgb(251, 249, 245)" }}>
+            <div data-stagger-child className="opacity-0 rounded-2xl p-8 text-center shadow-sm relative top-0 transition-[top,box-shadow] duration-300 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-top-3 hover:shadow-2xl cursor-pointer" style={{ backgroundColor: "#FBF9F5" }}>
               <div className="mb-6 flex justify-center">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(152, 139, 129, 0.3)" }}>
-                  <Hammer size={32} style={{ color: "rgb(152, 139, 129)" }} />
+                <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(251, 249, 245, 0.85)" }}>
+                  <Hammer size={32} style={{ color: "#6B705C" }} />
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
@@ -218,11 +227,121 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="py-14 px-4 md:px-8 bg-[#FBF9F5]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-3">
+              De balans tussen denken en voelen
+            </h2>
+            <p className="text-gray-700 max-w-3xl mx-auto">
+              In het weekend combineren we mentale verdieping met lichaamswerk, zodat je niet alleen begrijpt wat je wilt veranderen, maar het ook echt voelt en belichaamt.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <article className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
+              <div className="h-64 bg-gray-100 overflow-hidden">
+                <img loading="lazy"
+                  src="/ademwerk.png"
+                  alt="Ademsessie breathwork tijdens weekendintensive"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  style={{ objectPosition: "center 20%" }}
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-light text-gray-900 mb-2">
+                  Ademsessie (breathwork)
+                </h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Begeleid door Chris Rauwendaal, specialist in ademwerk voor stressregulatie en emotionele ontlading.
+                </p>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li>✓ Meer rust in je hoofd en zenuwstelsel</li>
+                  <li>✓ Sneller herkennen van spanning en patronen</li>
+                  <li>✓ Direct toepasbare ademtools voor dagelijks leven</li>
+                </ul>
+              </div>
+            </article>
+
+            <article className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
+              <div className="h-64 bg-gray-100 overflow-hidden">
+                <img loading="lazy"
+                  src="/yoga-weekend-persoonlijke-ontwikkeling.png"
+                  alt="Yogasessie tijdens weekendintensive"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                  style={{ objectPosition: "center 78%" }}
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-2xl font-light text-gray-900 mb-2">
+                  Yogalessen
+                </h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Gegeven door Liene Molendijk, coach met expertise in psychologie, leiderschap en lichaamsgerichte ontwikkeling.
+                </p>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li>✓ Van overdenken naar aanwezig zijn in je lichaam</li>
+                  <li>✓ Meer focus, zachtheid en zelfregie</li>
+                  <li>✓ Een stevigere verbinding met je authenticiteit</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-8 text-center">
+            <Button
+              size="lg"
+              className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+              asChild
+            >
+              <a href="/persoonlijke-ontwikkeling-weekend-training">Bekijk weekendintensive</a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <FloatingBrandsSection />
+
+      {/* Trainingen Spotlight */}
+      <section className="min-h-screen py-20 px-4 md:px-8 bg-[#FBF9F5] flex items-center">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="rounded-2xl overflow-hidden shadow-lg">
+              <img loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1800"
+                alt="Weekend trainingen en dag workshops"
+                className="w-full h-80 object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            <div>
+              <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+                Weekend trainingen & Dag workshops
+              </h2>
+              <p className="text-gray-700 mb-6">
+                Kies de vorm die past bij jouw ontwikkelvraag: verdieping in een weekend
+                of direct toepasbare tools in een dagworkshop.
+              </p>
+              <Button
+                size="lg"
+                className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+                asChild
+              >
+                <a href="/groepstrainingen">Meer over persoonlijke ontwikkeling</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <GroeiScanSection />
+
+      <RetreatTestimonialsSection />
+
       {/* Coaches Section */}
       <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <ScrollFadeInUp className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
+            <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
               Onze Coaches
             </ScrollFadeInUp>
             <p className="text-gray-600">
@@ -243,6 +362,16 @@ export default function Home() {
             na het retreat.
           </p>
 
+          <div className="mb-10 text-center">
+            <Button
+              size="lg"
+              className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+              asChild
+            >
+              <a href="/ons-verhaal">Lees ons unieke verhaal</a>
+            </Button>
+          </div>
+
           <CoachCardsGrid
             coaches={[
               {
@@ -262,20 +391,20 @@ export default function Home() {
 
       {/* Next Retreat Section */}
       <section
-        className="min-h-screen py-20 px-4 md:px-8 flex items-center"
-        style={{ backgroundColor: "#b7b7a4", marginRight: "15px" }}
+        className="py-14 px-4 md:px-8"
+        style={{ backgroundColor: "#B8B7A3" }}
       >
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-light text-center text-white mb-12">
-            Volgende Editie: 12-14 juni 2025
+        <div className="w-full max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-light text-center text-white mb-8">
+            Volgende weekend intensive editie: 12-14 juni 2026
           </h2>
 
-          <ScrollFadeInUp className="rounded-lg">
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <ScrollFadeInUp className="rounded-lg max-w-4xl mx-auto">
+            <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <h3 className="text-xl font-medium text-gray-900 mb-4">
-                  Weekend Retreat
+                  Weekend training (intensief)
                 </h3>
                 <p className="text-gray-700 mb-3">
                   Ervaar rust en ruimte op een prachtige locatie in de natuur,
@@ -299,6 +428,8 @@ export default function Home() {
                     </p>
                   </li>
                   <li>✓ Professionele begeleiding van twee coaches</li>
+                  <li>✓ Ademsessie (breathwork) met Chris Rauwendaal</li>
+                  <li>✓ Yogalessen</li>
                   <li>✓ 2 nachten accommodatie</li>
                   <li>
                     <p>✓ Alle maaltijden en dranken</p>
@@ -310,18 +441,18 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="border-t border-gray-200 pt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 auto-rows-fr">
+            <div className="border-t border-gray-200 pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 auto-rows-fr">
                 <div className="flex flex-col">
                   <h3 className="font-medium text-gray-900 mb-4">
                     Investering in jezelf
                   </h3>
                   <div
-                    className="bg-gray-50 rounded-lg flex-1"
+                    className="bg-gray-50 rounded-lg flex-1 transition-transform duration-300 hover:scale-105"
                     style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}
                   >
                     <p className="text-4xl font-bold text-primary mb-2">
-                      €1.450
+                      €1450
                     </p>
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
                     <p className="text-xs text-gray-600 italic">
@@ -336,13 +467,13 @@ export default function Home() {
                   <h3 className="font-medium text-gray-900 mb-4">
                     Wat er jou oplevert
                   </h3>
-                  <div className="bg-gray-50 p-6 rounded-lg flex-1">
+                  <div className="bg-gray-50 p-6 rounded-lg flex-1 transition-transform duration-300 hover:scale-105">
                     <ul className="space-y-4 text-sm">
                       <li className="text-gray-700 flex items-start gap-3">
                         <Flower
                           size={20}
                           className="text-primary flex-shrink-0 mt-1"
-                          style={{ color: "rgb(152, 139, 129)" }}
+                          style={{ color: "#6B705C" }}
                         />
                         <span>
                           <span className="font-medium">
@@ -355,7 +486,7 @@ export default function Home() {
                         <Heart
                           size={20}
                           className="text-primary flex-shrink-0 mt-1"
-                          style={{ color: "rgb(152, 139, 129)" }}
+                          style={{ color: "#6B705C" }}
                         />
                         <span>
                           <span className="font-medium">Eigen wijsheid</span> –
@@ -366,7 +497,7 @@ export default function Home() {
                         <Zap
                           size={20}
                           className="text-primary flex-shrink-0 mt-1"
-                          style={{ color: "rgb(152, 139, 129)" }}
+                          style={{ color: "#6B705C" }}
                         />
                         <span>
                           <span className="font-medium">
@@ -383,14 +514,10 @@ export default function Home() {
 
               <Button
                 size="lg"
-                className="w-full bg-primary text-white py-3 transition-all duration-300 hover:scale-105"
+                className="w-full bg-primary text-white py-3 transition-all duration-300 hover:scale-105 hover:bg-accent"
                 asChild
               >
-                <a
-                  href="https://eepurl.com/h-ZlwT"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026">
                   Plaats je Reservering
                 </a>
               </Button>
@@ -400,23 +527,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Carousel */}
-      <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <ScrollFadeInUp className="text-4xl font-light text-center text-gray-900 mb-12">
-            Wat voorgaande deelneemsters zeggen
-          </ScrollFadeInUp>
+      {/* Bedrijfstrajecten Hero Block */}
+      <section
+        className="relative min-h-screen px-4 md:px-8 flex items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(28, 40, 38, 0.45), rgba(28, 40, 38, 0.45)), url('/incompany-training-vrouw.png')",
+        }}
+      >
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-4xl md:text-6xl font-light mb-4">
+            Bedrijfstrajecten
+          </h2>
+          <p className="text-lg md:text-xl text-gray-100 mb-8">
+            Voor organisaties die jonge vrouwelijke professionals gericht willen
+            laten groeien in leiderschap, energie en eigenaarschap.
+          </p>
+          <Button
+            size="lg"
+            className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+            asChild
+          >
+            <a href="/in-company">Bekijk bedrijfstrajecten</a>
+          </Button>
+        </div>
+      </section>
 
-          <div className="max-w-4xl mx-auto">
-            <TestimonialsCarousel testimonials={testimonials} />
-          </div>
+      {/* Inspiration Section */}
+      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#FBF9F5" }}>
+        <div className="max-w-6xl mx-auto">
+          <InspirationCardsGrid showTitle />
         </div>
       </section>
 
       {/* Newsletter CTA Section */}
-      <ScrollFadeInUp>
-        <NewsletterSignup />
-      </ScrollFadeInUp>
+      <NewsletterSignup />
     </div>
   );
 }

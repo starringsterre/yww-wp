@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 
 const image1Url =
@@ -45,7 +46,7 @@ export default function OnsVerhaal() {
       {/* Section 1: Text Left, Image Right (with parallax) */}
       <section
         ref={section1Ref}
-        className="py-20 px-4 md:px-8 bg-white overflow-hidden"
+        className="min-h-screen py-20 px-4 md:px-8 bg-white overflow-hidden flex items-center"
       >
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -70,7 +71,7 @@ export default function OnsVerhaal() {
 
             {/* Image with Parallax Effect */}
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg">
-              <img
+              <img loading="lazy"
                 src={image1Url}
                 alt="Young Wise Women"
                 className="w-full h-full object-cover"
@@ -87,15 +88,15 @@ export default function OnsVerhaal() {
       {/* Section 2: Image Left, Text Right (mirrored with parallax) */}
       <section
         ref={section2Ref}
-        className="py-20 px-4 md:px-8 bg-gray-50 overflow-hidden"
+        className="min-h-screen py-20 px-4 md:px-8 bg-gray-50 overflow-hidden flex items-center"
       >
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Image with Parallax Effect (mirrored position) */}
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
-              <img
+              <img loading="lazy"
                 src={image2Url}
-                alt="Young Wise Women Community"
+                alt="Young Wise Women Netwerk"
                 className="w-full h-full object-cover"
                 style={{
                   transform: `translateY(${getParallaxOffset(section2Ref, "slower")}px)`,
@@ -154,18 +155,21 @@ export default function OnsVerhaal() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 md:px-8 bg-white">
+      <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
             Ben je klaar voor je volgende stap?
           </h2>
           <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-            Sluit je aan bij onze community van jonge professionals en ontdek
+            Sluit je aan bij onze Netwerk van jonge professionals en ontdek
             wat er in jou zit. Samen groeien we naar onze beste versie.
           </p>
-          <button className="px-8 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium">
-            Ontdek Onze Retreats
-          </button>
+          <Link
+            to="/groepstrainingen"
+            className="inline-block px-8 py-4 bg-primary text-white rounded-lg transition-all duration-300 hover:scale-105 hover:bg-accent font-medium"
+          >
+            Ontdek onze groepstrainingen
+          </Link>
         </div>
       </section>
     </div>

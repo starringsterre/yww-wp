@@ -48,7 +48,7 @@ export function SlideInRightExample() {
 export function BlurRevealExample() {
   return (
     <BlurReveal className="mb-8">
-      <img src="/placeholder.svg" alt="Blur reveal example" className="rounded-lg shadow" />
+      <img loading="lazy" src="/placeholder.svg" alt="Blur reveal example" className="rounded-lg shadow" />
     </BlurReveal>
   );
 }

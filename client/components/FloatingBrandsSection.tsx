@@ -99,7 +99,13 @@ const brands: BrandWithDelay[] = [
   },
 ];
 
-export default function FloatingBrandsSection() {
+interface FloatingBrandsSectionProps {
+  title?: string;
+}
+
+const defaultTitle = "Krachtige vrouwen bij deze organisaties gingen je voor";
+
+export default function FloatingBrandsSection({ title = defaultTitle }: FloatingBrandsSectionProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [scrollOffset, setScrollOffset] = useState(0);
   const [isInView, setIsInView] = useState(false);
@@ -159,10 +165,10 @@ export default function FloatingBrandsSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative px-4 md:px-8"
+      className="relative min-h-screen px-4 md:px-8 flex items-center"
       style={{
         backgroundColor: "rgba(152, 164, 129, 0.15)",
-        minHeight: isMobile ? "auto" : "900px",
+        minHeight: "100vh",
         paddingTop: isMobile ? "40px" : "60px",
         paddingBottom: isMobile ? "40px" : "60px",
       }}
@@ -172,7 +178,7 @@ export default function FloatingBrandsSection() {
           {/* Title - Centered */}
           <ScrollFadeInUp className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 2 }}>
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 text-center max-w-2xl px-8">
-              Krachtige vrouwen bij deze organisaties gingen je voor
+              {title}
             </h2>
           </ScrollFadeInUp>
 
@@ -205,7 +211,7 @@ export default function FloatingBrandsSection() {
                     transform: !brand.disableHover && hoveredId === brand.id ? "scale(1.08)" : "scale(1)",
                     boxShadow: !brand.disableHover && hoveredId === brand.id
                       ? "0px 8px 24px rgba(0, 0, 0, 0.08)"
-                      : "0 1px 3px rgba(0, 0, 0, 0.1)",
+                      : "0 1px 3px rgba(28, 40, 38, 0.1)",
                     transition: "transform 200ms ease-out, box-shadow 200ms ease-out",
                     // Staggered entrance delay (for fade-in animation)
                     animationDelay: `${brand.delay}ms`,
@@ -219,7 +225,7 @@ export default function FloatingBrandsSection() {
                       {brand.name}
                     </span>
                   ) : (
-                    <img
+                    <img loading="lazy"
                       src={brand.image}
                       alt={brand.name}
                       className="h-16 object-contain"
@@ -234,7 +240,7 @@ export default function FloatingBrandsSection() {
         <div className="w-full max-w-6xl mx-auto">
           <ScrollFadeInUp className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8">
-              Krachtige vrouwen bij deze organisaties gingen je voor
+              {title}
             </h2>
           </ScrollFadeInUp>
 
@@ -247,7 +253,7 @@ export default function FloatingBrandsSection() {
                       {brand.name}
                     </span>
                   ) : (
-                    <img
+                    <img loading="lazy"
                       src={brand.image}
                       alt={brand.name}
                       className="h-10 object-contain"

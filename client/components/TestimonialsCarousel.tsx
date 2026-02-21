@@ -1,11 +1,8 @@
-import { useState, useEffect } from "react";
-
-export interface Testimonial {
-  name: string;
-  date: string;
-  quote: string;
-  image: string;
-}
+import { useMemo, useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { urlFor } from "@/lib/sanity";
+import { InfiniteTwoUpCarousel } from "@/components/InfiniteTwoUpCarousel";
+import type { Testimonial } from "@shared/sanity";
 
 interface TestimonialsCarouselProps {
   testimonials: Testimonial[];
@@ -14,154 +11,102 @@ interface TestimonialsCarouselProps {
 export default function TestimonialsCarousel({
   testimonials,
 }: TestimonialsCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const controlsRef = useRef<{ next: () => void; prev: () => void } | null>(null);
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-    );
+  const carouselItems = useMemo(
+    () =>
+      testimonials.map((testimonial) => ({
+        quote: testimonial.quote,
+        name: testimonial.name,
+        role: testimonial.date,
+        photo: testimonial.image
+          ? typeof testimonial.image === "string"
+            ? testimonial.image
+            : urlFor(testimonial.image).width(200).height(200).url()
+          : "",
+      })),
+    [testimonials],
+  );
+
+  const goToPrev = () => {
+    controlsRef.current?.prev();
   };
 
-  // Auto-advance carousel every 3 seconds, but pause on hover
-  useEffect(() => {
-    if (isHovered) return;
-
-    const interval = setInterval(() => {
-      goToNext();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [isHovered, testimonials.length]);
-
-  const current = testimonials[currentIndex];
+  const goToNext = () => {
+    controlsRef.current?.next();
+  };
 
   return (
-    <div
-      className="flex flex-col items-center"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Carousel Container with overflow hidden */}
-      <div className="w-full overflow-hidden mb-4">
-        {/* Inner carousel that slides */}
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{
-            transform: `translateX(calc(-${currentIndex * 100}%))`,
-          }}
-        >
-          {/* Each testimonial item - full width */}
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="flex gap-8 md:gap-12 items-start flex-shrink-0"
-              style={{ width: "100%", boxSizing: "border-box", minWidth: "100%" }}
-            >
-              {/* Profile Image & Info - Left Side */}
-              <div className="flex-shrink-0 hidden sm:flex sm:flex-col sm:items-center">
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-lg mb-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <p className="font-medium text-gray-900 text-center">
-                  {testimonial.name}
-                </p>
-                <p className="text-sm text-gray-600 text-center">
-                  {testimonial.date}
-                </p>
-              </div>
-
-              {/* Testimonial Quote - Right Side */}
-              <div className="flex-grow max-w-2xl flex flex-col h-full relative">
-                {/* SVG Quote Icon - top right */}
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{
-                    position: "absolute",
-                    right: "16px",
-                    top: "16px",
-                    zIndex: 10,
-                  }}
-                >
-                  {/* Left quote */}
-                  <g>
-                    <text
-                      x="10"
-                      y="18"
-                      textAnchor="middle"
-                      fill="#ffffff"
-                      fontSize="10"
-                      fontWeight="bold"
-                      fontFamily="Georgia, serif"
-                    >
-                      "
-                    </text>
-                  </g>
-                  {/* Right quote */}
-                  <g>
-                    <text
-                      x="26"
-                      y="18"
-                      textAnchor="middle"
-                      fill="#ffffff"
-                      fontSize="10"
-                      fontWeight="bold"
-                      fontFamily="Georgia, serif"
-                    >
-                      "
-                    </text>
-                  </g>
-                </svg>
-
-                <div
-                  className="relative"
-                  style={{ padding: "16px 48px 0" }}
-                >
-                  <p
-                    className="text-gray-700"
-                    style={{
-                      fontSize: "20px",
-                      lineHeight: "1.6",
-                      fontStyle: "italic",
-                      margin: "-2px 0 0 -1px",
-                    }}
-                  >
-                    {testimonial.quote}
-                  </p>
-                </div>
-              </div>
+    <section className="min-h-screen bg-[#B8B7A3] flex items-center">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-12 items-start">
+          <aside className="lg:col-span-5">
+            <h2 className="text-[#1C2826] text-4xl md:text-5xl lg:text-6xl leading-tight">
+              Stemmen van voorgaande deelneemsters
+            </h2>
+            <p className="mt-8 max-w-xl text-[#1C2826] text-lg leading-relaxed md:text-xl">
+              Voor al onze partners geldt dat ze zelf het voortouw nemen en opvallen
+              door hun innovatiekracht. Daar zijn we trots op. Deze bedrijven hebben
+              een duidelijke visie over duurzaamheid en zijn ‘purpose-driven’. Een
+              aantal partners vertelt:
+            </p>
+            <div className="mt-10 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={goToPrev}
+                aria-label="Vorige testimonial"
+                className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#1C2826]/25 text-[#1C2826] transition-colors hover:bg-[#FBF9F5]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C2826]/30"
+              >
+                <ChevronLeft className="h-7 w-7" />
+              </button>
+              <button
+                type="button"
+                onClick={goToNext}
+                aria-label="Volgende testimonial"
+                className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#1C2826]/25 text-[#1C2826] transition-colors hover:bg-[#FBF9F5]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C2826]/30"
+              >
+                <ChevronRight className="h-7 w-7" />
+              </button>
             </div>
-          ))}
+          </aside>
+
+          <div className="lg:col-span-7 lg:pt-24">
+            <InfiniteTwoUpCarousel
+              testimonials={carouselItems}
+              onReady={(api) => {
+                controlsRef.current = api;
+              }}
+              renderCard={(item) => (
+                <article className="shrink-0 rounded-3xl bg-[#FBF9F5] text-[#1C2826] px-8 pt-8 pb-6 shadow-sm">
+                  <img
+                    loading="lazy"
+                    src="/quotation.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="h-10 w-auto"
+                  />
+                  <p className="mt-4 text-base leading-relaxed">{item.quote}</p>
+                  <div className="mt-6 flex items-center gap-4">
+                    <div className="h-12 w-12 overflow-hidden rounded-full bg-[#1C2826]/10 flex-shrink-0">
+                      {item.photo ? (
+                        <img loading="lazy"
+                          src={item.photo}
+                          alt={item.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : null}
+                    </div>
+                    <div className="leading-tight min-w-0">
+                      <p className="text-lg font-semibold text-[#1C2826]">{item.name}</p>
+                      <p className="text-sm text-[#1C2826]/70">{item.role}</p>
+                    </div>
+                  </div>
+                </article>
+              )}
+            />
+          </div>
         </div>
       </div>
-
-      {/* Navigation Dots - Centered Below */}
-      <div className="flex gap-3 justify-center">
-        {testimonials.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className="rounded-full transition-all"
-            style={{
-              width: "12px",
-              height: "12px",
-              backgroundColor:
-                index === currentIndex
-                  ? "#98a481"
-                  : "rgba(200, 200, 200, 0.5)",
-            }}
-            aria-label={`Go to testimonial ${index + 1}`}
-          />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }

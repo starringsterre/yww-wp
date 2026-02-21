@@ -1,10 +1,6 @@
 import { useState } from "react";
-
-interface Coach {
-  name: string;
-  image: string;
-  bio: string;
-}
+import { urlFor } from "@/lib/sanity";
+import type { Coach } from "@shared/sanity";
 
 interface CoachCardsGridProps {
   coaches: Coach[];
@@ -16,21 +12,25 @@ export default function CoachCardsGrid({ coaches }: CoachCardsGridProps) {
   const getDisplayImage = (cardIndex: number) => {
     // When the other card is flipped, show that coach's image in this position
     const otherIndex = cardIndex === 0 ? 1 : 0;
-    if (flippedIndex === otherIndex) {
-      return coaches[otherIndex].image;
+    const coach = flippedIndex === otherIndex ? coaches[otherIndex] : coaches[cardIndex];
+    if (!coach?.image) return null;
+    // Handle both string URLs (fallback) and Sanity image references
+    if (typeof coach.image === 'string') {
+      return coach.image;
     }
-    return coaches[cardIndex].image;
+    return urlFor(coach.image).width(800).url();
   };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       {coaches.map((coach, index) => {
+        if (!coach) return null;
         const isFlipped = flippedIndex === index;
         const displayImage = getDisplayImage(index);
 
         return (
           <div
-            key={index}
+            key={coach._id || index}
             className="relative w-full h-96 cursor-pointer"
             onMouseEnter={() => setFlippedIndex(index)}
             onMouseLeave={() => setFlippedIndex(null)}
@@ -48,11 +48,15 @@ export default function CoachCardsGrid({ coaches }: CoachCardsGridProps) {
                 className="absolute w-full h-full bg-white rounded-lg shadow-lg overflow-hidden flex items-center justify-center"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                <img
-                  src={displayImage}
-                  alt={coach.name}
-                  className="w-full h-full object-contain"
-                />
+                {displayImage ? (
+                  <img loading="lazy"
+                    src={displayImage}
+                    alt={coach.name}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="text-gray-400">No image</div>
+                )}
               </div>
 
               {/* Back side - Text */}

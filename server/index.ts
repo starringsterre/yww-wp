@@ -4,6 +4,8 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleMailchimpSubscribe } from "./routes/mailchimp";
 import { handleNewsletterSubscribe } from "./routes/newsletter";
+import { handleGroeiScanLead } from "./routes/groeiscan";
+import { handleVraagbaakLead } from "./routes/vraagbaak";
 
 export function createServer() {
   const app = express();
@@ -22,6 +24,8 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
   app.post("/api/mailchimp/subscribe", handleMailchimpSubscribe);
   app.post("/api/newsletter/subscribe", handleNewsletterSubscribe);
+  app.post("/api/groeiscan/lead", handleGroeiScanLead);
+  app.post("/api/vraagbaak/lead", handleVraagbaakLead);
 
   return app;
 }

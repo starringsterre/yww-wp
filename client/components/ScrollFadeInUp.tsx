@@ -1,17 +1,20 @@
 import { useEffect, useRef } from "react";
+import type { JSX, ReactNode } from "react";
 
 interface ScrollFadeInUpProps {
-  children: React.ReactNode;
+  as?: keyof JSX.IntrinsicElements;
+  children: ReactNode;
   className?: string;
   [key: string]: any;
 }
 
 export default function ScrollFadeInUp({
+  as: Component = "div",
   children,
   className = "",
   ...props
 }: ScrollFadeInUpProps) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,8 +43,8 @@ export default function ScrollFadeInUp({
   }, []);
 
   return (
-    <div ref={ref} className={className} {...props}>
+    <Component ref={ref} className={className} {...props}>
       {children}
-    </div>
+    </Component>
   );
 }

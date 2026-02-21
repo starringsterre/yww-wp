@@ -18,7 +18,7 @@ export default function NotFound() {
         </p>
         <Button
           size="lg"
-          className="bg-primary text-white hover:bg-primary/90"
+          className="bg-primary text-white hover:bg-accent hover:scale-105"
           asChild
         >
           <Link to="/">

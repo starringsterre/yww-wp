@@ -56,7 +56,7 @@ export default function NewsletterSignup() {
     <section
       className="py-20 px-4 md:px-8 bg-cover bg-center relative"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=400&fit=crop')`,
+        backgroundImage: `linear-gradient(rgba(28, 40, 38, 0.4), rgba(28, 40, 38, 0.4)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&h=400&fit=crop')`,
       }}
     >
       <div className="max-w-2xl mx-auto relative z-10">
@@ -108,20 +108,9 @@ export default function NewsletterSignup() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full text-white py-3 transition-all duration-300 hover:scale-105"
+              className="w-full bg-primary text-white py-3 transition-all duration-300 hover:scale-105 hover:bg-accent disabled:hover:bg-primary"
               style={{
-                backgroundColor: "rgb(120, 110, 100)",
                 opacity: isLoading ? 0.6 : 1,
-              }}
-              onMouseEnter={(e) => {
-                if (!isLoading) {
-                  e.currentTarget.style.opacity = "0.75";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isLoading) {
-                  e.currentTarget.style.opacity = "1";
-                }
               }}
             >
               {isLoading ? "Bezig met inschrijven..." : "Inschrijven"}

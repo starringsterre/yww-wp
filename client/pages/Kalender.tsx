@@ -20,19 +20,15 @@ export default function Kalender() {
       {/* Upcoming Retreat */}
       <section className="py-14 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light text-center text-gray-900 mb-8">
-            Volgende Weekend groepstraining
-          </h2>
-
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 border-2 border-primary">
             <div className="mb-6">
               <p className="text-sm font-medium text-primary mb-2">
                 4DE EDITIE
               </p>
               <h3 className="text-4xl font-light text-gray-900 mb-2">
-                Young Wise Women Weekend groepstraining
+                Young Wise Women Weekend Intensive
               </h3>
-              <p className="text-gray-600">Reflectie, Rust & Ruimte</p>
+              <p className="text-gray-600">Reflectie, Rust & Ruimte: een meerdaagse training voor persoonlijke ontwikkeling</p>
             </div>
 
             <div className="space-y-5 mb-8 pb-8 border-b border-gray-200">
@@ -40,10 +36,13 @@ export default function Kalender() {
                 <Calendar className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    12 - 14 juni 2026
+                    24 - 26 juni 2026
                   </p>
                   <p className="text-gray-600">
                     Vrijdag 17:30 uur tot Zondag 16:00 uur
+                  </p>
+                  <p className="text-gray-600">
+                    Daarna: 16 - 18 oktober 2026
                   </p>
                 </div>
               </div>
@@ -62,7 +61,7 @@ export default function Kalender() {
                 <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    Voor Jonge Professional Vrouwen (24-30)
+                    Voor Jonge Professional Vrouwen (24-29)
                   </p>
                   <p className="text-gray-600">Beperkte plaatsen beschikbaar</p>
                 </div>

@@ -219,6 +219,129 @@ Wat goed werkte:
 - Gewijzigd: `Voorafganade` gecorrigeerd naar `Voorafgaande`.
 - Gewijzigd: kop `Persoonlijke groei & ontwikkeling - de reis` aangepast naar `Programma: Persoonlijke groei & authenticiteit`.
 
+## 2026-02-21
+
+### 1) Podcast episode sharing omgezet naar centrale popup
+- Gewijzigd: in `client/pages/Podcasts.tsx` is het inline share-dropdown menu vervangen door een gecentreerde dialog in huisstijl.
+- Inhoud popup: delen via WhatsApp, e-mail, LinkedIn, plus `Kopieer link` en `Kopieer embed-code`.
+- Reusable beslissing: voor sharing-acties op cards voortaan één centrale modal gebruiken voor consistente UX op desktop en mobiel.
+
+### 2) Embed-code fallback per platform toegevoegd
+- Gewijzigd: embed-code generatie ondersteunt nu YouTube en Spotify op basis van episode-link.
+- Wat ging minder: lokale typecheck kan niet met `pnpm` in deze shell (`command not found`); `npm run typecheck` draait wel maar faalt op bestaande fouten in `client/components/ScrollFadeInUp.tsx` buiten deze wijziging.
+
+### 3) Share-popup visueel versterkt in huisstijl
+- Gewijzigd: popup-header met gradient, zachte achtergrond-accenten en duidelijke titel/episodecontext.
+- Gewijzigd: share-opties hebben nu iconen, betere states (`Gekopieerd`) en een extra `Bekijk aflevering`-actie.
+- Reusable beslissing: action-rows in modals als icon + label + status/extern-icoon opbouwen voor snellere scanbaarheid.
+
+### 4) Meer mobiele ruimte tussen testimonial-pijlen en kaarten
+- Gewijzigd: in `client/components/RetreatTestimonialsSection.tsx` en `client/components/TestimonialsCarousel.tsx` extra mobiele topmarge toegevoegd op de carousel-kolom (`mt-8`, met `lg:mt-0`).
+- Resultaat: op mobile staat er nu duidelijk meer ruimte tussen de navigatiepijlen en de witte testimonial-blokken.
+
+### 5) Logo-sectie op mobile van lijst naar exploded view
+- Gewijzigd: `client/components/FloatingBrandsSection.tsx` gebruikt op mobile nu absolute, verspreide logo-posities in plaats van een verticale stack.
+- Resultaat: visuele compositie sluit nu aan op desktop met dezelfde “floating/exploded” indruk.
+
+### 6) Mobile logo-weergave omgezet naar autoplay slider
+- Gewijzigd: mobile variant in `client/components/FloatingBrandsSection.tsx` vervangen door een horizontale, automatisch bewegende logoslider met alle logo's.
+- Gewijzigd: in `client/global.css` utility `animate-logo-marquee` + `@keyframes logo-marquee` toegevoegd voor oneindige schuifanimatie.
+- Reusable beslissing: bij veel logo's op kleine schermen liever een autoplay-track met gedupliceerde items voor een vloeiende loop dan absolute/floating plaatsing.
+
+### 7) Mobile logoslider uitgebreid naar 2 rijen
+- Gewijzigd: in `client/components/FloatingBrandsSection.tsx` mobiele logoslider opgesplitst in twee autoplay-rijen (even/oneven verdeling), met tegengestelde richting op rij 2.
+- Resultaat: rustiger beeld op mobile en betere spreiding van alle logo's binnen de beschikbare breedte.
+
+### 8) Volgordeblokken aangepast op Transactional-pagina
+- Gewijzigd: in `client/pages/WeekendIntensiveTransactie.tsx` staat `Praktisch` nu direct onder `Persoonlijke ontwikkeling training voor vrouwen in Nederland`.
+- Gewijzigd: videoblok (`Hoe andere deelneemsters het ervaren`) staat direct na `Praktisch`.
+- Gewijzigd: `Boek jouw plek` is verplaatst naar direct vóór de FAQ-sectie.
+
+### 9) Eerste roze introblok herschreven voor SEO op weekendpagina
+- Gewijzigd: in `client/pages/Weekenden.tsx` is de volledige bestaande inhoud van het eerste roze blok verwijderd (subblokken, lijstjes, CTA's en extra kaarten).
+- Gewijzigd: vervangen door exact één H1 en één SEO-intro-alinea met transactionele insteek voor inschrijving.
+- Reusable beslissing: voor SEO-landingsintro's in hero-near secties één duidelijke H1 + compacte conversiongerichte alinea aanhouden.
+
+### 10) Videoblok toegevoegd direct onder roze introsectie
+- Gewijzigd: in `client/pages/Weekenden.tsx` staat nu direct onder het roze blok een video uit `public/Young Wise Women - 2 daagse ontwikkeling training.mov` met afgeronde randen en dezelfde contentbreedte.
+- Gedrag: video start automatisch, muted en in loop; hover-overlay in terracotta toont een `SOUND` knop in Poppins waarmee audio wordt geactiveerd.
+- Reusable beslissing: video-interactie op landingssecties standaard starten met muted autoplay + expliciete unmute-knop voor voorspelbaar mobiel gedrag.
+
+### 11) Sound-knop interactie aangepast op videoblok
+- Gewijzigd: hoverlaag zonder kleurzweem gemaakt (geen roze gloed meer), met alleen een zwevende knop.
+- Gewijzigd: `SOUND`-knop volgt nu de muispositie binnen het videovlak en togglet bij elke klik tussen mute en unmute.
+- Gewijzigd: knopachtergrond staat vast op terracotta voor consistente huisstijl.
+
+### 12) Klik op videovlak toggle voor geluid toegevoegd
+- Gewijzigd: in `client/pages/Weekenden.tsx` togglet een klik op het videovlak nu ook direct tussen mute en unmute.
+- Resultaat: zowel de video zelf als de `SOUND`-knop gebruiken dezelfde toggle-actie.
+
+### 13) Toggle stabiel gemaakt en toetsenbordbediening toegevoegd
+- Gewijzigd: mute-toggle bepaalt de volgende status nu op basis van `video.muted` in plaats van component-state, zodat herhaald klikken altijd betrouwbaar omklapt.
+- Gewijzigd: videovlak is focusbaar gemaakt (`tabIndex=0`) met `Enter`/`Spatie` als keyboard-toggle voor mute/unmute.
+
+### 14) Pointer-event flow opgeschoond voor sound-toggle
+- Gewijzigd: in `client/pages/Weekenden.tsx` video-interactie volledig op pointer-events gezet (`onPointerEnter/Move/Leave` + `onPointerDown`) voor consistente trackpad/touch-werking.
+- Gewijzigd: conflicterende click/capture/stopPropagation handlers verwijderd; wrapper en SOUND-knop togglen nu elk exact één keer.
+- Gewijzigd: unmute-pad gebruikt `await video.play().catch(() => {})` om autoplay/unmute-issues zonder crash af te handelen.
+
+### 15) Introcopy compacter gemaakt en uitlijning gelijkgetrokken
+- Gewijzigd: SEO-intro in het eerste roze blok op `client/pages/Weekenden.tsx` herschreven naar kortere, leesbaardere alinea met minder keyword-dichtheid.
+- Gewijzigd: H1 en bodytekst delen nu dezelfde `max-w-4xl` breedte voor strakkere visuele uitlijning.
+
+### 16) Intro opgesplitst in 2 paragrafen en doelgroep aangescherpt
+- Gewijzigd: introtekst in `client/pages/Weekenden.tsx` opgesplitst naar twee korte paragrafen voor betere scanbaarheid zonder SEO-verlies.
+- Gewijzigd: doelgroep in de copy gecorrigeerd naar vrouwelijke professionals van 24 tot 29 jaar.
+
+### 17) CTA onder videoblok toegevoegd
+- Gewijzigd: in `client/pages/Weekenden.tsx` staat nu direct onder de introvideo een CTA `Bekijk de hele video`.
+- Link: verwijst naar `https://www.youtube.com/watch?v=3djy4-X1-3s` en opent in een nieuw tabblad.
+
+### 18) Volgende-editie sectie geplaatst na doelgroep-sectie op weekendpagina
+- Gewijzigd: `NewsletterSignup` (sectie met volgende-editie inschrijving) toegevoegd aan `client/pages/Weekenden.tsx` direct na `Voor wie zijn onze trainingen`.
+- Resultaat: volgorde op de pagina sluit nu aan op gevraagde flow.
+
+### 19) Correctie: specifieke evenementen-sectie verplaatst
+- Gewijzigd: op `client/pages/Weekenden.tsx` is nu de volledige sectie `Volgende Weekend groepstraining` (zoals op `Kalender`) geplaatst direct onder `Voor wie zijn onze trainingen`.
+- Gewijzigd: tijdelijke nieuwsbrief-plaatsing op die positie is vervangen door deze concrete groepstraining-sectie.
+
+### 20) Sitebrede datum- en doelgroepnormalisatie + CTA-consistentie
+- Gewijzigd: alle gevonden verwijzingen naar `12-14 juni` bijgewerkt naar `24-26 juni 2026` en waar relevant aangevuld met `Daarna: 16-18 oktober 2026`.
+- Gewijzigd: alle gevonden doelgroepverwijzingen `24+` en `24-30` in `client/pages` en `client/components` aangepast naar `24-29`.
+- Gewijzigd: event fallback-data in `client/components/EventCalendar.tsx` gezet op juni (`24-26`) en extra oktober-editie (`16-18`) toegevoegd voor de kalenderweergave.
+- Gewijzigd: primaire CTA-linkstijlen op de aangepaste event/weekend-paden gelijkgetrokken naar dezelfde padding en hover-scale (`px-7 py-2.5`, `hover:scale-105`, `hover:bg-accent`).
+
+### 21) Volgorde van twee kernsecties omgedraaid op weekendpagina
+- Gewijzigd: in `client/pages/Weekenden.tsx` staat `Op een inspirerende locatie in Nederland` nu vóór `Jouw Transformatie`.
+- Resultaat: de door jou gewenste leesvolgorde is nu direct zichtbaar in de paginastroom.
+
+### 22) Mobiele hero-zoom issue opgelost door fixed background te verwijderen
+- Gewijzigd: `backgroundAttachment: fixed` verwijderd in `client/components/HeroSection.tsx` en in de losse locatie-hero van `client/pages/Weekenden.tsx`.
+- Reden: fixed achtergrondgedrag veroorzaakt op mobiele browsers vaak ongewenst ingezoomde/cropped hero-weergave.
+
+### 23) Doelgroepleeftijd opgesplitst naar context
+- Gewijzigd: workshops en overkoepelende merk/community-teksten teruggezet naar `24+` (o.a. `Home`, `OntwikkelingWorkshops`, `OnsVerhaal`, `MemberStats`).
+- Bewust behouden: specifieke weekend(editie)-blokken blijven op `24-29` voor de huidige positionering van die trajecten.
+
+### 24) Weekend-link op algemene persoonlijke-ontwikkeling pagina zonder anchor
+- Gewijzigd: in `client/pages/Retreats.tsx` wijzen `Weekend Trainingen` en `Lees meer` nu naar `/persoonlijke-ontwikkeling-weekend-training` (zonder `#drie-pijlers`).
+
+### 25) Fotogalerij teller gesynchroniseerd met zichtbare items
+- Gewijzigd: in `client/pages/Weekenden.tsx` gebruikt de modal-slider nu exact dezelfde bronlijst als de grid (`allSlideImages = [...gridImages]`).
+- Resultaat: teller en navigatie tonen geen onjuiste totaalstand (zoals 14) meer.
+
+### 26) Titel/subtitel aangepast in groepstraining-blok
+- Gewijzigd: in `client/pages/Weekenden.tsx` en `client/pages/Kalender.tsx` is de bovenste sectietitel `Volgende Weekend groepstraining` verwijderd.
+- Gewijzigd: onder `4DE EDITIE` staat nu `Young Wise Women Weekend Intensive`.
+- Gewijzigd: subtitel aangepast naar `Een meerdaagse training voor Persoonlijke ontwikkeling. Ervaar reflectie, rust & ruimte`.
+
+### 27) Subtitel copy verfijnd volgens laatste voorkeur
+- Gewijzigd: subtitel in `client/pages/Weekenden.tsx` en `client/pages/Kalender.tsx` aangepast naar `Reflectie, Rust & Ruimte: een meerdaagse training voor persoonlijke ontwikkeling`.
+
+### 28) CTA `Bekijk de hele video` omgezet naar fullscreen videomodal
+- Gewijzigd: op `client/pages/Weekenden.tsx` opent de CTA nu een groot scherm-overlay met sluitknop (`X`) rechtsboven.
+- Gewijzigd: afgespeelde bron is lokaal bestand `public/Young Wise Women - Testimonial okt 2025.mov` in plaats van YouTube-link.
+
 ## 2026-02-18
 
 ### 1) Laatste nieuwsbrief-sectie niet meer laten invliegen
@@ -906,3 +1029,171 @@ Wat goed werkte:
 - Vercel config toegevoegd met `pnpm build`, output `dist/spa`, API rewrite en SPA fallback rewrite.
 - Wat ging mis: geen issues.
 - Herbruikbare beslissing: voor Vite + Express op Vercel standaard een catch-all serverless API route combineren met frontend rewrite naar `index.html`.
+
+### 73) Branch `zen-hub-clean` naar `main` gemerged op GitHub
+- Datum: 2026-02-21
+- Gewijzigd: git-branches `main`, `zen-hub-clean` op remote `origin`.
+- `main` lokaal fast-forward gemerged naar `zen-hub-clean` en daarna gepusht naar `origin/main` (`733f89a -> bfb1bd4`).
+- Wat ging mis: lokale sandbox blokkeerde `.git/index.lock` zonder escalated permissies.
+- Herbruikbare beslissing: voor branch-merge-acties in deze omgeving direct rekenen op escalated permissies voor `git checkout/merge/push`.
+
+### 74) Wit scherm: runtime-hardening voor storage en media query listeners
+- Datum: 2026-02-21
+- Gewijzigd: `client/hooks/useIsDesktop.ts`, `client/components/Layout.tsx`, `client/components/VraagbaakWidget.tsx`.
+- Browser-compatibele fallback toegevoegd voor `MediaQueryList` listeners (`addEventListener`/`addListener`), plus `try/catch` rond `localStorage` reads/writes in cookie consent en vraagbaak state.
+- Wat ging mis: wit scherm niet reproduceerbaar in sandbox (geen lokale dev-poort), maar code bevatte bekende browser-risico’s voor runtime crash in restricted/private contexts.
+- Herbruikbare beslissing: alle niet-kritieke browser API’s (`localStorage`, media-query listeners) defensief afvangen zodat UI nooit hard crasht.
+
+### 75) Sanity init-crash opgelost bij ontbrekende ENV
+- Datum: 2026-02-21
+- Gewijzigd: `client/lib/sanity.ts`, `client/lib/sanityQueries.ts`.
+- Sanity client alleen initialiseren als `VITE_SANITY_PROJECT_ID` aanwezig is; fetches veilig gemaakt met fallback zodat de app rendert zonder crash.
+- Wat ging mis: `createClient` werd uitgevoerd met lege `projectId`, waardoor runtime exception ontstond en de pagina wit bleef.
+- Herbruikbare beslissing: externe SDK-clients altijd conditioneel initialiseren op verplichte ENV-keys en fetches afvangen met veilige defaults.
+
+### 76) Sanity volledig verwijderd uit frontend en dependencies
+- Datum: 2026-02-21
+- Gewijzigd: `client/components/CoachCardsGrid.tsx`, `client/components/TestimonialsCarousel.tsx`, `client/components/EventCalendar.tsx`, `package.json`, `package-lock.json`; verwijderd: `client/lib/sanity.ts`, `client/lib/sanityQueries.ts`, `client/hooks/useSanityData.ts`, `shared/sanity.ts`.
+- Alle Sanity-imports, types en image-builder usage verwijderd; componenten gebruiken nu lokale types en directe image-URL’s.
+- Wat ging mis: package-uninstall via npm faalde in sandbox door netwerkblokkade (`ENOTFOUND registry.npmjs.org`), daarom lockfile handmatig gesynchroniseerd.
+- Herbruikbare beslissing: bij het uitfaseren van een CMS eerst codeverwijzingen verwijderen en vervolgens dependency-manifesten opschonen, zodat runtime niet meer afhankelijk is van ontbrekende ENV.
+
+### 77) Vercel build gefixt voor lockfile-mismatch in CI
+- Datum: 2026-02-21
+- Gewijzigd: `vercel.json`.
+- `installCommand` toegevoegd: `pnpm install --no-frozen-lockfile` zodat Vercel niet faalt op een lockfile/package.json mismatch tijdens dependency install.
+- Wat ging mis: Vercel CI draaide `pnpm install` met `frozen-lockfile=true` en brak direct op specifier-verschillen.
+- Herbruikbare beslissing: als lockfile tijdelijk achterloopt in CI, expliciet een niet-frozen installcommand instellen om deploy te deblokkeren; daarna lockfile alsnog structureel synchroniseren in de repo.
+
+### 78) Vercel productie-deploy uitgevoerd via CLI
+- Datum: 2026-02-21
+- Gewijzigd: `vercel.json`, live deployment op Vercel.
+- Deploy gestart met `npx vercel deploy --prod --yes`; productie-URL geüpdatet naar `https://yww.vercel.app`.
+- Wat ging mis: Vercel-log toonde TypeScript errors in `server/routes/*` tijdens function-analyse, maar deployment werd alsnog afgerond.
+- Herbruikbare beslissing: voor stabiele CI/CD server route-typing expliciet aanscherpen zodat Vercel function checks geen false-fail/future fail risico opleveren.
+
+### 79) Homepage volgorde aangepast en Promotievideo-sectie toegevoegd
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Home.tsx`.
+- Homepagevolgorde aangepast naar: Hero, Evenementen, Wat trajecten opleveren, Krachtige vrouwen (brands), De balans tussen denken en voelen, Promotievideo, Weekend trainingen & Dag workshops, daarna bestaande vervolgscties.
+- Nieuwe sectie `Promotievideo` toegevoegd met dezelfde video-interactie als op de weekendpagina: muted autoplay, SOUND-knop die cursor volgt, klik/tap toggle mute/unmute, en CTA `Bekijk de hele video` die een fullscreen modal opent met `Young Wise Women - Testimonial okt 2025.mov` inclusief sluitknop.
+- Wat ging mis: lokale `pnpm` is niet beschikbaar in deze shell (`command not found`), daardoor geen typecheck kunnen draaien.
+- Herbruikbare beslissing: voor gedeelde video-ervaringen dezelfde pointer-event flow en modalpatronen gebruiken zodat gedrag op desktop, trackpad en touch consistent blijft.
+
+### 80) CTA-tekst aangepast in sectie 'De balans tussen denken en voelen'
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Home.tsx`.
+- CTA-label in deze sectie aangepast van `Bekijk weekendintensive` naar `Bekijk ons aanbod` met bestaande link intact.
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: CTA-teksten kort en breed toepasbaar houden wanneer een sectie naar het totale aanbod verwijst.
+
+### 81) Hero CTA 'Bekijk Evenementen' verwijderd
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Home.tsx`.
+- Scroll-gestuurde hero CTA volledig verwijderd (inclusief bijbehorende `showCTA` state en `useEffect` listener).
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: hero clean houden zonder secundaire CTA wanneer focus op primaire contentflow ligt.
+
+### 82) Sectie 'De balans tussen denken en voelen' verwijderd van homepage
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Home.tsx`.
+- Volledige sectie met ademsessie/yogalessen en bijbehorende CTA verwijderd, zodat homepage-flow direct doorloopt naar `Promotievideo`.
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: bij strakkere homepage-funnel inhoudelijke detailsecties verwijderen wanneer ze focus wegnemen van primaire conversieblokken.
+
+### 83) Titel 'Promotievideo' verwijderd van homepage
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Home.tsx`.
+- Alleen de sectietitel verwijderd; video, SOUND-interactie en CTA `Bekijk de hele video` blijven ongewijzigd.
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: wanneer visuele rust belangrijker is, sectietitels weglaten bij self-explanatory contentblokken.
+
+### 84) Promotievideo gepauzeerd bij openen fullscreen video
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Home.tsx`.
+- Bij klik op `Bekijk de hele video` wordt de inline promotievideo nu eerst gepauzeerd en daarna de modal geopend, zodat audio niet dubbel afspeelt.
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: bij video-in-video flows altijd bronvideo pauzeren voordat een modalspeler opent.
+
+### 85) Promotievideo geuniversaliseerd en toegevoegd op Join Netwerk
+- Datum: 2026-02-22
+- Gewijzigd: `client/components/PromoVideoSection.tsx`, `client/pages/Home.tsx`, `client/pages/Weekenden.tsx`, `client/pages/LidWorden.tsx`.
+- Nieuwe gedeelde component `PromoVideoSection` gemaakt met SOUND-hover tracking, pointer-based mute toggle, CTA `Bekijk de hele video`, fullscreen modal met sluitknop en pauze van inline video bij openen modal.
+- Losse, dubbele implementaties verwijderd uit `Home` en `Weekenden`; beide pagina's gebruiken nu dezelfde component.
+- Promotievideo-sectie toegevoegd op `Join Netwerk` (`LidWorden`) direct onder `Ervaringen van deelneemsters` (`RetreatTestimonialsSection`).
+- Wat ging mis: lokale typecheck kon niet worden gedraaid omdat `pnpm` niet beschikbaar is in deze shell.
+- Herbruikbare beslissing: interactieve videosecties centraal componentiseren om gedrag, styling en fixes (zoals audio-conflict) op alle pagina's consistent te houden.
+
+### 86) Fase 1 Klaviyo-koppeling toegevoegd (nieuwsbrief + groeiscan)
+- Datum: 2026-02-22
+- Gewijzigd: `server/lib/klaviyo.ts`, `server/routes/mailchimp.ts`, `server/routes/newsletter.ts`, `server/routes/groeiscan.ts`, `client/pages/Weekenden.tsx`.
+- Nieuwe server-side Klaviyo helper toegevoegd voor lijst-subscripties en event tracking.
+- Nieuwsbrief endpoints (`/api/mailchimp/subscribe` en `/api/newsletter/subscribe`) gemigreerd naar Klaviyo met list subscribe + event `Nieuwsbrief Inschrijving`.
+- Groeiscan endpoint (`/api/groeiscan/lead`) gemigreerd van n8n webhook naar Klaviyo event `Groeiscan Ingevuld`, plus optionele subscribe op `KLAVIYO_LIST_ID_TRAININGS` bij marketing consent.
+- Kleine compile-fix in `Weekenden.tsx`: `X` icon import hersteld.
+- Wat ging mis: `typecheck` faalt nog op bestaande pre-existing errors in `client/components/ScrollFadeInUp.tsx` (niet veroorzaakt door deze wijziging).
+- Herbruikbare beslissing: alle lead-ingest naar externe systemen via één server-side integratielaag houden (geen client-side keys), zodat migraties en consent-regels centraal blijven.
+
+### 87) Scope aangepast: alleen nieuwsbrief naar Klaviyo, groeiscan terug op n8n
+- Datum: 2026-02-22
+- Gewijzigd: `server/routes/groeiscan.ts`, `client/components/NewsletterSignup.tsx`, `client/pages/LidWorden.tsx`, `server/routes/newsletter.ts`.
+- `Groeiscan` migratie naar Klaviyo teruggedraaid; endpoint gebruikt weer n8n webhook-flow.
+- Alle nieuwsbrief-inschrijvingen nu via `/api/newsletter/subscribe`:
+  - nieuwsbriefsectie (`NewsletterSignup`) post naar deze route;
+  - opt-in op `Join Netwerk` post nu ook naar deze route.
+- `server/routes/newsletter.ts` uitgebreid met `phone` en `source` zodat profieldata/context naar Klaviyo meegaat; inschrijvingen landen op `KLAVIYO_LIST_ID_NEWSLETTER`.
+- Wat ging mis: `typecheck` faalt nog op pre-existing errors in `client/components/ScrollFadeInUp.tsx`.
+- Herbruikbare beslissing: migraties gefaseerd houden per datastroom (nieuwsbrief eerst) om regressies en scope creep te voorkomen.
+
+### 88) Join Netwerk losgekoppeld van nieuwsbrief en naar eigen Klaviyo-lijst
+- Datum: 2026-02-22
+- Gewijzigd: `server/routes/netwerk.ts`, `server/index.ts`, `client/pages/LidWorden.tsx`.
+- Nieuwe endpoint `/api/netwerk/subscribe` toegevoegd die inschrijvingen op `KLAVIYO_LIST_ID_NETWERK` zet en event `Netwerk Inschrijving` verstuurt.
+- Op `Join Netwerk` de nieuwsbrief-checkbox en bijbehorende logica verwijderd; formulier submit gaat nu direct naar `/api/netwerk/subscribe`.
+- Succesmelding op Join Netwerk wordt alleen nog getoond als de API-call succesvol is.
+- Wat ging mis: `typecheck` faalt nog op pre-existing fouten in `client/components/ScrollFadeInUp.tsx`.
+- Herbruikbare beslissing: verschillende intenties (nieuwsbrief vs netwerk-lidmaatschap) altijd op aparte backend endpoints en Klaviyo-lijsten houden.
+
+### 89) Join Netwerk nu automatisch op netwerk + nieuwsbrief lijst in Klaviyo
+- Datum: 2026-02-22
+- Gewijzigd: `server/routes/netwerk.ts`.
+- `/api/netwerk/subscribe` subscribe't nu met één submit op beide lijsten: `KLAVIYO_LIST_ID_NETWERK` en `KLAVIYO_LIST_ID_NEWSLETTER`.
+- Event `Netwerk Inschrijving` uitgebreid met lijstcontext en WhatsApp-intent; profielproperties uitgebreid voor segmentatie (`is_network_member`, `newsletter_subscriber`, `communication_channel_preference`).
+- Route geeft nu ook `subscribedLists` terug in response.
+- Wat ging mis: `typecheck` faalt nog op pre-existing fouten in `client/components/ScrollFadeInUp.tsx`.
+- Herbruikbare beslissing: bij community-joins meerdere marketingdoelen met één profiel en meerdere list-subscriptions modelleren.
+
+### 90) Brochure CTA voor HR-managers gekoppeld aan Klaviyo lijst 'bedrijfs'
+- Datum: 2026-02-22
+- Gewijzigd: `server/routes/bedrijfs.ts`, `server/index.ts`, `client/pages/VoorOrganisaties.tsx`.
+- Nieuwe endpoint `/api/bedrijfs/brochure-lead` toegevoegd dat brochure-leads op `KLAVIYO_LIST_ID_BEDRIJFS` subscribe't en event `Bedrijfs Brochure Download` trackt.
+- Brochureformulier op `VoorOrganisaties` stuurt nu eerst leaddata naar backend (voornaam, achternaam, e-mail, bedrijf, rol) en start pas daarna de PDF-download.
+- Submit-status toegevoegd in de modal (loading + foutmelding).
+- Wat ging mis: `typecheck` faalt nog op pre-existing fouten in `client/components/ScrollFadeInUp.tsx`.
+- Herbruikbare beslissing: gated downloads altijd eerst server-side registreren in CRM voordat het bestand wordt vrijgegeven.
+
+### 91) CTA toegevoegd in eerste roze blok op weekendtrainingen
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/Weekenden.tsx`.
+- In het eerste roze introblok een extra CTA-button toegevoegd met label `Schrijf me in voor de eerstvolgende training`.
+- CTA linkt naar de transactionele pagina: `/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026`.
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: primaire conversion-CTA direct in het eerste contentblok plaatsen voor snellere doorstroom naar transactiewaarde.
+
+### 92) Weekend transactionele inschrijving gekoppeld aan Klaviyo event + lijst
+- Datum: 2026-02-22
+- Gewijzigd: `server/routes/weekend-inschrijving.ts`, `server/index.ts`, `client/pages/WeekendIntensiveTransactie.tsx`.
+- Nieuwe endpoint `/api/weekend/inschrijving` toegevoegd voor inschrijvingen van de training 24-26 juni.
+- Endpoint subscribe't profielen op `KLAVIYO_LIST_ID_TRAININGS` en stuurt event `Weekend Inschrijving Gestart` met `package_option` (`particulier_solo`, `duo_met_vriendin`, `werkgever_factuur`) plus alle relevante factuur-/werkgevervelden.
+- Frontend submit op transactionele pagina omgezet van `mailto` naar API-submit; loading-state en error-afhandeling toegevoegd.
+- Hiermee kunnen 3 afzonderlijke Klaviyo flows op hetzelfde event worden getriggerd via `package_option` filters.
+- Wat ging mis: `typecheck` faalt nog op pre-existing fouten in `client/components/ScrollFadeInUp.tsx`.
+- Herbruikbare beslissing: transactionele formulieren altijd server-side naar CRM events sturen met stabiele enum-keys voor flow-filtering.
+
+### 93) Ons Verhaal mobiel vereenvoudigd zonder scroll/parallax effects
+- Datum: 2026-02-22
+- Gewijzigd: `client/pages/OnsVerhaal.tsx`.
+- Onder `md` breedte parallax/scroll-effect uitgezet (geen translateY, geen actieve scroll-listener).
+- Mobile flow blijft lineair en rustig: tekstblok 1 -> foto 1 -> tekstblok 2 -> foto 2.
+- Wat ging mis: geen issues.
+- Herbruikbare beslissing: op mobiel motion-heavy effecten uitschakelen voor betere leesbaarheid en stabielere UX.

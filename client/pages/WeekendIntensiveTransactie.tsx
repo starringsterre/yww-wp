@@ -62,41 +62,6 @@ type PackageKey =
   | "Samen met een vriendin/collega* (kamer delen)"
   | "Betaald vanuit werkgever (factuur)";
 
-type EmployerInvoiceDetails = {
-  paymentRoute: "Op factuur" | "Via platform (bijv. Alleo)";
-  platformName: string;
-  companyName: string;
-  invoiceEmail: string;
-  kvkNumber: string;
-  vatNumber: string;
-  street: string;
-  houseNumber: string;
-  postalCode: string;
-  city: string;
-  reference: string;
-  purchaseOrder: string;
-};
-
-const mailtoFor = (
-  pakket: PackageKey,
-  name: string,
-  email: string,
-  phone: string,
-  question: string,
-  friendName?: string,
-  employerInvoice?: EmployerInvoiceDetails,
-) => {
-  const subject = encodeURIComponent(`Inquire: Weekend Intensive 24-26 juni 2026 (${pakket})`);
-  const duoBlock = friendName ? `\nNaam vriendin: ${friendName}` : "";
-  const employerBlock = employerInvoice
-    ? `\n\nWerkgever / factuurgegevens:\nBetaalroute: ${employerInvoice.paymentRoute}\nPlatform: ${employerInvoice.platformName || "-"}\nWerkgever: ${employerInvoice.companyName}\nFactuur e-mail: ${employerInvoice.invoiceEmail}\nKvK: ${employerInvoice.kvkNumber}\nBTW-nummer: ${employerInvoice.vatNumber}\nStraat: ${employerInvoice.street}\nHuisnummer: ${employerInvoice.houseNumber}\nPostcode: ${employerInvoice.postalCode}\nPlaats: ${employerInvoice.city}\nReferentie/afdeling: ${employerInvoice.reference || "-"}\nInkoopnummer (PO): ${employerInvoice.purchaseOrder || "-"}`
-    : "";
-  const body = encodeURIComponent(
-    `Hi Young Wise Women,\n\nIk wil een aanvraag doen voor: ${pakket}.\n\nNaam: ${name}${duoBlock}\nE-mail: ${email}\nTelefoon: ${phone || "-"}\nExtra vraag: ${question || "-"}${employerBlock}\n\nGroet,`,
-  );
-  return `mailto:info@youngwisewomen.nl?subject=${subject}&body=${body}`;
-};
-
 function upsertMetaByName(name: string, content: string) {
   let tag = document.querySelector(`meta[name="${name}"]`);
   if (!tag) {
@@ -141,6 +106,7 @@ export default function WeekendIntensiveTransactie() {
   const [invoiceReference, setInvoiceReference] = useState("");
   const [purchaseOrder, setPurchaseOrder] = useState("");
   const [formError, setFormError] = useState("");
+  const [isSubmittingInquiry, setIsSubmittingInquiry] = useState(false);
   const inquireButtonWrapRef = useRef<HTMLDivElement | null>(null);
   const inquiryFormRef = useRef<HTMLDivElement | null>(null);
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -149,7 +115,7 @@ export default function WeekendIntensiveTransactie() {
     selectedPackage === "Samen met een vriendin/collega* (kamer delen)";
   const isDuoPackage = selectedPackage === "Samen met een vriendin/collega* (kamer delen)";
 
-  const handleInquirySubmit = () => {
+  const handleInquirySubmit = async () => {
     if (!name.trim() || !email.trim()) {
       setFormError("Vul je naam en e-mailadres in.");
       return;
@@ -180,31 +146,61 @@ export default function WeekendIntensiveTransactie() {
     }
 
     setFormError("");
-    setShowInquirySuccess(true);
-    window.location.href = mailtoFor(
-      selectedPackage,
-      name.trim(),
-      email.trim(),
-      phone.trim(),
-      question.trim(),
-      isDuoPackage ? friendName.trim() : undefined,
-      requiresCompanyDetails
-        ? {
-            paymentRoute,
-            platformName: platformName.trim(),
-            companyName: companyName.trim(),
-            invoiceEmail: invoiceEmail.trim(),
-            kvkNumber: kvkNumber.trim(),
-            vatNumber: vatNumber.trim(),
-            street: invoiceStreet.trim(),
-            houseNumber: invoiceHouseNumber.trim(),
-            postalCode: invoicePostalCode.trim(),
-            city: invoiceCity.trim(),
-            reference: invoiceReference.trim(),
-            purchaseOrder: purchaseOrder.trim(),
-          }
-        : undefined,
-    );
+    setIsSubmittingInquiry(true);
+
+    try {
+      const response = await fetch("/api/weekend/inschrijving", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+          question: question.trim(),
+          selectedPackage,
+          friendName: isDuoPackage ? friendName.trim() : "",
+          paymentRoute: requiresCompanyDetails ? paymentRoute : "",
+          platformName: requiresCompanyDetails ? platformName.trim() : "",
+          companyName: requiresCompanyDetails ? companyName.trim() : "",
+          invoiceEmail: requiresCompanyDetails ? invoiceEmail.trim() : "",
+          kvkNumber: requiresCompanyDetails ? kvkNumber.trim() : "",
+          vatNumber: requiresCompanyDetails ? vatNumber.trim() : "",
+          invoiceStreet: requiresCompanyDetails ? invoiceStreet.trim() : "",
+          invoiceHouseNumber: requiresCompanyDetails ? invoiceHouseNumber.trim() : "",
+          invoicePostalCode: requiresCompanyDetails ? invoicePostalCode.trim() : "",
+          invoiceCity: requiresCompanyDetails ? invoiceCity.trim() : "",
+          invoiceReference: requiresCompanyDetails ? invoiceReference.trim() : "",
+          purchaseOrder: requiresCompanyDetails ? purchaseOrder.trim() : "",
+        }),
+      });
+
+      if (!response.ok) {
+        const errorPayload = await response
+          .json()
+          .catch(() => ({ error: "Inschrijving versturen mislukt" }));
+        const detailMessage =
+          typeof errorPayload?.detail === "string" && errorPayload.detail.trim().length > 0
+            ? errorPayload.detail
+            : typeof errorPayload?.error === "string" && errorPayload.error.trim().length > 0
+              ? errorPayload.error
+              : "Inschrijving versturen mislukt";
+        throw new Error(detailMessage);
+      }
+
+      setShowInquirySuccess(true);
+      setShowInquiryForm(false);
+    } catch (error) {
+      console.error("Weekend inschrijving submit error:", error);
+      setFormError(
+        error instanceof Error
+          ? error.message
+          : "Er ging iets mis bij het versturen. Probeer het opnieuw.",
+      );
+    } finally {
+      setIsSubmittingInquiry(false);
+    }
   };
 
   const openInquiryForm = () => {
@@ -385,17 +381,78 @@ export default function WeekendIntensiveTransactie() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-3">Boek jouw plek</h2>
-              <p className="text-sm md:text-base text-gray-700 mb-4">
-                Klaar om je plek te reserveren voor dit trainingsweekend voor vrouwen in Nederland?
-              </p>
-              <button
-                type="button"
-                onClick={scrollToInquiry}
-                className="inline-flex items-center rounded-lg bg-[#6B705C] px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-[#B46555]"
-              >
-                Ga naar Inquire now
-              </button>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Praktisch</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+                <div className="flex items-start gap-3">
+                  <Calendar className="w-5 h-5 text-[#6B705C] mt-0.5" />
+                  <div>
+                    <p className="font-medium text-[#1C2826]">Wanneer</p>
+                    <p>Van 24 juni 17:30 t/m 26 juni 16:00 (2026)</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-[#6B705C] mt-0.5" />
+                  <div>
+                    <p className="font-medium text-[#1C2826]">Waar</p>
+                    <p>Oudega, Friesland (natuur en water)</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Users className="w-5 h-5 text-[#6B705C] mt-0.5" />
+                  <div>
+                    <p className="font-medium text-[#1C2826]">Groep</p>
+                    <p>Maximaal 8 deelneemsters</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <BedDouble className="w-5 h-5 text-[#6B705C] mt-0.5" />
+                  <div>
+                    <p className="font-medium text-[#1C2826]">Kamers</p>
+                    <p>4 slaapkamers, bedden kunnen uit elkaar</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 text-sm text-gray-700 space-y-2">
+                <p>
+                  Weekenden op aanvraag zijn beschikbaar voor groepen young professionals. Bekijk de mogelijkheden op{" "}
+                  <Link className="underline underline-offset-2" to="/in-company">
+                    de bedrijfspagina
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Hoe andere deelneemsters het ervaren:</h2>
+              <div className="rounded-xl overflow-hidden border border-gray-200">
+                <div className="relative aspect-video bg-black">
+                  <img
+                    loading="lazy"
+                    src={VIDEO_PREVIEW_IMAGE}
+                    alt="Video preview van persoonlijke ontwikkeling training voor vrouwen in Nederland"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${videoHovered ? "opacity-0" : "opacity-100"}`}
+                  />
+                  {videoHovered && (
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={VIDEO_URL}
+                      title="Weekend Intensive video"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onMouseEnter={() => setVideoHovered(true)}
+                    onMouseLeave={() => setVideoHovered(false)}
+                    onFocus={() => setVideoHovered(true)}
+                    onBlur={() => setVideoHovered(false)}
+                    className="absolute inset-0"
+                    aria-label="Speel weekend intensive video op hover"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
@@ -472,78 +529,17 @@ export default function WeekendIntensiveTransactie() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Praktisch</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
-                <div className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-[#6B705C] mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[#1C2826]">Wanneer</p>
-                    <p>Van 24 juni 17:30 t/m 26 juni 16:00 (2026)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#6B705C] mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[#1C2826]">Waar</p>
-                    <p>Oudega, Friesland (natuur en water)</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Users className="w-5 h-5 text-[#6B705C] mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[#1C2826]">Groep</p>
-                    <p>Maximaal 8 deelneemsters</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <BedDouble className="w-5 h-5 text-[#6B705C] mt-0.5" />
-                  <div>
-                    <p className="font-medium text-[#1C2826]">Kamers</p>
-                    <p>4 slaapkamers, bedden kunnen uit elkaar</p>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-4 text-sm text-gray-700 space-y-2">
-                <p>
-                  Weekenden op aanvraag zijn beschikbaar voor groepen young professionals. Bekijk de mogelijkheden op{" "}
-                  <Link className="underline underline-offset-2" to="/in-company">
-                    de bedrijfspagina
-                  </Link>
-                  .
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Hoe andere deelneemsters het ervaren:</h2>
-              <div className="rounded-xl overflow-hidden border border-gray-200">
-                <div className="relative aspect-video bg-black">
-                  <img
-                    loading="lazy"
-                    src={VIDEO_PREVIEW_IMAGE}
-                    alt="Video preview van persoonlijke ontwikkeling training voor vrouwen in Nederland"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${videoHovered ? "opacity-0" : "opacity-100"}`}
-                  />
-                  {videoHovered && (
-                    <iframe
-                      className="absolute inset-0 w-full h-full"
-                      src={VIDEO_URL}
-                      title="Weekend Intensive video"
-                      allow="autoplay; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                    />
-                  )}
-                  <button
-                    type="button"
-                    onMouseEnter={() => setVideoHovered(true)}
-                    onMouseLeave={() => setVideoHovered(false)}
-                    onFocus={() => setVideoHovered(true)}
-                    onBlur={() => setVideoHovered(false)}
-                    className="absolute inset-0"
-                    aria-label="Speel weekend intensive video op hover"
-                  />
-                </div>
-              </div>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-3">Boek jouw plek</h2>
+              <p className="text-sm md:text-base text-gray-700 mb-4">
+                Klaar om je plek te reserveren voor dit trainingsweekend voor vrouwen in Nederland?
+              </p>
+              <button
+                type="button"
+                onClick={scrollToInquiry}
+                className="inline-flex items-center rounded-lg bg-[#6B705C] px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-[#B46555]"
+              >
+                Ga naar Inquire now
+              </button>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
@@ -830,10 +826,11 @@ export default function WeekendIntensiveTransactie() {
                     {formError && <p className="text-xs text-red-600">{formError}</p>}
                     <Button
                       size="sm"
+                      disabled={isSubmittingInquiry}
                       className="w-full bg-[#6B705C] text-white hover:bg-[#B46555]"
                       onClick={handleInquirySubmit}
                     >
-                      Verstuur aanvraag
+                      {isSubmittingInquiry ? "Bezig met versturen..." : "Verstuur aanvraag"}
                     </Button>
                   </div>
                 </div>

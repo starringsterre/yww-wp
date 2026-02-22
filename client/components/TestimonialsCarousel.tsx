@@ -1,8 +1,13 @@
 import { useMemo, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { urlFor } from "@/lib/sanity";
 import { InfiniteTwoUpCarousel } from "@/components/InfiniteTwoUpCarousel";
-import type { Testimonial } from "@shared/sanity";
+
+type Testimonial = {
+  quote: string;
+  name: string;
+  date: string;
+  image?: string;
+};
 
 interface TestimonialsCarouselProps {
   testimonials: Testimonial[];
@@ -19,11 +24,7 @@ export default function TestimonialsCarousel({
         quote: testimonial.quote,
         name: testimonial.name,
         role: testimonial.date,
-        photo: testimonial.image
-          ? typeof testimonial.image === "string"
-            ? testimonial.image
-            : urlFor(testimonial.image).width(200).height(200).url()
-          : "",
+        photo: testimonial.image ?? "",
       })),
     [testimonials],
   );
@@ -70,7 +71,7 @@ export default function TestimonialsCarousel({
             </div>
           </aside>
 
-          <div className="lg:col-span-7 lg:pt-24">
+          <div className="mt-8 lg:col-span-7 lg:mt-0 lg:pt-24">
             <InfiniteTwoUpCarousel
               testimonials={carouselItems}
               onReady={(api) => {

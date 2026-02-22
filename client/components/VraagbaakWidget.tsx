@@ -160,12 +160,12 @@ export default function VraagbaakWidget() {
   );
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      return;
-    }
-
     try {
+      const stored = window.localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        return;
+      }
+
       const parsed = JSON.parse(stored) as WidgetState;
       if (parsed.messages?.length) {
         setMessages(parsed.messages);
@@ -194,7 +194,11 @@ export default function VraagbaakWidget() {
         completed: hasProfile,
       },
     };
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch (_error) {
+      // Ignore storage write failures to avoid breaking the page.
+    }
   }, [messages, userMessageCount, intakeStep, intakeAnswers, name, email, hasProfile]);
 
   const interactionCount = userMessageCount + intakeStep;

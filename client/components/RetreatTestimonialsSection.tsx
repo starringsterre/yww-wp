@@ -49,7 +49,7 @@ export default function RetreatTestimonialsSection() {
             </div>
           </aside>
 
-          <div className="lg:col-span-7 lg:pt-0">
+          <div className="mt-8 lg:col-span-7 lg:mt-0 lg:pt-0">
             <InfiniteTwoUpCarousel
               testimonials={carouselItems}
               onReady={(api) => {

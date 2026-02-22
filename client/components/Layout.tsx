@@ -99,7 +99,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     const cookieKey = "yww_cookie_consent_v1";
 
     const syncConsentState = () => {
-      setHasCookieConsent(Boolean(window.localStorage.getItem(cookieKey)));
+      try {
+        setHasCookieConsent(Boolean(window.localStorage.getItem(cookieKey)));
+      } catch (_error) {
+        // Some browser modes can block storage access; keep app usable.
+        setHasCookieConsent(false);
+      }
     };
 
     syncConsentState();

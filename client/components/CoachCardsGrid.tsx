@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { urlFor } from "@/lib/sanity";
-import type { Coach } from "@shared/sanity";
+
+type Coach = {
+  _id?: string;
+  name: string;
+  image?: string;
+  bio: string;
+};
 
 interface CoachCardsGridProps {
   coaches: Coach[];
@@ -14,11 +19,7 @@ export default function CoachCardsGrid({ coaches }: CoachCardsGridProps) {
     const otherIndex = cardIndex === 0 ? 1 : 0;
     const coach = flippedIndex === otherIndex ? coaches[otherIndex] : coaches[cardIndex];
     if (!coach?.image) return null;
-    // Handle both string URLs (fallback) and Sanity image references
-    if (typeof coach.image === 'string') {
-      return coach.image;
-    }
-    return urlFor(coach.image).width(800).url();
+    return coach.image;
   };
 
   return (

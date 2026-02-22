@@ -1,5 +1,24 @@
 import { useState, useEffect, useMemo } from "react";
-import type { Event } from "@shared/sanity";
+
+type EventType =
+  | "weekend-training"
+  | "workshop"
+  | "terugkom-dag"
+  | "retreat"
+  | "mini-retreat"
+  | "sunday-gathering"
+  | "creative-event";
+
+type Event = {
+  _id?: string;
+  label: string;
+  type: EventType;
+  year: number;
+  month: number;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+};
 
 interface EventCalendarProps {
   events?: Event[];
@@ -132,15 +151,26 @@ export default function EventCalendar({ events = [] }: EventCalendarProps) {
           "Terugkomdag om te reflecteren, ervaringen te delen en je volgende stap scherp te maken.",
       },
       {
-        _id: "fallback-weekend-2026-10",
+        _id: "fallback-weekend-2026-06",
         label: "Groep weekend training",
         type: "weekend-training",
         year: 2026,
         month: 6,
-        startDate: "2026-06-12T09:00:00.000Z",
-        endDate: "2026-06-14T17:00:00.000Z",
+        startDate: "2026-06-24T17:30:00.000Z",
+        endDate: "2026-06-26T16:00:00.000Z",
         description:
           "Intensieve weekend training met verdieping, groepsreflectie en praktische tools.",
+      },
+      {
+        _id: "fallback-weekend-2026-10",
+        label: "Groep weekend training",
+        type: "weekend-training",
+        year: 2026,
+        month: 10,
+        startDate: "2026-10-16T17:30:00.000Z",
+        endDate: "2026-10-18T16:00:00.000Z",
+        description:
+          "Vervolgweekend met verdieping, integratie en praktische tools voor je volgende stap.",
       },
     ],
     [],
@@ -260,7 +290,7 @@ export default function EventCalendar({ events = [] }: EventCalendarProps) {
                               {showSignupCta && (
                                 <a
                                   href={signupHref}
-                                  className="inline-block mt-3 px-3 py-1.5 rounded-md text-sm font-medium text-white bg-primary transition-all duration-200 hover:scale-105 hover:bg-accent"
+                                  className="inline-block mt-3 rounded-lg bg-primary px-7 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
                                 >
                                   Meld je aan
                                 </a>

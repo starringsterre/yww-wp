@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Brain, Wind, Lightbulb, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Brain, Wind, Lightbulb, ChevronLeft, ChevronRight, Calendar, MapPin, Users, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import HeroSection from "@/components/HeroSection";
+import PromoVideoSection from "@/components/PromoVideoSection";
 import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 
@@ -50,8 +52,8 @@ export default function Weekenden() {
       name: "Weekend Training Young Wise Women",
       description:
         "Weekend training voor jonge professional vrouwen met coaching, reflectie en praktische tools.",
-      startDate: "2026-06-12T17:30:00+02:00",
-      endDate: "2026-06-14T16:00:00+02:00",
+      startDate: "2026-06-24T17:30:00+02:00",
+      endDate: "2026-06-26T16:00:00+02:00",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       eventStatus: "https://schema.org/EventScheduled",
       image: [
@@ -101,22 +103,7 @@ export default function Weekenden() {
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6420ed9ac504161856d9dcfebc9cb02?format=webp&width=4000",
   ];
 
-  const allSlideImages = [
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7a71bde85c8a499ea2bd4af0b6755fc4?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fa07f32a91d3a47298e9d8f93c1ee532c?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F83bc1cad84b64bc5bf179476a883178b?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0c9c89796f6a451cad25ef33b9bfd178?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F1a42d8ce7d884dd285837d12b0b1ffb7?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0454f106b58340f2b1d9e58f52316087?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6420ed9ac504161856d9dcfebc9cb02?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7b95dc37c38247c9813a6ee7bdb6b379?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc5b0ea28095644428588e919756c54d3?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc7cc8ba9f6254992a285f2c2da8c5eff?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F01831c908a8e41a19470362823c26a2c?format=webp&width=4000",
-    "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F4cd163954f0c4a93bbdb5aa941a0d225?format=webp&width=4000",
-  ];
+  const allSlideImages = [...gridImages];
 
   const openModal = (imageIndex: number) => {
     setModalSlideIndex(imageIndex);
@@ -188,62 +175,34 @@ export default function Weekenden() {
       <section className="py-10 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="rounded-3xl bg-[#B46555]/25 p-6 md:p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-              <div className="lg:col-span-2">
-                <h1 className="text-3xl md:text-4xl font-light text-gray-900 mb-3">
-                  Weekend Training in Friesland voor jonge vrouwen
-                </h1>
-                <p className="text-gray-700 mb-5 max-w-2xl">
-                  Een intensief en kleinschalig weekend waarin je met professionele begeleiding werkt aan rust, richting en duurzame persoonlijke ontwikkeling.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    to="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026"
-                    className="inline-block px-6 py-2.5 rounded-lg text-sm font-medium text-white bg-primary transition-all duration-300 hover:scale-105 hover:bg-accent"
-                  >
-                    Bekijk data & beschikbaarheid
-                  </Link>
-                  <Link
-                    to="/ons-verhaal"
-                    className="inline-block px-6 py-2.5 rounded-lg text-sm font-medium text-[#1C2826] border border-[#1C2826]/30 bg-white transition-all duration-300 hover:scale-105 hover:border-[#1C2826]"
-                  >
-                    Stel je vraag
-                  </Link>
-                </div>
-              </div>
-
-              <div className="rounded-2xl bg-white p-5 border border-[#1C2826]/10">
-                <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-3">Kerninformatie</p>
-                <ul className="space-y-1.5 text-sm text-gray-800">
-                  <li><strong>Wanneer:</strong> Vrijdag 17:30 t/m zondag 16:00</li>
-                  <li><strong>Waar:</strong> Vakantiehuis in de natuur, Friesland</li>
-                  <li><strong>Voor wie:</strong> Jonge professional vrouwen (24+)</li>
-                  <li><strong>Inclusief:</strong> Intake, test, begeleiding, verblijf, maaltijden</li>
-                  <li><strong>Investering:</strong> vanaf EUR 895</li>
-                  <li><strong>Plekken:</strong> maximaal 8 deelnemers</li>
-                </ul>
-              </div>
+            <h1 className="max-w-4xl text-3xl md:text-4xl font-light text-gray-900 mb-4">
+              Weekend training persoonlijke ontwikkeling voor vrouwelijke professionals
+            </h1>
+            <div className="max-w-4xl space-y-3 text-gray-700 leading-relaxed">
+              <p>
+                Deze weekend training persoonlijke ontwikkeling is een concreet programma voor ambitieuze business women en vrouwelijke professionals van 24 tot 29 jaar die willen groeien met focus en richting. Tijdens dit persoonlijke ontwikkeling weekend volg je een persoonlijke ontwikkeling training waarin coaching persoonlijke ontwikkeling, praktijkgerichte oefeningen en een leiderschap training samenkomen.
+              </p>
+              <p>
+                Je werkt aan heldere keuzes, sterker gedrag en directe toepassing in werk en prive. Zoek je een persoonlijke ontwikkeling cursus en training vrouwen met duidelijke resultaten, dan kun je je nu inschrijven voor de eerstvolgende editie.
+              </p>
             </div>
-
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
-              <div className="rounded-xl bg-white p-4 border border-[#1C2826]/10">
-                <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Korte review</p>
-                <p className="text-sm text-gray-800">"Ik ging naar huis met rust, focus en concrete keuzes."</p>
-              </div>
-              <div className="rounded-xl bg-white p-4 border border-[#1C2826]/10">
-                <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Groepsgrootte</p>
-                <p className="text-lg font-semibold text-gray-900">8 plekken</p>
-              </div>
-              <div className="rounded-xl bg-white p-4 border border-[#1C2826]/10">
-                <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Begeleiding</p>
-                <p className="text-lg font-semibold text-gray-900">2 coaches</p>
-              </div>
-              <div className="rounded-xl bg-white p-4 border border-[#1C2826]/10">
-                <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Extra waarde</p>
-                <p className="text-lg font-semibold text-gray-900">Motivation Factor test</p>
-              </div>
+            <div className="mt-6">
+              <Button
+                size="lg"
+                className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+                asChild
+              >
+                <Link to="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026">
+                  Schrijf me in voor de eerstvolgende training
+                </Link>
+              </Button>
             </div>
           </div>
+
+          <PromoVideoSection
+            className="mt-4"
+            ctaContainerClassName="mt-6 flex justify-center"
+          />
         </div>
       </section>
 
@@ -286,7 +245,7 @@ export default function Weekenden() {
                 Rust & Ruimte
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24+). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.
+                Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24-29). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.
               </p>
             </div>
 
@@ -309,7 +268,7 @@ export default function Weekenden() {
           <div className="mt-10 text-center">
             <Link
               to="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026"
-              className="inline-block px-8 py-3 rounded-lg font-medium text-white bg-primary transition-all duration-300 hover:scale-105 hover:bg-accent"
+              className="inline-block rounded-lg bg-primary px-7 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
             >
               Bekijk data & beschikbaarheid
             </Link>
@@ -419,7 +378,7 @@ export default function Weekenden() {
           </h2>
 
           <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
-            Dit programma is speciaal ontworpen voor jonge professionals (24+) die:
+            Dit programma is speciaal ontworpen voor jonge professionals (24-29) die:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -444,6 +403,120 @@ export default function Weekenden() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="py-14 px-4 md:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 border-2 border-primary">
+            <div className="mb-6">
+              <p className="text-sm font-medium text-primary mb-2">
+                4DE EDITIE
+              </p>
+              <h3 className="text-4xl font-light text-gray-900 mb-2">
+                Young Wise Women Weekend Intensive
+              </h3>
+              <p className="text-gray-600">Reflectie, Rust & Ruimte: een meerdaagse training voor persoonlijke ontwikkeling</p>
+            </div>
+
+            <div className="space-y-5 mb-8 pb-8 border-b border-gray-200">
+              <div className="flex gap-4">
+                <Calendar className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-medium text-gray-900 text-lg">
+                    24 - 26 juni 2026
+                  </p>
+                  <p className="text-gray-600">
+                    Vrijdag 17:30 uur tot Zondag 16:00 uur
+                  </p>
+                  <p className="text-gray-600">
+                    Daarna: 16 - 18 oktober 2026
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-medium text-gray-900 text-lg">
+                    Prachtige Vakantiehuis in de Natuur aan het water
+                  </p>
+                  <p className="text-gray-600">Oudega, Friesland</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <p className="font-medium text-gray-900 text-lg">
+                    Voor Jonge Professional Vrouwen (24-29)
+                  </p>
+                  <p className="text-gray-600">Beperkte plaatsen beschikbaar</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <h4 className="text-xl font-medium text-gray-900 mb-6">
+                Programmaoverzicht
+              </h4>
+              <div className="space-y-6">
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <p className="font-medium text-gray-900 mb-2">
+                    Dag 1 - Vrijdag
+                  </p>
+                  <p className="text-gray-700 text-sm">
+                    Aankomst vanaf 17:30 uur • Kennismaking met de andere vrouwen • Bespreken van bevindingen uit Motivation Factor test • Avondwandeling of rust • Deelronde, reflectiemomenten en ademsessie voor een goede nachtrust
+                  </p>
+                </div>
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <p className="font-medium text-gray-900 mb-2">
+                    Dag 2 - Zaterdag
+                  </p>
+                  <p className="text-gray-700 text-sm">
+                    Ochtend: yogasessie of fysieke activiteit • Ontbijt • Verlangens (zakelijk en prive): richting vinden, omgaan met twijfel en heldere keuzes maken • Lunch • Werken aan beperkende overtuigingen en blokkades; mentale en fysieke loslating • 1-op-1 coaching • Reflectiemomenten en rust • Avond: deelronde buiten bij het vuur
+                  </p>
+                </div>
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <p className="font-medium text-gray-900 mb-2">
+                    Dag 3 - Zondag
+                  </p>
+                  <p className="text-gray-700 text-sm">
+                    Ochtend: fysieke activiteit (yoga/wandeling/energetisch lichaamswerk) • Ontbijt • Loslaten van niet-dienende zaken; manifesteren van verlangens met Motivation Factor werkboek • Lunch • Middag: afsluiting met een spel om energie, vertrouwen en focus te brengen • Vertrek rond 17:00 uur
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Button
+              size="lg"
+              className="w-full bg-primary text-white hover:bg-accent hover:scale-105 py-3"
+              asChild
+            >
+              <a href="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026">
+                Bevestig je deelname
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Location Hero */}
+      <section
+        className="relative py-32 px-4 md:px-8 flex items-center justify-center min-h-screen bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(rgba(28, 40, 38, 0.2), rgba(28, 40, 38, 0.2)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=2000')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="text-center max-w-4xl mx-auto relative z-10">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6">
+            Op een inspirerende locatie in Nederland
+          </h2>
+          <p className="text-lg md:text-xl text-gray-100 mx-auto">
+            Veel van onze weekend trainingen vinden plaats in het prachtige Friesland
+          </p>
         </div>
       </section>
 
@@ -497,26 +570,6 @@ export default function Weekenden() {
               </div>
             </SlideInLeft>
           </div>
-        </div>
-      </section>
-
-      {/* Location Hero */}
-      <section
-        className="relative py-32 px-4 md:px-8 flex items-center justify-center min-h-screen bg-cover bg-center"
-        style={{
-          backgroundImage: `linear-gradient(rgba(28, 40, 38, 0.2), rgba(28, 40, 38, 0.2)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=2000')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div className="text-center max-w-4xl mx-auto relative z-10">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6">
-            Op een inspirerende locatie in Nederland
-          </h2>
-          <p className="text-lg md:text-xl text-gray-100 mx-auto">
-            Veel van onze weekend trainingen vinden plaats in het prachtige Friesland
-          </p>
         </div>
       </section>
 
@@ -617,7 +670,7 @@ export default function Weekenden() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Voor wie</p>
-                  <p className="text-xs md:text-sm text-gray-800">Voor Jonge Professional Vrouwen (24-30)</p>
+                  <p className="text-xs md:text-sm text-gray-800">Voor Jonge Professional Vrouwen (24-29)</p>
                   <p className="text-xs md:text-sm text-gray-700">Beperkt plek voor 8 vrouwen</p>
                 </div>
               </div>

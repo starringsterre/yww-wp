@@ -58,6 +58,8 @@ export default function VoorOrganisaties() {
   const [isKennismakingDialogOpen, setIsKennismakingDialogOpen] = useState(false);
   const [formData, setFormData] = useState<BrochureFormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmittingBrochure, setIsSubmittingBrochure] = useState(false);
+  const [brochureSubmitError, setBrochureSubmitError] = useState("");
 
   const updateField = <K extends keyof BrochureFormData>(
     key: K,
@@ -88,7 +90,7 @@ export default function VoorOrganisaties() {
     return nextErrors;
   };
 
-  const handleBrochureDownload = (event: FormEvent<HTMLFormElement>) => {
+  const handleBrochureDownload = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const validationErrors = validateForm();
@@ -97,17 +99,43 @@ export default function VoorOrganisaties() {
       return;
     }
 
-    // TODO: Koppel hier straks backend/CRM + e-mailautomatisering.
-    const anchor = document.createElement("a");
-    anchor.href = BROCHURE_DOWNLOAD_URL;
-    anchor.download = BROCHURE_DOWNLOAD_FILENAME;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
+    setBrochureSubmitError("");
+    setIsSubmittingBrochure(true);
 
-    setFormData(initialFormData);
-    setErrors({});
-    setIsBrochureDialogOpen(false);
+    try {
+      const response = await fetch("/api/bedrijfs/brochure-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          role: formData.role || "",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit brochure lead");
+      }
+
+      const anchor = document.createElement("a");
+      anchor.href = BROCHURE_DOWNLOAD_URL;
+      anchor.download = BROCHURE_DOWNLOAD_FILENAME;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+
+      setFormData(initialFormData);
+      setErrors({});
+      setIsBrochureDialogOpen(false);
+    } catch (_error) {
+      setBrochureSubmitError("Er ging iets mis bij het verzenden. Probeer het opnieuw.");
+    } finally {
+      setIsSubmittingBrochure(false);
+    }
   };
 
   return (
@@ -329,12 +357,17 @@ export default function VoorOrganisaties() {
                         </Select>
                       </div>
 
+                      {brochureSubmitError ? (
+                        <p className="text-sm text-red-600">{brochureSubmitError}</p>
+                      ) : null}
+
                       <Button
                         type="submit"
                         size="lg"
+                        disabled={isSubmittingBrochure}
                         className="mt-2 w-full bg-primary text-white hover:bg-accent"
                       >
-                        Download brochure
+                        {isSubmittingBrochure ? "Bezig met verzenden..." : "Download brochure"}
                       </Button>
                     </form>
                   </div>

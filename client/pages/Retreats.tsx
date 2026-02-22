@@ -26,7 +26,7 @@ export default function Retreats() {
             <article className="h-full rounded-2xl bg-[#B46555]/25 overflow-hidden flex flex-col">
               <div className="p-6 min-h-[190px] md:min-h-[220px] flex flex-col">
                 <Link
-                  to="/persoonlijke-ontwikkeling-weekend-training#drie-pijlers"
+                  to="/persoonlijke-ontwikkeling-weekend-training"
                   className="relative self-start inline-flex text-3xl font-semibold text-gray-900 mb-3 origin-left after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   Weekend Trainingen
@@ -35,7 +35,7 @@ export default function Retreats() {
                   2-daagse weekend intensive in Friesland, gericht op verdieping, reflectie en duurzame gedragsverandering voor deelnemers die bewust tijd willen nemen voor persoonlijke ontwikkeling.
                 </p>
                 <Link
-                  to="/persoonlijke-ontwikkeling-weekend-training#drie-pijlers"
+                  to="/persoonlijke-ontwikkeling-weekend-training"
                   className="relative self-start mt-6 inline-flex text-sm font-medium text-[#6B705C] origin-right after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-right after:scale-x-100 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-0"
                 >
                   Lees meer

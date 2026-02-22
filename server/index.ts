@@ -4,6 +4,9 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleMailchimpSubscribe } from "./routes/mailchimp";
 import { handleNewsletterSubscribe } from "./routes/newsletter";
+import { handleNetwerkSubscribe } from "./routes/netwerk";
+import { handleBedrijfsBrochureLead } from "./routes/bedrijfs";
+import { handleWeekendInschrijving } from "./routes/weekend-inschrijving";
 import { handleGroeiScanLead } from "./routes/groeiscan";
 import { handleVraagbaakLead } from "./routes/vraagbaak";
 
@@ -24,6 +27,9 @@ export function createServer() {
   app.get("/api/demo", handleDemo);
   app.post("/api/mailchimp/subscribe", handleMailchimpSubscribe);
   app.post("/api/newsletter/subscribe", handleNewsletterSubscribe);
+  app.post("/api/netwerk/subscribe", handleNetwerkSubscribe);
+  app.post("/api/bedrijfs/brochure-lead", handleBedrijfsBrochureLead);
+  app.post("/api/weekend/inschrijving", handleWeekendInschrijving);
   app.post("/api/groeiscan/lead", handleGroeiScanLead);
   app.post("/api/vraagbaak/lead", handleVraagbaakLead);
 

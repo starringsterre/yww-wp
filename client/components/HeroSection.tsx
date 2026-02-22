@@ -26,7 +26,6 @@ export default function HeroSection({
         backgroundImage: `linear-gradient(rgba(28, 40, 38, 0.35), rgba(28, 40, 38, 0.35)), url('${backgroundImage}')`,
         backgroundSize: "cover",
         backgroundPosition,
-        backgroundAttachment: "fixed",
       }}
       >
         <div className="text-center max-w-4xl mx-auto relative z-10">

@@ -162,6 +162,11 @@ export default function FloatingBrandsSection({ title = defaultTitle }: Floating
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isInView]);
 
+  const mobileTopRowBrands = brands.filter((_, index) => index % 2 === 0);
+  const mobileBottomRowBrands = brands.filter((_, index) => index % 2 !== 0);
+  const mobileTopTrack = [...mobileTopRowBrands, ...mobileTopRowBrands];
+  const mobileBottomTrack = [...mobileBottomRowBrands, ...mobileBottomRowBrands];
+
   return (
     <section
       ref={sectionRef}
@@ -244,24 +249,51 @@ export default function FloatingBrandsSection({ title = defaultTitle }: Floating
             </h2>
           </ScrollFadeInUp>
 
-          <div className="flex flex-col gap-4 items-center">
-            {brands.map((brand) => (
-              <ScrollFadeInUp key={brand.id} className="w-full">
-                <div className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-300 flex items-center justify-center w-24 h-24 mx-auto">
-                  {brand.isText ? (
-                    <span className="text-xs font-semibold text-gray-800 text-center px-2">
-                      {brand.name}
-                    </span>
-                  ) : (
-                    <img loading="lazy"
-                      src={brand.image}
-                      alt={brand.name}
-                      className="h-10 object-contain"
-                    />
-                  )}
-                </div>
-              </ScrollFadeInUp>
-            ))}
+          <div className="space-y-4">
+            <div className="overflow-hidden">
+              <div className="flex w-max animate-logo-marquee items-center gap-4">
+                {mobileTopTrack.map((brand, index) => (
+                  <div
+                    key={`top-${brand.id}-${index}`}
+                    className="bg-white rounded-2xl p-4 shadow-sm flex items-center justify-center w-28 h-24 shrink-0"
+                  >
+                    {brand.isText ? (
+                      <span className="text-xs font-semibold text-gray-800 text-center px-2">
+                        {brand.name}
+                      </span>
+                    ) : (
+                      <img loading="lazy"
+                        src={brand.image}
+                        alt={brand.name}
+                        className="h-10 object-contain"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="overflow-hidden">
+              <div className="flex w-max animate-logo-marquee items-center gap-4 [animation-direction:reverse]">
+                {mobileBottomTrack.map((brand, index) => (
+                  <div
+                    key={`bottom-${brand.id}-${index}`}
+                    className="bg-white rounded-2xl p-4 shadow-sm flex items-center justify-center w-28 h-24 shrink-0"
+                  >
+                    {brand.isText ? (
+                      <span className="text-xs font-semibold text-gray-800 text-center px-2">
+                        {brand.name}
+                      </span>
+                    ) : (
+                      <img loading="lazy"
+                        src={brand.image}
+                        alt={brand.name}
+                        className="h-10 object-contain"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

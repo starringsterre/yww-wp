@@ -71,7 +71,7 @@ export default function MemberStats({ memberCount }: MemberStatsProps) {
                 {displayCount}
               </div>
               <p className="text-xl text-gray-700 leading-relaxed">
-                jonge wijze vrouwen tussen de 24-30 in de Young Wise Women Netwerk
+                jonge wijze vrouwen van 24+ in de Young Wise Women Netwerk
               </p>
             </div>
 

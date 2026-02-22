@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
 import ScrollFadeInUp from "@/components/ScrollFadeInUp";
 import SlideInLeft from "@/components/SlideInLeft";
 import SlideInRight from "@/components/SlideInRight";
@@ -11,29 +10,16 @@ import InspirationCardsGrid from "@/components/InspirationCardsGrid";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import FloatingBrandsSection from "@/components/FloatingBrandsSection";
 import GroeiScanSection from "@/components/GroeiScanSection";
+import PromoVideoSection from "@/components/PromoVideoSection";
 import { Flower, Zap, Heart, Hammer } from "lucide-react";
 
 export default function Home() {
-  const [videoPlaying, setVideoPlaying] = useState(false);
-  const [showCTA, setShowCTA] = useState(false);
-
   const videoUrl =
     "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
   const ellaImageUrl =
     "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fedaf553c26414cd5af248f8c42bec4bb?format=webp&width=4000";
   const lieneImageUrl =
     "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F11834262257d4b5287de33d164171bdd?format=webp&width=4000";
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setShowCTA(true);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <div className="w-full">
@@ -61,28 +47,6 @@ export default function Home() {
             Het Netwerk voor jonge vrouwelijke professionals
           </p>
         </div>
-
-        {/* CTA Button at Bottom of Hero */}
-        {showCTA && (
-          <div className="absolute bottom-12 left-0 right-0 flex justify-center z-20" style={{ animation: "fadeInUp 0.3s ease-out" }}>
-            <Button
-              size="lg"
-              className="bg-primary text-white border-0 transition-all duration-300 hover:scale-110 hover:bg-accent"
-              style={{ opacity: 0.85 }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = "1";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = "0.85";
-              }}
-              asChild
-            >
-              <a href="/inspiratie/evenementen" style={{ cursor: "pointer", pointerEvents: "auto" }}>
-                <p>Bekijk Evenementen</p>
-              </a>
-            </Button>
-          </div>
-        )}
       </section>
 
       {/* Atmosphere Section */}
@@ -227,80 +191,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-14 px-4 md:px-8 bg-[#FBF9F5]">
+      <FloatingBrandsSection />
+
+      <section className="py-14 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-3">
-              De balans tussen denken en voelen
-            </h2>
-            <p className="text-gray-700 max-w-3xl mx-auto">
-              In het weekend combineren we mentale verdieping met lichaamswerk, zodat je niet alleen begrijpt wat je wilt veranderen, maar het ook echt voelt en belichaamt.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <article className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
-              <div className="h-64 bg-gray-100 overflow-hidden">
-                <img loading="lazy"
-                  src="/ademwerk.png"
-                  alt="Ademsessie breathwork tijdens weekendintensive"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  style={{ objectPosition: "center 20%" }}
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-light text-gray-900 mb-2">
-                  Ademsessie (breathwork)
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  Begeleid door Chris Rauwendaal, specialist in ademwerk voor stressregulatie en emotionele ontlading.
-                </p>
-                <ul className="space-y-1 text-sm text-gray-700">
-                  <li>✓ Meer rust in je hoofd en zenuwstelsel</li>
-                  <li>✓ Sneller herkennen van spanning en patronen</li>
-                  <li>✓ Direct toepasbare ademtools voor dagelijks leven</li>
-                </ul>
-              </div>
-            </article>
-
-            <article className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
-              <div className="h-64 bg-gray-100 overflow-hidden">
-                <img loading="lazy"
-                  src="/yoga-weekend-persoonlijke-ontwikkeling.png"
-                  alt="Yogasessie tijdens weekendintensive"
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  style={{ objectPosition: "center 78%" }}
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-light text-gray-900 mb-2">
-                  Yogalessen
-                </h3>
-                <p className="text-sm text-gray-600 mb-3">
-                  Gegeven door Liene Molendijk, coach met expertise in psychologie, leiderschap en lichaamsgerichte ontwikkeling.
-                </p>
-                <ul className="space-y-1 text-sm text-gray-700">
-                  <li>✓ Van overdenken naar aanwezig zijn in je lichaam</li>
-                  <li>✓ Meer focus, zachtheid en zelfregie</li>
-                  <li>✓ Een stevigere verbinding met je authenticiteit</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Button
-              size="lg"
-              className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
-              asChild
-            >
-              <a href="/persoonlijke-ontwikkeling-weekend-training">Bekijk weekendintensive</a>
-            </Button>
-          </div>
+          <PromoVideoSection />
         </div>
       </section>
-
-      <FloatingBrandsSection />
 
       {/* Trainingen Spotlight */}
       <section className="min-h-screen py-20 px-4 md:px-8 bg-[#FBF9F5] flex items-center">
@@ -396,7 +293,7 @@ export default function Home() {
       >
         <div className="w-full max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-light text-center text-white mb-8">
-            Volgende weekend intensive editie: 12-14 juni 2026
+            Volgende weekend intensive editie: 24-26 juni 2026
           </h2>
 
           <ScrollFadeInUp className="rounded-lg max-w-4xl mx-auto">
@@ -408,7 +305,7 @@ export default function Home() {
                 </h3>
                 <p className="text-gray-700 mb-3">
                   Ervaar rust en ruimte op een prachtige locatie in de natuur,
-                  samen met gelijkgestemde jonge professionals (24+).
+                  samen met gelijkgestemde jonge professionals (24-29).
                 </p>
                 <p className="text-sm text-gray-600 font-medium">
                   Vrijdag 17:30 uur - Zondag 17:00 uur

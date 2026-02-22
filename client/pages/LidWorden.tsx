@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { useState } from "react";
 import FloatingBrandsSection from "@/components/FloatingBrandsSection";
 import HeroSection from "@/components/HeroSection";
+import PromoVideoSection from "@/components/PromoVideoSection";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 
 export default function LidWorden() {
@@ -10,7 +11,6 @@ export default function LidWorden() {
     naam: "",
     telefoonnummer: "",
     email: "",
-    mailchimp: true,
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -37,10 +37,10 @@ export default function LidWorden() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
@@ -53,38 +53,27 @@ export default function LidWorden() {
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || "";
 
-    // Submit to n8n webhook if checkbox is checked
-    if (formData.mailchimp) {
-      try {
-        const n8nWebhookUrl = import.meta.env.VITE_N8N_WEBHOOK_URL;
+    try {
+      const response = await fetch("/api/netwerk/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          firstName: firstName,
+          lastName: lastName,
+          fullName: formData.naam,
+          phone: formData.telefoonnummer,
+        })
+      });
 
-        if (!n8nWebhookUrl) {
-          console.warn("n8n webhook URL not configured. Please set VITE_N8N_WEBHOOK_URL environment variable.");
-        } else {
-          const response = await fetch(n8nWebhookUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              email: formData.email,
-              firstName: firstName,
-              lastName: lastName,
-              phone: formData.telefoonnummer,
-              fullName: formData.naam,
-              subscribeToNewsletter: true,
-              subscribedAt: new Date().toISOString()
-            })
-          });
-
-          if (!response.ok) {
-            console.error("n8n webhook error:", response.statusText);
-          }
-        }
-
-      } catch (err) {
-        console.error("n8n webhook submission error:", err);
+      if (!response.ok) {
+        throw new Error("Netwerk subscription failed");
       }
+    } catch (err) {
+      console.error("Netwerk subscription error:", err);
+      return;
     }
 
     setSubmitted(true);
@@ -94,7 +83,6 @@ export default function LidWorden() {
         naam: "",
         telefoonnummer: "",
         email: "",
-        mailchimp: true,
       });
     }, 3000);
   };
@@ -226,24 +214,6 @@ export default function LidWorden() {
               />
             </div>
 
-            {/* Mailchimp Checkbox */}
-            <div className="mb-8 flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
-              <input
-                type="checkbox"
-                id="mailchimp"
-                name="mailchimp"
-                checked={formData.mailchimp}
-                onChange={handleChange}
-                className="mt-1 w-4 h-4 cursor-pointer accent-primary"
-              />
-              <label
-                htmlFor="mailchimp"
-                className="text-sm text-gray-700 cursor-pointer"
-              >
-                Ja, ik wil in de WhatsApp Community groepchats en op de hoogte gehouden worden!
-              </label>
-            </div>
-
             {/* Submit Button */}
             <Button
               type="submit"
@@ -262,6 +232,12 @@ export default function LidWorden() {
       </section>
 
       <RetreatTestimonialsSection />
+
+      <section className="py-14 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <PromoVideoSection />
+        </div>
+      </section>
     </div>
   );
 }

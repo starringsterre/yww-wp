@@ -1,6 +1,17 @@
 import { useMemo, useState } from "react";
+import {
+  Check,
+  Copy,
+  ExternalLink,
+  Link2,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  Share2,
+} from "lucide-react";
 
 import HeroSection from "@/components/HeroSection";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 type Episode = {
@@ -113,13 +124,27 @@ function getPreviewUrl(episode: Episode): string {
   return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0`;
 }
 
+function getSpotifyEpisodeId(url: string): string | null {
+  if (!url) return null;
+  try {
+    const parsed = new URL(url);
+    const parts = parsed.pathname.split("/").filter(Boolean);
+    const episodeIndex = parts.findIndex((part) => part === "episode");
+    if (episodeIndex === -1) return null;
+    return parts[episodeIndex + 1] || null;
+  } catch {
+    return null;
+  }
+}
+
 export default function Podcasts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("Alle platformen");
   const [guestFilter, setGuestFilter] = useState("Alle gasten");
   const [activeEpisodeId, setActiveEpisodeId] = useState<number | null>(null);
-  const [shareMenuOpenId, setShareMenuOpenId] = useState<number | null>(null);
+  const [shareDialogEpisode, setShareDialogEpisode] = useState<Episode | null>(null);
   const [copiedEpisodeId, setCopiedEpisodeId] = useState<number | null>(null);
+  const [copiedEmbedEpisodeId, setCopiedEmbedEpisodeId] = useState<number | null>(null);
 
   const filteredEpisodes = useMemo(() => {
     const normalizedQuery = searchTerm.trim().toLowerCase();
@@ -172,17 +197,45 @@ export default function Podcasts() {
     return `/inspiratie/podcasts#episode-${episode.id}`;
   };
 
+  const getEpisodeEmbedCode = (episode: Episode): string => {
+    const youtubeId = getYoutubeVideoId(episode.youtubeUrl);
+    if (youtubeId) {
+      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${youtubeId}" title="${episode.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+    }
+
+    const spotifyEpisodeId = getSpotifyEpisodeId(episode.spotifyUrl);
+    if (spotifyEpisodeId) {
+      return `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/${spotifyEpisodeId}?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    }
+
+    return "";
+  };
+
   const handleCopyShareLink = async (episode: Episode) => {
     const shareUrl = getEpisodeShareUrl(episode);
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopiedEpisodeId(episode.id);
-      setShareMenuOpenId(null);
       window.setTimeout(() => {
         setCopiedEpisodeId((current) => (current === episode.id ? null : current));
       }, 1600);
     } catch {
       setCopiedEpisodeId(null);
+    }
+  };
+
+  const handleCopyEmbedCode = async (episode: Episode) => {
+    const embedCode = getEpisodeEmbedCode(episode);
+    if (!embedCode) return;
+
+    try {
+      await navigator.clipboard.writeText(embedCode);
+      setCopiedEmbedEpisodeId(episode.id);
+      window.setTimeout(() => {
+        setCopiedEmbedEpisodeId((current) => (current === episode.id ? null : current));
+      }, 1600);
+    } catch {
+      setCopiedEmbedEpisodeId(null);
     }
   };
 
@@ -257,7 +310,6 @@ export default function Podcasts() {
             const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(`${shareTitle} ${shareUrl}`)}`;
             const mailShareUrl = `mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareBody)}`;
             const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
-            const isShareOpen = shareMenuOpenId === episode.id;
             const isCopied = copiedEpisodeId === episode.id;
 
             return (
@@ -305,12 +357,10 @@ export default function Podcasts() {
                   <div className="relative">
                     <button
                       type="button"
-                      aria-haspopup="menu"
-                      aria-expanded={isShareOpen}
+                      aria-haspopup="dialog"
+                      aria-expanded={shareDialogEpisode?.id === episode.id}
                       aria-label={`${episode.title} delen`}
-                      onClick={() =>
-                        setShareMenuOpenId((current) => (current === episode.id ? null : episode.id))
-                      }
+                      onClick={() => setShareDialogEpisode(episode)}
                       className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#d6d0c4] text-[#1c2826] transition hover:bg-[#f3efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
                       <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
@@ -323,49 +373,6 @@ export default function Podcasts() {
                         />
                       </svg>
                     </button>
-                    {isShareOpen ? (
-                      <div
-                        role="menu"
-                        className="absolute right-0 z-20 mt-2 min-w-44 rounded-xl border border-[#e2dbce] bg-white p-2 shadow-lg"
-                      >
-                        <a
-                          href={whatsappShareUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          role="menuitem"
-                          className="block rounded-lg px-3 py-2 text-sm text-[#1c2826] hover:bg-[#f6f2ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                          onClick={() => setShareMenuOpenId(null)}
-                        >
-                          Deel via WhatsApp
-                        </a>
-                        <a
-                          href={mailShareUrl}
-                          role="menuitem"
-                          className="mt-1 block rounded-lg px-3 py-2 text-sm text-[#1c2826] hover:bg-[#f6f2ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                          onClick={() => setShareMenuOpenId(null)}
-                        >
-                          Deel via e-mail
-                        </a>
-                        <a
-                          href={linkedinShareUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          role="menuitem"
-                          className="mt-1 block rounded-lg px-3 py-2 text-sm text-[#1c2826] hover:bg-[#f6f2ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                          onClick={() => setShareMenuOpenId(null)}
-                        >
-                          Deel via LinkedIn
-                        </a>
-                        <button
-                          type="button"
-                          role="menuitem"
-                          onClick={() => void handleCopyShareLink(episode)}
-                          className="mt-1 block w-full rounded-lg px-3 py-2 text-left text-sm text-[#1c2826] hover:bg-[#f6f2ea] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        >
-                          Kopieer link
-                        </button>
-                      </div>
-                    ) : null}
                   </div>
 
                   <a
@@ -422,6 +429,143 @@ export default function Podcasts() {
           })}
         </div>
       </section>
+
+      <Dialog
+        open={Boolean(shareDialogEpisode)}
+        onOpenChange={(open) => {
+          if (!open) setShareDialogEpisode(null);
+        }}
+      >
+        {shareDialogEpisode ? (
+          <DialogContent className="w-[92vw] max-w-md overflow-hidden rounded-2xl border border-[#d8d2c7] bg-[#fbf9f5] p-0 text-[#1c2826] shadow-2xl">
+            <div className="relative bg-gradient-to-r from-[#ece7dc] via-[#efe9de] to-[#e5ddcf] px-6 pb-5 pt-6">
+              <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-[#b46555]/20 blur-2xl" />
+              <div className="pointer-events-none absolute -left-10 bottom-0 h-24 w-24 rounded-full bg-[#9ca08a]/25 blur-2xl" />
+              <div className="relative flex items-start gap-3">
+                <div className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/75 text-[#1c2826] shadow-sm">
+                  <Share2 className="h-5 w-5" />
+                </div>
+                <div>
+                  <DialogTitle className="font-['Lora'] text-2xl font-semibold leading-tight">
+                    Deel aflevering
+                  </DialogTitle>
+                  <DialogDescription className="mt-1 text-sm text-[#5c6663]">
+                    {shareDialogEpisode.title}
+                  </DialogDescription>
+                </div>
+              </div>
+              <a
+                href={getEpisodeShareUrl(shareDialogEpisode)}
+                target="_blank"
+                rel="noreferrer"
+                className="relative mt-4 inline-flex items-center gap-2 rounded-full border border-[#d6d0c4] bg-white/90 px-3 py-1.5 text-xs font-medium text-[#2a3835] transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                Bekijk aflevering
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+
+            <div className="space-y-2 p-6 pt-4">
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(`${shareDialogEpisode.title} | Young Wise Women Podcasts ${getEpisodeShareUrl(shareDialogEpisode)}`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between rounded-xl border border-[#ddd6ca] bg-white px-4 py-3 text-sm font-medium transition hover:bg-[#f3efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                onClick={() => setShareDialogEpisode(null)}
+              >
+                <span className="inline-flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#e9f9ef] text-[#1f7a46]">
+                    <MessageCircle className="h-4 w-4" />
+                  </span>
+                  Share via WhatsApp
+                </span>
+                <ExternalLink className="h-4 w-4 text-[#6f7875]" />
+              </a>
+              <a
+                href={`mailto:?subject=${encodeURIComponent(`${shareDialogEpisode.title} | Young Wise Women Podcasts`)}&body=${encodeURIComponent(`${shareDialogEpisode.title} | Young Wise Women Podcasts\n${getEpisodeShareUrl(shareDialogEpisode)}`)}`}
+                className="flex items-center justify-between rounded-xl border border-[#ddd6ca] bg-white px-4 py-3 text-sm font-medium transition hover:bg-[#f3efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                onClick={() => setShareDialogEpisode(null)}
+              >
+                <span className="inline-flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#f8ede9] text-[#a55746]">
+                    <Mail className="h-4 w-4" />
+                  </span>
+                  Share via e-mail
+                </span>
+                <ExternalLink className="h-4 w-4 text-[#6f7875]" />
+              </a>
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getEpisodeShareUrl(shareDialogEpisode))}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between rounded-xl border border-[#ddd6ca] bg-white px-4 py-3 text-sm font-medium transition hover:bg-[#f3efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                onClick={() => setShareDialogEpisode(null)}
+              >
+                <span className="inline-flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f0fb] text-[#1f5fbe]">
+                    <Linkedin className="h-4 w-4" />
+                  </span>
+                  Share via LinkedIn
+                </span>
+                <ExternalLink className="h-4 w-4 text-[#6f7875]" />
+              </a>
+              <button
+                type="button"
+                onClick={() => void handleCopyShareLink(shareDialogEpisode)}
+                className="flex w-full items-center justify-between rounded-xl border border-[#ddd6ca] bg-white px-4 py-3 text-left text-sm font-medium transition hover:bg-[#f3efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                <span className="inline-flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#eef1f4] text-[#40505b]">
+                    <Link2 className="h-4 w-4" />
+                  </span>
+                  Kopieer link
+                </span>
+                {copiedEpisodeId === shareDialogEpisode.id ? (
+                  <span className="inline-flex items-center gap-1 text-[#2f6f4c]">
+                    <Check className="h-4 w-4" />
+                    Gekopieerd
+                  </span>
+                ) : (
+                  <Copy className="h-4 w-4 text-[#6f7875]" />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={() => void handleCopyEmbedCode(shareDialogEpisode)}
+                disabled={!getEpisodeEmbedCode(shareDialogEpisode)}
+                className={cn(
+                  "flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                  getEpisodeEmbedCode(shareDialogEpisode)
+                    ? "border-[#ddd6ca] bg-white hover:bg-[#f3efe7]"
+                    : "cursor-not-allowed border-[#ebe6de] bg-[#f4f1ea] text-[#8c8a85]",
+                )}
+              >
+                <span className="inline-flex items-center gap-3">
+                  <span
+                    className={cn(
+                      "inline-flex h-8 w-8 items-center justify-center rounded-full",
+                      getEpisodeEmbedCode(shareDialogEpisode)
+                        ? "bg-[#f2ece1] text-[#755543]"
+                        : "bg-[#ece8e1] text-[#979089]",
+                    )}
+                  >
+                    {"</>"}
+                  </span>
+                  Kopieer embed-code
+                </span>
+                {copiedEmbedEpisodeId === shareDialogEpisode.id ? (
+                  <span className="inline-flex items-center gap-1 text-[#2f6f4c]">
+                    <Check className="h-4 w-4" />
+                    Gekopieerd
+                  </span>
+                ) : (
+                  <Copy className="h-4 w-4 text-[#6f7875]" />
+                )}
+              </button>
+            </div>
+          </DialogContent>
+        ) : null}
+      </Dialog>
     </div>
   );
 }

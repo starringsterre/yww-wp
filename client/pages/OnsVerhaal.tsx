@@ -9,22 +9,49 @@ const image2Url =
 
 export default function OnsVerhaal() {
   const [scrollY, setScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const section1Ref = useRef<HTMLDivElement>(null);
   const section2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+    updateIsMobile();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateIsMobile);
+    } else {
+      mediaQuery.addListener(updateIsMobile);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", updateIsMobile);
+      } else {
+        mediaQuery.removeListener(updateIsMobile);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setScrollY(0);
+      return;
+    }
+
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMobile]);
 
   const getParallaxOffset = (
     elementRef: React.RefObject<HTMLDivElement>,
     direction: "slower" | "faster" = "slower"
   ) => {
+    if (isMobile) return 0;
     if (!elementRef.current) return 0;
 
     const elementTop = elementRef.current.getBoundingClientRect().top + scrollY;
@@ -75,10 +102,14 @@ export default function OnsVerhaal() {
                 src={image1Url}
                 alt="Young Wise Women"
                 className="w-full h-full object-cover"
-                style={{
-                  transform: `translateY(${getParallaxOffset(section1Ref, "slower")}px)`,
-                  transition: "transform 0.1s ease-out",
-                }}
+                style={
+                  isMobile
+                    ? undefined
+                    : {
+                        transform: `translateY(${getParallaxOffset(section1Ref, "slower")}px)`,
+                        transition: "transform 0.1s ease-out",
+                      }
+                }
               />
             </div>
           </div>
@@ -98,10 +129,14 @@ export default function OnsVerhaal() {
                 src={image2Url}
                 alt="Young Wise Women Netwerk"
                 className="w-full h-full object-cover"
-                style={{
-                  transform: `translateY(${getParallaxOffset(section2Ref, "slower")}px)`,
-                  transition: "transform 0.1s ease-out",
-                }}
+                style={
+                  isMobile
+                    ? undefined
+                    : {
+                        transform: `translateY(${getParallaxOffset(section2Ref, "slower")}px)`,
+                        transition: "transform 0.1s ease-out",
+                      }
+                }
               />
             </div>
 

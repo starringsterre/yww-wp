@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { createEvent, subscribeProfileToList } from "../lib/klaviyo";
 
 export async function handleMailchimpSubscribe(req: Request, res: Response) {
   if (req.method !== "POST") {
@@ -11,49 +12,37 @@ export async function handleMailchimpSubscribe(req: Request, res: Response) {
     return res.status(400).json({ error: "Email and firstName are required" });
   }
 
-  const listId = process.env.VITE_MAILCHIMP_LIST_ID;
-  const apiKey = process.env.VITE_MAILCHIMP_API_KEY;
-  const dataCenter = process.env.VITE_MAILCHIMP_DATACENTER;
+  const listId = process.env.KLAVIYO_LIST_ID_NEWSLETTER;
 
-  if (!listId || !apiKey || !dataCenter) {
-    console.error("Missing Mailchimp environment variables");
+  if (!listId) {
+    console.error("Missing KLAVIYO_LIST_ID_NEWSLETTER environment variable");
     return res.status(500).json({ error: "Server configuration error" });
   }
 
   try {
-    const mailchimpData = {
-      email_address: email,
-      status: "subscribed",
-      merge_fields: {
-        FNAME: firstName,
-        LNAME: lastName || "",
-        PHONE: phone || ""
+    const profile = {
+      email: email.trim(),
+      firstName: firstName.trim(),
+      lastName: (lastName || "").trim(),
+      phone: (phone || "").trim(),
+      properties: {
+        source: "website_newsletter_form",
+        lead_type: "newsletter",
       },
-      tags: ["YWW"]
     };
 
-    const response = await fetch(
-      `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}/members`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `apikey ${apiKey}`
-        },
-        body: JSON.stringify(mailchimpData)
-      }
-    );
+    await subscribeProfileToList({ listId, profile });
+    await createEvent({
+      metricName: "Nieuwsbrief Inschrijving",
+      profile,
+      properties: {
+        source: "website_newsletter_form",
+      },
+    });
 
-    if (!response.ok) {
-      const error = await response.json();
-      console.error("Mailchimp API Error:", error);
-      return res.status(response.status).json({ error: error.detail || "Failed to subscribe" });
-    }
-
-    const result = await response.json();
-    return res.json({ success: true, data: result });
+    return res.json({ success: true });
   } catch (error) {
-    console.error("Mailchimp submission error:", error);
+    console.error("Klaviyo newsletter submission error:", error);
     return res.status(500).json({ error: "Failed to process subscription" });
   }
 }

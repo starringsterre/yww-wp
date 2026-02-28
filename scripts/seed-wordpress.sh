@@ -267,11 +267,37 @@ echo "  ✓ Lid Worden"
 $WP post create --post_type=page --post_title="Retreats" --post_name="retreats" --post_status=publish --porcelain 2>/dev/null
 echo "  ✓ Retreats"
 
+$WP post create --post_type=page --post_title="Inspiratie" --post_name="inspiratie" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Inspiratie"
+
 $WP post create --post_type=page --post_title="Losse Workshops" --post_name="losse-workshops" --post_status=publish --porcelain 2>/dev/null
 echo "  ✓ Losse Workshops"
 
 $WP post create --post_type=page --post_title="Jaarprogrammas" --post_name="jaarprogrammas" --post_status=publish --porcelain 2>/dev/null
 echo "  ✓ Jaarprogrammas"
+
+# ─── PAGE CONTENT (yww_page_content JSON) ───
+echo "Seeding page content..."
+
+# Helper: set yww_page_content JSON on a page by slug
+seed_page_content() {
+  local slug="$1"
+  local json="$2"
+  local page_id
+  page_id=$($WP post list --post_type=page --name="$slug" --format=ids 2>/dev/null)
+  if [ -n "$page_id" ]; then
+    $WP post meta update "$page_id" yww_page_content "$json" 2>/dev/null
+    echo "  ✓ $slug page content seeded"
+  else
+    echo "  ✗ $slug page not found, skipping content seed"
+  fi
+}
+
+seed_page_content "inspiratie" '{"hero_title":"Inspiratie","hero_subtitle":"Verhalen, inzichten en gesprekken die je helpen groeien in werk en leven."}'
+
+seed_page_content "losse-workshops" '{"hero_title":"Losse workshops","hero_subtitle":"Flexibele dag workshops voor jonge professionals die gericht willen werken aan een specifiek thema.","transform_heading":"Jouw Transformatie","goodbye_heading":"Waar je Afscheid van Neemt","goodbye_text":"Je laat twijfel, uitstelgedrag en het gevoel van '\''moet ik nog meer?'\'' los, zodat je met meer rust en focus keuzes maakt.","takeaway_heading":"Wat je Meeneemt","takeaway_text":"Praktische handvatten, meer energie en heldere prioriteiten die je direct toepast in werk en dagelijks leven.","nextstep_heading":"Jouw Volgende Stap","nextstep_text":"Je gaat naar huis met een concreet actieplan, zodat je ontwikkeling na de workshop direct doorloopt.","for_whom_heading":"Voor wie zijn onze workshops","for_whom_intro":"Deze losse workshops zijn ideaal voor jonge professionals (24+) die:","for_whom_items":"✓ Snel en gericht willen werken aan een specifiek thema\n✓ Praktische tools zoeken die direct toepasbaar zijn\n✓ Een dag willen investeren in persoonlijke groei\n✓ Willen groeien met steun van een groep gelijkgestemde vrouwen","sidebar_what_heading":"Wat je krijgt","sidebar_what_items":"✓ Praktische handvatten die direct toepasbaar zijn\n✓ Persoonlijke reflectie-oefeningen en werkmateriaal\n✓ Feedback van coaches en de groep\n✓ Concreet actieplan voor de weken erna","sidebar_practical_heading":"Praktisch","sidebar_practical_items":"✓ Tijd: 09:30 - 17:00\n✓ Locatie: Castricum\n✓ Groepsgrootte: 10 tot 14 deelnemers\n✓ Inclusief lunch, koffie, thee en werkmateriaal","sidebar_not_for_heading":"Voor wie niet","sidebar_not_for_items":"• Als je alleen theorie wilt zonder oefenen\n• Als je geen ruimte hebt om te reflecteren\n• Als je nu geen concrete verandering wilt maken"}'
+
+seed_page_content "jaarprogrammas" '{"hero_title":"Jaarprogramma'\''s","hero_subtitle":"Langlopende ontwikkelprogramma'\''s voor jonge vrouwen die duurzaam willen groeien in leiderschap en persoonlijke kracht.","intro_heading":"Een jaar lang investeren in jouw groei als jonge professional","intro_text_1":"Ons jaarprogramma combineert 1-op-1 coaching, groepssessies, een dag workshop en een weekend training tot een samenhangend traject. Gedurende 12 maanden werk je structureel aan je persoonlijke en professionele ontwikkeling, met begeleiding van ervaren coaches.","intro_text_2":"Je bouwt stap voor stap aan rust, zelfvertrouwen en leiderschap. Het programma is ontworpen zodat je inzichten direct kunt toepassen in je werk en dagelijks leven.","intro_cta":"Neem contact op voor meer informatie","phases_heading":"De Drie Fases van het Jaarprogramma","phases_intro":"Elk jaarprogramma is opgebouwd uit drie fases die samen zorgen voor een duurzame transformatie.","phase_1_title":"Fase 1: Bewustwording","phase_1_text":"Je brengt in kaart wie je bent, wat je drijft en waar je naartoe wilt. Door reflectie, coaching en de Motivation Factor test krijg je helder inzicht in je patronen en kwaliteiten.","phase_2_title":"Fase 2: Verdieping","phase_2_text":"Je werkt actief aan gedragsverandering en leiderschap. In groepssessies en een weekend training ga je dieper in op je blokkades en leer je nieuwe vaardigheden toepassen.","phase_3_title":"Fase 3: Integratie","phase_3_text":"Je borgt je ontwikkeling en maakt het onderdeel van je dagelijks leven. Met een concreet actieplan en terugkomsessies zorg je dat je groei duurzaam doorwerkt.","for_whom_heading":"Voor wie zijn onze jaarprogramma'\''s","for_whom_intro":"Dit programma is speciaal ontworpen voor jonge professionals (24+) die:","for_whom_items":"✓ Duurzaam willen groeien over een langere periode\n✓ Behoefte hebben aan structuur en begeleiding in hun ontwikkeling\n✓ Willen investeren in zowel persoonlijk als professioneel leiderschap\n✓ Een community zoeken van gelijkgestemde jonge vrouwen","transform_heading":"Jouw Transformatie","goodbye_heading":"Waar je Afscheid van Neemt","goodbye_text":"Je laat het gevoel van vastlopen, constant aanpassen en twijfelen achter je. Na een jaar heb je helder wat je wilt en de tools om ernaar te handelen.","takeaway_heading":"Wat je Meeneemt","takeaway_text":"Diepgaand zelfinzicht, sterker leiderschap en een netwerk van gelijkgestemde vrouwen. Je hebt concrete vaardigheden die je dagelijks inzet.","nextstep_heading":"Jouw Volgende Stap","nextstep_text":"Je sluit het programma af met een concreet actieplan en de zekerheid dat je groei duurzaam doorzet, ondersteund door je community.","cta_heading":"Klaar om te groeien?","cta_text":"Neem contact op voor een vrijblijvend kennismakingsgesprek en ontdek welk programma bij jou past.","cta_button_1":"Neem contact op","cta_button_2":"Bekijk kalender"}'
 
 # ─── WORKSHOPS ───
 echo "Seeding workshops..."

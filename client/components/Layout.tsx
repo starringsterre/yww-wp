@@ -30,6 +30,10 @@ const mainNavItems: NavItem[] = [
   {
     href: "/in-company",
     label: "Bedrijfstrajecten",
+    children: [
+      { href: "/in-company/jaarprogrammas", label: "Jaarprogramma's" },
+      { href: "/in-company/losse-workshops", label: "Losse Workshops" },
+    ],
   },
   {
     href: "/inspiratie",

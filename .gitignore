@@ -26,3 +26,13 @@ dist-ssr
 .config/
 !.env
 .vercel
+
+# WordPress local installation (only theme, mu-plugins, and scripts are tracked)
+wordpress/*
+!wordpress/wp-content/
+wordpress/wp-content/*
+!wordpress/wp-content/themes/
+!wordpress/wp-content/mu-plugins/
+wordpress/wp-content/themes/*
+!wordpress/wp-content/themes/yww-headless/
+!wordpress/router.php

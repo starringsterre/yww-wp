@@ -93,7 +93,7 @@ export default function Weekenden() {
     };
   }, []);
 
-  const gridImages = [
+  const defaultGridImages = [
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=4000",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=4000",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F7a71bde85c8a499ea2bd4af0b6755fc4?format=webp&width=4000",
@@ -104,6 +104,10 @@ export default function Weekenden() {
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0454f106b58340f2b1d9e58f52316087?format=webp&width=4000",
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6420ed9ac504161856d9dcfebc9cb02?format=webp&width=4000",
   ];
+
+  const gridImages = cms?.gallery_images
+    ? cms.gallery_images.split('\n').filter(Boolean)
+    : defaultGridImages;
 
   const allSlideImages = [...gridImages];
 
@@ -126,7 +130,7 @@ export default function Weekenden() {
       subtitle: "Programma",
       description: "Aankomst, kennismaking, intake-inzichten uit je Motivation Factor test en een rustige avond met reflectie.",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1600",
+        cms?.day_1_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1600",
       alt: "Dag 1 vrijdag",
     },
     {
@@ -134,7 +138,7 @@ export default function Weekenden() {
       subtitle: "Programma",
       description: "Verdieping op verlangens en blokkades, met groepssessies, 1-op-1 coaching en alle maaltijden verzorgd.",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0c9c89796f6a451cad25ef33b9bfd178?format=webp&width=1600",
+        cms?.day_2_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F0c9c89796f6a451cad25ef33b9bfd178?format=webp&width=1600",
       alt: "Dag 2 zaterdag",
     },
     {
@@ -142,7 +146,7 @@ export default function Weekenden() {
       subtitle: "Programma",
       description: "Integratie en afronding met praktische tools en werkboek; je vertrekt met richting, rust en focus.",
       image:
-        "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=1600",
+        cms?.day_3_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=1600",
       alt: "Dag 3 zondag",
     },
   ];
@@ -168,7 +172,7 @@ export default function Weekenden() {
   return (
     <div className="w-full">
       <HeroSection
-        backgroundImage="https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"
+        backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
         headingTag="h2"
         title={cms?.hero_title || "Weekend trainingen"}
         subtitle={cms?.hero_subtitle || "Meerdaagse training voor jonge vrouwen die willen vertragen, verdiepen en duurzaam groeien."}
@@ -384,8 +388,13 @@ export default function Weekenden() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {(cms?.for_whom_items || "✓ Op zoek zijn naar meer betekenis in hun werk en leven\n✓ Ruimte nodig hebben om stil te staan bij hun doelen en praktische tools zoeken voor hun leven en werk\n✓ Willen groeien met steun van een groep gelijkgestemde vrouwen\n✓ Persoonlijke groei en ontwikkeling willen ervaren").split('\n').filter(Boolean).map((item, i) => (
-              <div key={i} className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
+            {[
+              cms?.for_whom_1 || "Op zoek zijn naar meer betekenis in hun werk en leven",
+              cms?.for_whom_2 || "Ruimte nodig hebben om stil te staan bij hun doelen en praktische tools zoeken voor hun leven en werk",
+              cms?.for_whom_3 || "Willen groeien met steun van een groep gelijkgestemde vrouwen",
+              cms?.for_whom_4 || "Persoonlijke groei en ontwikkeling willen ervaren",
+            ].map((item, i) => (
+              <div key={`for-whom-${i}`} className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
                 <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
                   {item}
                 </p>
@@ -494,7 +503,7 @@ export default function Weekenden() {
       <section
         className="relative py-32 px-4 md:px-8 flex items-center justify-center min-h-screen bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(28, 40, 38, 0.2), rgba(28, 40, 38, 0.2)), url('https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=2000')`,
+          backgroundImage: `linear-gradient(rgba(28, 40, 38, 0.2), rgba(28, 40, 38, 0.2)), url('${cms?.location_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F581f5321cf7147a6a311aa331c6cbdf2?format=webp&width=2000"}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -576,7 +585,7 @@ export default function Weekenden() {
             <article className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
               <div className="h-64 bg-gray-100 overflow-hidden">
                 <img loading="lazy"
-                  src="/ademwerk.png"
+                  src={cms?.breathwork_image || "/ademwerk.png"}
                   alt="Ademsessie breathwork tijdens weekendintensive"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   style={{ objectPosition: "center 20%" }}
@@ -600,7 +609,7 @@ export default function Weekenden() {
             <article className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
               <div className="h-64 bg-gray-100 overflow-hidden">
                 <img loading="lazy"
-                  src="/yoga-weekend-persoonlijke-ontwikkeling.png"
+                  src={cms?.yoga_image || "/yoga-weekend-persoonlijke-ontwikkeling.png"}
                   alt="Yogasessie tijdens weekendintensive"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                   style={{ objectPosition: "center 78%" }}

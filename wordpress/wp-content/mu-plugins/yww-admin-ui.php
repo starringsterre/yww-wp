@@ -8,6 +8,11 @@
 
 if (!defined('ABSPATH')) exit;
 
+// ─── Enqueue WordPress Media Library on admin pages ───
+add_action('admin_enqueue_scripts', function () {
+    wp_enqueue_media();
+});
+
 // ─────────────────────────────────────────────
 // 1. META BOXES
 // ─────────────────────────────────────────────
@@ -186,6 +191,21 @@ function yww_page_content_meta_box($post) {
         if ($type === 'textarea') {
             $rows = isset($field['rows']) ? $field['rows'] : 4;
             echo '<textarea name="' . esc_attr($name) . '" rows="' . $rows . '" style="width:100%;">' . esc_textarea($value) . '</textarea>';
+        } elseif ($type === 'image') {
+            $preview_id = 'preview_' . esc_attr($key);
+            $input_id = 'input_' . esc_attr($key);
+            $btn_id = 'btn_' . esc_attr($key);
+            $clear_id = 'clear_' . esc_attr($key);
+            echo '<div style="display:flex;gap:6px;align-items:center;">';
+            echo '<input type="text" id="' . $input_id . '" name="' . esc_attr($name) . '" value="' . esc_attr($value) . '" style="width:100%;" oninput="document.getElementById(\'' . $preview_id . '\').src=this.value;document.getElementById(\'' . $preview_id . '\').style.display=this.value?\'block\':\'none\';" />';
+            echo '<button type="button" id="' . $btn_id . '" class="button" style="white-space:nowrap;">Foto kiezen</button>';
+            echo '<button type="button" id="' . $clear_id . '" class="button" style="white-space:nowrap;color:#b32d2e;" title="Verwijder foto">✕</button>';
+            echo '</div>';
+            echo '<img id="' . $preview_id . '" src="' . esc_attr($value) . '" style="max-width:300px;max-height:180px;margin-top:8px;border-radius:6px;border:1px solid #ddd;object-fit:cover;' . ($value ? '' : 'display:none;') . '" />';
+            echo '<script>jQuery(function($){';
+            echo '$("#' . $btn_id . '").on("click",function(e){e.preventDefault();var frame=wp.media({title:"Kies een afbeelding",button:{text:"Gebruik deze afbeelding"},multiple:false});frame.on("select",function(){var url=frame.state().get("selection").first().toJSON().url;$("#' . $input_id . '").val(url).trigger("input");});frame.open();});';
+            echo '$("#' . $clear_id . '").on("click",function(e){e.preventDefault();$("#' . $input_id . '").val("").trigger("input");});';
+            echo '});</script>';
         } else {
             echo '<input type="text" name="' . esc_attr($name) . '" value="' . esc_attr($value) . '" style="width:100%;" />';
         }
@@ -200,9 +220,13 @@ function yww_get_page_fields($slug) {
         'home' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'hero_video_url'       => ['label' => 'Hero Video URL', 'type' => 'image', 'hint' => 'MP4 video URL'],
             'atmosphere_heading'   => ['label' => 'Heading', 'section' => 'Sfeer / Evenementen'],
             'atmosphere_text'      => ['label' => 'Tekst', 'type' => 'textarea'],
             'atmosphere_cta'       => ['label' => 'CTA knop tekst'],
+            'atmosphere_image_1'   => ['label' => 'Sfeer foto 1', 'type' => 'image'],
+            'atmosphere_image_2'   => ['label' => 'Sfeer foto 2', 'type' => 'image'],
+            'atmosphere_image_3'   => ['label' => 'Sfeer foto 3', 'type' => 'image'],
             'benefits_heading'     => ['label' => 'Heading', 'section' => 'Voordelen'],
             'benefits_intro'       => ['label' => 'Introductie tekst', 'type' => 'textarea'],
             'benefit_1_title'      => ['label' => 'Voordeel 1 titel'],
@@ -216,6 +240,7 @@ function yww_get_page_fields($slug) {
             'trainingen_heading'   => ['label' => 'Heading', 'section' => 'Trainingen Spotlight'],
             'trainingen_text'      => ['label' => 'Tekst', 'type' => 'textarea'],
             'trainingen_cta'       => ['label' => 'CTA knop tekst'],
+            'trainingen_image'     => ['label' => 'Trainingen foto', 'type' => 'image'],
             'coaches_heading'      => ['label' => 'Heading', 'section' => 'Coaches'],
             'coaches_intro'        => ['label' => 'Subtitel'],
             'coaches_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
@@ -235,10 +260,12 @@ function yww_get_page_fields($slug) {
             'bedrijf_heading'      => ['label' => 'Heading', 'section' => 'Bedrijfstrajecten'],
             'bedrijf_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
             'bedrijf_cta'          => ['label' => 'CTA knop tekst'],
+            'bedrijf_image'        => ['label' => 'Achtergrond foto', 'type' => 'image'],
         ],
         'weekenden' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'intro_heading'        => ['label' => 'SEO Heading', 'section' => 'Introductie'],
             'intro_text_1'         => ['label' => 'Introductie tekst 1', 'type' => 'textarea'],
             'intro_text_2'         => ['label' => 'Introductie tekst 2', 'type' => 'textarea'],
@@ -253,9 +280,13 @@ function yww_get_page_fields($slug) {
             'pillar_3_text'        => ['label' => 'Pijler 3 tekst', 'type' => 'textarea'],
             'gallery_heading'      => ['label' => 'Heading', 'section' => 'Foto Galerij'],
             'gallery_subtitle'     => ['label' => 'Subtitel'],
+            'gallery_images'       => ['label' => 'Galerij foto URLs', 'type' => 'textarea', 'hint' => '1 URL per regel, maximaal 9 foto\'s', 'rows' => 10],
             'for_whom_heading'     => ['label' => 'Heading', 'section' => 'Voor Wie'],
             'for_whom_intro'       => ['label' => 'Introductie'],
-            'for_whom_items'       => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'for_whom_1'           => ['label' => 'Blok 1', 'type' => 'textarea'],
+            'for_whom_2'           => ['label' => 'Blok 2', 'type' => 'textarea'],
+            'for_whom_3'           => ['label' => 'Blok 3', 'type' => 'textarea'],
+            'for_whom_4'           => ['label' => 'Blok 4', 'type' => 'textarea'],
             'edition_label'        => ['label' => 'Editie label (bijv. "4DE EDITIE")', 'section' => 'Volgende Editie'],
             'edition_heading'      => ['label' => 'Editie heading'],
             'edition_subtitle'     => ['label' => 'Editie subtitel'],
@@ -269,12 +300,16 @@ function yww_get_page_fields($slug) {
             'program_heading'      => ['label' => 'Heading', 'section' => 'Programma'],
             'day_1_label'          => ['label' => 'Dag 1 label'],
             'day_1_text'           => ['label' => 'Dag 1 tekst', 'type' => 'textarea'],
+            'day_1_image'          => ['label' => 'Dag 1 foto', 'type' => 'image'],
             'day_2_label'          => ['label' => 'Dag 2 label'],
             'day_2_text'           => ['label' => 'Dag 2 tekst', 'type' => 'textarea'],
+            'day_2_image'          => ['label' => 'Dag 2 foto', 'type' => 'image'],
             'day_3_label'          => ['label' => 'Dag 3 label'],
             'day_3_text'           => ['label' => 'Dag 3 tekst', 'type' => 'textarea'],
+            'day_3_image'          => ['label' => 'Dag 3 foto', 'type' => 'image'],
             'location_heading'     => ['label' => 'Heading', 'section' => 'Locatie'],
             'location_text'        => ['label' => 'Tekst', 'type' => 'textarea'],
+            'location_image'       => ['label' => 'Locatie achtergrond foto', 'type' => 'image'],
             'transform_heading'    => ['label' => 'Heading', 'section' => 'Transformatie'],
             'goodbye_heading'      => ['label' => 'Afscheid heading'],
             'goodbye_1'            => ['label' => 'Afscheid tekst', 'type' => 'textarea'],
@@ -287,9 +322,11 @@ function yww_get_page_fields($slug) {
             'breathwork_heading'   => ['label' => 'Heading', 'section' => 'Breathwork & Yoga'],
             'breathwork_subtitle'  => ['label' => 'Subtitel', 'type' => 'textarea'],
             'breathwork_benefits'  => ['label' => 'Breathwork voordelen', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'breathwork_image'     => ['label' => 'Breathwork foto', 'type' => 'image'],
             'yoga_heading'         => ['label' => 'Yoga heading'],
             'yoga_subtitle'        => ['label' => 'Yoga subtitel', 'type' => 'textarea'],
             'yoga_benefits'        => ['label' => 'Yoga voordelen', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'yoga_image'           => ['label' => 'Yoga foto', 'type' => 'image'],
             'highlight_heading'    => ['label' => 'Heading', 'section' => 'Weekend Training Highlight'],
             'highlight_when'       => ['label' => 'Wanneer'],
             'highlight_where'      => ['label' => 'Waar'],
@@ -304,6 +341,7 @@ function yww_get_page_fields($slug) {
         'weekend-intensive' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero foto', 'type' => 'image'],
             'intro_heading'        => ['label' => 'Heading', 'section' => 'Introductie'],
             'intro_text'           => ['label' => 'Tekst', 'type' => 'textarea'],
             'when_label'           => ['label' => 'Wanneer label', 'section' => 'Praktisch'],
@@ -316,6 +354,7 @@ function yww_get_page_fields($slug) {
             'rooms_text'           => ['label' => 'Kamers tekst'],
             'additional_text'      => ['label' => 'Extra tekst', 'type' => 'textarea'],
             'video_heading'        => ['label' => 'Video heading', 'section' => 'Video'],
+            'video_preview_image'  => ['label' => 'Video preview afbeelding', 'type' => 'image'],
             'about_heading'        => ['label' => 'Heading', 'section' => 'Over dit evenement'],
             'about_text_1'         => ['label' => 'Tekst 1', 'type' => 'textarea'],
             'about_text_2'         => ['label' => 'Tekst 2', 'type' => 'textarea'],
@@ -358,6 +397,7 @@ function yww_get_page_fields($slug) {
         'workshops' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'transform_heading'    => ['label' => 'Heading', 'section' => 'Transformatie'],
             'goodbye_heading'      => ['label' => 'Afscheid heading'],
             'goodbye_text'         => ['label' => 'Afscheid tekst', 'type' => 'textarea'],
@@ -378,9 +418,12 @@ function yww_get_page_fields($slug) {
         'ons-verhaal' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'section_1_heading'    => ['label' => 'Heading', 'section' => 'Sectie 1'],
             'section_1_text'       => ['label' => 'Tekst', 'type' => 'textarea'],
+            'section_1_image'      => ['label' => 'Sectie 1 foto', 'type' => 'image'],
             'section_2_heading'    => ['label' => 'Heading', 'section' => 'Sectie 2 (Waarden)'],
+            'section_2_image'      => ['label' => 'Sectie 2 foto', 'type' => 'image'],
             'section_2_items'      => ['label' => 'Waarden items', 'type' => 'textarea', 'hint' => '1 per regel'],
             'cta_heading'          => ['label' => 'Heading', 'section' => 'CTA'],
             'cta_text'             => ['label' => 'Knop tekst'],
@@ -396,6 +439,7 @@ function yww_get_page_fields($slug) {
         'voor-organisaties' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'intro_heading'        => ['label' => 'Heading', 'section' => 'Introductie'],
             'intro_text'           => ['label' => 'Tekst', 'type' => 'textarea'],
             'brands_heading'       => ['label' => 'Brands heading', 'section' => 'Brands'],
@@ -467,19 +511,24 @@ function yww_get_page_fields($slug) {
         'retreats' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'intro_text'           => ['label' => 'Introductie tekst', 'section' => 'Introductie', 'type' => 'textarea'],
             'card_1_title'         => ['label' => 'Kaart 1 titel', 'section' => 'Trainingskaarten'],
             'card_1_text'          => ['label' => 'Kaart 1 tekst', 'type' => 'textarea'],
+            'card_1_image'         => ['label' => 'Kaart 1 foto', 'type' => 'image'],
             'card_2_title'         => ['label' => 'Kaart 2 titel'],
             'card_2_text'          => ['label' => 'Kaart 2 tekst', 'type' => 'textarea'],
+            'card_2_image'         => ['label' => 'Kaart 2 foto', 'type' => 'image'],
         ],
         'inspiratie' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
         ],
         'losse-workshops' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'transform_heading'    => ['label' => 'Heading', 'section' => 'Transformatie'],
             'goodbye_heading'      => ['label' => 'Afscheid heading'],
             'goodbye_text'         => ['label' => 'Afscheid tekst', 'type' => 'textarea'],
@@ -500,6 +549,7 @@ function yww_get_page_fields($slug) {
         'jaarprogrammas' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
             'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'hero_image'           => ['label' => 'Hero achtergrond foto', 'type' => 'image'],
             'intro_heading'        => ['label' => 'SEO Heading', 'section' => 'Introductie'],
             'intro_text_1'         => ['label' => 'Introductie tekst 1', 'type' => 'textarea'],
             'intro_text_2'         => ['label' => 'Introductie tekst 2', 'type' => 'textarea'],

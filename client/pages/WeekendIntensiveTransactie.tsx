@@ -9,9 +9,9 @@ const EMPLOYER_PRICE = 1450;
 const DUO_PER_PERSON_PRICE = EMPLOYER_PRICE * 0.9;
 const DUO_PRICE = DUO_PER_PERSON_PRICE * 2;
 const PAGE_PATH = "/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026";
-const HERO_IMAGE_PATH = "/workshop-persoonlijke-ontwikkeling.jpg";
+const DEFAULT_HERO_IMAGE = "/workshop-persoonlijke-ontwikkeling.jpg";
 const VIDEO_ID = "3djy4-X1-3s";
-const VIDEO_PREVIEW_IMAGE = "/persoonlijke-ontwikkeling-training-vrouwen-testimonial-yww.png";
+const DEFAULT_VIDEO_PREVIEW = "/persoonlijke-ontwikkeling-training-vrouwen-testimonial-yww.png";
 const VIDEO_URL =
   `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&controls=0&loop=1&playlist=${VIDEO_ID}&modestbranding=1&rel=0`;
 
@@ -250,7 +250,7 @@ export default function WeekendIntensiveTransactie() {
     const pageDescription =
       "Weekend training voor vrouwen (24–29) die willen groeien in rust en leiderschap. Vergoeding via werkgever mogelijk. Boek je plek.";
     const absoluteUrl = `${window.location.origin}${PAGE_PATH}`;
-    const ogImage = `${window.location.origin}${HERO_IMAGE_PATH}`;
+    const ogImage = `${window.location.origin}${DEFAULT_HERO_IMAGE}`;
 
     document.title = pageTitle;
     document.documentElement.lang = "nl";
@@ -436,7 +436,7 @@ export default function WeekendIntensiveTransactie() {
                 <div className="relative aspect-video bg-black">
                   <img
                     loading="lazy"
-                    src={VIDEO_PREVIEW_IMAGE}
+                    src={DEFAULT_VIDEO_PREVIEW}
                     alt="Video preview van persoonlijke ontwikkeling training voor vrouwen in Nederland"
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${videoHovered ? "opacity-0" : "opacity-100"}`}
                   />

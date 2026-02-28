@@ -143,7 +143,7 @@ export default function VoorOrganisaties() {
   return (
     <div className="w-full">
       <HeroSection
-        backgroundImage="/incompany-training-vrouw.png"
+        backgroundImage={cms?.hero_image || "/incompany-training-vrouw.png"}
         backgroundImageAlt="incompany ontwikkeling training vrouw"
         backgroundPosition="center top"
         title={cms?.hero_title || "Bedrijfstrajecten"}
@@ -369,7 +369,7 @@ export default function VoorOrganisaties() {
 
                   <div className="relative hidden min-h-[380px] md:block">
                     <img loading="lazy"
-                      src="/incompany-training-vrouw.png"
+                      src={cms?.hero_image || "/incompany-training-vrouw.png"}
                       alt="Young Wise Women bedrijfstrajecten programma"
                       className="h-full w-full object-cover"
                     />

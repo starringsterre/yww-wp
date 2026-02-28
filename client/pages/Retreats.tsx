@@ -8,7 +8,7 @@ export default function Retreats() {
   return (
     <div className="w-full">
       <HeroSection
-        backgroundImage="https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"
+        backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
         title={cms?.hero_title || "Persoonlijke ontwikkeling & groei"}
         subtitle={cms?.hero_subtitle || "Trainingen en Workshops voor jonge carrière-gedreven vrouwen"}
       />
@@ -45,7 +45,7 @@ export default function Retreats() {
                 </Link>
               </div>
               <img loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1800"
+                src={cms?.card_1_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1800"}
                 alt="Weekend Trainingen locatie en groepsmoment"
                 className="w-full h-56 md:h-64 object-cover"
               />
@@ -70,7 +70,7 @@ export default function Retreats() {
                 </Link>
               </div>
               <img loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=1800"
+                src={cms?.card_2_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fe595860bbcf54834ad2cb6761d7f4bb8?format=webp&width=1800"}
                 alt="Workshop groep in trainingssetting"
                 className="w-full h-56 md:h-64 object-cover"
               />

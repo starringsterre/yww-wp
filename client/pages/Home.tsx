@@ -19,7 +19,7 @@ export default function Home() {
   const { data: coaches } = useCoaches();
   const { data: cms } = usePageContent("home");
   const videoUrl =
-    "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
+    cms?.hero_video_url || "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
   return (
     <div className="w-full">
       {/* Hero Video Section */}
@@ -69,21 +69,21 @@ export default function Home() {
           >
             <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fe09ac73d09854b79ab26b9a2f1b621b1?format=webp&width=4000"
+                src={cms?.atmosphere_image_1 || "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fe09ac73d09854b79ab26b9a2f1b621b1?format=webp&width=4000"}
                 alt="Sunset nature moment"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
             <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F359000dab9a94eb6b59fca5e2668ce4f?format=webp&width=4000"
+                src={cms?.atmosphere_image_2 || "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F359000dab9a94eb6b59fca5e2668ce4f?format=webp&width=4000"}
                 alt="Netwerk group gathering"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
             </div>
             <div data-stagger-child className="opacity-0 aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
               <img loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fba09bc28922e4f28ae356e7db1c5a2f4?format=webp&width=4000"
+                src={cms?.atmosphere_image_3 || "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fba09bc28922e4f28ae356e7db1c5a2f4?format=webp&width=4000"}
                 alt="Mentoring and connection"
                 className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
               />
@@ -196,7 +196,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="rounded-2xl overflow-hidden shadow-lg">
               <img loading="lazy"
-                src="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1800"
+                src={cms?.trainingen_image || "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1800"}
                 alt="Weekend trainingen en dag workshops"
                 className="w-full h-80 object-cover transition-transform duration-500 hover:scale-105"
               />
@@ -399,7 +399,7 @@ export default function Home() {
         className="relative min-h-screen px-4 md:px-8 flex items-center justify-center bg-cover bg-center"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(28, 40, 38, 0.45), rgba(28, 40, 38, 0.45)), url('/incompany-training-vrouw.png')",
+            `linear-gradient(rgba(28, 40, 38, 0.45), rgba(28, 40, 38, 0.45)), url('${cms?.bedrijf_image || "/incompany-training-vrouw.png"}')`,
         }}
       >
         <div className="max-w-4xl mx-auto text-center text-white">

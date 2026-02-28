@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import { usePageContent } from "@/hooks/usePageContent";
 
-const image1Url =
+const defaultImage1Url =
   "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcf6849fa4e1a4b76b17b1abaac301ee1?format=webp&width=4000";
-const image2Url =
+const defaultImage2Url =
   "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F664a16fe95e34cfa87d16dd246540bca?format=webp&width=4000";
 
 export default function OnsVerhaal() {
@@ -67,7 +67,7 @@ export default function OnsVerhaal() {
     <div className="w-full">
       {/* Hero Section */}
       <HeroSection
-        backgroundImage="https://images.pexels.com/photos/12198985/pexels-photo-12198985.jpeg"
+        backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/12198985/pexels-photo-12198985.jpeg"}
         title={cms?.hero_title || "Ons Verhaal"}
         subtitle={cms?.hero_subtitle || "Ontdek wat Young Wise Women betekent en wat ons drijft"}
       />
@@ -92,7 +92,7 @@ export default function OnsVerhaal() {
             {/* Image with Parallax Effect */}
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg">
               <img loading="lazy"
-                src={image1Url}
+                src={cms?.section_1_image || defaultImage1Url}
                 alt="Young Wise Women"
                 className="w-full h-full object-cover"
                 style={
@@ -119,7 +119,7 @@ export default function OnsVerhaal() {
             {/* Image with Parallax Effect (mirrored position) */}
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
               <img loading="lazy"
-                src={image2Url}
+                src={cms?.section_2_image || defaultImage2Url}
                 alt="Young Wise Women Netwerk"
                 className="w-full h-full object-cover"
                 style={

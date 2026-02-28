@@ -117,7 +117,7 @@ export default function Jaarprogrammas() {
   return (
     <div className="w-full">
       <HeroSection
-        backgroundImage="https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"
+        backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
         title={cms?.hero_title || "Jaarprogramma's"}
         subtitle={
           cms?.hero_subtitle ||

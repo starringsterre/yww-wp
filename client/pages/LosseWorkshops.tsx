@@ -223,7 +223,7 @@ export default function LosseWorkshops() {
   return (
     <div className="w-full">
       <HeroSection
-        backgroundImage="/workshop-persoonlijke-ontwikkeling.jpg"
+        backgroundImage={cms?.hero_image || "/workshop-persoonlijke-ontwikkeling.jpg"}
         title={cms?.hero_title || "Losse workshops"}
         subtitle={
           cms?.hero_subtitle ||

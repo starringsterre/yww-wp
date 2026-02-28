@@ -647,7 +647,7 @@ function yww_save_page_content_data($post_id) {
         }
     }
 
-    update_post_meta($post_id, 'yww_page_content', wp_json_encode($data, JSON_UNESCAPED_UNICODE));
+    update_post_meta($post_id, 'yww_page_content', wp_slash(wp_json_encode($data, JSON_UNESCAPED_UNICODE)));
 }
 
 // ─────────────────────────────────────────────

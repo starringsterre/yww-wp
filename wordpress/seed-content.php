@@ -63,7 +63,7 @@ function yww_seed_page_content($slug, $title, $content_data) {
         }
 
         if ($empty_count > count($content_data) / 2) {
-            update_post_meta($page_id, 'yww_page_content', wp_json_encode($content_data, JSON_UNESCAPED_UNICODE));
+            update_post_meta($page_id, 'yww_page_content', wp_slash(wp_json_encode($content_data, JSON_UNESCAPED_UNICODE)));
             echo "  ~ {$title} (ID: {$page_id}) bijgewerkt ({$empty_count} lege velden gevuld)\n";
         } else {
             echo "  ({$title} al grotendeels gevuld, overgeslagen)\n";
@@ -83,7 +83,7 @@ function yww_seed_page_content($slug, $title, $content_data) {
         return 0;
     }
 
-    update_post_meta($page_id, 'yww_page_content', wp_json_encode($content_data, JSON_UNESCAPED_UNICODE));
+    update_post_meta($page_id, 'yww_page_content', wp_slash(wp_json_encode($content_data, JSON_UNESCAPED_UNICODE)));
     echo "  + {$title} (ID: {$page_id})\n";
     return $page_id;
 }

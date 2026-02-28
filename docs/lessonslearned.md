@@ -68,6 +68,25 @@ De volledige Talentix React landing page (vibecoded met Vite/TypeScript/Tailwind
 - Content volledig beheerbaar zonder code aan te raken
 - Schone, onderhoudbare codestructuur
 
+## WordPress Headless CMS: wp_slash() bij JSON meta opslag
+
+**Probleem:** Bij het opslaan van JSON in `post_meta` via `update_post_meta()` worden `\n` (newline) karakters gestript naar letterlijke `n`. Hierdoor werden lijsten (bijv. "voor wie" items) als één aaneengesloten tekst weergegeven in plaats van aparte items.
+
+**Oorzaak:** WordPress's `update_post_meta()` roept intern `wp_unslash()` aan op de waarde. In JSON worden newlines als `\n` opgeslagen — WordPress ziet de backslash en stript die, waardoor `\n` → `n` wordt.
+
+**Fix:** Altijd `wp_slash()` wrappen rond de JSON string vóór het opslaan:
+```php
+// FOUT:
+update_post_meta($id, 'key', wp_json_encode($data));
+
+// GOED:
+update_post_meta($id, 'key', wp_slash(wp_json_encode($data)));
+```
+
+**Getroffen plekken:** `seed-content.php` (2x) en `yww-admin-ui.php` (save handler). Alle pagina's met multiline textarea-velden (items-lijsten) waren geraakt.
+
+---
+
 ## Aandachtspunten voor de toekomst
 - SVG iconen staan hardcoded → bij wijzigingen moet je in de PHP bestanden duiken
 - 96 customizer-velden is veel → overweeg ACF (Advanced Custom Fields) voor complexere content

@@ -11,17 +11,18 @@ interface UseWPContentOptions<T> {
   fallbackData: T;
 }
 
-export function useWPContent<T>({
+export function useWPContent<T extends object | unknown[]>({
   queryKey,
   queryFn,
   fallbackData,
 }: UseWPContentOptions<T>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return useQuery<T>({
     queryKey,
     queryFn,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
-    placeholderData: fallbackData,
+    placeholderData: fallbackData as any, // TanStack Query v5 generics workaround
     retry: 1,
   });
 }

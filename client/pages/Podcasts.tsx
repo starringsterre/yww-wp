@@ -13,86 +13,8 @@ import {
 import HeroSection from "@/components/HeroSection";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-
-type Episode = {
-  id: number;
-  title: string;
-  teaser?: string;
-  duration: string;
-  date: string;
-  guest: string;
-  thumbnailUrl: string;
-  youtubeUrl: string;
-  spotifyUrl: string;
-};
-
-const episodes: Episode[] = [
-  {
-    id: 1,
-    title: "Episode 1",
-    duration: "00:00",
-    date: "2026-02-15",
-    guest: "",
-    thumbnailUrl: "",
-    youtubeUrl: "https://www.youtube.com/watch?v=l5WYmKOh6TI&t=3s",
-    spotifyUrl: "",
-  },
-  {
-    id: 2,
-    title: "Episode 2",
-    teaser: "Korte teaser (1 zin) over deze aflevering.",
-    duration: "00:00",
-    date: "2026-02-15",
-    guest: "",
-    thumbnailUrl: "",
-    youtubeUrl: "https://www.youtube.com/watch?v=oodyR6UYDBY",
-    spotifyUrl: "",
-  },
-  {
-    id: 3,
-    title: "Episode 3",
-    teaser: "Korte teaser (1 zin) over deze aflevering.",
-    duration: "00:00",
-    date: "2026-02-15",
-    guest: "",
-    thumbnailUrl: "",
-    youtubeUrl: "",
-    spotifyUrl: "",
-  },
-  {
-    id: 4,
-    title: "Episode 4",
-    teaser: "Korte teaser (1 zin) over deze aflevering.",
-    duration: "00:00",
-    date: "2026-02-15",
-    guest: "",
-    thumbnailUrl: "",
-    youtubeUrl: "",
-    spotifyUrl: "",
-  },
-  {
-    id: 5,
-    title: "Episode 5",
-    teaser: "Korte teaser (1 zin) over deze aflevering.",
-    duration: "00:00",
-    date: "2026-02-15",
-    guest: "",
-    thumbnailUrl: "",
-    youtubeUrl: "",
-    spotifyUrl: "",
-  },
-  {
-    id: 6,
-    title: "Episode 6",
-    teaser: "Korte teaser (1 zin) over deze aflevering.",
-    duration: "00:00",
-    date: "2026-02-15",
-    guest: "",
-    thumbnailUrl: "",
-    youtubeUrl: "",
-    spotifyUrl: "",
-  },
-];
+import { usePodcasts } from "@/hooks/usePodcasts";
+import type { WPPodcast } from "@/api/wp-types";
 
 const sourceOptions = ["Alle platformen", "YouTube", "Spotify"];
 const guestOptions = ["Alle gasten", "Met gast", "Zonder gast"];
@@ -111,14 +33,14 @@ function getYoutubeVideoId(url: string): string | null {
   }
 }
 
-function getThumbnailUrl(episode: Episode): string {
+function getThumbnailUrl(episode: WPPodcast): string {
   if (episode.thumbnailUrl) return episode.thumbnailUrl;
   const videoId = getYoutubeVideoId(episode.youtubeUrl);
   if (videoId) return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
   return "https://images.pexels.com/photos/7135037/pexels-photo-7135037.jpeg";
 }
 
-function getPreviewUrl(episode: Episode): string {
+function getPreviewUrl(episode: WPPodcast): string {
   const videoId = getYoutubeVideoId(episode.youtubeUrl);
   if (!videoId) return "";
   return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0`;
@@ -138,18 +60,19 @@ function getSpotifyEpisodeId(url: string): string | null {
 }
 
 export default function Podcasts() {
+  const { data: episodes } = usePodcasts();
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("Alle platformen");
   const [guestFilter, setGuestFilter] = useState("Alle gasten");
   const [activeEpisodeId, setActiveEpisodeId] = useState<number | null>(null);
-  const [shareDialogEpisode, setShareDialogEpisode] = useState<Episode | null>(null);
+  const [shareDialogEpisode, setShareDialogEpisode] = useState<WPPodcast | null>(null);
   const [copiedEpisodeId, setCopiedEpisodeId] = useState<number | null>(null);
   const [copiedEmbedEpisodeId, setCopiedEmbedEpisodeId] = useState<number | null>(null);
 
   const filteredEpisodes = useMemo(() => {
     const normalizedQuery = searchTerm.trim().toLowerCase();
 
-    return episodes.filter((episode) => {
+    return (episodes ?? []).filter((episode) => {
       const hasYoutube = Boolean(episode.youtubeUrl);
       const hasSpotify = Boolean(episode.spotifyUrl);
       const hasGuest = Boolean(episode.guest.trim());
@@ -188,7 +111,7 @@ export default function Podcasts() {
     setActiveEpisodeId(null);
   };
 
-  const getEpisodeShareUrl = (episode: Episode): string => {
+  const getEpisodeShareUrl = (episode: WPPodcast): string => {
     if (episode.youtubeUrl) return episode.youtubeUrl;
     if (episode.spotifyUrl) return episode.spotifyUrl;
     if (typeof window !== "undefined") {
@@ -197,7 +120,7 @@ export default function Podcasts() {
     return `/inspiratie/podcasts#episode-${episode.id}`;
   };
 
-  const getEpisodeEmbedCode = (episode: Episode): string => {
+  const getEpisodeEmbedCode = (episode: WPPodcast): string => {
     const youtubeId = getYoutubeVideoId(episode.youtubeUrl);
     if (youtubeId) {
       return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${youtubeId}" title="${episode.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
@@ -211,7 +134,7 @@ export default function Podcasts() {
     return "";
   };
 
-  const handleCopyShareLink = async (episode: Episode) => {
+  const handleCopyShareLink = async (episode: WPPodcast) => {
     const shareUrl = getEpisodeShareUrl(episode);
     try {
       await navigator.clipboard.writeText(shareUrl);
@@ -224,7 +147,7 @@ export default function Podcasts() {
     }
   };
 
-  const handleCopyEmbedCode = async (episode: Episode) => {
+  const handleCopyEmbedCode = async (episode: WPPodcast) => {
     const embedCode = getEpisodeEmbedCode(episode);
     if (!embedCode) return;
 

@@ -5,6 +5,7 @@ import CustomCursor from "@/components/CustomCursor";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
 import VraagbaakWidget from "@/components/VraagbaakWidget";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
+import { useGlobalSettings } from "@/hooks/useGlobalSettings";
 
 type NavChild = {
   href: string;
@@ -58,6 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const currentYear = new Date().getFullYear();
   const location = useLocation();
   const isDesktop = useIsDesktop();
+  const { data: settings } = useGlobalSettings();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -309,8 +311,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h3 className="text-gray-900 font-medium mb-4">Young Wise Women</h3>
               <p className="text-sm text-gray-600">
-                Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren en op zoek zijn naar
-                persoonlijke groei en betekenis. Trainingen, Workshops en Bedrijfstrajecten op maat.
+                {settings?.footer.about_text || "Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren en op zoek zijn naar persoonlijke groei en betekenis. Trainingen, Workshops en Bedrijfstrajecten op maat."}
               </p>
             </div>
 
@@ -341,12 +342,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div>
               <h4 className="text-gray-900 font-medium mb-4">Contact</h4>
               <div className="space-y-2 text-sm text-gray-600 mb-4">
-                <p>info@youngwisewomen.nl</p>
-                <p>+31 (0)6 55334728</p>
+                <p>{settings?.contact.email || "info@youngwisewomen.nl"}</p>
+                <p>{settings?.contact.phone || "+31 (0)6 55334728"}</p>
               </div>
               <div className="flex gap-4">
                 <a
-                  href="http://instagram.com/youngwisewomen"
+                  href={settings?.social.instagram || "http://instagram.com/youngwisewomen"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors"
@@ -355,7 +356,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
-                <a href="#" className="transition-colors" style={{ color: "#6B705C" }} aria-label="LinkedIn">
+                <a
+                  href={settings?.social.linkedin || "#"}
+                  target={settings?.social.linkedin ? "_blank" : undefined}
+                  rel={settings?.social.linkedin ? "noopener noreferrer" : undefined}
+                  className="transition-colors"
+                  style={{ color: "#6B705C" }}
+                  aria-label="LinkedIn"
+                >
                   <Linkedin className="w-5 h-5" />
                 </a>
               </div>

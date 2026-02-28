@@ -3,8 +3,10 @@ import { Calendar, MapPin, Users } from "lucide-react";
 import EventCalendar from "@/components/EventCalendar";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import HeroSection from "@/components/HeroSection";
+import { useEvents } from "@/hooks/useEvents";
 
 export default function Kalender() {
+  const { data: events } = useEvents();
   return (
     <div className="w-full">
       {/* Hero */}
@@ -15,7 +17,7 @@ export default function Kalender() {
       />
 
       {/* Event Calendar */}
-      <EventCalendar />
+      <EventCalendar events={events} />
 
       {/* Upcoming Retreat */}
       <section className="py-14 px-4 md:px-8 bg-white">

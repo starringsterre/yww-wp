@@ -1,20 +1,21 @@
 import { useMemo, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { testimonials } from "@/lib/testimonials";
+import { useTestimonials } from "@/hooks/useTestimonials";
 import { InfiniteTwoUpCarousel } from "@/components/InfiniteTwoUpCarousel";
 
 export default function RetreatTestimonialsSection() {
   const controlsRef = useRef<{ next: () => void; prev: () => void } | null>(null);
+  const { data: testimonials } = useTestimonials();
 
   const carouselItems = useMemo(
     () =>
-      testimonials.map((item) => ({
+      (testimonials ?? []).map((item) => ({
         quote: item.quote,
         photo: item.image,
         name: item.name,
         role: item.date,
       })),
-    [],
+    [testimonials],
   );
 
   return (

@@ -85,8 +85,77 @@ add_filter('wp_is_application_passwords_available', '__return_true');
 add_filter('xmlrpc_enabled', '__return_false');
 
 /**
- * Increase REST API default per_page limit
+ * Customizer: YWW Site-instellingen
+ * Bewerk via Weergave > Customizer
  */
-add_filter('rest_endpoints', function ($endpoints) {
-    return $endpoints;
+add_action('customize_register', function ($wp_customize) {
+
+    // ── Panel ──
+    $wp_customize->add_panel('yww_panel', [
+        'title'    => 'YWW Site-instellingen',
+        'priority' => 30,
+    ]);
+
+    // ── Contact sectie ──
+    $wp_customize->add_section('yww_contact', [
+        'title' => 'Contact',
+        'panel' => 'yww_panel',
+    ]);
+
+    $wp_customize->add_setting('yww_contact_email', ['default' => 'info@youngwisewomen.nl', 'type' => 'option']);
+    $wp_customize->add_control('yww_contact_email', [
+        'label'   => 'E-mailadres',
+        'section' => 'yww_contact',
+        'type'    => 'email',
+    ]);
+
+    $wp_customize->add_setting('yww_contact_phone', ['default' => '+31 (0)6 55334728', 'type' => 'option']);
+    $wp_customize->add_control('yww_contact_phone', [
+        'label'   => 'Telefoonnummer',
+        'section' => 'yww_contact',
+        'type'    => 'text',
+    ]);
+
+    // ── Social Media sectie ──
+    $wp_customize->add_section('yww_social', [
+        'title' => 'Social Media',
+        'panel' => 'yww_panel',
+    ]);
+
+    $wp_customize->add_setting('yww_social_instagram', ['default' => 'http://instagram.com/youngwisewomen', 'type' => 'option']);
+    $wp_customize->add_control('yww_social_instagram', [
+        'label'   => 'Instagram URL',
+        'section' => 'yww_social',
+        'type'    => 'url',
+    ]);
+
+    $wp_customize->add_setting('yww_social_linkedin', ['default' => '', 'type' => 'option']);
+    $wp_customize->add_control('yww_social_linkedin', [
+        'label'   => 'LinkedIn URL',
+        'section' => 'yww_social',
+        'type'    => 'url',
+    ]);
+
+    // ── Footer sectie ──
+    $wp_customize->add_section('yww_footer', [
+        'title' => 'Footer',
+        'panel' => 'yww_panel',
+    ]);
+
+    $wp_customize->add_setting('yww_footer_about', [
+        'default' => 'Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren. Ontdek wat je drijft, verstevig je koers en groei met gelijkgestemde vrouwen.',
+        'type'    => 'option',
+    ]);
+    $wp_customize->add_control('yww_footer_about', [
+        'label'   => 'Over tekst',
+        'section' => 'yww_footer',
+        'type'    => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('yww_footer_copyright', ['default' => '', 'type' => 'option']);
+    $wp_customize->add_control('yww_footer_copyright', [
+        'label'   => 'Copyright tekst',
+        'section' => 'yww_footer',
+        'type'    => 'text',
+    ]);
 });

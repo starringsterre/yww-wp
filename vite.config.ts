@@ -12,11 +12,33 @@ export default defineConfig(({ mode }) => ({
       allow: [".", "./client", "./shared"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
+    proxy: {
+      "/wp-admin": {
+        target: "http://localhost:8081",
+        headers: { host: "localhost:8080" },
+      },
+      "/wp-login.php": {
+        target: "http://localhost:8081",
+        headers: { host: "localhost:8080" },
+      },
+      "/wp-json": {
+        target: "http://localhost:8081",
+        headers: { host: "localhost:8080" },
+      },
+      "/wp-content": {
+        target: "http://localhost:8081",
+        headers: { host: "localhost:8080" },
+      },
+      "/wp-includes": {
+        target: "http://localhost:8081",
+        headers: { host: "localhost:8080" },
+      },
+    },
   },
   build: {
     outDir: "dist/spa",
   },
-  plugins: [react(), expressPlugin()],
+  plugins: [react(), wpAdminPlugin(), expressPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
@@ -24,6 +46,24 @@ export default defineConfig(({ mode }) => ({
     },
   },
 }));
+
+function wpAdminPlugin(): Plugin {
+  return {
+    name: "wp-admin-redirect",
+    apply: "serve",
+    configureServer(server) {
+      // Ensure /wp-admin has trailing slash so relative links resolve correctly
+      server.middlewares.use((req, _res, next) => {
+        if (req.url === "/wp-admin") {
+          _res.writeHead(301, { Location: "/wp-admin/" });
+          _res.end();
+          return;
+        }
+        next();
+      });
+    },
+  };
+}
 
 function expressPlugin(): Plugin {
   return {

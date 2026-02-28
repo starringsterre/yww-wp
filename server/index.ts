@@ -13,10 +13,10 @@ import { handleVraagbaakLead } from "./routes/vraagbaak";
 export function createServer() {
   const app = express();
 
-  // Middleware
+  // Middleware — scoped to /api so body parsers don't consume WP proxy requests
   app.use(cors());
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  app.use("/api", express.json());
+  app.use("/api", express.urlencoded({ extended: true }));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {

@@ -29,6 +29,15 @@ function yww_add_meta_boxes() {
 
     // Blog meta box
     add_meta_box('yww_blog_details', 'Blog Details', 'yww_blog_meta_box', 'yww_blog', 'normal', 'high');
+
+    // Workshop meta box
+    add_meta_box('yww_workshop_details', 'Workshop Details', 'yww_workshop_meta_box', 'yww_workshop', 'normal', 'high');
+
+    // FAQ meta box
+    add_meta_box('yww_faq_details', 'FAQ Details', 'yww_faq_meta_box', 'yww_faq', 'normal', 'high');
+
+    // Page content meta box (only on pages with specific slugs)
+    add_meta_box('yww_page_content', 'Pagina Teksten (CMS)', 'yww_page_content_meta_box', 'page', 'normal', 'high');
 }
 
 // ─── Helper: render a text input ───
@@ -115,6 +124,372 @@ function yww_blog_meta_box($post) {
     yww_text_field($post->ID, 'yww_blog_featured_image', 'Featured Image URL');
 }
 
+// ─── Workshop Meta Box ───
+function yww_workshop_meta_box($post) {
+    wp_nonce_field('yww_save_meta', 'yww_meta_nonce');
+    yww_text_field($post->ID, 'yww_workshop_subtitle', 'Ondertitel');
+    yww_textarea_field($post->ID, 'yww_workshop_description', 'Beschrijving', 4);
+    yww_text_field($post->ID, 'yww_workshop_next_date', 'Eerstvolgende datum (bijv. "20 maart 2026")');
+    yww_text_field($post->ID, 'yww_workshop_from_price', 'Prijs (bijv. "EUR 245")');
+    yww_text_field($post->ID, 'yww_workshop_duration', 'Duur (bijv. "09:30 - 17:00")');
+    yww_text_field($post->ID, 'yww_workshop_location', 'Locatie');
+    yww_text_field($post->ID, 'yww_workshop_audience', 'Doelgroep');
+    yww_textarea_field($post->ID, 'yww_workshop_goal', 'Doel', 3);
+    yww_textarea_field($post->ID, 'yww_workshop_program', 'Programma onderdelen (1 per regel)', 4);
+    yww_text_field($post->ID, 'yww_workshop_investment', 'Investering tekst');
+    yww_text_field($post->ID, 'yww_workshop_order', 'Volgorde', 'number');
+}
+
+// ─── FAQ Meta Box ───
+function yww_faq_meta_box($post) {
+    wp_nonce_field('yww_save_meta', 'yww_meta_nonce');
+    yww_textarea_field($post->ID, 'yww_faq_answer', 'Antwoord', 6);
+    yww_text_field($post->ID, 'yww_faq_page', 'Pagina slug (bijv. "weekend-intensive")');
+    yww_text_field($post->ID, 'yww_faq_order', 'Volgorde', 'number');
+}
+
+// ─── Page Content Meta Box ───
+function yww_page_content_meta_box($post) {
+    wp_nonce_field('yww_save_page_content', 'yww_page_content_nonce');
+
+    $slug = $post->post_name;
+    $fields = yww_get_page_fields($slug);
+
+    if (empty($fields)) {
+        echo '<p style="color:#666;">Sla de pagina eerst op met een slug, dan verschijnen hier de tekstvelden.</p>';
+        echo '<p>Ondersteunde slugs: <code>home</code>, <code>weekenden</code>, <code>weekend-intensive</code>, <code>workshops</code>, <code>ons-verhaal</code>, <code>contact</code>, <code>voor-organisaties</code>, <code>kalender</code>, <code>lid-worden</code>, <code>retreats</code>, <code>losse-workshops</code>, <code>jaarprogrammas</code></p>';
+        return;
+    }
+
+    $json = get_post_meta($post->ID, 'yww_page_content', true);
+    $data = $json ? json_decode($json, true) : [];
+    if (!is_array($data)) $data = [];
+
+    $current_section = '';
+    foreach ($fields as $key => $field) {
+        // Section header
+        if (isset($field['section']) && $field['section'] !== $current_section) {
+            $current_section = $field['section'];
+            echo '<h3 style="margin-top:20px;padding:8px 0;border-bottom:2px solid #2271b1;color:#2271b1;">' . esc_html($current_section) . '</h3>';
+        }
+
+        $value = isset($data[$key]) ? $data[$key] : '';
+        $name = 'yww_pc_' . $key;
+        $type = isset($field['type']) ? $field['type'] : 'text';
+
+        echo '<p><label><strong>' . esc_html($field['label']) . '</strong>';
+        if (isset($field['hint'])) {
+            echo ' <span style="color:#666;font-weight:normal;">(' . esc_html($field['hint']) . ')</span>';
+        }
+        echo '<br>';
+
+        if ($type === 'textarea') {
+            $rows = isset($field['rows']) ? $field['rows'] : 4;
+            echo '<textarea name="' . esc_attr($name) . '" rows="' . $rows . '" style="width:100%;">' . esc_textarea($value) . '</textarea>';
+        } else {
+            echo '<input type="text" name="' . esc_attr($name) . '" value="' . esc_attr($value) . '" style="width:100%;" />';
+        }
+
+        echo '</label></p>';
+    }
+}
+
+// ─── Page fields definition per slug ───
+function yww_get_page_fields($slug) {
+    $pages = [
+        'home' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'atmosphere_heading'   => ['label' => 'Heading', 'section' => 'Sfeer / Evenementen'],
+            'atmosphere_text'      => ['label' => 'Tekst', 'type' => 'textarea'],
+            'atmosphere_cta'       => ['label' => 'CTA knop tekst'],
+            'benefits_heading'     => ['label' => 'Heading', 'section' => 'Voordelen'],
+            'benefits_intro'       => ['label' => 'Introductie tekst', 'type' => 'textarea'],
+            'benefit_1_title'      => ['label' => 'Voordeel 1 titel'],
+            'benefit_1_text'       => ['label' => 'Voordeel 1 tekst', 'type' => 'textarea'],
+            'benefit_2_title'      => ['label' => 'Voordeel 2 titel'],
+            'benefit_2_text'       => ['label' => 'Voordeel 2 tekst', 'type' => 'textarea'],
+            'benefit_3_title'      => ['label' => 'Voordeel 3 titel'],
+            'benefit_3_text'       => ['label' => 'Voordeel 3 tekst', 'type' => 'textarea'],
+            'benefit_4_title'      => ['label' => 'Voordeel 4 titel'],
+            'benefit_4_text'       => ['label' => 'Voordeel 4 tekst', 'type' => 'textarea'],
+            'trainingen_heading'   => ['label' => 'Heading', 'section' => 'Trainingen Spotlight'],
+            'trainingen_text'      => ['label' => 'Tekst', 'type' => 'textarea'],
+            'trainingen_cta'       => ['label' => 'CTA knop tekst'],
+            'coaches_heading'      => ['label' => 'Heading', 'section' => 'Coaches'],
+            'coaches_intro'        => ['label' => 'Subtitel'],
+            'coaches_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
+            'coaches_cta'          => ['label' => 'CTA knop tekst'],
+            'next_retreat_heading' => ['label' => 'Heading', 'section' => 'Volgende Weekend'],
+            'next_retreat_date_text' => ['label' => 'Type label (bijv. "Weekend training (intensief)")'],
+            'next_retreat_time'    => ['label' => 'Tijd tekst'],
+            'next_retreat_description' => ['label' => 'Beschrijving', 'type' => 'textarea'],
+            'inclusions'           => ['label' => 'Inbegrepen items', 'type' => 'textarea', 'hint' => '1 per regel, met of zonder checkmark'],
+            'investment_heading'   => ['label' => 'Investering heading', 'section' => 'Investering'],
+            'investment_price'     => ['label' => 'Prijs'],
+            'investment_note'      => ['label' => 'Opmerking', 'type' => 'textarea'],
+            'results_heading'      => ['label' => 'Heading', 'section' => 'Resultaten'],
+            'result_1'             => ['label' => 'Resultaat 1', 'type' => 'textarea'],
+            'result_2'             => ['label' => 'Resultaat 2', 'type' => 'textarea'],
+            'result_3'             => ['label' => 'Resultaat 3', 'type' => 'textarea'],
+            'bedrijf_heading'      => ['label' => 'Heading', 'section' => 'Bedrijfstrajecten'],
+            'bedrijf_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
+            'bedrijf_cta'          => ['label' => 'CTA knop tekst'],
+        ],
+        'weekenden' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'intro_heading'        => ['label' => 'SEO Heading', 'section' => 'Introductie'],
+            'intro_text_1'         => ['label' => 'Introductie tekst 1', 'type' => 'textarea'],
+            'intro_text_2'         => ['label' => 'Introductie tekst 2', 'type' => 'textarea'],
+            'intro_cta'            => ['label' => 'CTA knop tekst'],
+            'pillars_heading'      => ['label' => 'Heading', 'section' => 'Drie Pijlers'],
+            'pillars_intro'        => ['label' => 'Introductie', 'type' => 'textarea'],
+            'pillar_1_title'       => ['label' => 'Pijler 1 titel'],
+            'pillar_1_text'        => ['label' => 'Pijler 1 tekst', 'type' => 'textarea'],
+            'pillar_2_title'       => ['label' => 'Pijler 2 titel'],
+            'pillar_2_text'        => ['label' => 'Pijler 2 tekst', 'type' => 'textarea'],
+            'pillar_3_title'       => ['label' => 'Pijler 3 titel'],
+            'pillar_3_text'        => ['label' => 'Pijler 3 tekst', 'type' => 'textarea'],
+            'gallery_heading'      => ['label' => 'Heading', 'section' => 'Foto Galerij'],
+            'gallery_subtitle'     => ['label' => 'Subtitel'],
+            'for_whom_heading'     => ['label' => 'Heading', 'section' => 'Voor Wie'],
+            'for_whom_intro'       => ['label' => 'Introductie'],
+            'for_whom_items'       => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'edition_label'        => ['label' => 'Editie label (bijv. "4DE EDITIE")', 'section' => 'Volgende Editie'],
+            'edition_heading'      => ['label' => 'Editie heading'],
+            'edition_subtitle'     => ['label' => 'Editie subtitel'],
+            'edition_dates'        => ['label' => 'Datum tekst'],
+            'edition_times'        => ['label' => 'Tijden tekst'],
+            'edition_next_date'    => ['label' => 'Volgende datum tekst'],
+            'edition_location'     => ['label' => 'Locatie'],
+            'edition_location_detail' => ['label' => 'Locatie detail'],
+            'edition_audience'     => ['label' => 'Doelgroep'],
+            'edition_availability' => ['label' => 'Beschikbaarheid'],
+            'program_heading'      => ['label' => 'Heading', 'section' => 'Programma'],
+            'day_1_label'          => ['label' => 'Dag 1 label'],
+            'day_1_text'           => ['label' => 'Dag 1 tekst', 'type' => 'textarea'],
+            'day_2_label'          => ['label' => 'Dag 2 label'],
+            'day_2_text'           => ['label' => 'Dag 2 tekst', 'type' => 'textarea'],
+            'day_3_label'          => ['label' => 'Dag 3 label'],
+            'day_3_text'           => ['label' => 'Dag 3 tekst', 'type' => 'textarea'],
+            'location_heading'     => ['label' => 'Heading', 'section' => 'Locatie'],
+            'location_text'        => ['label' => 'Tekst', 'type' => 'textarea'],
+            'transform_heading'    => ['label' => 'Heading', 'section' => 'Transformatie'],
+            'goodbye_heading'      => ['label' => 'Afscheid heading'],
+            'goodbye_1'            => ['label' => 'Afscheid tekst', 'type' => 'textarea'],
+            'takeaway_heading'     => ['label' => 'Meenemen heading'],
+            'takeaway_1'           => ['label' => 'Meenemen tekst 1', 'type' => 'textarea'],
+            'takeaway_2'           => ['label' => 'Meenemen tekst 2', 'type' => 'textarea'],
+            'takeaway_3'           => ['label' => 'Meenemen tekst 3', 'type' => 'textarea'],
+            'nextstep_heading'     => ['label' => 'Volgende stap heading'],
+            'nextstep_text'        => ['label' => 'Volgende stap tekst', 'type' => 'textarea'],
+            'breathwork_heading'   => ['label' => 'Heading', 'section' => 'Breathwork & Yoga'],
+            'breathwork_subtitle'  => ['label' => 'Subtitel', 'type' => 'textarea'],
+            'breathwork_benefits'  => ['label' => 'Breathwork voordelen', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'yoga_heading'         => ['label' => 'Yoga heading'],
+            'yoga_subtitle'        => ['label' => 'Yoga subtitel', 'type' => 'textarea'],
+            'yoga_benefits'        => ['label' => 'Yoga voordelen', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'highlight_heading'    => ['label' => 'Heading', 'section' => 'Weekend Training Highlight'],
+            'highlight_when'       => ['label' => 'Wanneer'],
+            'highlight_where'      => ['label' => 'Waar'],
+            'highlight_audience'   => ['label' => 'Voor wie'],
+            'highlight_capacity'   => ['label' => 'Capaciteit'],
+            'highlight_inclusions' => ['label' => 'Inbegrepen items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'highlight_program_heading' => ['label' => 'Programma heading'],
+            'highlight_day_1'      => ['label' => 'Dag 1 tekst', 'type' => 'textarea'],
+            'highlight_day_2'      => ['label' => 'Dag 2 tekst', 'type' => 'textarea'],
+            'highlight_day_3'      => ['label' => 'Dag 3 tekst', 'type' => 'textarea'],
+        ],
+        'weekend-intensive' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'intro_heading'        => ['label' => 'Heading', 'section' => 'Introductie'],
+            'intro_text'           => ['label' => 'Tekst', 'type' => 'textarea'],
+            'when_label'           => ['label' => 'Wanneer label', 'section' => 'Praktisch'],
+            'when_text'            => ['label' => 'Wanneer tekst'],
+            'where_label'          => ['label' => 'Waar label'],
+            'where_text'           => ['label' => 'Waar tekst'],
+            'group_label'          => ['label' => 'Groep label'],
+            'group_text'           => ['label' => 'Groep tekst'],
+            'rooms_label'          => ['label' => 'Kamers label'],
+            'rooms_text'           => ['label' => 'Kamers tekst'],
+            'additional_text'      => ['label' => 'Extra tekst', 'type' => 'textarea'],
+            'video_heading'        => ['label' => 'Video heading', 'section' => 'Video'],
+            'about_heading'        => ['label' => 'Heading', 'section' => 'Over dit evenement'],
+            'about_text_1'         => ['label' => 'Tekst 1', 'type' => 'textarea'],
+            'about_text_2'         => ['label' => 'Tekst 2', 'type' => 'textarea'],
+            'for_whom_heading'     => ['label' => 'Heading', 'section' => 'Voor Wie'],
+            'for_whom_items'       => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'results_heading'      => ['label' => 'Heading', 'section' => 'Resultaten'],
+            'results_items'        => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'included_heading'     => ['label' => 'Heading', 'section' => 'Inbegrepen'],
+            'included_items'       => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'caption_1'            => ['label' => 'Foto caption 1', 'section' => 'Foto Captions'],
+            'caption_2'            => ['label' => 'Foto caption 2'],
+            'book_heading'         => ['label' => 'Heading', 'section' => 'Boek Sectie'],
+            'book_text'            => ['label' => 'Tekst', 'type' => 'textarea'],
+            'book_cta'             => ['label' => 'CTA knop tekst'],
+            'faq_heading'          => ['label' => 'FAQ Heading', 'section' => 'FAQ'],
+            'availability_label'   => ['label' => 'Label', 'section' => 'Beschikbaarheid'],
+            'availability_text'    => ['label' => 'Tekst (bijv. "3 van 8")'],
+            'availability_note'    => ['label' => 'Opmerking'],
+            'package_1_title'      => ['label' => 'Pakket 1 titel', 'section' => 'Pakketten'],
+            'package_1_subtitle'   => ['label' => 'Pakket 1 subtitel'],
+            'package_1_price'      => ['label' => 'Pakket 1 prijs'],
+            'package_1_note'       => ['label' => 'Pakket 1 opmerking'],
+            'package_2_title'      => ['label' => 'Pakket 2 titel'],
+            'package_2_subtitle'   => ['label' => 'Pakket 2 subtitel'],
+            'package_2_price'      => ['label' => 'Pakket 2 prijs'],
+            'package_2_note'       => ['label' => 'Pakket 2 opmerking'],
+            'package_3_title'      => ['label' => 'Pakket 3 titel'],
+            'package_3_subtitle'   => ['label' => 'Pakket 3 subtitel'],
+            'package_3_price'      => ['label' => 'Pakket 3 prijs'],
+            'package_3_note'       => ['label' => 'Pakket 3 opmerking'],
+            'form_heading'         => ['label' => 'Formulier heading', 'section' => 'Formulier'],
+            'success_title'        => ['label' => 'Succes titel', 'section' => 'Succes Bericht'],
+            'success_text'         => ['label' => 'Succes tekst', 'type' => 'textarea'],
+            'success_signature'    => ['label' => 'Ondertekening'],
+            'sidebar_benefit_1'    => ['label' => 'Sidebar voordeel 1', 'section' => 'Sidebar'],
+            'sidebar_benefit_2'    => ['label' => 'Sidebar voordeel 2'],
+            'related_heading'      => ['label' => 'Heading', 'section' => 'Gerelateerd'],
+            'related_links'        => ['label' => 'Links', 'type' => 'textarea', 'hint' => '1 per regel: label|url'],
+        ],
+        'workshops' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'transform_heading'    => ['label' => 'Heading', 'section' => 'Transformatie'],
+            'goodbye_heading'      => ['label' => 'Afscheid heading'],
+            'goodbye_text'         => ['label' => 'Afscheid tekst', 'type' => 'textarea'],
+            'takeaway_heading'     => ['label' => 'Meenemen heading'],
+            'takeaway_text'        => ['label' => 'Meenemen tekst', 'type' => 'textarea'],
+            'nextstep_heading'     => ['label' => 'Volgende stap heading'],
+            'nextstep_text'        => ['label' => 'Volgende stap tekst', 'type' => 'textarea'],
+            'for_whom_heading'     => ['label' => 'Heading', 'section' => 'Voor Wie'],
+            'for_whom_intro'       => ['label' => 'Introductie'],
+            'for_whom_items'       => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'sidebar_what_heading' => ['label' => 'Heading', 'section' => 'Sidebar: Wat je krijgt'],
+            'sidebar_what_items'   => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'sidebar_practical_heading' => ['label' => 'Heading', 'section' => 'Sidebar: Praktisch'],
+            'sidebar_practical_items'   => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'sidebar_not_for_heading'   => ['label' => 'Heading', 'section' => 'Sidebar: Voor wie niet'],
+            'sidebar_not_for_items'     => ['label' => 'Items', 'type' => 'textarea', 'hint' => '1 per regel'],
+        ],
+        'ons-verhaal' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'section_1_heading'    => ['label' => 'Heading', 'section' => 'Sectie 1'],
+            'section_1_text'       => ['label' => 'Tekst', 'type' => 'textarea'],
+            'section_2_heading'    => ['label' => 'Heading', 'section' => 'Sectie 2 (Waarden)'],
+            'section_2_items'      => ['label' => 'Waarden items', 'type' => 'textarea', 'hint' => '1 per regel'],
+            'cta_heading'          => ['label' => 'Heading', 'section' => 'CTA'],
+            'cta_text'             => ['label' => 'Knop tekst'],
+        ],
+        'contact' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'block_1_heading'      => ['label' => 'Heading', 'section' => 'Blok 1 (Gedachtegoed)'],
+            'block_1_text'         => ['label' => 'Tekst', 'type' => 'textarea', 'rows' => 8],
+            'block_2_heading'      => ['label' => 'Heading', 'section' => 'Blok 2 (Unieke Kracht)'],
+            'block_2_text'         => ['label' => 'Tekst', 'type' => 'textarea', 'rows' => 8],
+        ],
+        'voor-organisaties' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'intro_heading'        => ['label' => 'Heading', 'section' => 'Introductie'],
+            'intro_text'           => ['label' => 'Tekst', 'type' => 'textarea'],
+            'brands_heading'       => ['label' => 'Brands heading', 'section' => 'Brands'],
+            'program_heading'      => ['label' => 'Heading', 'section' => 'Programma'],
+            'program_1_title'      => ['label' => 'Onderdeel 1 titel'],
+            'program_1_text'       => ['label' => 'Onderdeel 1 tekst', 'type' => 'textarea'],
+            'program_2_title'      => ['label' => 'Onderdeel 2 titel'],
+            'program_2_text'       => ['label' => 'Onderdeel 2 tekst', 'type' => 'textarea'],
+            'program_3_title'      => ['label' => 'Onderdeel 3 titel'],
+            'program_3_text'       => ['label' => 'Onderdeel 3 tekst', 'type' => 'textarea'],
+            'program_4_title'      => ['label' => 'Onderdeel 4 titel'],
+            'program_4_text'       => ['label' => 'Onderdeel 4 tekst', 'type' => 'textarea'],
+            'cta_heading'          => ['label' => 'Heading', 'section' => 'CTA'],
+            'cta_text'             => ['label' => 'Tekst'],
+            'cta_button_1'         => ['label' => 'Knop 1 tekst'],
+            'cta_button_2'         => ['label' => 'Knop 2 tekst'],
+        ],
+        'kalender' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel'],
+            'edition_label'        => ['label' => 'Editie label', 'section' => 'Volgende Editie'],
+            'edition_heading'      => ['label' => 'Editie heading'],
+            'edition_subtitle'     => ['label' => 'Editie subtitel'],
+            'edition_dates'        => ['label' => 'Datum tekst'],
+            'edition_times'        => ['label' => 'Tijden tekst'],
+            'edition_next_date'    => ['label' => 'Volgende datum tekst'],
+            'edition_location'     => ['label' => 'Locatie'],
+            'edition_location_detail' => ['label' => 'Locatie detail'],
+            'edition_audience'     => ['label' => 'Doelgroep'],
+            'edition_availability' => ['label' => 'Beschikbaarheid'],
+            'program_heading'      => ['label' => 'Heading', 'section' => 'Programma'],
+            'day_1_label'          => ['label' => 'Dag 1 label'],
+            'day_1_text'           => ['label' => 'Dag 1 tekst', 'type' => 'textarea'],
+            'day_2_label'          => ['label' => 'Dag 2 label'],
+            'day_2_text'           => ['label' => 'Dag 2 tekst', 'type' => 'textarea'],
+            'day_3_label'          => ['label' => 'Dag 3 label'],
+            'day_3_text'           => ['label' => 'Dag 3 tekst', 'type' => 'textarea'],
+            'investment_heading'   => ['label' => 'Heading', 'section' => 'Investering'],
+            'investment_via_employer_title' => ['label' => 'Via werkgever titel'],
+            'investment_price'     => ['label' => 'Prijs'],
+            'investment_price_note' => ['label' => 'Prijs opmerking'],
+            'investment_employer_note' => ['label' => 'Werkgever opmerking'],
+            'results_heading'      => ['label' => 'Resultaten heading'],
+            'result_1'             => ['label' => 'Resultaat 1', 'type' => 'textarea'],
+            'result_2'             => ['label' => 'Resultaat 2', 'type' => 'textarea'],
+            'result_3'             => ['label' => 'Resultaat 3', 'type' => 'textarea'],
+            'inclusions_heading'   => ['label' => 'Inbegrepen heading'],
+            'inclusions'           => ['label' => 'Inbegrepen items', 'type' => 'textarea', 'hint' => '1 per regel'],
+        ],
+        'lid-worden' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'benefits_heading'     => ['label' => 'Heading', 'section' => 'Voordelen'],
+            'benefits_intro'       => ['label' => 'Introductie tekst', 'type' => 'textarea'],
+            'benefit_1_title'      => ['label' => 'Voordeel 1 titel'],
+            'benefit_1_text'       => ['label' => 'Voordeel 1 tekst', 'type' => 'textarea'],
+            'benefit_2_title'      => ['label' => 'Voordeel 2 titel'],
+            'benefit_2_text'       => ['label' => 'Voordeel 2 tekst', 'type' => 'textarea'],
+            'benefit_3_title'      => ['label' => 'Voordeel 3 titel'],
+            'benefit_3_text'       => ['label' => 'Voordeel 3 tekst', 'type' => 'textarea'],
+            'benefit_4_title'      => ['label' => 'Voordeel 4 titel'],
+            'benefit_4_text'       => ['label' => 'Voordeel 4 tekst', 'type' => 'textarea'],
+            'form_heading'         => ['label' => 'Heading', 'section' => 'Formulier'],
+            'form_text'            => ['label' => 'Tekst'],
+            'form_success'         => ['label' => 'Succes bericht', 'type' => 'textarea'],
+            'form_button'          => ['label' => 'Knop tekst'],
+            'form_privacy'         => ['label' => 'Privacy tekst', 'type' => 'textarea'],
+        ],
+        'retreats' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'intro_text'           => ['label' => 'Introductie tekst', 'section' => 'Introductie', 'type' => 'textarea'],
+            'card_1_title'         => ['label' => 'Kaart 1 titel', 'section' => 'Trainingskaarten'],
+            'card_1_text'          => ['label' => 'Kaart 1 tekst', 'type' => 'textarea'],
+            'card_2_title'         => ['label' => 'Kaart 2 titel'],
+            'card_2_text'          => ['label' => 'Kaart 2 tekst', 'type' => 'textarea'],
+        ],
+        'losse-workshops' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'section_heading'      => ['label' => 'Heading', 'section' => 'Content'],
+            'section_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
+        ],
+        'jaarprogrammas' => [
+            'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'        => ['label' => 'Hero Subtitel', 'type' => 'textarea'],
+            'section_heading'      => ['label' => 'Heading', 'section' => 'Content'],
+            'section_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
+        ],
+    ];
+
+    return isset($pages[$slug]) ? $pages[$slug] : [];
+}
+
 // ─────────────────────────────────────────────
 // 2. SAVE META DATA
 // ─────────────────────────────────────────────
@@ -147,13 +522,68 @@ function yww_save_meta_data($post_id) {
         'yww_podcast_guest', 'yww_podcast_thumbnail', 'yww_podcast_youtube_url', 'yww_podcast_spotify_url',
         // Blog
         'yww_blog_slug', 'yww_blog_featured_image',
+        // Workshop
+        'yww_workshop_subtitle', 'yww_workshop_description', 'yww_workshop_next_date',
+        'yww_workshop_from_price', 'yww_workshop_duration', 'yww_workshop_location',
+        'yww_workshop_audience', 'yww_workshop_goal', 'yww_workshop_program',
+        'yww_workshop_investment', 'yww_workshop_order',
+        // FAQ
+        'yww_faq_answer', 'yww_faq_page', 'yww_faq_order',
+    ];
+
+    // Textarea fields that should preserve newlines
+    $textarea_keys = [
+        'yww_coach_bio', 'yww_testimonial_quote', 'yww_event_description',
+        'yww_podcast_teaser', 'yww_workshop_description', 'yww_workshop_goal',
+        'yww_workshop_program', 'yww_faq_answer',
     ];
 
     foreach ($meta_keys as $key) {
         if (isset($_POST[$key])) {
-            update_post_meta($post_id, $key, sanitize_text_field(wp_unslash($_POST[$key])));
+            if (in_array($key, $textarea_keys)) {
+                update_post_meta($post_id, $key, sanitize_textarea_field(wp_unslash($_POST[$key])));
+            } else {
+                update_post_meta($post_id, $key, sanitize_text_field(wp_unslash($_POST[$key])));
+            }
         }
     }
+}
+
+// ─── Save Page Content as JSON ───
+add_action('save_post_page', 'yww_save_page_content_data');
+
+function yww_save_page_content_data($post_id) {
+    if (!isset($_POST['yww_page_content_nonce']) || !wp_verify_nonce($_POST['yww_page_content_nonce'], 'yww_save_page_content')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    $slug = get_post_field('post_name', $post_id);
+    $fields = yww_get_page_fields($slug);
+
+    if (empty($fields)) {
+        return;
+    }
+
+    $data = [];
+    foreach ($fields as $key => $field) {
+        $name = 'yww_pc_' . $key;
+        if (isset($_POST[$name])) {
+            $type = isset($field['type']) ? $field['type'] : 'text';
+            if ($type === 'textarea') {
+                $data[$key] = sanitize_textarea_field(wp_unslash($_POST[$name]));
+            } else {
+                $data[$key] = sanitize_text_field(wp_unslash($_POST[$name]));
+            }
+        }
+    }
+
+    update_post_meta($post_id, 'yww_page_content', wp_json_encode($data, JSON_UNESCAPED_UNICODE));
 }
 
 // ─────────────────────────────────────────────

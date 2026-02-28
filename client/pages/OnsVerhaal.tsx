@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
+import { usePageContent } from "@/hooks/usePageContent";
 
 const image1Url =
   "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcf6849fa4e1a4b76b17b1abaac301ee1?format=webp&width=4000";
@@ -8,6 +9,7 @@ const image2Url =
   "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F664a16fe95e34cfa87d16dd246540bca?format=webp&width=4000";
 
 export default function OnsVerhaal() {
+  const { data: cms } = usePageContent("ons-verhaal");
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const section1Ref = useRef<HTMLDivElement>(null);
@@ -66,8 +68,8 @@ export default function OnsVerhaal() {
       {/* Hero Section */}
       <HeroSection
         backgroundImage="https://images.pexels.com/photos/12198985/pexels-photo-12198985.jpeg"
-        title="Ons Verhaal"
-        subtitle="Ontdek wat Young Wise Women betekent en wat ons drijft"
+        title={cms?.hero_title || "Ons Verhaal"}
+        subtitle={cms?.hero_subtitle || "Ontdek wat Young Wise Women betekent en wat ons drijft"}
       />
 
       {/* Section 1: Text Left, Image Right (with parallax) */}
@@ -80,20 +82,11 @@ export default function OnsVerhaal() {
             {/* Text Content */}
             <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-light text-gray-900">
-                Het Begin van Ons Avontuur
+                {cms?.section_1_heading || "Het Begin van Ons Avontuur"}
               </h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Young Wise Women is geboren uit een passie om jonge professionals
-                te ondersteunen in hun persoonlijke en professionele groei. We
-                geloven dat de beste versie van jezelf niet alleen goed is voor
-                jouw wellbeing, maar ook voor de wereld om je heen.
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Onze missie is om vrouwen in de leeftijd van 24+ te helpen een
-                betekenisvol leven te leiden, waarbij ze hun unieke talenten en
-                wijsheid volledig kunnen omarmen. We creëren ruimte voor reflectie,
-                groei en inspiratie.
-              </p>
+              {(cms?.section_1_text || "Young Wise Women is geboren uit een passie om jonge professionals te ondersteunen in hun persoonlijke en professionele groei. We geloven dat de beste versie van jezelf niet alleen goed is voor jouw wellbeing, maar ook voor de wereld om je heen.\nOnze missie is om vrouwen in de leeftijd van 24+ te helpen een betekenisvol leven te leiden, waarbij ze hun unieke talenten en wijsheid volledig kunnen omarmen. We creëren ruimte voor reflectie, groei en inspiratie.").split('\n').filter(Boolean).map((p, i) => (
+                <p key={i} className="text-lg text-gray-700 leading-relaxed">{p}</p>
+              ))}
             </div>
 
             {/* Image with Parallax Effect */}
@@ -143,7 +136,7 @@ export default function OnsVerhaal() {
             {/* Text Content (mirrored order) */}
             <div className="space-y-6 order-1 md:order-2">
               <h2 className="text-4xl md:text-5xl font-light text-gray-900">
-                Onze Waarden
+                {cms?.section_2_heading || "Onze Waarden"}
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed">
                 We geloven in de kracht van authenticiteit, zelfkennis en
@@ -151,38 +144,14 @@ export default function OnsVerhaal() {
                 in zich, en het is ons doel om die naar boven te brengen.
               </p>
               <div className="space-y-4 pt-4">
-                <div className="flex gap-4">
+                {(cms?.section_2_items || "Authentieke verbinding met jezelf en anderen\nRuimte voor reflectie en persoonlijke groei\nSteun en inspiratie van gelijkgestemde vrouwen\nPraktische tools voor betekenisvolle verandering").split('\n').filter(Boolean).map((item, i) => (
+                <div key={i} className="flex gap-4">
                   <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
                     ✓
                   </div>
-                  <p className="text-gray-700">
-                    Authentieke verbinding met jezelf en anderen
-                  </p>
+                  <p className="text-gray-700">{item}</p>
                 </div>
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    ✓
-                  </div>
-                  <p className="text-gray-700">
-                    Ruimte voor reflectie en persoonlijke groei
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    ✓
-                  </div>
-                  <p className="text-gray-700">
-                    Steun en inspiratie van gelijkgestemde vrouwen
-                  </p>
-                </div>
-                <div className="flex gap-4">
-                  <div className="flex-shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    ✓
-                  </div>
-                  <p className="text-gray-700">
-                    Praktische tools voor betekenisvolle verandering
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -193,7 +162,7 @@ export default function OnsVerhaal() {
       <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
-            Ben je klaar voor je volgende stap?
+            {cms?.cta_heading || "Ben je klaar voor je volgende stap?"}
           </h2>
           <p className="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
             Sluit je aan bij onze Netwerk van jonge professionals en ontdek
@@ -203,7 +172,7 @@ export default function OnsVerhaal() {
             to="/groepstrainingen"
             className="inline-block px-8 py-4 bg-primary text-white rounded-lg transition-all duration-300 hover:scale-105 hover:bg-accent font-medium"
           >
-            Ontdek onze groepstrainingen
+            {cms?.cta_text || "Ontdek onze groepstrainingen"}
           </Link>
         </div>
       </section>

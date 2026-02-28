@@ -78,3 +78,30 @@ export interface WPGlobalOptions {
     logo: string;
   }>;
 }
+
+/** Generic page content — a flat key/value map returned by /yww/v1/pages/{slug} */
+export type WPPageContent = Record<string, string>;
+
+export interface WPWorkshop {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  nextDate: string;
+  fromPrice: string;
+  duration: string;
+  location: string;
+  audience: string;
+  goal: string;
+  program: string[];
+  investment: string;
+  order: number;
+}
+
+export interface WPFAQ {
+  id: number;
+  question: string;
+  answer: string;
+  page: string;
+  order: number;
+}

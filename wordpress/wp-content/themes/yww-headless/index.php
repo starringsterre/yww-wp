@@ -6,8 +6,11 @@
 
 $frontend_url = defined('YWW_FRONTEND_URL') ? YWW_FRONTEND_URL : 'http://localhost:8080';
 
-// If this is a REST API request, don't redirect
+// Don't redirect REST API requests or admin pages
 if (defined('REST_REQUEST') && REST_REQUEST) {
+    return;
+}
+if (is_admin()) {
     return;
 }
 

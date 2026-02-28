@@ -1,13 +1,16 @@
 import HeroSection from "@/components/HeroSection";
 import { Link } from "react-router-dom";
+import { usePageContent } from "@/hooks/usePageContent";
 
 export default function Retreats() {
+  const { data: cms } = usePageContent("retreats");
+
   return (
     <div className="w-full">
       <HeroSection
         backgroundImage="https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"
-        title="Persoonlijke ontwikkeling & groei"
-        subtitle="Trainingen en Workshops voor jonge carrière-gedreven vrouwen"
+        title={cms?.hero_title || "Persoonlijke ontwikkeling & groei"}
+        subtitle={cms?.hero_subtitle || "Trainingen en Workshops voor jonge carrière-gedreven vrouwen"}
       />
 
       {/* Sectie 1 */}
@@ -15,10 +18,10 @@ export default function Retreats() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-              Persoonlijke Ontwikkeling trainingen & Workshops
+              {cms?.intro_text ? cms.intro_text.split('\n')[0] : "Persoonlijke Ontwikkeling trainingen & Workshops"}
             </h2>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              Deze pagina is voor particulieren: jonge vrouwen die willen groeien in energie, richting en zelfvertrouwen via onze workshops en weekend trainingen.
+              {cms?.intro_text ? cms.intro_text.split('\n').slice(1).join(' ') : "Deze pagina is voor particulieren: jonge vrouwen die willen groeien in energie, richting en zelfvertrouwen via onze workshops en weekend trainingen."}
             </p>
           </div>
 
@@ -29,10 +32,10 @@ export default function Retreats() {
                   to="/persoonlijke-ontwikkeling-weekend-training"
                   className="relative self-start inline-flex text-3xl font-semibold text-gray-900 mb-3 origin-left after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
-                  Weekend Trainingen
+                  {cms?.card_1_title || "Weekend Trainingen"}
                 </Link>
                 <p className="text-gray-700 flex-1">
-                  2-daagse weekend intensive in Friesland, gericht op verdieping, reflectie en duurzame gedragsverandering voor deelnemers die bewust tijd willen nemen voor persoonlijke ontwikkeling.
+                  {cms?.card_1_text || "2-daagse weekend intensive in Friesland, gericht op verdieping, reflectie en duurzame gedragsverandering voor deelnemers die bewust tijd willen nemen voor persoonlijke ontwikkeling."}
                 </p>
                 <Link
                   to="/persoonlijke-ontwikkeling-weekend-training"
@@ -54,10 +57,10 @@ export default function Retreats() {
                   to="/groepstrainingen/ontwikkeling-workshops"
                   className="relative self-start inline-flex text-3xl font-semibold text-gray-900 mb-3 origin-left after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
-                  Dag Workshops
+                  {cms?.card_2_title || "Dag Workshops"}
                 </Link>
                 <p className="text-gray-700 flex-1">
-                  1-daagse workshop waarin je direct werkt aan praktische tools voor energie, focus en richting in werk en leven, toegankelijk en direct toepasbaar in je dagelijks leven.
+                  {cms?.card_2_text || "1-daagse workshop waarin je direct werkt aan praktische tools voor energie, focus en richting in werk en leven, toegankelijk en direct toepasbaar in je dagelijks leven."}
                 </p>
                 <Link
                   to="/groepstrainingen/ontwikkeling-workshops"

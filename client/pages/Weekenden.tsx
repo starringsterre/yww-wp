@@ -6,8 +6,10 @@ import HeroSection from "@/components/HeroSection";
 import PromoVideoSection from "@/components/PromoVideoSection";
 import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
+import { usePageContent } from "@/hooks/usePageContent";
 
 export default function Weekenden() {
+  const { data: cms } = usePageContent("weekenden");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSlideIndex, setModalSlideIndex] = useState(0);
   const [workshopsPerView, setWorkshopsPerView] = useState(3);
@@ -120,7 +122,7 @@ export default function Weekenden() {
 
   const weekendProgramCards = [
     {
-      title: "Dag 1 vrijdag",
+      title: cms?.highlight_day_1 || "Dag 1 vrijdag",
       subtitle: "Programma",
       description: "Aankomst, kennismaking, intake-inzichten uit je Motivation Factor test en een rustige avond met reflectie.",
       image:
@@ -128,7 +130,7 @@ export default function Weekenden() {
       alt: "Dag 1 vrijdag",
     },
     {
-      title: "Dag 2 zaterdag",
+      title: cms?.highlight_day_2 || "Dag 2 zaterdag",
       subtitle: "Programma",
       description: "Verdieping op verlangens en blokkades, met groepssessies, 1-op-1 coaching en alle maaltijden verzorgd.",
       image:
@@ -136,7 +138,7 @@ export default function Weekenden() {
       alt: "Dag 2 zaterdag",
     },
     {
-      title: "Dag 3 zondag",
+      title: cms?.highlight_day_3 || "Dag 3 zondag",
       subtitle: "Programma",
       description: "Integratie en afronding met praktische tools en werkboek; je vertrekt met richting, rust en focus.",
       image:
@@ -168,22 +170,22 @@ export default function Weekenden() {
       <HeroSection
         backgroundImage="https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"
         headingTag="h2"
-        title="Weekend trainingen"
-        subtitle="Meerdaagse training voor jonge vrouwen die willen vertragen, verdiepen en duurzaam groeien."
+        title={cms?.hero_title || "Weekend trainingen"}
+        subtitle={cms?.hero_subtitle || "Meerdaagse training voor jonge vrouwen die willen vertragen, verdiepen en duurzaam groeien."}
       />
 
       <section className="py-10 px-4 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="rounded-3xl bg-[#B46555]/25 p-6 md:p-8">
             <h1 className="max-w-4xl text-3xl md:text-4xl font-light text-gray-900 mb-4">
-              Weekend training persoonlijke ontwikkeling voor vrouwelijke professionals
+              {cms?.intro_heading || "Weekend training persoonlijke ontwikkeling voor vrouwelijke professionals"}
             </h1>
             <div className="max-w-4xl space-y-3 text-gray-700 leading-relaxed">
               <p>
-                Deze weekend training persoonlijke ontwikkeling is een concreet programma voor ambitieuze business women en vrouwelijke professionals van 24 tot 29 jaar die willen groeien met focus en richting. Tijdens dit persoonlijke ontwikkeling weekend volg je een persoonlijke ontwikkeling training waarin coaching persoonlijke ontwikkeling, praktijkgerichte oefeningen en een leiderschap training samenkomen.
+                {cms?.intro_text_1 || "Deze weekend training persoonlijke ontwikkeling is een concreet programma voor ambitieuze business women en vrouwelijke professionals van 24 tot 29 jaar die willen groeien met focus en richting. Tijdens dit persoonlijke ontwikkeling weekend volg je een persoonlijke ontwikkeling training waarin coaching persoonlijke ontwikkeling, praktijkgerichte oefeningen en een leiderschap training samenkomen."}
               </p>
               <p>
-                Je werkt aan heldere keuzes, sterker gedrag en directe toepassing in werk en prive. Zoek je een persoonlijke ontwikkeling cursus en training vrouwen met duidelijke resultaten, dan kun je je nu inschrijven voor de eerstvolgende editie.
+                {cms?.intro_text_2 || "Je werkt aan heldere keuzes, sterker gedrag en directe toepassing in werk en prive. Zoek je een persoonlijke ontwikkeling cursus en training vrouwen met duidelijke resultaten, dan kun je je nu inschrijven voor de eerstvolgende editie."}
               </p>
             </div>
             <div className="mt-6">
@@ -193,7 +195,7 @@ export default function Weekenden() {
                 asChild
               >
                 <Link to="/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026">
-                  Schrijf me in voor de eerstvolgende training
+                  {cms?.intro_cta || "Schrijf me in voor de eerstvolgende training"}
                 </Link>
               </Button>
             </div>
@@ -211,10 +213,10 @@ export default function Weekenden() {
         <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
-              De Drie Pijlers van de Weekend Training
+              {cms?.pillars_heading || "De Drie Pijlers van de Weekend Training"}
             </h2>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              Het fundament van onze weekend trainingen rust op drie kernpijlers die samen zorgen voor een diepgaande transformatie.
+              {cms?.pillars_intro || "Het fundament van onze weekend trainingen rust op drie kernpijlers die samen zorgen voor een diepgaande transformatie."}
             </p>
           </div>
 
@@ -227,10 +229,10 @@ export default function Weekenden() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Reflectie
+                {cms?.pillar_1_title || "Reflectie"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt.
+                {cms?.pillar_1_text || "De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt."}
               </p>
             </div>
 
@@ -242,10 +244,10 @@ export default function Weekenden() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Rust & Ruimte
+                {cms?.pillar_2_title || "Rust & Ruimte"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24-29). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.
+                {cms?.pillar_2_text || "Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24-29). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren."}
               </p>
             </div>
 
@@ -257,10 +259,10 @@ export default function Weekenden() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Inspiratie & Nieuwe Tools
+                {cms?.pillar_3_title || "Inspiratie & Nieuwe Tools"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Een intensieve weekend training waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en praktische tools krijgt aangereikt voor nu en je toekomst.
+                {cms?.pillar_3_text || "Een intensieve weekend training waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en praktische tools krijgt aangereikt voor nu en je toekomst."}
               </p>
             </div>
           </div>
@@ -281,10 +283,10 @@ export default function Weekenden() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-              Beleef de Weekend Training
+              {cms?.gallery_heading || "Beleef de Weekend Training"}
             </h2>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              Een blik op de ervaring van vorige edities
+              {cms?.gallery_subtitle || "Een blik op de ervaring van vorige edities"}
             </p>
           </div>
 
@@ -374,34 +376,21 @@ export default function Weekenden() {
       <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-16">
-            Voor wie zijn onze trainingen
+            {cms?.for_whom_heading || "Voor wie zijn onze trainingen"}
           </h2>
 
           <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
-            Dit programma is speciaal ontworpen voor jonge professionals (24-29) die:
+            {cms?.for_whom_intro || "Dit programma is speciaal ontworpen voor jonge professionals (24-29) die:"}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                ✓ Op zoek zijn naar meer betekenis in hun werk en leven
-              </p>
-            </div>
-            <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                ✓ Ruimte nodig hebben om stil te staan bij hun doelen en praktische tools zoeken voor hun leven en werk
-              </p>
-            </div>
-            <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                ✓ Willen groeien met steun van een groep gelijkgestemde vrouwen
-              </p>
-            </div>
-            <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                ✓ Persoonlijke groei en ontwikkeling willen ervaren
-              </p>
-            </div>
+            {(cms?.for_whom_items || "✓ Op zoek zijn naar meer betekenis in hun werk en leven\n✓ Ruimte nodig hebben om stil te staan bij hun doelen en praktische tools zoeken voor hun leven en werk\n✓ Willen groeien met steun van een groep gelijkgestemde vrouwen\n✓ Persoonlijke groei en ontwikkeling willen ervaren").split('\n').filter(Boolean).map((item, i) => (
+              <div key={i} className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
+                <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
+                  {item}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -411,12 +400,12 @@ export default function Weekenden() {
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 border-2 border-primary">
             <div className="mb-6">
               <p className="text-sm font-medium text-primary mb-2">
-                4DE EDITIE
+                {cms?.edition_label || "4DE EDITIE"}
               </p>
               <h3 className="text-4xl font-light text-gray-900 mb-2">
-                Young Wise Women Weekend Intensive
+                {cms?.edition_heading || "Young Wise Women Weekend Intensive"}
               </h3>
-              <p className="text-gray-600">Reflectie, Rust & Ruimte: een meerdaagse training voor persoonlijke ontwikkeling</p>
+              <p className="text-gray-600">{cms?.edition_subtitle || "Reflectie, Rust & Ruimte: een meerdaagse training voor persoonlijke ontwikkeling"}</p>
             </div>
 
             <div className="space-y-5 mb-8 pb-8 border-b border-gray-200">
@@ -424,13 +413,13 @@ export default function Weekenden() {
                 <Calendar className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    24 - 26 juni 2026
+                    {cms?.edition_dates || "24 - 26 juni 2026"}
                   </p>
                   <p className="text-gray-600">
-                    Vrijdag 17:30 uur tot Zondag 16:00 uur
+                    {cms?.edition_times || "Vrijdag 17:30 uur tot Zondag 16:00 uur"}
                   </p>
                   <p className="text-gray-600">
-                    Daarna: 16 - 18 oktober 2026
+                    {cms?.edition_next_date || "Daarna: 16 - 18 oktober 2026"}
                   </p>
                 </div>
               </div>
@@ -439,9 +428,9 @@ export default function Weekenden() {
                 <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    Prachtige Vakantiehuis in de Natuur aan het water
+                    {cms?.edition_location || "Prachtige Vakantiehuis in de Natuur aan het water"}
                   </p>
-                  <p className="text-gray-600">Oudega, Friesland</p>
+                  <p className="text-gray-600">{cms?.edition_location_detail || "Oudega, Friesland"}</p>
                 </div>
               </div>
 
@@ -449,40 +438,40 @@ export default function Weekenden() {
                 <Users className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <p className="font-medium text-gray-900 text-lg">
-                    Voor Jonge Professional Vrouwen (24-29)
+                    {cms?.edition_audience || "Voor Jonge Professional Vrouwen (24-29)"}
                   </p>
-                  <p className="text-gray-600">Beperkte plaatsen beschikbaar</p>
+                  <p className="text-gray-600">{cms?.edition_availability || "Beperkte plaatsen beschikbaar"}</p>
                 </div>
               </div>
             </div>
 
             <div className="mb-8">
               <h4 className="text-xl font-medium text-gray-900 mb-6">
-                Programmaoverzicht
+                {cms?.program_heading || "Programmaoverzicht"}
               </h4>
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <p className="font-medium text-gray-900 mb-2">
-                    Dag 1 - Vrijdag
+                    {cms?.day_1_label || "Dag 1 - Vrijdag"}
                   </p>
                   <p className="text-gray-700 text-sm">
-                    Aankomst vanaf 17:30 uur • Kennismaking met de andere vrouwen • Bespreken van bevindingen uit Motivation Factor test • Avondwandeling of rust • Deelronde, reflectiemomenten en ademsessie voor een goede nachtrust
+                    {cms?.day_1_text || "Aankomst vanaf 17:30 uur • Kennismaking met de andere vrouwen • Bespreken van bevindingen uit Motivation Factor test • Avondwandeling of rust • Deelronde, reflectiemomenten en ademsessie voor een goede nachtrust"}
                   </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <p className="font-medium text-gray-900 mb-2">
-                    Dag 2 - Zaterdag
+                    {cms?.day_2_label || "Dag 2 - Zaterdag"}
                   </p>
                   <p className="text-gray-700 text-sm">
-                    Ochtend: yogasessie of fysieke activiteit • Ontbijt • Verlangens (zakelijk en prive): richting vinden, omgaan met twijfel en heldere keuzes maken • Lunch • Werken aan beperkende overtuigingen en blokkades; mentale en fysieke loslating • 1-op-1 coaching • Reflectiemomenten en rust • Avond: deelronde buiten bij het vuur
+                    {cms?.day_2_text || "Ochtend: yogasessie of fysieke activiteit • Ontbijt • Verlangens (zakelijk en prive): richting vinden, omgaan met twijfel en heldere keuzes maken • Lunch • Werken aan beperkende overtuigingen en blokkades; mentale en fysieke loslating • 1-op-1 coaching • Reflectiemomenten en rust • Avond: deelronde buiten bij het vuur"}
                   </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <p className="font-medium text-gray-900 mb-2">
-                    Dag 3 - Zondag
+                    {cms?.day_3_label || "Dag 3 - Zondag"}
                   </p>
                   <p className="text-gray-700 text-sm">
-                    Ochtend: fysieke activiteit (yoga/wandeling/energetisch lichaamswerk) • Ontbijt • Loslaten van niet-dienende zaken; manifesteren van verlangens met Motivation Factor werkboek • Lunch • Middag: afsluiting met een spel om energie, vertrouwen en focus te brengen • Vertrek rond 17:00 uur
+                    {cms?.day_3_text || "Ochtend: fysieke activiteit (yoga/wandeling/energetisch lichaamswerk) • Ontbijt • Loslaten van niet-dienende zaken; manifesteren van verlangens met Motivation Factor werkboek • Lunch • Middag: afsluiting met een spel om energie, vertrouwen en focus te brengen • Vertrek rond 17:00 uur"}
                   </p>
                 </div>
               </div>
@@ -512,10 +501,10 @@ export default function Weekenden() {
       >
         <div className="text-center max-w-4xl mx-auto relative z-10">
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6">
-            Op een inspirerende locatie in Nederland
+            {cms?.location_heading || "Op een inspirerende locatie in Nederland"}
           </h2>
           <p className="text-lg md:text-xl text-gray-100 mx-auto">
-            Veel van onze weekend trainingen vinden plaats in het prachtige Friesland
+            {cms?.location_text || "Veel van onze weekend trainingen vinden plaats in het prachtige Friesland"}
           </p>
         </div>
       </section>
@@ -524,20 +513,17 @@ export default function Weekenden() {
       <section className="py-14 px-4 md:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center text-gray-900 mb-10">
-            Jouw Transformatie
+            {cms?.transform_heading || "Jouw Transformatie"}
           </h2>
 
           <div className="space-y-5">
             <SlideInLeft className="delay-100">
               <div className="group relative border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#B46555]">
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
-                  Waar je Afscheid van Neemt
+                  {cms?.goodbye_heading || "Waar je Afscheid van Neemt"}
                 </h3>
                 <p className="text-gray-700 mb-2">
-                  Zeg vaarwel aan je 'please-gedrag' - jezelf voortdurend aanpassen en moeten voldoen aan standaarden en verwachtingen.
-                </p>
-                <p className="text-gray-700">
-                  Neem afscheid van bullshitbanen, FOMO en de kans op een burnout.
+                  {cms?.goodbye_1 || "Zeg vaarwel aan je 'please-gedrag' - jezelf voortdurend aanpassen en moeten voldoen aan standaarden en verwachtingen."}
                 </p>
               </div>
             </SlideInLeft>
@@ -545,16 +531,16 @@ export default function Weekenden() {
             <SlideInLeft className="delay-200">
               <div className="group relative border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#B46555]">
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
-                  Wat je Meeneemt
+                  {cms?.takeaway_heading || "Wat je Meeneemt"}
                 </h3>
                 <p className="text-gray-700 mb-2">
-                  Persoonlijke groei - of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling.
+                  {cms?.takeaway_1 || "Persoonlijke groei - of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling."}
                 </p>
                 <p className="text-gray-700 mb-2">
-                  Eigen wijsheid - de andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen.
+                  {cms?.takeaway_2 || "Eigen wijsheid - de andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen."}
                 </p>
                 <p className="text-gray-700">
-                  Nieuwe energie en motivatie - thema's die al langer in je leven spelen, worden helderder. Je voelt richting, duidelijkheid én de drive om in beweging te komen.
+                  {cms?.takeaway_3 || "Nieuwe energie en motivatie - thema's die al langer in je leven spelen, worden helderder. Je voelt richting, duidelijkheid én de drive om in beweging te komen."}
                 </p>
               </div>
             </SlideInLeft>
@@ -562,10 +548,10 @@ export default function Weekenden() {
             <SlideInLeft className="delay-300">
               <div className="group relative border-l-4 border-primary pl-6 bg-white p-6 rounded-r-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[#B46555]">
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
-                  Jouw Volgende Stap
+                  {cms?.nextstep_heading || "Jouw Volgende Stap"}
                 </h3>
                 <p className="text-gray-700">
-                  Kies nu voor betekenisvol, vitaal en gelukkig leven en werken en word die geweldige vrouw die je bedoeld bent te zijn. Niet door harder te werken of te doen wat anderen doen, maar je eigen unieke koers te volgen en bewuste keuzes te maken.
+                  {cms?.nextstep_text || "Kies nu voor betekenisvol, vitaal en gelukkig leven en werken en word die geweldige vrouw die je bedoeld bent te zijn. Niet door harder te werken of te doen wat anderen doen, maar je eigen unieke koers te volgen en bewuste keuzes te maken."}
                 </p>
               </div>
             </SlideInLeft>
@@ -579,10 +565,10 @@ export default function Weekenden() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-3">
-              De balans tussen denken en voelen
+              {cms?.breathwork_heading || "De balans tussen denken en voelen"}
             </h2>
             <p className="text-gray-700 max-w-3xl mx-auto">
-              In het weekend combineren we mentale verdieping met lichaamswerk, zodat je niet alleen begrijpt wat je wilt veranderen, maar het ook echt voelt en belichaamt.
+              {cms?.breathwork_subtitle || "In het weekend combineren we mentale verdieping met lichaamswerk, zodat je niet alleen begrijpt wat je wilt veranderen, maar het ook echt voelt en belichaamt."}
             </p>
           </div>
 
@@ -598,15 +584,15 @@ export default function Weekenden() {
               </div>
               <div className="p-6">
                 <h3 className="text-2xl font-light text-gray-900 mb-2">
-                  Ademsessie (breathwork)
+                  {cms?.breathwork_heading || "Ademsessie (breathwork)"}
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">
-                  Begeleid door Chris Rauwendaal, specialist in ademwerk voor stressregulatie en emotionele ontlading.
+                  {cms?.breathwork_subtitle || "Begeleid door Chris Rauwendaal, specialist in ademwerk voor stressregulatie en emotionele ontlading."}
                 </p>
                 <ul className="space-y-1 text-sm text-gray-700">
-                  <li>✓ Meer rust in je hoofd en zenuwstelsel</li>
-                  <li>✓ Sneller herkennen van spanning en patronen</li>
-                  <li>✓ Direct toepasbare ademtools voor dagelijks leven</li>
+                  {(cms?.breathwork_benefits || "✓ Meer rust in je hoofd en zenuwstelsel\n✓ Sneller herkennen van spanning en patronen\n✓ Direct toepasbare ademtools voor dagelijks leven").split('\n').filter(Boolean).map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </article>
@@ -622,15 +608,15 @@ export default function Weekenden() {
               </div>
               <div className="p-6">
                 <h3 className="text-2xl font-light text-gray-900 mb-2">
-                  Yogalessen
+                  {cms?.yoga_heading || "Yogalessen"}
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">
-                  Gegeven door Liene Molendijk, coach met expertise in psychologie, leiderschap en lichaamsgerichte ontwikkeling.
+                  {cms?.yoga_subtitle || "Gegeven door Liene Molendijk, coach met expertise in psychologie, leiderschap en lichaamsgerichte ontwikkeling."}
                 </p>
                 <ul className="space-y-1 text-sm text-gray-700">
-                  <li>✓ Van overdenken naar aanwezig zijn in je lichaam</li>
-                  <li>✓ Meer focus, zachtheid en zelfregie</li>
-                  <li>✓ Een stevigere verbinding met je authenticiteit</li>
+                  {(cms?.yoga_benefits || "✓ Van overdenken naar aanwezig zijn in je lichaam\n✓ Meer focus, zachtheid en zelfregie\n✓ Een stevigere verbinding met je authenticiteit").split('\n').filter(Boolean).map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </article>
@@ -653,7 +639,7 @@ export default function Weekenden() {
           <div className="rounded-3xl bg-[#B46555]/25 p-5 md:p-6">
             <div className="text-center mb-5">
               <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-2">
-                Weekend Trainingen
+                {cms?.highlight_heading || "Weekend Trainingen"}
               </h2>
               <span className="block h-0.5 w-24 mx-auto bg-[#6B705C]" />
             </div>
@@ -662,36 +648,31 @@ export default function Weekenden() {
               <div className="space-y-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Wanneer</p>
-                  <p className="text-xs md:text-sm text-gray-800">Op vrijdag vanaf 17:30 tot zondag 16:00</p>
+                  <p className="text-xs md:text-sm text-gray-800">{cms?.highlight_when || "Op vrijdag vanaf 17:30 tot zondag 16:00"}</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Waar</p>
-                  <p className="text-xs md:text-sm text-gray-800">Prachtige Vakantiehuis in de Natuur aan het water</p>
+                  <p className="text-xs md:text-sm text-gray-800">{cms?.highlight_where || "Prachtige Vakantiehuis in de Natuur aan het water"}</p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-1">Voor wie</p>
-                  <p className="text-xs md:text-sm text-gray-800">Voor Jonge Professional Vrouwen (24-29)</p>
-                  <p className="text-xs md:text-sm text-gray-700">Beperkt plek voor 8 vrouwen</p>
+                  <p className="text-xs md:text-sm text-gray-800">{cms?.highlight_audience || "Voor Jonge Professional Vrouwen (24-29)"}</p>
+                  <p className="text-xs md:text-sm text-gray-700">{cms?.highlight_capacity || "Beperkt plek voor 8 vrouwen"}</p>
                 </div>
               </div>
 
               <div>
                 <p className="text-xs uppercase tracking-[0.14em] text-gray-500 mb-2">Inclusief</p>
                 <ul className="space-y-1 text-xs md:text-sm text-gray-700">
-                  <li>✓ Voorafgaande online intake met coach</li>
-                  <li>✓ Motivation Factor test (t.w.v. €145)</li>
-                  <li>✓ Professionele begeleiding van 2 coaches</li>
-                  <li>✓ Ademsessie (breathwork) met Chris Rauwendaal</li>
-                  <li>✓ Yogalessen</li>
-                  <li>✓ 2 nachten accommodatie</li>
-                  <li>✓ Alle maaltijden en dranken</li>
-                  <li>✓ Werkboek en praktische tools</li>
+                  {(cms?.highlight_inclusions || "✓ Voorafgaande online intake met coach\n✓ Motivation Factor test (t.w.v. €145)\n✓ Professionele begeleiding van 2 coaches\n✓ Ademsessie (breathwork) met Chris Rauwendaal\n✓ Yogalessen\n✓ 2 nachten accommodatie\n✓ Alle maaltijden en dranken\n✓ Werkboek en praktische tools").split('\n').filter(Boolean).map((item, i) => (
+                    <li key={i}>{item}</li>
+                  ))}
                 </ul>
               </div>
             </div>
 
             <h3 className="text-lg md:text-xl font-light text-gray-900 mb-4 text-center">
-              Programma: Persoonlijke groei & authenticiteit
+              {cms?.highlight_program_heading || "Programma: Persoonlijke groei & authenticiteit"}
             </h3>
 
             <div className="overflow-x-auto">

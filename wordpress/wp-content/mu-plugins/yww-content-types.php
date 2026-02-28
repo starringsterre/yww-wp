@@ -96,6 +96,38 @@ function yww_register_post_types() {
         'menu_position' => 24,
         'rewrite'      => ['slug' => 'blog'],
     ]);
+
+    // Workshop
+    register_post_type('yww_workshop', [
+        'labels' => [
+            'name'          => 'Workshops',
+            'singular_name' => 'Workshop',
+            'add_new_item'  => 'Nieuwe workshop toevoegen',
+            'edit_item'     => 'Workshop bewerken',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_rest' => true,
+        'menu_icon'    => 'dashicons-welcome-learn-more',
+        'supports'     => ['title'],
+        'menu_position' => 25,
+    ]);
+
+    // FAQ
+    register_post_type('yww_faq', [
+        'labels' => [
+            'name'          => 'FAQ',
+            'singular_name' => 'FAQ',
+            'add_new_item'  => 'Nieuwe FAQ toevoegen',
+            'edit_item'     => 'FAQ bewerken',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_rest' => true,
+        'menu_icon'    => 'dashicons-editor-help',
+        'supports'     => ['title'],
+        'menu_position' => 26,
+    ]);
 }
 
 // ─────────────────────────────────────────────
@@ -191,6 +223,53 @@ function yww_register_meta_fields() {
             'default'       => '',
         ]);
     }
+
+    // Workshop meta
+    $workshop_meta = [
+        'yww_workshop_subtitle'    => 'string',
+        'yww_workshop_description' => 'string',
+        'yww_workshop_next_date'   => 'string',
+        'yww_workshop_from_price'  => 'string',
+        'yww_workshop_duration'    => 'string',
+        'yww_workshop_location'    => 'string',
+        'yww_workshop_audience'    => 'string',
+        'yww_workshop_goal'        => 'string',
+        'yww_workshop_program'     => 'string', // newline-separated items
+        'yww_workshop_investment'  => 'string',
+        'yww_workshop_order'       => 'integer',
+    ];
+    foreach ($workshop_meta as $key => $type) {
+        register_post_meta('yww_workshop', $key, [
+            'show_in_rest'  => true,
+            'single'        => true,
+            'type'          => $type,
+            'default'       => $type === 'integer' ? 0 : '',
+        ]);
+    }
+
+    // FAQ meta
+    $faq_meta = [
+        'yww_faq_answer'   => 'string',
+        'yww_faq_page'     => 'string', // slug of the page this FAQ belongs to
+        'yww_faq_order'    => 'integer',
+    ];
+    foreach ($faq_meta as $key => $type) {
+        register_post_meta('yww_faq', $key, [
+            'show_in_rest'  => true,
+            'single'        => true,
+            'type'          => $type,
+            'default'       => $type === 'integer' ? 0 : '',
+        ]);
+    }
+
+    // Page content meta — register for the built-in 'page' post type
+    // We use a single meta key that stores all fields as JSON
+    register_post_meta('page', 'yww_page_content', [
+        'show_in_rest'  => true,
+        'single'        => true,
+        'type'          => 'string',
+        'default'       => '',
+    ]);
 }
 
 // ─────────────────────────────────────────────
@@ -243,6 +322,41 @@ function yww_register_rest_routes() {
         'methods'             => 'GET',
         'callback'            => 'yww_get_options',
         'permission_callback' => '__return_true',
+    ]);
+
+    // GET /yww/v1/pages/{slug}
+    register_rest_route($namespace, '/pages/(?P<slug>[a-z0-9-]+)', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_page_content',
+        'permission_callback' => '__return_true',
+        'args' => [
+            'slug' => [
+                'required'          => true,
+                'validate_callback' => function ($param) {
+                    return is_string($param) && preg_match('/^[a-z0-9-]+$/', $param);
+                },
+            ],
+        ],
+    ]);
+
+    // GET /yww/v1/workshops
+    register_rest_route($namespace, '/workshops', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_workshops',
+        'permission_callback' => '__return_true',
+    ]);
+
+    // GET /yww/v1/faqs
+    register_rest_route($namespace, '/faqs', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_faqs',
+        'permission_callback' => '__return_true',
+        'args' => [
+            'page' => [
+                'required'          => false,
+                'sanitize_callback' => 'sanitize_text_field',
+            ],
+        ],
     ]);
 }
 
@@ -396,4 +510,101 @@ function yww_get_options() {
     ];
 
     return rest_ensure_response($options);
+}
+
+function yww_get_page_content($request) {
+    $slug = $request->get_param('slug');
+
+    $pages = get_posts([
+        'post_type'      => 'page',
+        'name'           => $slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+    ]);
+
+    if (empty($pages)) {
+        return rest_ensure_response([]);
+    }
+
+    $page = $pages[0];
+    $json = get_post_meta($page->ID, 'yww_page_content', true);
+    $data = $json ? json_decode($json, true) : [];
+
+    if (!is_array($data)) {
+        $data = [];
+    }
+
+    return rest_ensure_response($data);
+}
+
+function yww_get_workshops() {
+    $posts = get_posts([
+        'post_type'      => 'yww_workshop',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'meta_key'       => 'yww_workshop_order',
+        'orderby'        => 'meta_value_num',
+        'order'          => 'ASC',
+    ]);
+
+    $data = [];
+    foreach ($posts as $post) {
+        $program_raw = get_post_meta($post->ID, 'yww_workshop_program', true);
+        $program = $program_raw ? array_filter(array_map('trim', explode("\n", $program_raw))) : [];
+
+        $data[] = [
+            'id'          => $post->ID,
+            'title'       => $post->post_title,
+            'subtitle'    => get_post_meta($post->ID, 'yww_workshop_subtitle', true),
+            'description' => get_post_meta($post->ID, 'yww_workshop_description', true),
+            'nextDate'    => get_post_meta($post->ID, 'yww_workshop_next_date', true),
+            'fromPrice'   => get_post_meta($post->ID, 'yww_workshop_from_price', true),
+            'duration'    => get_post_meta($post->ID, 'yww_workshop_duration', true),
+            'location'    => get_post_meta($post->ID, 'yww_workshop_location', true),
+            'audience'    => get_post_meta($post->ID, 'yww_workshop_audience', true),
+            'goal'        => get_post_meta($post->ID, 'yww_workshop_goal', true),
+            'program'     => array_values($program),
+            'investment'  => get_post_meta($post->ID, 'yww_workshop_investment', true),
+            'order'       => (int) get_post_meta($post->ID, 'yww_workshop_order', true),
+        ];
+    }
+
+    return rest_ensure_response($data);
+}
+
+function yww_get_faqs($request) {
+    $page_slug = $request->get_param('page');
+
+    $args = [
+        'post_type'      => 'yww_faq',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'meta_key'       => 'yww_faq_order',
+        'orderby'        => 'meta_value_num',
+        'order'          => 'ASC',
+    ];
+
+    if ($page_slug) {
+        $args['meta_query'] = [
+            [
+                'key'   => 'yww_faq_page',
+                'value' => $page_slug,
+            ],
+        ];
+    }
+
+    $posts = get_posts($args);
+
+    $data = [];
+    foreach ($posts as $post) {
+        $data[] = [
+            'id'       => $post->ID,
+            'question' => $post->post_title,
+            'answer'   => get_post_meta($post->ID, 'yww_faq_answer', true),
+            'page'     => get_post_meta($post->ID, 'yww_faq_page', true),
+            'order'    => (int) get_post_meta($post->ID, 'yww_faq_order', true),
+        ];
+    }
+
+    return rest_ensure_response($data);
 }

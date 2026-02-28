@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { usePageContent } from "@/hooks/usePageContent";
 
 export default function NewsletterSignup() {
+  const { data: cms } = usePageContent("home");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

@@ -85,6 +85,16 @@ add_filter('wp_is_application_passwords_available', '__return_true');
 add_filter('xmlrpc_enabled', '__return_false');
 
 /**
+ * Use classic editor for pages (so custom meta boxes are visible)
+ */
+add_filter('use_block_editor_for_post_type', function ($use, $post_type) {
+    if ($post_type === 'page') {
+        return false;
+    }
+    return $use;
+}, 10, 2);
+
+/**
  * Customizer: YWW Site-instellingen
  * Bewerk via Weergave > Customizer
  */

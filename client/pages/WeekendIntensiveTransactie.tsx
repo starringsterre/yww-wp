@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users, BedDouble, CheckCircle2, Mail } from "lucide-react";
+import { usePageContent } from "@/hooks/usePageContent";
+import { useFAQs } from "@/hooks/useFAQs";
 
 const EMPLOYER_PRICE = 1450;
 const DUO_PER_PERSON_PRICE = EMPLOYER_PRICE * 0.9;
@@ -83,6 +85,13 @@ function upsertMetaByProperty(property: string, content: string) {
 }
 
 export default function WeekendIntensiveTransactie() {
+  const { data: cms } = usePageContent("weekend-intensive");
+  const { data: faqData } = useFAQs("weekend-intensive");
+
+  const displayFaqs = faqData && faqData.length > 0
+    ? faqData.map(f => ({ question: f.question, answer: f.answer }))
+    : faqItems; // keep original hardcoded as fallback
+
   const [selectedPackage, setSelectedPackage] = useState<PackageKey>("Betaald vanuit werkgever (factuur)");
   const [videoHovered, setVideoHovered] = useState(false);
   const [showInquirySuccess, setShowInquirySuccess] = useState(false);
@@ -356,10 +365,10 @@ export default function WeekendIntensiveTransactie() {
       <section className="py-10 md:py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-light text-[#1C2826] mb-3">
-            Persoonlijke Ontwikkeling Training voor Vrouwen – Weekend Intensive juni 2026
+            {cms?.hero_title || "Persoonlijke Ontwikkeling Training voor Vrouwen – Weekend Intensive juni 2026"}
           </h1>
           <p className="text-sm md:text-base text-gray-700 max-w-4xl">
-            Gericht op jonge vrouwelijke professionals (24–29 jaar) die willen groeien in rust, richting en leiderschap.
+            {cms?.hero_subtitle || "Gericht op jonge vrouwelijke professionals (24–29 jaar) die willen groeien in rust, richting en leiderschap."}
           </p>
         </div>
       </section>
@@ -369,13 +378,11 @@ export default function WeekendIntensiveTransactie() {
           <div className="space-y-6">
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
               <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">
-                Persoonlijke ontwikkeling training voor vrouwen in Nederland
+                {cms?.intro_heading || "Persoonlijke ontwikkeling training voor vrouwen in Nederland"}
               </h2>
               <div className="space-y-3 text-sm md:text-base text-gray-700">
                 <p>
-                  Deze persoonlijke ontwikkeling training voor vrouwen combineert coaching, reflectie en lichaamswerk in een kleinschalige setting in Nederland.
-                  Tijdens dit trainingsweekend werk je aan rust in je hoofd, helderheid in je keuzes en zichtbaar leiderschap in je werk en leven.
-                  Je vertrekt met concrete stappen die je direct toepast in je dagelijkse praktijk.
+                  {cms?.intro_text || "Deze persoonlijke ontwikkeling training voor vrouwen combineert coaching, reflectie en lichaamswerk in een kleinschalige setting in Nederland. Tijdens dit trainingsweekend werk je aan rust in je hoofd, helderheid in je keuzes en zichtbaar leiderschap in je werk en leven. Je vertrekt met concrete stappen die je direct toepast in je dagelijkse praktijk."}
                 </p>
               </div>
             </div>
@@ -386,35 +393,35 @@ export default function WeekendIntensiveTransactie() {
                 <div className="flex items-start gap-3">
                   <Calendar className="w-5 h-5 text-[#6B705C] mt-0.5" />
                   <div>
-                    <p className="font-medium text-[#1C2826]">Wanneer</p>
-                    <p>Van 24 juni 17:30 t/m 26 juni 16:00 (2026)</p>
+                    <p className="font-medium text-[#1C2826]">{cms?.when_label || "Wanneer"}</p>
+                    <p>{cms?.when_text || "Van 24 juni 17:30 t/m 26 juni 16:00 (2026)"}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#6B705C] mt-0.5" />
                   <div>
-                    <p className="font-medium text-[#1C2826]">Waar</p>
-                    <p>Oudega, Friesland (natuur en water)</p>
+                    <p className="font-medium text-[#1C2826]">{cms?.where_label || "Waar"}</p>
+                    <p>{cms?.where_text || "Oudega, Friesland (natuur en water)"}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Users className="w-5 h-5 text-[#6B705C] mt-0.5" />
                   <div>
-                    <p className="font-medium text-[#1C2826]">Groep</p>
-                    <p>Maximaal 8 deelneemsters</p>
+                    <p className="font-medium text-[#1C2826]">{cms?.group_label || "Groep"}</p>
+                    <p>{cms?.group_text || "Maximaal 8 deelneemsters"}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <BedDouble className="w-5 h-5 text-[#6B705C] mt-0.5" />
                   <div>
-                    <p className="font-medium text-[#1C2826]">Kamers</p>
-                    <p>4 slaapkamers, bedden kunnen uit elkaar</p>
+                    <p className="font-medium text-[#1C2826]">{cms?.rooms_label || "Kamers"}</p>
+                    <p>{cms?.rooms_text || "4 slaapkamers, bedden kunnen uit elkaar"}</p>
                   </div>
                 </div>
               </div>
               <div className="mt-4 text-sm text-gray-700 space-y-2">
                 <p>
-                  Weekenden op aanvraag zijn beschikbaar voor groepen young professionals. Bekijk de mogelijkheden op{" "}
+                  {cms?.additional_text || "Weekenden op aanvraag zijn beschikbaar voor groepen young professionals. Bekijk de mogelijkheden op"}{" "}
                   <Link className="underline underline-offset-2" to="/in-company">
                     de bedrijfspagina
                   </Link>
@@ -424,7 +431,7 @@ export default function WeekendIntensiveTransactie() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Hoe andere deelneemsters het ervaren:</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.video_heading || "Hoe andere deelneemsters het ervaren:"}</h2>
               <div className="rounded-xl overflow-hidden border border-gray-200">
                 <div className="relative aspect-video bg-black">
                   <img
@@ -456,48 +463,74 @@ export default function WeekendIntensiveTransactie() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Over dit evenement</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.about_heading || "Over dit evenement"}</h2>
               <div className="space-y-3 text-sm md:text-base text-gray-700">
                 <p>
-                  Je stapt drie dagen uit je dagelijkse ritme om opnieuw contact te maken met wat voor jou klopt.
-                  Met coaching, reflectie, ademwerk en beweging werk je aan duurzame verandering die je na het weekend direct toepast.
+                  {cms?.about_text_1 || "Je stapt drie dagen uit je dagelijkse ritme om opnieuw contact te maken met wat voor jou klopt. Met coaching, reflectie, ademwerk en beweging werk je aan duurzame verandering die je na het weekend direct toepast."}
                 </p>
                 <p>
-                  Dit weekend is bewust kleinschalig: 8 deelneemsters, 4 slaapkamers, en een setting waarin veiligheid, diepte en praktische vertaling centraal staan.
+                  {cms?.about_text_2 || "Dit weekend is bewust kleinschalig: 8 deelneemsters, 4 slaapkamers, en een setting waarin veiligheid, diepte en praktische vertaling centraal staan."}
                 </p>
               </div>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Voor wie is dit weekend bedoeld?</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.for_whom_heading || "Voor wie is dit weekend bedoeld?"}</h2>
               <ul className="list-disc pl-5 space-y-2 text-sm md:text-base text-gray-700">
-                <li>Voor jonge vrouwelijke professionals die persoonlijk en professioneel willen doorgroeien.</li>
-                <li>Voor vrouwen die veel dragen, maar worstelen met stress, twijfel of het stellen van grenzen.</li>
-                <li>Voor deelnemers die verlangen naar meer rust, richting, zelfvertrouwen en regie.</li>
-                <li>Voor wie na het weekend met concrete inzichten en direct toepasbare acties naar huis wil.</li>
+                {cms?.for_whom_items
+                  ? cms.for_whom_items.split("\n").filter(Boolean).map((item: string) => (
+                      <li key={item}>{item}</li>
+                    ))
+                  : (
+                    <>
+                      <li>Voor jonge vrouwelijke professionals die persoonlijk en professioneel willen doorgroeien.</li>
+                      <li>Voor vrouwen die veel dragen, maar worstelen met stress, twijfel of het stellen van grenzen.</li>
+                      <li>Voor deelnemers die verlangen naar meer rust, richting, zelfvertrouwen en regie.</li>
+                      <li>Voor wie na het weekend met concrete inzichten en direct toepasbare acties naar huis wil.</li>
+                    </>
+                  )
+                }
               </ul>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Wat levert deze training je op?</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.results_heading || "Wat levert deze training je op?"}</h2>
               <ul className="list-disc pl-5 space-y-2 text-sm md:text-base text-gray-700">
-                <li>Meer richting in je werk en persoonlijke keuzes.</li>
-                <li>Heldere grenzen communiceren zonder schuldgevoel.</li>
-                <li>Sterker en rustiger leiderschap in uitdagende situaties.</li>
-                <li>Meer energie door betere balans tussen inspanning en herstel.</li>
-                <li>Duidelijkheid over wat nu echt belangrijk is en wat je loslaat.</li>
-                <li>Een concreet actieplan voor de eerste 30 dagen na het weekend.</li>
+                {cms?.results_items
+                  ? cms.results_items.split("\n").filter(Boolean).map((item: string) => (
+                      <li key={item}>{item}</li>
+                    ))
+                  : (
+                    <>
+                      <li>Meer richting in je werk en persoonlijke keuzes.</li>
+                      <li>Heldere grenzen communiceren zonder schuldgevoel.</li>
+                      <li>Sterker en rustiger leiderschap in uitdagende situaties.</li>
+                      <li>Meer energie door betere balans tussen inspanning en herstel.</li>
+                      <li>Duidelijkheid over wat nu echt belangrijk is en wat je loslaat.</li>
+                      <li>Een concreet actieplan voor de eerste 30 dagen na het weekend.</li>
+                    </>
+                  )
+                }
               </ul>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Wat is inbegrepen?</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.included_heading || "Wat is inbegrepen?"}</h2>
               <ul className="list-disc pl-5 space-y-2 text-sm md:text-base text-gray-700">
-                <li>Intake vantevoren met de coach om je behoeftes in kaart te brengen</li>
-                <li>Motivation Factor self-assessment ter waarde van €145</li>
-                <li>Persoonlijke professionele begeleiding van twee coaches</li>
-                <li>Catering verzorgd met ontbijt, lunch, diner en versnaperingen</li>
-                <li>2 nachten accommodatie in een prachtig huis in Nederland, in comfortabele tweepersoonskamers met losse bedden</li>
+                {cms?.included_items
+                  ? cms.included_items.split("\n").filter(Boolean).map((item: string) => (
+                      <li key={item}>{item}</li>
+                    ))
+                  : (
+                    <>
+                      <li>Intake vantevoren met de coach om je behoeftes in kaart te brengen</li>
+                      <li>Motivation Factor self-assessment ter waarde van €145</li>
+                      <li>Persoonlijke professionele begeleiding van twee coaches</li>
+                      <li>Catering verzorgd met ontbijt, lunch, diner en versnaperingen</li>
+                      <li>2 nachten accommodatie in een prachtig huis in Nederland, in comfortabele tweepersoonskamers met losse bedden</li>
+                    </>
+                  )
+                }
               </ul>
             </div>
 
@@ -512,7 +545,7 @@ export default function WeekendIntensiveTransactie() {
                     style={{ filter: "saturate(0.9) contrast(0.95)" }}
                   />
                 </div>
-                <div className="p-4 text-sm text-gray-700">Vertragen, voelen en richting kiezen.</div>
+                <div className="p-4 text-sm text-gray-700">{cms?.caption_1 || "Vertragen, voelen en richting kiezen."}</div>
               </div>
               <div className="rounded-2xl overflow-hidden border border-gray-200 bg-white">
                 <div className="h-56 md:h-64 overflow-hidden">
@@ -524,30 +557,30 @@ export default function WeekendIntensiveTransactie() {
                     style={{ filter: "saturate(0.9) contrast(0.95)" }}
                   />
                 </div>
-                <div className="p-4 text-sm text-gray-700">Van inzicht naar concreet gedrag in werk en leven.</div>
+                <div className="p-4 text-sm text-gray-700">{cms?.caption_2 || "Van inzicht naar concreet gedrag in werk en leven."}</div>
               </div>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-3">Boek jouw plek</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-3">{cms?.book_heading || "Boek jouw plek"}</h2>
               <p className="text-sm md:text-base text-gray-700 mb-4">
-                Klaar om je plek te reserveren voor dit trainingsweekend voor vrouwen in Nederland?
+                {cms?.book_text || "Klaar om je plek te reserveren voor dit trainingsweekend voor vrouwen in Nederland?"}
               </p>
               <button
                 type="button"
                 onClick={scrollToInquiry}
                 className="inline-flex items-center rounded-lg bg-[#6B705C] px-4 py-2 text-sm font-medium text-white transition-all duration-300 hover:bg-[#B46555]"
               >
-                Ga naar Inquire now
+                {cms?.book_cta || "Ga naar Inquire now"}
               </button>
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
               <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">
-                Veelgestelde vragen over persoonlijke ontwikkeling trainingen voor vrouwen
+                {cms?.faq_heading || "Veelgestelde vragen over persoonlijke ontwikkeling trainingen voor vrouwen"}
               </h2>
               <div className="space-y-4 text-sm md:text-base text-gray-700">
-                {faqItems.map((item) => (
+                {displayFaqs.map((item) => (
                   <div key={item.question}>
                     <p className="font-medium text-[#1C2826]">{item.question}</p>
                     <p>{item.answer}</p>
@@ -557,7 +590,7 @@ export default function WeekendIntensiveTransactie() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
-              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">Lees ook</h2>
+              <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.related_heading || "Lees ook"}</h2>
               <div className="flex flex-wrap gap-3 text-sm">
                 <Link className="underline underline-offset-2 text-[#1C2826]" to="/groepstrainingen">
                   Persoonlijke ontwikkeling
@@ -574,7 +607,7 @@ export default function WeekendIntensiveTransactie() {
 
           <aside className="xl:sticky xl:top-24">
             <div className="rounded-2xl border border-[#B46555]/35 bg-[#B46555]/10 p-5 shadow-sm">
-              <p className="text-xs uppercase tracking-[0.14em] text-[#6B705C] mb-2">Beschikbaarheid</p>
+              <p className="text-xs uppercase tracking-[0.14em] text-[#6B705C] mb-2">{cms?.availability_label || "Beschikbaarheid"}</p>
               <div className="mb-3">
                 <div className="flex -space-x-2 mb-2">
                   {[1, 2, 3].map((item) => (
@@ -589,10 +622,10 @@ export default function WeekendIntensiveTransactie() {
                   ))}
                 </div>
                 <p className="text-sm text-gray-700">
-                  <span className="font-semibold text-[#1C2826]">3 van 8</span> plekken al gereserveerd
+                  <span className="font-semibold text-[#1C2826]">{cms?.availability_text || "3 van 8"}</span> plekken al gereserveerd
                 </p>
               </div>
-              <p className="text-xs text-gray-600 mb-5">Nog 5 plekken beschikbaar op dit moment.</p>
+              <p className="text-xs text-gray-600 mb-5">{cms?.availability_note || "Nog 5 plekken beschikbaar op dit moment."}</p>
 
               <div className="space-y-3" role="radiogroup" aria-label="Kies je product">
                 <label className={`block rounded-xl border bg-white p-4 cursor-pointer transition-colors ${selectedPackage === "Betaald vanuit werkgever (factuur)" ? "border-[#B46555]" : "border-[#1C2826]/15"}`}>
@@ -605,10 +638,10 @@ export default function WeekendIntensiveTransactie() {
                       onChange={() => setSelectedPackage("Betaald vanuit werkgever (factuur)")}
                     />
                     <div>
-                      <p className="font-medium text-[#1C2826]">Betaald vanuit je werkgever</p>
-                      <p className="text-sm text-gray-600 mb-2">Je eenmalige investering</p>
-                      <p className="text-xl font-semibold text-[#1C2826]">€ {EMPLOYER_PRICE.toLocaleString("nl-NL")}</p>
-                      <p className="text-xs text-gray-500">excl. BTW</p>
+                      <p className="font-medium text-[#1C2826]">{cms?.package_1_title || "Betaald vanuit je werkgever"}</p>
+                      <p className="text-sm text-gray-600 mb-2">{cms?.package_1_subtitle || "Je eenmalige investering"}</p>
+                      <p className="text-xl font-semibold text-[#1C2826]">{cms?.package_1_price || `€ ${EMPLOYER_PRICE.toLocaleString("nl-NL")}`}</p>
+                      <p className="text-xs text-gray-500">{cms?.package_1_note || "excl. BTW"}</p>
                     </div>
                   </div>
                 </label>
@@ -623,10 +656,10 @@ export default function WeekendIntensiveTransactie() {
                       onChange={() => setSelectedPackage("Samen met een vriendin/collega* (kamer delen)")}
                     />
                     <div>
-                      <p className="font-medium text-[#1C2826]">Samen met een vriendin/collega*</p>
-                      <p className="text-sm text-gray-600 mb-2">Per persoon: werkgeverstarief met 10% korting.</p>
-                      <p className="text-xl font-semibold text-[#1C2826]">€ {DUO_PER_PERSON_PRICE.toLocaleString("nl-NL")} p.p.</p>
-                      <p className="text-xs text-gray-500">excl. BTW</p>
+                      <p className="font-medium text-[#1C2826]">{cms?.package_2_title || "Samen met een vriendin/collega*"}</p>
+                      <p className="text-sm text-gray-600 mb-2">{cms?.package_2_subtitle || "Per persoon: werkgeverstarief met 10% korting."}</p>
+                      <p className="text-xl font-semibold text-[#1C2826]">{cms?.package_2_price || `€ ${DUO_PER_PERSON_PRICE.toLocaleString("nl-NL")} p.p.`}</p>
+                      <p className="text-xs text-gray-500">{cms?.package_2_note || "excl. BTW"}</p>
                     </div>
                   </div>
                 </label>
@@ -641,12 +674,12 @@ export default function WeekendIntensiveTransactie() {
                       onChange={() => setSelectedPackage("Particulier solo reis")}
                     />
                     <div>
-                      <p className="font-medium text-[#1C2826]">Particulier solo reis</p>
+                      <p className="font-medium text-[#1C2826]">{cms?.package_3_title || "Particulier solo reis"}</p>
                       <p className="text-sm text-gray-600 mb-1">
-                        Uitzonderingsroute: een gereduceerd particulier tarief voor wie niet via werkgever kan deelnemen.
+                        {cms?.package_3_subtitle || "Uitzonderingsroute: een gereduceerd particulier tarief voor wie niet via werkgever kan deelnemen."}
                       </p>
-                      <p className="text-sm font-medium text-[#1C2826]">Prijs in overleg</p>
-                      <p className="text-xs text-gray-500">Beperkt beschikbaar als uitzondering.</p>
+                      <p className="text-sm font-medium text-[#1C2826]">{cms?.package_3_price || "Prijs in overleg"}</p>
+                      <p className="text-xs text-gray-500">{cms?.package_3_note || "Beperkt beschikbaar als uitzondering."}</p>
                     </div>
                   </div>
                 </label>
@@ -668,7 +701,7 @@ export default function WeekendIntensiveTransactie() {
 
               {showInquiryForm && (
                 <div ref={inquiryFormRef} className="mt-3 rounded-lg border border-[#1C2826]/15 bg-white p-3">
-                  <p className="text-sm font-medium text-[#1C2826] mb-2">Laat je gegevens achter</p>
+                  <p className="text-sm font-medium text-[#1C2826] mb-2">{cms?.form_heading || "Laat je gegevens achter"}</p>
                   <div className="space-y-2">
                     <input
                       ref={nameInputRef}
@@ -838,20 +871,20 @@ export default function WeekendIntensiveTransactie() {
 
               {showInquirySuccess && (
                 <div className="mt-3 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-900">
-                  <p className="font-medium">Success! Heel erg bedankt voor je aanmelding.</p>
-                  <p>We nemen zo snel mogelijk contact met je op.</p>
-                  <p className="mt-1">Hartelijke groet, Ella</p>
+                  <p className="font-medium">{cms?.success_title || "Success! Heel erg bedankt voor je aanmelding."}</p>
+                  <p>{cms?.success_text || "We nemen zo snel mogelijk contact met je op."}</p>
+                  <p className="mt-1">{cms?.success_signature || "Hartelijke groet, Ella"}</p>
                 </div>
               )}
 
               <ul className="mt-4 space-y-2 text-xs text-gray-600">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 text-[#6B705C]" />
-                  Binnen 1 werkdag reactie op je aanvraag
+                  {cms?.sidebar_benefit_1 || "Binnen 1 werkdag reactie op je aanvraag"}
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 mt-0.5 text-[#6B705C]" />
-                  Inclusief ademwerk en yogalessen
+                  {cms?.sidebar_benefit_2 || "Inclusief ademwerk en yogalessen"}
                 </li>
               </ul>
             </div>

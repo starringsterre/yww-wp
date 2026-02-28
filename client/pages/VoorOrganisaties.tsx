@@ -1,5 +1,6 @@
 import { type FormEvent, useState } from "react";
 
+import { usePageContent } from "@/hooks/usePageContent";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -54,6 +55,7 @@ function isValidEmail(value: string): boolean {
 }
 
 export default function VoorOrganisaties() {
+  const { data: cms } = usePageContent("voor-organisaties");
   const [isBrochureDialogOpen, setIsBrochureDialogOpen] = useState(false);
   const [isKennismakingDialogOpen, setIsKennismakingDialogOpen] = useState(false);
   const [formData, setFormData] = useState<BrochureFormData>(initialFormData);
@@ -144,70 +146,63 @@ export default function VoorOrganisaties() {
         backgroundImage="/incompany-training-vrouw.png"
         backgroundImageAlt="incompany ontwikkeling training vrouw"
         backgroundPosition="center top"
-        title="Bedrijfstrajecten"
-        subtitle="Het Netwerk voor jonge vrouwelijke professionals"
+        title={cms?.hero_title || "Bedrijfstrajecten"}
+        subtitle={cms?.hero_subtitle || "Het Netwerk voor jonge vrouwelijke professionals"}
       />
 
       <section className="py-20 px-4 md:px-8 bg-white">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
-            Jaarprogramma voor jonge vrouwelijke professionals
+            {cms?.intro_heading || "Jaarprogramma voor jonge vrouwelijke professionals"}
           </h2>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            We begeleiden groepen jonge vrouwen een jaar lang met een combinatie
-            van 1-op-1 coaching, groepssessies, een dag workshop en een
-            weekend training (intensief). Zo bouwen zij rust, zelfvertrouwen en leiderschap op
-            dat direct impact heeft op werk en welzijn.
+            {cms?.intro_text || "We begeleiden groepen jonge vrouwen een jaar lang met een combinatie van 1-op-1 coaching, groepssessies, een dag workshop en een weekend training (intensief). Zo bouwen zij rust, zelfvertrouwen en leiderschap op dat direct impact heeft op werk en welzijn."}
           </p>
         </div>
       </section>
 
-      <FloatingBrandsSection title="talent uit deze organisaties ontwikkelde zich via YWW" />
+      <FloatingBrandsSection title={cms?.brands_heading || "talent uit deze organisaties ontwikkelde zich via YWW"} />
 
       <section className="min-h-screen py-20 px-4 md:px-8 bg-gray-50 flex items-center">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-light text-gray-900 text-center mb-12">
-            Wat zit er in het programma
+            {cms?.program_heading || "Wat zit er in het programma"}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
-                1-op-1 coaching
+                {cms?.program_1_title || "1-op-1 coaching"}
               </h3>
               <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                Persoonlijke begeleiding op thema's als energie, grenzen,
-                loopbaanrichting en persoonlijk leiderschap.
+                {cms?.program_1_text || "Persoonlijke begeleiding op thema's als energie, grenzen, loopbaanrichting en persoonlijk leiderschap."}
               </p>
             </div>
 
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
-                Groepssessies
+                {cms?.program_2_title || "Groepssessies"}
               </h3>
               <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                Interactieve sessies waarin deelnemers van elkaar leren, samen
-                reflecteren en eigenaarschap versterken.
+                {cms?.program_2_text || "Interactieve sessies waarin deelnemers van elkaar leren, samen reflecteren en eigenaarschap versterken."}
               </p>
             </div>
 
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
-                Dag workshop
+                {cms?.program_3_title || "Dag workshop"}
               </h3>
               <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                Een verdiepende dag buiten de dagelijkse werkcontext om focus,
-                rust en richting terug te pakken.
+                {cms?.program_3_text || "Een verdiepende dag buiten de dagelijkse werkcontext om focus, rust en richting terug te pakken."}
               </p>
             </div>
 
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
-                Weekend training (intensief)
+                {cms?.program_4_title || "Weekend training (intensief)"}
               </h3>
               <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                Een intensieve meerdaagse ervaring met ruimte voor reflectie,
-                gedragsverandering en duurzame borging van inzichten.
+                {cms?.program_4_text || "Een intensieve meerdaagse ervaring met ruimte voor reflectie, gedragsverandering en duurzame borging van inzichten."}
               </p>
             </div>
           </div>
@@ -217,16 +212,16 @@ export default function VoorOrganisaties() {
       <section className="py-14 px-4 md:px-8 bg-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
-            Interesse in een programma op maat?
+            {cms?.cta_heading || "Interesse in een programma op maat?"}
           </h2>
           <p className="text-lg text-gray-700 mb-8">
-            We stemmen inhoud, ritme en groepsgrootte af op jullie organisatie.
+            {cms?.cta_text || "We stemmen inhoud, ritme en groepsgrootte af op jullie organisatie."}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Dialog open={isKennismakingDialogOpen} onOpenChange={setIsKennismakingDialogOpen}>
               <DialogTrigger asChild>
                 <Button size="lg" className="bg-primary text-white hover:bg-accent hover:scale-105">
-                  Plan een kennismaking
+                  {cms?.cta_button_1 || "Plan een kennismaking"}
                 </Button>
               </DialogTrigger>
               <DialogContent className="max-w-xl border-0 bg-[#f7f3ea] p-0 shadow-2xl">
@@ -264,7 +259,7 @@ export default function VoorOrganisaties() {
             </Dialog>
             <Dialog open={isBrochureDialogOpen} onOpenChange={setIsBrochureDialogOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" variant="outline">Download brochure</Button>
+                <Button size="lg" variant="outline">{cms?.cta_button_2 || "Download brochure"}</Button>
               </DialogTrigger>
               <DialogContent className="max-w-5xl gap-0 overflow-hidden border-0 bg-[#f7f3ea] p-0 shadow-2xl">
                 <div className="grid max-h-[85vh] grid-cols-1 overflow-y-auto md:grid-cols-[1.08fr_0.92fr]">

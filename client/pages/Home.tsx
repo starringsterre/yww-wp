@@ -13,9 +13,11 @@ import GroeiScanSection from "@/components/GroeiScanSection";
 import PromoVideoSection from "@/components/PromoVideoSection";
 import { Flower, Zap, Heart, Hammer } from "lucide-react";
 import { useCoaches } from "@/hooks/useCoaches";
+import { usePageContent } from "@/hooks/usePageContent";
 
 export default function Home() {
   const { data: coaches } = useCoaches();
+  const { data: cms } = usePageContent("home");
   const videoUrl =
     "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
   return (
@@ -38,10 +40,10 @@ export default function Home() {
             className="text-5xl md:text-7xl font-light max-w-3xl"
             style={{ margin: "3px 0 16px" }}
           >
-            Young Wise Women
+            {cms?.hero_title || "Young Wise Women"}
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-200">
-            Het Netwerk voor jonge vrouwelijke professionals
+            {cms?.hero_subtitle || "Het Netwerk voor jonge vrouwelijke professionals"}
           </p>
         </div>
       </section>
@@ -50,17 +52,13 @@ export default function Home() {
       <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
-            Evenementen voor persoonlijke ontwikkeling
+            {cms?.atmosphere_heading || "Evenementen voor persoonlijke ontwikkeling"}
           </h2>
           <p
             className="text-center text-gray-600 mx-auto mb-12"
             style={{ maxWidth: "735px" }}
           >
-            Young Wise Women organiseert verschillende evenementen waarin jonge
-            professionals (24+) samenkomen voor persoonlijke groei. Van
-            meerdaagse retreats tot middagjes waar we verhalen en kennis
-            uitwisselen - allemaal onder begeleiding en met gelijkgestemden die
-            dezelfde waarden delen.
+            {cms?.atmosphere_text || "Young Wise Women organiseert verschillende evenementen waarin jonge professionals (24+) samenkomen voor persoonlijke groei. Van meerdaagse retreats tot middagjes waar we verhalen en kennis uitwisselen - allemaal onder begeleiding en met gelijkgestemden die dezelfde waarden delen."}
           </p>
 
           {/* Three Image Cards */}
@@ -98,7 +96,7 @@ export default function Home() {
               className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
               asChild
             >
-              <a href="/inspiratie/evenementen">Bekijk evenementen</a>
+              <a href="/inspiratie/evenementen">{cms?.atmosphere_cta || "Bekijk evenementen"}</a>
             </Button>
           </div>
         </div>
@@ -109,10 +107,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light text-white mb-4">
-              Wat Young Wise Women trajecten opleveren
+              {cms?.benefits_heading || "Wat Young Wise Women trajecten opleveren"}
             </ScrollFadeInUp>
             <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              Of je nu kiest voor een workshop of weekendtraining: je ontwikkelt inzichten en tools die direct doorwerken in je werk en dagelijks leven.
+              {cms?.benefits_intro || "Of je nu kiest voor een workshop of weekendtraining: je ontwikkelt inzichten en tools die direct doorwerken in je werk en dagelijks leven."}
             </p>
           </div>
 
@@ -129,11 +127,10 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Persoonlijke Groei
+                {cms?.benefit_1_title || "Persoonlijke Groei"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Of je nu net een zaadje plant of al als een stevige boom staat,
-                je maakt altijd een volgende stap in je ontwikkeling
+                {cms?.benefit_1_text || "Of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling"}
               </p>
             </div>
 
@@ -145,11 +142,10 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Eigen Wijsheid
+                {cms?.benefit_2_title || "Eigen Wijsheid"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt
-                jezelf en je innerlijke wijsheid volledig te omarmen
+                {cms?.benefit_2_text || "De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen"}
               </p>
             </div>
 
@@ -161,11 +157,10 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Energie & Motivatie
+                {cms?.benefit_3_title || "Energie & Motivatie"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Je voelt richting, duidelijkheid en de drive om in beweging te
-                komen
+                {cms?.benefit_3_text || "Je voelt richting, duidelijkheid en de drive om in beweging te komen"}
               </p>
             </div>
 
@@ -177,11 +172,10 @@ export default function Home() {
                 </div>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                Praktische Handvatten
+                {cms?.benefit_4_title || "Praktische Handvatten"}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">
-                Nieuwe, praktische tools die je direct kunt toepassen in je
-                leven en carrière
+                {cms?.benefit_4_text || "Nieuwe, praktische tools die je direct kunt toepassen in je leven en carrière"}
               </p>
             </div>
           </StaggerChildren>
@@ -209,18 +203,17 @@ export default function Home() {
             </div>
             <div>
               <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-                Weekend trainingen & Dag workshops
+                {cms?.trainingen_heading || "Weekend trainingen & Dag workshops"}
               </h2>
               <p className="text-gray-700 mb-6">
-                Kies de vorm die past bij jouw ontwikkelvraag: verdieping in een weekend
-                of direct toepasbare tools in een dagworkshop.
+                {cms?.trainingen_text || "Kies de vorm die past bij jouw ontwikkelvraag: verdieping in een weekend of direct toepasbare tools in een dagworkshop."}
               </p>
               <Button
                 size="lg"
                 className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
                 asChild
               >
-                <a href="/groepstrainingen">Meer over persoonlijke ontwikkeling</a>
+                <a href="/groepstrainingen">{cms?.trainingen_cta || "Meer over persoonlijke ontwikkeling"}</a>
               </Button>
             </div>
           </div>
@@ -236,11 +229,10 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
-              Onze Coaches
+              {cms?.coaches_heading || "Onze Coaches"}
             </ScrollFadeInUp>
             <p className="text-gray-600">
-              Ervaren en inspirerende trainers met jaren van praktijk en
-              begeleiding
+              {cms?.coaches_intro || "Ervaren en inspirerende trainers met jaren van praktijk en begeleiding"}
             </p>
           </div>
 
@@ -248,12 +240,7 @@ export default function Home() {
             className="mx-auto text-center text-gray-700 mb-12"
             style={{ maxWidth: "817px" }}
           >
-            Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig
-            inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis,
-            warmte en betrokkenheid creëren zij een veilige ruimte waarin jij
-            jezelf volledig mag zijn. Onder hun begeleiding ontdek je je
-            innerlijke wijsheid en krijg je praktische tools mee voor je leven
-            na het retreat.
+            {cms?.coaches_text || "Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat."}
           </p>
 
           <div className="mb-10 text-center">
@@ -262,7 +249,7 @@ export default function Home() {
               className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
               asChild
             >
-              <a href="/ons-verhaal">Lees ons unieke verhaal</a>
+              <a href="/ons-verhaal">{cms?.coaches_cta || "Lees ons unieke verhaal"}</a>
             </Button>
           </div>
 
@@ -277,7 +264,7 @@ export default function Home() {
       >
         <div className="w-full max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-light text-center text-white mb-8">
-            Volgende weekend intensive editie: 24-26 juni 2026
+            {cms?.next_retreat_heading || "Volgende weekend intensive editie: 24-26 juni 2026"}
           </h2>
 
           <ScrollFadeInUp className="rounded-lg max-w-4xl mx-auto">
@@ -285,14 +272,13 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
                 <h3 className="text-xl font-medium text-gray-900 mb-4">
-                  Weekend training (intensief)
+                  {cms?.next_retreat_date_text || "Weekend training (intensief)"}
                 </h3>
                 <p className="text-gray-700 mb-3">
-                  Ervaar rust en ruimte op een prachtige locatie in de natuur,
-                  samen met gelijkgestemde jonge professionals (24-29).
+                  {cms?.next_retreat_description || "Ervaar rust en ruimte op een prachtige locatie in de natuur, samen met gelijkgestemde jonge professionals (24-29)."}
                 </p>
                 <p className="text-sm text-gray-600 font-medium">
-                  Vrijdag 17:30 uur - Zondag 17:00 uur
+                  {cms?.next_retreat_time || "Vrijdag 17:30 uur - Zondag 17:00 uur"}
                 </p>
               </div>
 
@@ -301,23 +287,32 @@ export default function Home() {
                   Wat is Inbegrepen
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li>✓ Intake met coach</li>
-                  <li>
-                    <p>
-                      <span style={{ fontSize: "14px" }}>✓</span>{" "}
-                      Motivation Factor test (€145 waarde)
-                    </p>
-                  </li>
-                  <li>✓ Professionele begeleiding van twee coaches</li>
-                  <li>✓ Ademsessie (breathwork) met Chris Rauwendaal</li>
-                  <li>✓ Yogalessen</li>
-                  <li>✓ 2 nachten accommodatie</li>
-                  <li>
-                    <p>✓ Alle maaltijden en dranken</p>
-                  </li>
-                  <li>
-                    <p>✓ Werkboek en praktische tools</p>
-                  </li>
+                  {cms?.inclusions
+                    ? cms.inclusions.split("\n").filter(Boolean).map((item: string, i: number) => (
+                        <li key={i}>✓ {item.replace(/^✓\s*/, "")}</li>
+                      ))
+                    : (
+                      <>
+                        <li>✓ Intake met coach</li>
+                        <li>
+                          <p>
+                            <span style={{ fontSize: "14px" }}>✓</span>{" "}
+                            Motivation Factor test (€145 waarde)
+                          </p>
+                        </li>
+                        <li>✓ Professionele begeleiding van twee coaches</li>
+                        <li>✓ Ademsessie (breathwork) met Chris Rauwendaal</li>
+                        <li>✓ Yogalessen</li>
+                        <li>✓ 2 nachten accommodatie</li>
+                        <li>
+                          <p>✓ Alle maaltijden en dranken</p>
+                        </li>
+                        <li>
+                          <p>✓ Werkboek en praktische tools</p>
+                        </li>
+                      </>
+                    )
+                  }
                 </ul>
               </div>
             </div>
@@ -326,27 +321,26 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 auto-rows-fr">
                 <div className="flex flex-col">
                   <h3 className="font-medium text-gray-900 mb-4">
-                    Investering in jezelf
+                    {cms?.investment_heading || "Investering in jezelf"}
                   </h3>
                   <div
                     className="bg-gray-50 rounded-lg flex-1 transition-transform duration-300 hover:scale-105"
                     style={{ padding: "24px 24px 54px", marginBottom: "-2px" }}
                   >
                     <p className="text-4xl font-bold text-primary mb-2">
-                      €1450
+                      {cms?.investment_price || "€1450"}
                     </p>
                     <p className="text-xs text-gray-600 mb-4">excl. BTW</p>
                     <p className="text-xs text-gray-600 italic">
                       <br />
-                      Vergoed uit het opleidingstarief van je werkgever.
-                      Boek de training via het portaal.
+                      {cms?.investment_note || "Vergoed uit het opleidingstarief van je werkgever. Boek de training via het portaal."}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex flex-col">
                   <h3 className="font-medium text-gray-900 mb-4">
-                    Wat er jou oplevert
+                    {cms?.results_heading || "Wat er jou oplevert"}
                   </h3>
                   <div className="bg-gray-50 p-6 rounded-lg flex-1 transition-transform duration-300 hover:scale-105">
                     <ul className="space-y-4 text-sm">
@@ -357,10 +351,7 @@ export default function Home() {
                           style={{ color: "#6B705C" }}
                         />
                         <span>
-                          <span className="font-medium">
-                            Persoonlijke groei
-                          </span>{" "}
-                          – een volgende stap in je ontwikkeling
+                          {cms?.result_1 || <><span className="font-medium">Persoonlijke groei</span>{" "}– een volgende stap in je ontwikkeling</>}
                         </span>
                       </li>
                       <li className="text-gray-700 flex items-start gap-3">
@@ -370,8 +361,7 @@ export default function Home() {
                           style={{ color: "#6B705C" }}
                         />
                         <span>
-                          <span className="font-medium">Eigen wijsheid</span> –
-                          je wordt uitgedaagd jezelf volledig te omarmen
+                          {cms?.result_2 || <><span className="font-medium">Eigen wijsheid</span>{" "}– je wordt uitgedaagd jezelf volledig te omarmen</>}
                         </span>
                       </li>
                       <li className="text-gray-700 flex items-start gap-3">
@@ -381,11 +371,7 @@ export default function Home() {
                           style={{ color: "#6B705C" }}
                         />
                         <span>
-                          <span className="font-medium">
-                            Nieuwe energie & praktische tools
-                          </span>{" "}
-                          – helderheid, richting en de drive om in beweging te
-                          komen
+                          {cms?.result_3 || <><span className="font-medium">Nieuwe energie & praktische tools</span>{" "}– helderheid, richting en de drive om in beweging te komen</>}
                         </span>
                       </li>
                     </ul>
@@ -418,18 +404,17 @@ export default function Home() {
       >
         <div className="max-w-4xl mx-auto text-center text-white">
           <h2 className="text-4xl md:text-6xl font-light mb-4">
-            Bedrijfstrajecten
+            {cms?.bedrijf_heading || "Bedrijfstrajecten"}
           </h2>
           <p className="text-lg md:text-xl text-gray-100 mb-8">
-            Voor organisaties die jonge vrouwelijke professionals gericht willen
-            laten groeien in leiderschap, energie en eigenaarschap.
+            {cms?.bedrijf_text || "Voor organisaties die jonge vrouwelijke professionals gericht willen laten groeien in leiderschap, energie en eigenaarschap."}
           </p>
           <Button
             size="lg"
             className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
             asChild
           >
-            <a href="/in-company">Bekijk bedrijfstrajecten</a>
+            <a href="/in-company">{cms?.bedrijf_cta || "Bekijk bedrijfstrajecten"}</a>
           </Button>
         </div>
       </section>

@@ -5,8 +5,10 @@ import FloatingBrandsSection from "@/components/FloatingBrandsSection";
 import HeroSection from "@/components/HeroSection";
 import PromoVideoSection from "@/components/PromoVideoSection";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
+import { usePageContent } from "@/hooks/usePageContent";
 
 export default function LidWorden() {
+  const { data: cms } = usePageContent("lid-worden");
   const [formData, setFormData] = useState({
     naam: "",
     telefoonnummer: "",
@@ -17,20 +19,20 @@ export default function LidWorden() {
 
   const benefits = [
     {
-      title: "Verhalen Delen",
-      description: "Deel je persoonlijke verhalen en ervaringen met gelijkgestemde vrouwen in een veilige omgeving.",
+      title: cms?.benefit_1_title || "Verhalen Delen",
+      description: cms?.benefit_1_text || "Deel je persoonlijke verhalen en ervaringen met gelijkgestemde vrouwen in een veilige omgeving.",
     },
     {
-      title: "Samen Samenkomen",
-      description: "Ontmoet andere vrouwen in het Netwerk op regelmatige bijeenkomsten en events.",
+      title: cms?.benefit_2_title || "Samen Samenkomen",
+      description: cms?.benefit_2_text || "Ontmoet andere vrouwen in het Netwerk op regelmatige bijeenkomsten en events.",
     },
     {
-      title: "Samen Dingen Organiseren",
-      description: "Werk samen met andere leden aan activiteiten, workshops en projecten.",
+      title: cms?.benefit_3_title || "Samen Dingen Organiseren",
+      description: cms?.benefit_3_text || "Werk samen met andere leden aan activiteiten, workshops en projecten.",
     },
     {
-      title: "Steun en Verbinding",
-      description: "Maak deel uit van een ondersteunende gemeenschap waar je jezelf kunt zijn.",
+      title: cms?.benefit_4_title || "Steun en Verbinding",
+      description: cms?.benefit_4_text || "Maak deel uit van een ondersteunende gemeenschap waar je jezelf kunt zijn.",
     },
   ];
 
@@ -92,18 +94,18 @@ export default function LidWorden() {
       {/* Hero */}
       <HeroSection
         backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F86170904cb9547f4ad68517ede94266e?format=webp&width=2000"
-        title="Lid worden van het Young Wise Women Netwerk"
-        subtitle="Sluit je aan bij een groep young professionals die elkaar ondersteunen, inspireren en samen groeien. Lidmaatschap is gratis."
+        title={cms?.hero_title || "Lid worden van het Young Wise Women Netwerk"}
+        subtitle={cms?.hero_subtitle || "Sluit je aan bij een groep young professionals die elkaar ondersteunen, inspireren en samen groeien. Lidmaatschap is gratis."}
       />
 
       {/* Benefits Section */}
       <section className="min-h-screen pt-20 pb-20 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-light text-gray-900 mb-4 text-center">
-            Voordelen van Lidmaatschap
+            {cms?.benefits_heading || "Voordelen van Lidmaatschap"}
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-            Het Young Wise Women Netwerk is een plek waar je jezelf volledig kunt uiten en groeien. Deelname is volledig gratis.
+            {cms?.benefits_intro || "Het Young Wise Women Netwerk is een plek waar je jezelf volledig kunt uiten en groeien. Deelname is volledig gratis."}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -139,16 +141,16 @@ export default function LidWorden() {
       <section className="py-14 px-4 md:px-8" style={{ backgroundColor: "#FBF9F5" }}>
         <div className="max-w-2xl mx-auto">
           <h2 className="text-4xl font-light text-gray-900 mb-4 text-center">
-            Schrijf je in
+            {cms?.form_heading || "Schrijf je in"}
           </h2>
           <p className="text-center text-gray-600 mb-12">
-            Vul het formulier in en sluit je aan! Het lidmaatschap is gratis.
+            {cms?.form_text || "Vul het formulier in en sluit je aan! Het lidmaatschap is gratis."}
           </p>
 
           {submitted && (
             <div className="mb-8 p-6 rounded-lg border border-green-200 bg-green-50">
               <p className="text-green-800 text-center font-medium">
-                ✓ Bedankt! We ontvangen je inschrijving en sturen je binnenkort meer informatie.
+                {cms?.form_success || "✓ Bedankt! We ontvangen je inschrijving en sturen je binnenkort meer informatie."}
               </p>
             </div>
           )}
@@ -220,12 +222,12 @@ export default function LidWorden() {
               size="lg"
               className="w-full py-3 text-base bg-primary text-white hover:bg-accent hover:scale-105"
             >
-              Ik word gratis lid van het Netwerk
+              {cms?.form_button || "Ik word gratis lid van het Netwerk"}
             </Button>
 
             {/* Note */}
             <p className="text-xs text-gray-600 text-center mt-6">
-              We respecteren je privacy. Je gegevens worden alleen gebruikt om je in aanraking te brengen met het Young Wise Women Netwerk.
+              {cms?.form_privacy || "We respecteren je privacy. Je gegevens worden alleen gebruikt om je in aanraking te brengen met het Young Wise Women Netwerk."}
             </p>
           </form>
         </div>

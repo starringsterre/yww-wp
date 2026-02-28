@@ -52,7 +52,7 @@ create_blog() {
 
 # ─── Delete existing content ───
 echo "Cleaning existing content..."
-for type in yww_coach yww_testimonial yww_event yww_podcast yww_blog; do
+for type in yww_coach yww_testimonial yww_event yww_podcast yww_blog yww_workshop yww_faq page; do
   $WP post delete $($WP post list --post_type=$type --format=ids 2>/dev/null) --force 2>/dev/null || true
 done
 
@@ -233,6 +233,127 @@ create_post yww_event "Groep weekend training oktober" \
   yww_event_start_date "2026-10-16T17:30:00.000Z" \
   yww_event_end_date "2026-10-18T16:00:00.000Z" \
   yww_event_description "Vervolgweekend met verdieping, integratie en praktische tools voor je volgende stap."
+
+# ─── PAGES ───
+echo "Seeding pages..."
+
+$WP post create --post_type=page --post_title="Home" --post_name="home" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Home"
+
+$WP post create --post_type=page --post_title="Weekenden" --post_name="weekenden" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Weekenden"
+
+$WP post create --post_type=page --post_title="Weekend Intensive" --post_name="weekend-intensive" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Weekend Intensive"
+
+$WP post create --post_type=page --post_title="Workshops" --post_name="workshops" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Workshops"
+
+$WP post create --post_type=page --post_title="Ons Verhaal" --post_name="ons-verhaal" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Ons Verhaal"
+
+$WP post create --post_type=page --post_title="Contact" --post_name="contact" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Contact"
+
+$WP post create --post_type=page --post_title="Voor Organisaties" --post_name="voor-organisaties" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Voor Organisaties"
+
+$WP post create --post_type=page --post_title="Kalender" --post_name="kalender" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Kalender"
+
+$WP post create --post_type=page --post_title="Lid Worden" --post_name="lid-worden" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Lid Worden"
+
+$WP post create --post_type=page --post_title="Retreats" --post_name="retreats" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Retreats"
+
+$WP post create --post_type=page --post_title="Losse Workshops" --post_name="losse-workshops" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Losse Workshops"
+
+$WP post create --post_type=page --post_title="Jaarprogrammas" --post_name="jaarprogrammas" --post_status=publish --porcelain 2>/dev/null
+echo "  ✓ Jaarprogrammas"
+
+# ─── WORKSHOPS ───
+echo "Seeding workshops..."
+
+create_post yww_workshop "Female leadership workshop" \
+  yww_workshop_subtitle "Leidinggeven vanuit authenticiteit" \
+  yww_workshop_next_date "20 maart 2026" \
+  yww_workshop_from_price "EUR 245" \
+  yww_workshop_duration "09:30 - 17:00" \
+  yww_workshop_location "Castricum" \
+  yww_workshop_audience "Jonge vrouwelijke professionals (24+)" \
+  yww_workshop_order "1"
+
+create_post yww_workshop "Workshop vitaliteit" \
+  yww_workshop_subtitle "Energie en balans vinden" \
+  yww_workshop_next_date "15 april 2026" \
+  yww_workshop_from_price "EUR 215" \
+  yww_workshop_duration "09:30 - 17:00" \
+  yww_workshop_location "Amsterdam" \
+  yww_workshop_audience "Jonge vrouwelijke professionals (24+)" \
+  yww_workshop_order "2"
+
+create_post yww_workshop "Workshop mentale weerbaarheid" \
+  yww_workshop_subtitle "Sterker omgaan met stress en druk" \
+  yww_workshop_next_date "10 mei 2026" \
+  yww_workshop_from_price "EUR 225" \
+  yww_workshop_duration "09:30 - 17:00" \
+  yww_workshop_location "Utrecht" \
+  yww_workshop_audience "Jonge vrouwelijke professionals (24+)" \
+  yww_workshop_order "3"
+
+create_post yww_workshop "Workshop persoonlijke effectiviteit" \
+  yww_workshop_subtitle "Focus en doelgerichtheid vergroten" \
+  yww_workshop_next_date "7 juni 2026" \
+  yww_workshop_from_price "EUR 235" \
+  yww_workshop_duration "09:30 - 17:00" \
+  yww_workshop_location "Rotterdam" \
+  yww_workshop_audience "Jonge vrouwelijke professionals (24+)" \
+  yww_workshop_order "4"
+
+# ─── FAQ ───
+echo "Seeding FAQ items..."
+
+create_post yww_faq "Kan ik de training vergoed krijgen via mijn werkgever?" \
+  yww_faq_answer "Ja, de training is vergoed via het opleidingsbudget van je werkgever. Vraag naar de mogelijkheden bij je HR-afdeling." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "1"
+
+create_post yww_faq "Voor wie is dit weekend bedoeld?" \
+  yww_faq_answer "Dit weekend is speciaal ontworpen voor jonge vrouwen tussen de 24 en 35 jaar die willen groeien en zich verder willen ontwikkelen." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "2"
+
+create_post yww_faq "Wat als ik nog nooit zoiets heb gedaan?" \
+  yww_faq_answer "Geen ervaring nodig! Dit weekend is perfect voor iedereen, ongeacht of je wel of niet eerder aan retreats hebt deelgenomen." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "3"
+
+create_post yww_faq "Hoeveel deelneemsters zijn er per weekend?" \
+  yww_faq_answer "We werken met groepen van maximaal 15-20 vrouwen om een intieme en veilige omgeving te creëren." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "4"
+
+create_post yww_faq "Waar vindt het weekend plaats?" \
+  yww_faq_answer "Onze weekenden vinden plaats op mooie, rustieke locaties in Nederland, meestal in de buurt van Friesland of Noord-Holland." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "5"
+
+create_post yww_faq "Wat is inbegrepen bij de prijs?" \
+  yww_faq_answer "De prijs omvat accommodatie, alle maaltijden, training en materialen. Alleen je aankomst/vertrek is niet inbegrepen." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "6"
+
+create_post yww_faq "Is er een terugkomdag?" \
+  yww_faq_answer "Ja, we organiseren regelmatig terukomdag in kleine groepen zodat je jouw ervaringen kunt delen en verder kunt groeien." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "7"
+
+create_post yww_faq "Kan ik annuleren?" \
+  yww_faq_answer "Ja, annuleringen kunnen tot 4 weken voor het weekend plaatsvinden met volledige restitutie van je betaling." \
+  yww_faq_page "weekend-intensive" \
+  yww_faq_order "8"
 
 # ─── OPTIONS ───
 echo "Seeding global options..."

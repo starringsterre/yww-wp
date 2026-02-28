@@ -9,6 +9,9 @@ import type {
   WPPodcast,
   WPBlog,
   WPGlobalOptions,
+  WPPageContent,
+  WPWorkshop,
+  WPFAQ,
 } from "./wp-types";
 
 const WP_API_URL =
@@ -44,4 +47,19 @@ export async function fetchBlogs(): Promise<WPBlog[]> {
 
 export async function fetchGlobalOptions(): Promise<WPGlobalOptions> {
   return wpFetch<WPGlobalOptions>("options");
+}
+
+export async function fetchPageContent(
+  slug: string,
+): Promise<WPPageContent> {
+  return wpFetch<WPPageContent>(`pages/${slug}`);
+}
+
+export async function fetchWorkshops(): Promise<WPWorkshop[]> {
+  return wpFetch<WPWorkshop[]>("workshops");
+}
+
+export async function fetchFAQs(pageSlug?: string): Promise<WPFAQ[]> {
+  const params = pageSlug ? `?page=${pageSlug}` : "";
+  return wpFetch<WPFAQ[]>(`faqs${params}`);
 }

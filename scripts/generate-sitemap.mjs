@@ -7,27 +7,11 @@
 import { writeFileSync, mkdirSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { SITEMAP_ROUTES } from "../shared/page-registry.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const BASE_URL = "https://youngwisewomen.nl";
 const WP_API_URL = process.env.VITE_WP_API_URL || "http://localhost:8081/wp-json";
-
-const staticRoutes = [
-  { path: "/", priority: 1.0, changefreq: "weekly" },
-  { path: "/inspiratie/blogs", priority: 0.9, changefreq: "weekly" },
-  { path: "/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026", priority: 0.8, changefreq: "weekly" },
-  { path: "/persoonlijke-ontwikkeling-weekend-training", priority: 0.8, changefreq: "monthly" },
-  { path: "/groepstrainingen", priority: 0.7, changefreq: "monthly" },
-  { path: "/groepstrainingen/ontwikkeling-workshops", priority: 0.7, changefreq: "monthly" },
-  { path: "/in-company", priority: 0.6, changefreq: "monthly" },
-  { path: "/in-company/jaarprogrammas", priority: 0.6, changefreq: "monthly" },
-  { path: "/in-company/losse-workshops", priority: 0.6, changefreq: "monthly" },
-  { path: "/inspiratie", priority: 0.5, changefreq: "monthly" },
-  { path: "/inspiratie/evenementen", priority: 0.5, changefreq: "weekly" },
-  { path: "/inspiratie/podcasts", priority: 0.5, changefreq: "monthly" },
-  { path: "/ons-verhaal", priority: 0.5, changefreq: "monthly" },
-  { path: "/lid-worden", priority: 0.5, changefreq: "monthly" },
-];
 
 async function fetchBlogSlugs() {
   try {
@@ -66,7 +50,7 @@ ${urls}
 
 async function main() {
   const blogRoutes = await fetchBlogSlugs();
-  const allRoutes = [...staticRoutes, ...blogRoutes];
+  const allRoutes = [...SITEMAP_ROUTES, ...blogRoutes];
   const xml = buildSitemapXml(allRoutes);
 
   // Write to dist/spa/ (for production build)

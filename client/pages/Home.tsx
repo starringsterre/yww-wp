@@ -258,7 +258,9 @@ export default function Home() {
             {cms?.coaches_text || "Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat."}
           </p>
 
-          <div className="mb-10 text-center">
+          <CoachCardsGrid coaches={coaches ?? []} />
+
+          <div className="mt-10 text-center">
             <Button
               size="lg"
               className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
@@ -267,8 +269,6 @@ export default function Home() {
               <a href="/ons-verhaal">{cms?.coaches_cta || "Lees ons unieke verhaal"}</a>
             </Button>
           </div>
-
-          <CoachCardsGrid coaches={coaches ?? []} />
         </div>
       </section>
 

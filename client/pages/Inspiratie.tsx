@@ -1,12 +1,18 @@
 import HeroSection from "@/components/HeroSection";
 import InspirationCardsGrid from "@/components/InspirationCardsGrid";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Inspiratie() {
   const { data: cms } = usePageContent("inspiratie");
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Inspiratie | Young Wise Women"
+        description="Verhalen, inzichten en gesprekken die je helpen groeien in werk en leven. Ontdek blogs, podcasts en evenementen."
+        path="/inspiratie"
+      />
       <HeroSection
         backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/1825206/pexels-photo-1825206.jpeg"}
         title={cms?.hero_title || "Inspiratie"}

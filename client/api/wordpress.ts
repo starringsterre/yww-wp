@@ -63,3 +63,19 @@ export async function fetchFAQs(pageSlug?: string): Promise<WPFAQ[]> {
   const params = pageSlug ? `?page=${pageSlug}` : "";
   return wpFetch<WPFAQ[]>(`faqs${params}`);
 }
+
+export interface WPSEOData {
+  title: string;
+  description: string;
+  canonical: string;
+  og_title: string;
+  og_description: string;
+  og_image: string;
+  og_type: string;
+  schema: Record<string, unknown> | null;
+  robots: string;
+}
+
+export async function fetchSEO(slug: string): Promise<WPSEOData> {
+  return wpFetch<WPSEOData>(`seo/${slug}`);
+}

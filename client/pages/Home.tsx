@@ -14,6 +14,7 @@ import PromoVideoSection from "@/components/PromoVideoSection";
 import { Flower, Zap, Heart, Hammer } from "lucide-react";
 import { useCoaches } from "@/hooks/useCoaches";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Home() {
   const { data: coaches } = useCoaches();
@@ -22,6 +23,20 @@ export default function Home() {
     cms?.hero_video_url || "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
   return (
     <div className="w-full">
+      <SEOHead
+        title="Young Wise Women | Persoonlijke Ontwikkeling voor Jonge Vrouwen"
+        description="Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren. Ontdek trainingen, weekenden en workshops voor persoonlijke groei."
+        path="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Young Wise Women",
+          url: "https://youngwisewomen.nl",
+          logo: "https://youngwisewomen.nl/Logo-Young-Wise-Women.png",
+          description: "Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren.",
+          email: "info@youngwisewomen.nl",
+        }}
+      />
       {/* Hero Video Section */}
       <section className="relative w-full h-screen min-h-screen bg-black overflow-hidden" style={{ marginTop: "0" }}>
         <video

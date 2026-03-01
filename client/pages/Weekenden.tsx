@@ -7,91 +7,13 @@ import PromoVideoSection from "@/components/PromoVideoSection";
 import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Weekenden() {
   const { data: cms } = usePageContent("weekenden");
   const [modalOpen, setModalOpen] = useState(false);
   const [modalSlideIndex, setModalSlideIndex] = useState(0);
   const [workshopsPerView, setWorkshopsPerView] = useState(3);
-
-  useEffect(() => {
-    const pageTitle = "Weekend Training voor Jonge Vrouwen | Young Wise Women";
-    const pageDescription =
-      "Meerdaagse weekend training in Friesland voor jonge professional vrouwen. Werk aan rust, richting en duurzame persoonlijke groei met 2 coaches.";
-    const canonicalPath = "/persoonlijke-ontwikkeling-weekend-training";
-
-    document.title = pageTitle;
-    document.documentElement.lang = "nl";
-
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.setAttribute("name", "description");
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.setAttribute("content", pageDescription);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", `${window.location.origin}${canonicalPath}`);
-
-    const scriptId = "weekend-training-event-jsonld";
-    const existingScript = document.getElementById(scriptId);
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const jsonLdScript = document.createElement("script");
-    jsonLdScript.id = scriptId;
-    jsonLdScript.type = "application/ld+json";
-    jsonLdScript.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Event",
-      name: "Weekend Training Young Wise Women",
-      description:
-        "Weekend training voor jonge professional vrouwen met coaching, reflectie en praktische tools.",
-      startDate: "2026-06-24T17:30:00+02:00",
-      endDate: "2026-06-26T16:00:00+02:00",
-      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      eventStatus: "https://schema.org/EventScheduled",
-      image: [
-        "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1600",
-      ],
-      location: {
-        "@type": "Place",
-        name: "Weekendlocatie Young Wise Women",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Friesland",
-          addressCountry: "NL",
-        },
-      },
-      organizer: {
-        "@type": "Organization",
-        name: "Young Wise Women",
-        url: window.location.origin,
-      },
-      offers: {
-        "@type": "Offer",
-        priceCurrency: "EUR",
-        price: "895",
-        availability: "https://schema.org/InStock",
-        url: `${window.location.origin}${canonicalPath}`,
-      },
-    });
-    document.head.appendChild(jsonLdScript);
-
-    return () => {
-      const scriptToRemove = document.getElementById(scriptId);
-      if (scriptToRemove) {
-        scriptToRemove.remove();
-      }
-    };
-  }, []);
 
   const defaultGridImages = [
     "https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=4000",
@@ -171,6 +93,25 @@ export default function Weekenden() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Weekend Training voor Jonge Vrouwen | Young Wise Women"
+        description="Meerdaagse weekend training in Friesland voor jonge professional vrouwen. Werk aan rust, richting en duurzame persoonlijke groei met 2 coaches."
+        path="/persoonlijke-ontwikkeling-weekend-training"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: "Weekend Training Young Wise Women",
+          description: "Weekend training voor jonge professional vrouwen met coaching, reflectie en praktische tools.",
+          startDate: "2026-06-24T17:30:00+02:00",
+          endDate: "2026-06-26T16:00:00+02:00",
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          eventStatus: "https://schema.org/EventScheduled",
+          image: ["https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F25e2fbcf9b2d4e6e939dee29a85f190a?format=webp&width=1600"],
+          location: { "@type": "Place", name: "Weekendlocatie Young Wise Women", address: { "@type": "PostalAddress", addressLocality: "Friesland", addressCountry: "NL" } },
+          organizer: { "@type": "Organization", name: "Young Wise Women", url: "https://youngwisewomen.nl" },
+          offers: { "@type": "Offer", priceCurrency: "EUR", price: "895", availability: "https://schema.org/InStock", url: "https://youngwisewomen.nl/persoonlijke-ontwikkeling-weekend-training" },
+        }}
+      />
       <HeroSection
         backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
         headingTag="h2"

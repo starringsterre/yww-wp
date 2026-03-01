@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -142,6 +143,11 @@ export default function VoorOrganisaties() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="In-Company Trainingen | Young Wise Women"
+        description="Op maat gemaakte trainingen en workshops voor organisaties. Investeer in de ontwikkeling van jonge vrouwelijke professionals."
+        path="/in-company"
+      />
       <HeroSection
         backgroundImage={cms?.hero_image || "/incompany-training-vrouw.png"}
         backgroundImageAlt="incompany ontwikkeling training vrouw"

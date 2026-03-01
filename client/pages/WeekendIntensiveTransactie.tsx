@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users, BedDouble, CheckCircle2, Mail } from "lucide-react";
 import { usePageContent } from "@/hooks/usePageContent";
 import { useFAQs } from "@/hooks/useFAQs";
+import SEOHead from "@/components/SEOHead";
 
 const EMPLOYER_PRICE = 1450;
 const DUO_PER_PERSON_PRICE = EMPLOYER_PRICE * 0.9;
@@ -63,26 +64,6 @@ type PackageKey =
   | "Particulier solo reis"
   | "Samen met een vriendin/collega* (kamer delen)"
   | "Betaald vanuit werkgever (factuur)";
-
-function upsertMetaByName(name: string, content: string) {
-  let tag = document.querySelector(`meta[name="${name}"]`);
-  if (!tag) {
-    tag = document.createElement("meta");
-    tag.setAttribute("name", name);
-    document.head.appendChild(tag);
-  }
-  tag.setAttribute("content", content);
-}
-
-function upsertMetaByProperty(property: string, content: string) {
-  let tag = document.querySelector(`meta[property="${property}"]`);
-  if (!tag) {
-    tag = document.createElement("meta");
-    tag.setAttribute("property", property);
-    document.head.appendChild(tag);
-  }
-  tag.setAttribute("content", content);
-}
 
 export default function WeekendIntensiveTransactie() {
   const { data: cms } = usePageContent("weekend-intensive");
@@ -245,123 +226,22 @@ export default function WeekendIntensiveTransactie() {
     }
   };
 
-  useEffect(() => {
-    const pageTitle = "Persoonlijke ontwikkeling training voor vrouwen | Young Wise Women";
-    const pageDescription =
-      "Weekend training voor vrouwen (24–29) die willen groeien in rust en leiderschap. Vergoeding via werkgever mogelijk. Boek je plek.";
-    const absoluteUrl = `${window.location.origin}${PAGE_PATH}`;
-    const ogImage = `${window.location.origin}${DEFAULT_HERO_IMAGE}`;
-
-    document.title = pageTitle;
-    document.documentElement.lang = "nl";
-
-    upsertMetaByName("description", pageDescription);
-    upsertMetaByProperty("og:title", pageTitle);
-    upsertMetaByProperty("og:description", pageDescription);
-    upsertMetaByProperty("og:type", "website");
-    upsertMetaByProperty("og:url", absoluteUrl);
-    upsertMetaByProperty("og:image", ogImage);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", absoluteUrl);
-
-    const scriptId = "weekend-intensive-transaction-jsonld";
-    const existingScript = document.getElementById(scriptId);
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const jsonLdScript = document.createElement("script");
-    jsonLdScript.id = scriptId;
-    jsonLdScript.type = "application/ld+json";
-    jsonLdScript.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": `${window.location.origin}#organization`,
-          name: "Young Wise Women",
-          url: window.location.origin,
-          logo: `${window.location.origin}/Logo-Young-Wise-Women.png`,
-          email: "info@youngwisewomen.nl",
-        },
-        {
-          "@type": "Event",
-          "@id": `${absoluteUrl}#event`,
-          name: "Persoonlijke Ontwikkeling Training voor Vrouwen - Weekend Intensive juni 2026",
-          description:
-            "Persoonlijke ontwikkeling training voor vrouwen in Nederland met focus op rust, richting en leiderschap.",
-          startDate: "2026-06-24T17:30:00+02:00",
-          endDate: "2026-06-26T16:00:00+02:00",
-          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-          eventStatus: "https://schema.org/EventScheduled",
-          image: [ogImage],
-          location: {
-            "@type": "Place",
-            name: "Oudega, Friesland",
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: "Oudega",
-              addressRegion: "Friesland",
-              addressCountry: "NL",
-            },
-          },
-          organizer: {
-            "@id": `${window.location.origin}#organization`,
-          },
-          maximumAttendeeCapacity: 8,
-          offers: [
-            {
-              "@type": "Offer",
-              name: "Samen met een vriendin/collega* (kamer delen)",
-              price: String(DUO_PRICE),
-              priceCurrency: "EUR",
-              availability: "https://schema.org/LimitedAvailability",
-              validFrom: "2026-02-21",
-              url: absoluteUrl,
-            },
-            {
-              "@type": "Offer",
-              name: "Betaald vanuit werkgever (factuur)",
-              price: String(EMPLOYER_PRICE),
-              priceCurrency: "EUR",
-              availability: "https://schema.org/LimitedAvailability",
-              validFrom: "2026-02-21",
-              url: absoluteUrl,
-            },
-          ],
-        },
-        {
-          "@type": "FAQPage",
-          "@id": `${absoluteUrl}#faq`,
-          mainEntity: faqItems.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        },
-      ],
-    });
-    document.head.appendChild(jsonLdScript);
-
-    return () => {
-      const scriptToRemove = document.getElementById(scriptId);
-      if (scriptToRemove) {
-        scriptToRemove.remove();
-      }
-    };
-  }, []);
-
   return (
     <div className="w-full bg-[#FBF9F5]">
+      <SEOHead
+        title="Persoonlijke ontwikkeling training voor vrouwen | Young Wise Women"
+        description="Weekend training voor vrouwen (24–29) die willen groeien in rust en leiderschap. Vergoeding via werkgever mogelijk. Boek je plek."
+        path={PAGE_PATH}
+        ogImage={`https://youngwisewomen.nl${DEFAULT_HERO_IMAGE}`}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Organization", "@id": "https://youngwisewomen.nl#organization", name: "Young Wise Women", url: "https://youngwisewomen.nl", logo: "https://youngwisewomen.nl/Logo-Young-Wise-Women.png", email: "info@youngwisewomen.nl" },
+            { "@type": "Event", "@id": `https://youngwisewomen.nl${PAGE_PATH}#event`, name: "Persoonlijke Ontwikkeling Training voor Vrouwen - Weekend Intensive juni 2026", description: "Persoonlijke ontwikkeling training voor vrouwen in Nederland met focus op rust, richting en leiderschap.", startDate: "2026-06-24T17:30:00+02:00", endDate: "2026-06-26T16:00:00+02:00", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", eventStatus: "https://schema.org/EventScheduled", image: [`https://youngwisewomen.nl${DEFAULT_HERO_IMAGE}`], location: { "@type": "Place", name: "Oudega, Friesland", address: { "@type": "PostalAddress", addressLocality: "Oudega", addressRegion: "Friesland", addressCountry: "NL" } }, organizer: { "@id": "https://youngwisewomen.nl#organization" }, maximumAttendeeCapacity: 8, offers: [{ "@type": "Offer", name: "Samen met een vriendin/collega* (kamer delen)", price: String(DUO_PRICE), priceCurrency: "EUR", availability: "https://schema.org/LimitedAvailability", validFrom: "2026-02-21", url: `https://youngwisewomen.nl${PAGE_PATH}` }, { "@type": "Offer", name: "Betaald vanuit werkgever (factuur)", price: String(EMPLOYER_PRICE), priceCurrency: "EUR", availability: "https://schema.org/LimitedAvailability", validFrom: "2026-02-21", url: `https://youngwisewomen.nl${PAGE_PATH}` }] },
+            { "@type": "FAQPage", "@id": `https://youngwisewomen.nl${PAGE_PATH}#faq`, mainEntity: faqItems.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
+          ],
+        }}
+      />
       <section className="py-10 md:py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl md:text-5xl font-light text-[#1C2826] mb-3">

@@ -1,12 +1,18 @@
 import HeroSection from "@/components/HeroSection";
 import { Link } from "react-router-dom";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Retreats() {
   const { data: cms } = usePageContent("retreats");
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Groepstrainingen voor Jonge Vrouwen | Young Wise Women"
+        description="Trainingen en workshops voor jonge carrière-gedreven vrouwen. Werk aan persoonlijke ontwikkeling en groei met gelijkgestemden."
+        path="/groepstrainingen"
+      />
       <HeroSection
         backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
         title={cms?.hero_title || "Persoonlijke ontwikkeling & groei"}

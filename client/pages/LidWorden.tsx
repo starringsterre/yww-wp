@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection";
 import PromoVideoSection from "@/components/PromoVideoSection";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function LidWorden() {
   const { data: cms } = usePageContent("lid-worden");
@@ -91,6 +92,11 @@ export default function LidWorden() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Lid Worden | Young Wise Women"
+        description="Word lid van het Young Wise Women netwerk. Ontdek de voordelen van lidmaatschap en groei met gelijkgestemde jonge vrouwen."
+        path="/lid-worden"
+      />
       {/* Hero */}
       <HeroSection
         backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F86170904cb9547f4ad68517ede94266e?format=webp&width=2000"

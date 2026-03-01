@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { cn } from "@/lib/utils";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import type { WPPodcast } from "@/api/wp-types";
+import SEOHead from "@/components/SEOHead";
 
 const sourceOptions = ["Alle platformen", "YouTube", "Spotify"];
 const guestOptions = ["Alle gasten", "Met gast", "Zonder gast"];
@@ -164,6 +165,11 @@ export default function Podcasts() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Podcasts | Young Wise Women"
+        description="Luister naar inspirerende podcasts over persoonlijke ontwikkeling, leiderschap en groei voor jonge vrouwen."
+        path="/inspiratie/podcasts"
+      />
       <HeroSection
         backgroundImage="/podcast-vrouwen.jpeg"
         backgroundImageAlt="Podcastopname met jonge vrouwen"

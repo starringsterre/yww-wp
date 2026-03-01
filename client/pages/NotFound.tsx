@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 export default function NotFound() {
   return (
+    <>
+      <SEOHead
+        title="Pagina niet gevonden | Young Wise Women"
+        description="De pagina die je zoekt bestaat niet. Ga terug naar de homepage."
+        path="/404"
+        noindex
+      />
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="text-center max-w-md">
         <h1 className="text-6xl md:text-7xl font-bold text-neutral-900 mb-4">
@@ -28,5 +36,6 @@ export default function NotFound() {
         </Button>
       </div>
     </div>
+    </>
   );
 }

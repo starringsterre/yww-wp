@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Contact() {
   const { data: cms } = usePageContent("contact");
@@ -35,6 +36,11 @@ export default function Contact() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Ons Verhaal | Young Wise Women"
+        description="Leer het team achter Young Wise Women kennen. Ontdek ons verhaal, onze missie en hoe wij jonge vrouwen helpen groeien."
+        path="/ons-verhaal"
+      />
       {/* Hero */}
       <HeroSection
         backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fcaa0a42fc6ac438489c0ba9999ec1dbd?format=webp&width=2000"

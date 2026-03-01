@@ -5,6 +5,7 @@ import HeroSection from "@/components/HeroSection";
 import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Jaarprogrammas() {
   const { data: cms } = usePageContent("jaarprogrammas");
@@ -116,6 +117,11 @@ export default function Jaarprogrammas() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Jaarprogramma's voor Jonge Vrouwen | Young Wise Women"
+        description="Langlopende ontwikkelingstrajecten voor jonge vrouwen die duurzaam willen groeien. Jaarprogramma's met structuur en begeleiding."
+        path="/in-company/jaarprogrammas"
+      />
       <HeroSection
         backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
         title={cms?.hero_title || "Jaarprogramma's"}

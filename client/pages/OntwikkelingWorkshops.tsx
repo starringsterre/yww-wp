@@ -6,6 +6,7 @@ import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
 import { useWorkshops } from "@/hooks/useWorkshops";
+import SEOHead from "@/components/SEOHead";
 
 // Static image/alt data keyed by index for workshop cards (WPWorkshop has no image field)
 const workshopCardImages = [
@@ -85,111 +86,6 @@ export default function OntwikkelingWorkshops() {
       ];
 
   useEffect(() => {
-    const pageTitle = "Dag Workshops voor Jonge Vrouwen | Young Wise Women";
-    const pageDescription =
-      "Praktische dag workshops voor jonge professionals: female leadership, vitaliteit en mentale weerbaarheid met direct toepasbare tools.";
-    const canonicalPath = "/groepstrainingen/ontwikkeling-workshops";
-
-    document.title = pageTitle;
-    document.documentElement.lang = "nl";
-
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement("meta");
-      metaDescription.setAttribute("name", "description");
-      document.head.appendChild(metaDescription);
-    }
-    metaDescription.setAttribute("content", pageDescription);
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", `${window.location.origin}${canonicalPath}`);
-
-    const scriptId = "dag-workshops-events-jsonld";
-    const existingScript = document.getElementById(scriptId);
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    const events = [
-      {
-        name: "Female leadership workshop",
-        startDate: "2026-03-20T09:30:00+01:00",
-        endDate: "2026-03-20T17:00:00+01:00",
-        price: "245",
-      },
-      {
-        name: "Workshop vitaliteit",
-        startDate: "2026-04-10T09:30:00+02:00",
-        endDate: "2026-04-10T17:00:00+02:00",
-        price: "215",
-      },
-      {
-        name: "Workshop mentale weerbaarheid",
-        startDate: "2026-04-24T09:30:00+02:00",
-        endDate: "2026-04-24T17:00:00+02:00",
-        price: "225",
-      },
-      {
-        name: "Workshop persoonlijke effectiviteit",
-        startDate: "2026-05-08T09:30:00+02:00",
-        endDate: "2026-05-08T17:00:00+02:00",
-        price: "235",
-      },
-    ];
-
-    const jsonLdScript = document.createElement("script");
-    jsonLdScript.id = scriptId;
-    jsonLdScript.type = "application/ld+json";
-    jsonLdScript.text = JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": events.map((event) => ({
-        "@type": "Event",
-        name: event.name,
-        description:
-          "Praktische dag workshop voor jonge professional vrouwen met direct toepasbare tools.",
-        startDate: event.startDate,
-        endDate: event.endDate,
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        eventStatus: "https://schema.org/EventScheduled",
-        location: {
-          "@type": "Place",
-          name: "Young Wise Women Trainingslocatie",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Castricum",
-            addressCountry: "NL",
-          },
-        },
-        organizer: {
-          "@type": "Organization",
-          name: "Young Wise Women",
-          url: window.location.origin,
-        },
-        offers: {
-          "@type": "Offer",
-          priceCurrency: "EUR",
-          price: event.price,
-          availability: "https://schema.org/InStock",
-          url: `${window.location.origin}${canonicalPath}`,
-        },
-      })),
-    });
-    document.head.appendChild(jsonLdScript);
-
-    return () => {
-      const scriptToRemove = document.getElementById(scriptId);
-      if (scriptToRemove) {
-        scriptToRemove.remove();
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     const updateCardsPerView = () => {
       if (window.innerWidth < 768) {
         setWorkshopsPerView(1);
@@ -224,6 +120,20 @@ export default function OntwikkelingWorkshops() {
 
   return (
     <div className="w-full">
+      <SEOHead
+        title="Dag Workshops voor Jonge Vrouwen | Young Wise Women"
+        description="Praktische dag workshops voor jonge professionals: female leadership, vitaliteit en mentale weerbaarheid met direct toepasbare tools."
+        path="/groepstrainingen/ontwikkeling-workshops"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "Event", name: "Female leadership workshop", description: "Praktische dag workshop voor jonge professional vrouwen met direct toepasbare tools.", startDate: "2026-03-20T09:30:00+01:00", endDate: "2026-03-20T17:00:00+01:00", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", eventStatus: "https://schema.org/EventScheduled", location: { "@type": "Place", name: "Young Wise Women Trainingslocatie", address: { "@type": "PostalAddress", addressLocality: "Castricum", addressCountry: "NL" } }, organizer: { "@type": "Organization", name: "Young Wise Women", url: "https://youngwisewomen.nl" }, offers: { "@type": "Offer", priceCurrency: "EUR", price: "245", availability: "https://schema.org/InStock", url: "https://youngwisewomen.nl/groepstrainingen/ontwikkeling-workshops" } },
+            { "@type": "Event", name: "Workshop vitaliteit", description: "Praktische dag workshop voor jonge professional vrouwen met direct toepasbare tools.", startDate: "2026-04-10T09:30:00+02:00", endDate: "2026-04-10T17:00:00+02:00", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", eventStatus: "https://schema.org/EventScheduled", location: { "@type": "Place", name: "Young Wise Women Trainingslocatie", address: { "@type": "PostalAddress", addressLocality: "Castricum", addressCountry: "NL" } }, organizer: { "@type": "Organization", name: "Young Wise Women", url: "https://youngwisewomen.nl" }, offers: { "@type": "Offer", priceCurrency: "EUR", price: "215", availability: "https://schema.org/InStock", url: "https://youngwisewomen.nl/groepstrainingen/ontwikkeling-workshops" } },
+            { "@type": "Event", name: "Workshop mentale weerbaarheid", description: "Praktische dag workshop voor jonge professional vrouwen met direct toepasbare tools.", startDate: "2026-04-24T09:30:00+02:00", endDate: "2026-04-24T17:00:00+02:00", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", eventStatus: "https://schema.org/EventScheduled", location: { "@type": "Place", name: "Young Wise Women Trainingslocatie", address: { "@type": "PostalAddress", addressLocality: "Castricum", addressCountry: "NL" } }, organizer: { "@type": "Organization", name: "Young Wise Women", url: "https://youngwisewomen.nl" }, offers: { "@type": "Offer", priceCurrency: "EUR", price: "225", availability: "https://schema.org/InStock", url: "https://youngwisewomen.nl/groepstrainingen/ontwikkeling-workshops" } },
+            { "@type": "Event", name: "Workshop persoonlijke effectiviteit", description: "Praktische dag workshop voor jonge professional vrouwen met direct toepasbare tools.", startDate: "2026-05-08T09:30:00+02:00", endDate: "2026-05-08T17:00:00+02:00", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", eventStatus: "https://schema.org/EventScheduled", location: { "@type": "Place", name: "Young Wise Women Trainingslocatie", address: { "@type": "PostalAddress", addressLocality: "Castricum", addressCountry: "NL" } }, organizer: { "@type": "Organization", name: "Young Wise Women", url: "https://youngwisewomen.nl" }, offers: { "@type": "Offer", priceCurrency: "EUR", price: "235", availability: "https://schema.org/InStock", url: "https://youngwisewomen.nl/groepstrainingen/ontwikkeling-workshops" } },
+          ],
+        }}
+      />
       <HeroSection
         backgroundImage={cms?.hero_image || "/workshop-persoonlijke-ontwikkeling.jpg"}
         title={cms?.hero_title || "Dag workshops"}

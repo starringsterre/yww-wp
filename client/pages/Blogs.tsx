@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import { useBlogs } from "@/hooks/useBlogs";
+import SEOHead from "@/components/SEOHead";
 
 export default function Blogs() {
   const { data: blogItems } = useBlogs();
   return (
     <div className="w-full">
+      <SEOHead
+        title="Blogs & Artikelen voor Jonge Vrouwen | Young Wise Women"
+        description="Praktische en verdiepende artikelen over persoonlijke ontwikkeling, leiderschap en groei voor jonge professionals."
+        path="/inspiratie/blogs"
+      />
       <HeroSection
         backgroundImage="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg"
         title="Tools & Handvatten"

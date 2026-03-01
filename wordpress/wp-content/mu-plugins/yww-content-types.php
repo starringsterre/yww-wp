@@ -346,6 +346,21 @@ function yww_register_rest_routes() {
         'permission_callback' => '__return_true',
     ]);
 
+    // GET /yww/v1/seo/{slug}
+    register_rest_route($namespace, '/seo/(?P<slug>[a-z0-9-]+)', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_seo',
+        'permission_callback' => '__return_true',
+        'args' => [
+            'slug' => [
+                'required'          => true,
+                'validate_callback' => function ($param) {
+                    return is_string($param) && preg_match('/^[a-z0-9-]+$/', $param);
+                },
+            ],
+        ],
+    ]);
+
     // GET /yww/v1/faqs
     register_rest_route($namespace, '/faqs', [
         'methods'             => 'GET',
@@ -605,6 +620,62 @@ function yww_get_faqs($request) {
             'order'    => (int) get_post_meta($post->ID, 'yww_faq_order', true),
         ];
     }
+
+    return rest_ensure_response($data);
+}
+
+function yww_get_seo($request) {
+    $slug = $request->get_param('slug');
+
+    // Try to find a page with this slug
+    $pages = get_posts([
+        'post_type'      => 'page',
+        'name'           => $slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+    ]);
+
+    if (empty($pages)) {
+        return new WP_REST_Response(['message' => 'Page not found'], 404);
+    }
+
+    $post = $pages[0];
+    $post_id = $post->ID;
+
+    // Try Yoast SEO data first (if plugin is active)
+    $title       = get_post_meta($post_id, '_yoast_wpseo_title', true);
+    $description = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
+    $og_title    = get_post_meta($post_id, '_yoast_wpseo_opengraph-title', true);
+    $og_desc     = get_post_meta($post_id, '_yoast_wpseo_opengraph-description', true);
+    $og_image    = get_post_meta($post_id, '_yoast_wpseo_opengraph-image', true);
+    $canonical   = get_post_meta($post_id, '_yoast_wpseo_canonical', true);
+    $robots_meta = get_post_meta($post_id, '_yoast_wpseo_meta-robots-noindex', true);
+
+    // Fallbacks
+    if (!$title) {
+        $title = $post->post_title . ' | Young Wise Women';
+    }
+    if (!$description) {
+        $description = wp_trim_words($post->post_excerpt ?: $post->post_content, 30, '...');
+    }
+
+    // Try to get Yoast schema via its API (if available)
+    $schema = null;
+    if (class_exists('WPSEO_Schema_Context') || function_exists('YoastSEO')) {
+        $schema = apply_filters('wpseo_schema_graph', [], get_permalink($post_id));
+    }
+
+    $data = [
+        'title'          => $title,
+        'description'    => $description ?: '',
+        'canonical'      => $canonical ?: '',
+        'og_title'       => $og_title ?: $title,
+        'og_description' => $og_desc ?: $description ?: '',
+        'og_image'       => $og_image ?: '',
+        'og_type'        => 'website',
+        'schema'         => $schema,
+        'robots'         => $robots_meta === '1' ? 'noindex' : 'index, follow',
+    ];
 
     return rest_ensure_response($data);
 }

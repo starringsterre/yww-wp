@@ -5,12 +5,18 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 import HeroSection from "@/components/HeroSection";
 import { useEvents } from "@/hooks/useEvents";
 import { usePageContent } from "@/hooks/usePageContent";
+import SEOHead from "@/components/SEOHead";
 
 export default function Kalender() {
   const { data: cms } = usePageContent("kalender");
   const { data: events } = useEvents();
   return (
     <div className="w-full">
+      <SEOHead
+        title="Evenementen Kalender | Young Wise Women"
+        description="Bekijk alle aankomende evenementen, trainingen en workshops van Young Wise Women. Plan je volgende stap in persoonlijke groei."
+        path="/inspiratie/evenementen"
+      />
       {/* Hero */}
       <HeroSection
         backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2F291b0682317740babd189a82623e6509?format=webp&width=2000"

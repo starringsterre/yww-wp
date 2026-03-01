@@ -163,6 +163,7 @@ function yww_page_content_meta_box($post) {
     if (empty($fields)) {
         echo '<p style="color:#666;">Sla de pagina eerst op met een slug, dan verschijnen hier de tekstvelden.</p>';
         echo '<p>Ondersteunde slugs: <code>home</code>, <code>weekenden</code>, <code>weekend-intensive</code>, <code>workshops</code>, <code>ons-verhaal</code>, <code>contact</code>, <code>voor-organisaties</code>, <code>kalender</code>, <code>lid-worden</code>, <code>retreats</code>, <code>inspiratie</code>, <code>losse-workshops</code>, <code>jaarprogrammas</code></p>';
+        echo '<p style="color:#888;"><em>Productie aliassen werken ook: groepstrainingen, persoonlijke-ontwikkeling-weekend-training, weekend-intensive-juni-2026, ontwikkeling-workshops, in-company, evenementen</em></p>';
         return;
     }
 
@@ -216,6 +217,19 @@ function yww_page_content_meta_box($post) {
 
 // ─── Page fields definition per slug ───
 function yww_get_page_fields($slug) {
+    // Productie slugs → lokale slugs alias mapping
+    $aliases = [
+        'groepstrainingen'                          => 'retreats',
+        'persoonlijke-ontwikkeling-weekend-training' => 'weekenden',
+        'weekend-intensive-juni-2026'                => 'weekend-intensive',
+        'ontwikkeling-workshops'                     => 'workshops',
+        'in-company'                                 => 'voor-organisaties',
+        'evenementen'                                => 'kalender',
+    ];
+    if (isset($aliases[$slug])) {
+        $slug = $aliases[$slug];
+    }
+
     $pages = [
         'home' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],

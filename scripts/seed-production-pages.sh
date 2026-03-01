@@ -6,7 +6,7 @@
 # on all production pages that have different slugs than local.
 
 API_BASE="https://cms.youngwisewomen.nl/wp-json/wp/v2/pages"
-AUTH="admin:pii6 a7Lv T0ZU gQNB Qj8o Jslq"
+AUTH="${WP_AUTH:-admin:admin}"
 
 seed_page() {
   local page_id="$1"

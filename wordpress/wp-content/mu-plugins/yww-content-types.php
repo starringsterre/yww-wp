@@ -644,78 +644,55 @@ function yww_get_seo($request) {
     $post = $pages[0];
     $post_id = $post->ID;
 
-    // Use Yoast's yoast_head_json if available (rich structured data)
-    if (class_exists('WPSEO_Frontend') || defined('WPSEO_VERSION')) {
-        $yoast_meta = YoastSEO()->meta->for_post($post_id);
+    // Read Yoast meta fields directly (custom titles/descriptions set by user)
+    $custom_title = get_post_meta($post_id, '_yoast_wpseo_title', true);
+    $custom_desc  = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
+    $og_image     = get_post_meta($post_id, '_yoast_wpseo_opengraph-image', true);
+    $canonical    = get_post_meta($post_id, '_yoast_wpseo_canonical', true);
+    $robots_meta  = get_post_meta($post_id, '_yoast_wpseo_meta-robots-noindex', true);
 
-        if ($yoast_meta) {
-            $title       = $yoast_meta->title ?: '';
-            $description = $yoast_meta->description ?: '';
-            $og_title    = $yoast_meta->open_graph_title ?: '';
-            $og_desc     = $yoast_meta->open_graph_description ?: '';
-            $og_images   = $yoast_meta->open_graph_images ?: [];
-            $og_image    = !empty($og_images) ? $og_images[0]['url'] : '';
-            $canonical   = $yoast_meta->canonical ?: '';
-            $robots      = $yoast_meta->robots ?: [];
-            $schema      = $yoast_meta->schema ?: null;
+    // Use custom Yoast title, or fallback to page title + site name
+    $title = $custom_title ?: ($post->post_title . ' | ' . $site_name);
+    $description = $custom_desc ?: '';
 
-            // Replace CMS URLs with frontend URLs in titles and canonical
-            $title     = str_replace('YWW Headless CMS', $site_name, $title);
-            $title     = str_replace('cms.youngwisewomen.nl', 'youngwisewomen.nl', $title);
-            $og_title  = str_replace('YWW Headless CMS', $site_name, $og_title);
-            $canonical = str_replace('https://cms.youngwisewomen.nl', $site_url, $canonical);
-
-            // Replace CMS URLs in schema
-            if ($schema) {
-                $schema_json = wp_json_encode($schema);
-                $schema_json = str_replace('cms.youngwisewomen.nl', 'youngwisewomen.nl', $schema_json);
-                $schema_json = str_replace('YWW Headless CMS', $site_name, $schema_json);
-                $schema = json_decode($schema_json, true);
+    // Get schema from Yoast API if available
+    $schema = null;
+    if (defined('WPSEO_VERSION')) {
+        try {
+            $yoast_meta = YoastSEO()->meta->for_post($post_id);
+            if ($yoast_meta && $yoast_meta->schema) {
+                $schema = $yoast_meta->schema;
             }
-
-            $robots_str = 'index, follow';
-            if (is_array($robots)) {
-                $robots_str = implode(', ', array_values($robots));
-            }
-
-            return rest_ensure_response([
-                'title'          => $title,
-                'description'    => $description,
-                'canonical'      => $canonical,
-                'og_title'       => $og_title ?: $title,
-                'og_description' => $og_desc ?: $description,
-                'og_image'       => $og_image,
-                'og_type'        => 'website',
-                'schema'         => $schema,
-                'robots'         => $robots_str,
-            ]);
+        } catch (Exception $e) {
+            // Yoast API not available, skip schema
         }
     }
 
-    // Fallback: manual meta fields (when Yoast is not active)
-    $title       = get_post_meta($post_id, '_yoast_wpseo_title', true);
-    $description = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
-    $canonical   = get_post_meta($post_id, '_yoast_wpseo_canonical', true);
-    $robots_meta = get_post_meta($post_id, '_yoast_wpseo_meta-robots-noindex', true);
-
-    if (!$title) {
-        $title = $post->post_title . ' | ' . $site_name;
+    // Build canonical from frontend URL if not custom set
+    if (!$canonical) {
+        $canonical = $site_url . '/' . $slug . '/';
     }
-    if (!$description) {
-        $description = wp_trim_words($post->post_excerpt ?: $post->post_content, 30, '...');
+    $canonical = str_replace('https://cms.youngwisewomen.nl', $site_url, $canonical);
+
+    // Replace CMS URLs in schema
+    if ($schema) {
+        $schema_json = wp_json_encode($schema);
+        $schema_json = str_replace('cms.youngwisewomen.nl', 'youngwisewomen.nl', $schema_json);
+        $schema_json = str_replace('YWW Headless CMS', $site_name, $schema_json);
+        $schema = json_decode($schema_json, true);
     }
 
-    $data = [
+    $robots_str = $robots_meta === '1' ? 'noindex' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+
+    return rest_ensure_response([
         'title'          => $title,
-        'description'    => $description ?: '',
-        'canonical'      => $canonical ?: '',
+        'description'    => $description,
+        'canonical'      => $canonical,
         'og_title'       => $title,
-        'og_description' => $description ?: '',
-        'og_image'       => '',
+        'og_description' => $description,
+        'og_image'       => $og_image ?: '',
         'og_type'        => 'website',
-        'schema'         => null,
-        'robots'         => $robots_meta === '1' ? 'noindex' : 'index, follow',
-    ];
-
-    return rest_ensure_response($data);
+        'schema'         => $schema,
+        'robots'         => $robots_str,
+    ]);
 }

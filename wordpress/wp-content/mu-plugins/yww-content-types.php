@@ -9,6 +9,20 @@
 if (!defined('ABSPATH')) exit;
 
 // ─────────────────────────────────────────────
+// 0. CORS HEADERS FOR HEADLESS FRONTEND
+// ─────────────────────────────────────────────
+
+add_action('rest_pre_serve_request', function() {
+    $allowed = ['https://yww2.vercel.app', 'https://youngwisewomen.nl', 'https://www.youngwisewomen.nl'];
+    $origin  = $_SERVER['HTTP_ORIGIN'] ?? '';
+    if (in_array($origin, $allowed, true)) {
+        header("Access-Control-Allow-Origin: {$origin}");
+        header('Access-Control-Allow-Methods: GET, OPTIONS');
+        header('Access-Control-Allow-Credentials: true');
+    }
+});
+
+// ─────────────────────────────────────────────
 // 1. REGISTER CUSTOM POST TYPES
 // ─────────────────────────────────────────────
 

@@ -14,6 +14,7 @@ import HeroSection from "@/components/HeroSection";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { usePodcasts } from "@/hooks/usePodcasts";
+import { usePageContent } from "@/hooks/usePageContent";
 import type { WPPodcast } from "@/api/wp-types";
 import SEOHead from "@/components/SEOHead";
 
@@ -62,6 +63,7 @@ function getSpotifyEpisodeId(url: string): string | null {
 
 export default function Podcasts() {
   const { data: episodes } = usePodcasts();
+  const { data: cms } = usePageContent("podcasts");
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("Alle platformen");
   const [guestFilter, setGuestFilter] = useState("Alle gasten");
@@ -171,10 +173,10 @@ export default function Podcasts() {
         path="/inspiratie/podcasts"
       />
       <HeroSection
-        backgroundImage="/podcast-vrouwen.jpeg"
+        backgroundImage={cms?.hero_image || "/podcast-vrouwen.jpeg"}
         backgroundImageAlt="Podcastopname met jonge vrouwen"
-        title="Podcasts"
-        subtitle="Luister naar verhalen, gesprekken en inzichten die je verder brengen."
+        title={cms?.hero_title || "Podcasts"}
+        subtitle={cms?.hero_subtitle || "Luister naar verhalen, gesprekken en inzichten die je verder brengen."}
       />
 
       <section className="bg-[#fbf9f5] px-4 py-8 md:px-8">

@@ -108,7 +108,7 @@ export const PAGE_REGISTRY = [
   },
   {
     route: "/inspiratie/blogs",
-    wpSlug: null,
+    wpSlug: "blogs",
     wpTitle: "Blogs",
     seoTitle: "Blogs – Young Wise Women",
     seoDescription:
@@ -117,7 +117,7 @@ export const PAGE_REGISTRY = [
   },
   {
     route: "/inspiratie/podcasts",
-    wpSlug: null,
+    wpSlug: "podcasts",
     wpTitle: "Podcasts",
     seoTitle: "Podcasts – Young Wise Women",
     seoDescription:

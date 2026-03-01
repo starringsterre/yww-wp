@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import HeroSection from "@/components/HeroSection";
 import { useBlogs } from "@/hooks/useBlogs";
+import { usePageContent } from "@/hooks/usePageContent";
 import SEOHead from "@/components/SEOHead";
 
 export default function Blogs() {
   const { data: blogItems } = useBlogs();
+  const { data: cms } = usePageContent("blogs");
   return (
     <div className="w-full">
       <SEOHead
@@ -13,9 +15,9 @@ export default function Blogs() {
         path="/inspiratie/blogs"
       />
       <HeroSection
-        backgroundImage="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg"
-        title="Tools & Handvatten"
-        subtitle="Praktische en verdiepende artikelen voor jonge professionals."
+        backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg"}
+        title={cms?.hero_title || "Tools & Handvatten"}
+        subtitle={cms?.hero_subtitle || "Praktische en verdiepende artikelen voor jonge professionals."}
       />
 
       <section className="min-h-screen lg:h-screen py-10 lg:py-8 px-4 md:px-8 bg-[#f3f2ef] flex items-center overflow-hidden">
@@ -26,7 +28,7 @@ export default function Blogs() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            {blogItems.map((item) => (
+            {(blogItems ?? []).map((item) => (
               <article key={item.id} className="group">
                 <div className="aspect-[4/3] overflow-hidden bg-white rounded-2xl">
                   <img loading="lazy"

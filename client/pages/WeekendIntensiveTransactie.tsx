@@ -2,8 +2,10 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, Users, BedDouble, CheckCircle2, Mail } from "lucide-react";
+import { useGlobalSettings } from "@/hooks/useGlobalSettings";
 import { usePageContent } from "@/hooks/usePageContent";
 import { useFAQs } from "@/hooks/useFAQs";
+import { resolveSiteLogoUrl, toAbsoluteSiteAssetUrl } from "@/lib/siteBranding";
 import SEOHead from "@/components/SEOHead";
 
 const EMPLOYER_PRICE = 1450;
@@ -68,6 +70,8 @@ type PackageKey =
 export default function WeekendIntensiveTransactie() {
   const { data: cms } = usePageContent("weekend-intensive");
   const { data: faqData } = useFAQs("weekend-intensive");
+  const { data: settings } = useGlobalSettings();
+  const siteLogo = toAbsoluteSiteAssetUrl(resolveSiteLogoUrl(settings?.site?.logo));
 
   const displayFaqs = faqData && faqData.length > 0
     ? faqData.map(f => ({ question: f.question, answer: f.answer }))
@@ -86,13 +90,6 @@ export default function WeekendIntensiveTransactie() {
   const [companyName, setCompanyName] = useState("");
   const [paymentRoute, setPaymentRoute] = useState<"Op factuur" | "Via platform (bijv. Alleo)">("Op factuur");
   const [platformName, setPlatformName] = useState("");
-  const [invoiceEmail, setInvoiceEmail] = useState("");
-  const [kvkNumber, setKvkNumber] = useState("");
-  const [vatNumber, setVatNumber] = useState("");
-  const [invoiceStreet, setInvoiceStreet] = useState("");
-  const [invoiceHouseNumber, setInvoiceHouseNumber] = useState("");
-  const [invoicePostalCode, setInvoicePostalCode] = useState("");
-  const [invoiceCity, setInvoiceCity] = useState("");
   const [invoiceReference, setInvoiceReference] = useState("");
   const [purchaseOrder, setPurchaseOrder] = useState("");
   const [formError, setFormError] = useState("");
@@ -119,13 +116,7 @@ export default function WeekendIntensiveTransactie() {
       requiresCompanyDetails &&
       (!companyName.trim() ||
         !paymentRoute.trim() ||
-        !invoiceEmail.trim() ||
-        !kvkNumber.trim() ||
-        !vatNumber.trim() ||
-        !invoiceStreet.trim() ||
-        !invoiceHouseNumber.trim() ||
-        !invoicePostalCode.trim() ||
-        !invoiceCity.trim())
+        !invoiceReference.trim())
     ) {
       setFormError("Vul alle verplichte werkgever- en factuurgegevens in.");
       return;
@@ -154,13 +145,6 @@ export default function WeekendIntensiveTransactie() {
           paymentRoute: requiresCompanyDetails ? paymentRoute : "",
           platformName: requiresCompanyDetails ? platformName.trim() : "",
           companyName: requiresCompanyDetails ? companyName.trim() : "",
-          invoiceEmail: requiresCompanyDetails ? invoiceEmail.trim() : "",
-          kvkNumber: requiresCompanyDetails ? kvkNumber.trim() : "",
-          vatNumber: requiresCompanyDetails ? vatNumber.trim() : "",
-          invoiceStreet: requiresCompanyDetails ? invoiceStreet.trim() : "",
-          invoiceHouseNumber: requiresCompanyDetails ? invoiceHouseNumber.trim() : "",
-          invoicePostalCode: requiresCompanyDetails ? invoicePostalCode.trim() : "",
-          invoiceCity: requiresCompanyDetails ? invoiceCity.trim() : "",
           invoiceReference: requiresCompanyDetails ? invoiceReference.trim() : "",
           purchaseOrder: requiresCompanyDetails ? purchaseOrder.trim() : "",
         }),
@@ -236,7 +220,7 @@ export default function WeekendIntensiveTransactie() {
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [
-            { "@type": "Organization", "@id": "https://youngwisewomen.nl#organization", name: "Young Wise Women", url: "https://youngwisewomen.nl", logo: "https://youngwisewomen.nl/Logo-Young-Wise-Women.png", email: "info@youngwisewomen.nl" },
+            { "@type": "Organization", "@id": "https://youngwisewomen.nl#organization", name: "Young Wise Women", url: "https://youngwisewomen.nl", logo: siteLogo, email: "info@youngwisewomen.nl" },
             { "@type": "Event", "@id": `https://youngwisewomen.nl${PAGE_PATH}#event`, name: "Persoonlijke Ontwikkeling Training voor Vrouwen - Weekend Intensive juni 2026", description: "Persoonlijke ontwikkeling training voor vrouwen in Nederland met focus op rust, richting en leiderschap.", startDate: "2026-06-24T17:30:00+02:00", endDate: "2026-06-26T16:00:00+02:00", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode", eventStatus: "https://schema.org/EventScheduled", image: [`https://youngwisewomen.nl${DEFAULT_HERO_IMAGE}`], location: { "@type": "Place", name: "Oudega, Friesland", address: { "@type": "PostalAddress", addressLocality: "Oudega", addressRegion: "Friesland", addressCountry: "NL" } }, organizer: { "@id": "https://youngwisewomen.nl#organization" }, maximumAttendeeCapacity: 8, offers: [{ "@type": "Offer", name: "Samen met een vriendin/collega* (kamer delen)", price: String(DUO_PRICE), priceCurrency: "EUR", availability: "https://schema.org/LimitedAvailability", validFrom: "2026-02-21", url: `https://youngwisewomen.nl${PAGE_PATH}` }, { "@type": "Offer", name: "Betaald vanuit werkgever (factuur)", price: String(EMPLOYER_PRICE), priceCurrency: "EUR", availability: "https://schema.org/LimitedAvailability", validFrom: "2026-02-21", url: `https://youngwisewomen.nl${PAGE_PATH}` }] },
             { "@type": "FAQPage", "@id": `https://youngwisewomen.nl${PAGE_PATH}#faq`, mainEntity: faqItems.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) },
           ],
@@ -472,7 +456,7 @@ export default function WeekendIntensiveTransactie() {
             <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
               <h2 className="text-xl md:text-2xl font-medium text-[#1C2826] mb-4">{cms?.related_heading || "Lees ook"}</h2>
               <div className="flex flex-wrap gap-3 text-sm">
-                <Link className="underline underline-offset-2 text-[#1C2826]" to="/groepstrainingen">
+                <Link className="underline underline-offset-2 text-[#1C2826]" to="/retreats">
                   Persoonlijke ontwikkeling
                 </Link>
                 <Link className="underline underline-offset-2 text-[#1C2826]" to="/in-company">
@@ -631,13 +615,16 @@ export default function WeekendIntensiveTransactie() {
                           type="text"
                           value={companyName}
                           onChange={(event) => setCompanyName(event.target.value)}
-                          placeholder="Naam werkgever / organisatie *"
+                          placeholder="Bedrijfsnaam *"
                           className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                         />
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           <button
                             type="button"
-                            onClick={() => setPaymentRoute("Op factuur")}
+                            onClick={() => {
+                              setPaymentRoute("Op factuur");
+                              setPlatformName("");
+                            }}
                             className={`rounded-md border px-3 py-2 text-sm text-left transition-colors ${
                               paymentRoute === "Op factuur"
                                 ? "border-[#B46555] bg-[#B46555]/10 text-[#1C2826]"
@@ -668,63 +655,10 @@ export default function WeekendIntensiveTransactie() {
                           />
                         )}
                         <input
-                          type="email"
-                          value={invoiceEmail}
-                          onChange={(event) => setInvoiceEmail(event.target.value)}
-                          placeholder="Factuur e-mailadres *"
-                          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                        />
-                        <input
-                          type="text"
-                          value={kvkNumber}
-                          onChange={(event) => setKvkNumber(event.target.value)}
-                          placeholder="KvK-nummer *"
-                          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                        />
-                        <input
-                          type="text"
-                          value={vatNumber}
-                          onChange={(event) => setVatNumber(event.target.value)}
-                          placeholder="BTW-nummer *"
-                          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                        />
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <input
-                            type="text"
-                            value={invoiceStreet}
-                            onChange={(event) => setInvoiceStreet(event.target.value)}
-                            placeholder="Straat *"
-                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                          />
-                          <input
-                            type="text"
-                            value={invoiceHouseNumber}
-                            onChange={(event) => setInvoiceHouseNumber(event.target.value)}
-                            placeholder="Huisnummer *"
-                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                          />
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <input
-                            type="text"
-                            value={invoicePostalCode}
-                            onChange={(event) => setInvoicePostalCode(event.target.value)}
-                            placeholder="Postcode *"
-                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                          />
-                          <input
-                            type="text"
-                            value={invoiceCity}
-                            onChange={(event) => setInvoiceCity(event.target.value)}
-                            placeholder="Plaats *"
-                            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-                          />
-                        </div>
-                        <input
                           type="text"
                           value={invoiceReference}
                           onChange={(event) => setInvoiceReference(event.target.value)}
-                          placeholder="Referentie / afdeling (optioneel)"
+                          placeholder="Referentie / afdeling *"
                           className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
                         />
                         <input

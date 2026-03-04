@@ -25,25 +25,25 @@ export const PAGE_REGISTRY = [
     sitemap: { priority: 1.0, changefreq: "weekly" },
   },
   {
-    route: "/groepstrainingen",
+    route: "/retreats",
     wpSlug: "groepstrainingen",
-    wpTitle: "Groepstrainingen",
-    seoTitle: "Groepstrainingen – Young Wise Women",
+    wpTitle: "Retreats",
+    seoTitle: "Retreats – Young Wise Women",
     seoDescription:
       "Ontdek onze groepstrainingen: weekendretraites en workshops voor persoonlijke ontwikkeling.",
     sitemap: { priority: 0.7, changefreq: "monthly" },
   },
   {
-    route: "/groepstrainingen/ontwikkeling-workshops",
+    route: "/retreats/persoonlijke-ontwikkeling-dag-workshops",
     wpSlug: "ontwikkeling-workshops",
-    wpTitle: "Ontwikkeling Workshops",
-    seoTitle: "Ontwikkeling Workshops – Young Wise Women",
+    wpTitle: "Dag Workshops",
+    seoTitle: "Dag Workshops – Young Wise Women",
     seoDescription:
       "Workshops gericht op persoonlijke en professionele ontwikkeling voor jonge vrouwen.",
     sitemap: { priority: 0.7, changefreq: "monthly" },
   },
   {
-    route: "/persoonlijke-ontwikkeling-weekend-training",
+    route: "/retreats/persoonlijke-ontwikkeling-weekend-training",
     wpSlug: "persoonlijke-ontwikkeling-weekend-training",
     wpTitle: "Weekend Training",
     seoTitle: "Weekend Training Persoonlijke Ontwikkeling – Young Wise Women",
@@ -80,10 +80,10 @@ export const PAGE_REGISTRY = [
     sitemap: { priority: 0.6, changefreq: "monthly" },
   },
   {
-    route: "/in-company/losse-workshops",
-    wpSlug: "losse-workshops",
-    wpTitle: "Losse Workshops",
-    seoTitle: "Losse Workshops – Young Wise Women",
+    route: "/in-company/workshops-op-maat",
+    wpSlug: "workshops-op-maat",
+    wpTitle: "Workshops op maat",
+    seoTitle: "Workshops op maat – Young Wise Women",
     seoDescription:
       "Losse workshops voor teams en organisaties, op maat ingericht.",
     sitemap: { priority: 0.6, changefreq: "monthly" },
@@ -107,13 +107,21 @@ export const PAGE_REGISTRY = [
     sitemap: { priority: 0.5, changefreq: "weekly" },
   },
   {
-    route: "/inspiratie/blogs",
-    wpSlug: "blogs",
-    wpTitle: "Blogs",
-    seoTitle: "Blogs – Young Wise Women",
+    route: "/inspiratie/tools-en-handvatten",
+    wpSlug: "tools-en-handvatten",
+    wpTitle: "Tools en Handvatten",
+    seoTitle: "Tools en Handvatten – Young Wise Women",
     seoDescription:
       "Artikelen over persoonlijke groei, leiderschap en het vinden van je eigen koers.",
     sitemap: { priority: 0.9, changefreq: "weekly" },
+  },
+  {
+    route: "/inspiratie/tools-en-handvatten/:slug",
+    wpSlug: null,
+    wpTitle: null,
+    seoTitle: null,
+    seoDescription: null,
+    sitemap: null,
   },
   {
     route: "/inspiratie/podcasts",
@@ -132,6 +140,15 @@ export const PAGE_REGISTRY = [
     seoDescription:
       "Leer het team achter Young Wise Women kennen en ontdek ons verhaal.",
     sitemap: { priority: 0.5, changefreq: "monthly" },
+  },
+  {
+    route: "/ons-verhaal/over-ella",
+    wpSlug: "over-ella",
+    wpTitle: "Over Ella",
+    seoTitle: "Over Ella – Young Wise Women",
+    seoDescription:
+      "Leer Ella kennen – de drijvende kracht achter Young Wise Women.",
+    sitemap: { priority: 0.4, changefreq: "monthly" },
   },
   {
     route: "/lid-worden",

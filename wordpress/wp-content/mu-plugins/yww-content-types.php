@@ -13,13 +13,12 @@ if (!defined('ABSPATH')) exit;
 // ─────────────────────────────────────────────
 
 add_action('rest_pre_serve_request', function() {
-    $allowed = ['https://yww2.vercel.app', 'https://youngwisewomen.nl', 'https://www.youngwisewomen.nl'];
-    $origin  = $_SERVER['HTTP_ORIGIN'] ?? '';
-    if (in_array($origin, $allowed, true)) {
-        header("Access-Control-Allow-Origin: {$origin}");
-        header('Access-Control-Allow-Methods: GET, OPTIONS');
-        header('Access-Control-Allow-Credentials: true');
-    }
+    // LiteSpeed may cache REST responses and replay a previously cached
+    // Access-Control-Allow-Origin header for a different frontend origin.
+    // A wildcard is safe here because these endpoints are public read-only.
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: GET, OPTIONS');
+    header('Vary: Origin', false);
 });
 
 // ─────────────────────────────────────────────
@@ -238,6 +237,22 @@ function yww_register_meta_fields() {
         ]);
     }
 
+    // Blog structured content — single JSON blob, parallel to yww_page_content for pages
+    register_post_meta('yww_blog', 'yww_blog_content', [
+        'show_in_rest'  => true,
+        'single'        => true,
+        'type'          => 'string',
+        'default'       => '',
+    ]);
+
+    // Blog structured content also registered on page post type (for draft workflow)
+    register_post_meta('page', 'yww_blog_content', [
+        'show_in_rest'  => true,
+        'single'        => true,
+        'type'          => 'string',
+        'default'       => '',
+    ]);
+
     // Workshop meta
     $workshop_meta = [
         'yww_workshop_subtitle'    => 'string',
@@ -331,6 +346,21 @@ function yww_register_rest_routes() {
         'permission_callback' => '__return_true',
     ]);
 
+    // GET /yww/v1/blogs/{slug}
+    register_rest_route($namespace, '/blogs/(?P<slug>[a-z0-9-]+)', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_blog_by_slug',
+        'permission_callback' => '__return_true',
+        'args' => [
+            'slug' => [
+                'required'          => true,
+                'validate_callback' => function ($param) {
+                    return is_string($param) && preg_match('/^[a-z0-9-]+$/', $param);
+                },
+            ],
+        ],
+    ]);
+
     // GET /yww/v1/options
     register_rest_route($namespace, '/options', [
         'methods'             => 'GET',
@@ -373,6 +403,13 @@ function yww_register_rest_routes() {
                 },
             ],
         ],
+    ]);
+
+    // GET /yww/v1/nav
+    register_rest_route($namespace, '/nav', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_nav',
+        'permission_callback' => '__return_true',
     ]);
 
     // GET /yww/v1/faqs
@@ -498,6 +535,68 @@ function yww_get_podcasts() {
     return rest_ensure_response($data);
 }
 
+// ─── Helper: build structured blog data from a post ───
+function yww_build_blog_data($post) {
+    $base = [
+        'id'      => get_post_meta($post->ID, 'yww_blog_slug', true) ?: $post->post_name,
+        'title'   => $post->post_title,
+        'excerpt' => $post->post_excerpt,
+        'image'   => get_post_meta($post->ID, 'yww_blog_featured_image', true),
+        'slug'    => $post->post_name,
+    ];
+
+    $json = get_post_meta($post->ID, 'yww_blog_content', true);
+    if (!$json) {
+        $base['content'] = apply_filters('the_content', $post->post_content);
+        return $base;
+    }
+
+    $data = json_decode($json, true);
+    if (!is_array($data)) {
+        $base['content'] = apply_filters('the_content', $post->post_content);
+        return $base;
+    }
+
+    // Override image/excerpt from structured content if present
+    if (!empty($data['image'])) {
+        $base['image'] = $data['image'];
+    }
+    if (!empty($data['excerpt'])) {
+        $base['excerpt'] = $data['excerpt'];
+    }
+
+    // Build sections array (up to 6)
+    $sections = [];
+    for ($i = 1; $i <= 6; $i++) {
+        $heading = isset($data["section_{$i}_heading"]) ? $data["section_{$i}_heading"] : '';
+        $body    = isset($data["section_{$i}_body"])    ? $data["section_{$i}_body"]    : '';
+        if ($heading || $body) {
+            $sections[] = ['heading' => $heading, 'body' => $body];
+        }
+    }
+
+    $cta = null;
+    if (!empty($data['cta_heading']) || !empty($data['cta_body'])) {
+        $cta = [
+            'heading'     => isset($data['cta_heading'])      ? $data['cta_heading']      : '',
+            'body'        => isset($data['cta_body'])         ? $data['cta_body']         : '',
+            'buttonLabel' => isset($data['cta_button_label']) ? $data['cta_button_label'] : '',
+            'buttonUrl'   => isset($data['cta_button_url'])   ? $data['cta_button_url']   : '',
+        ];
+    }
+
+    return array_merge($base, [
+        'content'    => apply_filters('the_content', $post->post_content), // HTML fallback for old posts
+        'date'       => isset($data['date'])       ? $data['date']       : '',
+        'category'   => isset($data['category'])   ? $data['category']   : '',
+        'readTime'   => isset($data['read_time'])  ? $data['read_time']  : '',
+        'intro'      => isset($data['intro'])      ? $data['intro']      : '',
+        'sections'   => $sections,
+        'cta'        => $cta,
+        'conclusion' => isset($data['conclusion']) ? $data['conclusion'] : '',
+    ]);
+}
+
 function yww_get_blogs() {
     $posts = get_posts([
         'post_type'      => 'yww_blog',
@@ -509,20 +608,34 @@ function yww_get_blogs() {
 
     $data = [];
     foreach ($posts as $post) {
-        $data[] = [
-            'id'      => get_post_meta($post->ID, 'yww_blog_slug', true) ?: $post->post_name,
-            'title'   => $post->post_title,
-            'excerpt' => $post->post_excerpt,
-            'image'   => get_post_meta($post->ID, 'yww_blog_featured_image', true),
-            'content' => apply_filters('the_content', $post->post_content),
-        ];
+        $data[] = yww_build_blog_data($post);
     }
 
     return rest_ensure_response($data);
 }
 
+function yww_get_blog_by_slug($request) {
+    $slug = $request->get_param('slug');
+
+    $posts = get_posts([
+        'post_type'      => 'yww_blog',
+        'name'           => $slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+    ]);
+
+    if (empty($posts)) {
+        return new WP_Error('not_found', 'Blog not found', ['status' => 404]);
+    }
+
+    return rest_ensure_response(yww_build_blog_data($posts[0]));
+}
+
 function yww_get_options() {
     $options = [
+        'site' => [
+            'logo' => get_option('yww_site_logo', '/Logo-Young-Wise-Women.png'),
+        ],
         'footer' => [
             'about_text'    => get_option('yww_footer_about', 'Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren. Ontdek wat je drijft, verstevig je koers en groei met gelijkgestemde vrouwen.'),
             'copyright'     => get_option('yww_footer_copyright', ''),
@@ -543,6 +656,17 @@ function yww_get_options() {
 
 function yww_get_page_content($request) {
     $slug = $request->get_param('slug');
+
+    // Resolve local/code slugs to production WP page slugs (inverse of admin-ui.php aliases)
+    $aliases = [
+        'retreats'          => 'groepstrainingen',
+        'weekenden'         => 'persoonlijke-ontwikkeling-weekend-training',
+        'weekend-intensive' => 'weekend-intensive-juni-2026',
+        'workshops'         => 'ontwikkeling-workshops',
+        'voor-organisaties' => 'in-company',
+        'kalender'          => 'evenementen',
+    ];
+    $slug = $aliases[$slug] ?? $slug;
 
     $pages = get_posts([
         'post_type'      => 'page',
@@ -638,6 +762,133 @@ function yww_get_faqs($request) {
     return rest_ensure_response($data);
 }
 
+function yww_get_nav() {
+    // Nav config with stable 'key' per page (unchanged even if WP slug changes)
+    $nav_config = [
+        ['key' => 'in-company', 'children' => [
+            ['key' => 'jaarprogrammas', 'prefix_key' => 'in-company'],
+            ['key' => 'workshops-op-maat', 'prefix_key' => 'in-company'],
+        ]],
+        ['key' => 'groepstrainingen', 'children' => [
+            ['key' => 'persoonlijke-ontwikkeling-weekend-training', 'prefix_key' => 'groepstrainingen'],
+            ['key' => 'ontwikkeling-workshops', 'prefix_key' => 'groepstrainingen'],
+        ]],
+        ['key' => 'inspiratie', 'children' => [
+            ['key' => 'evenementen', 'prefix_key' => 'inspiratie'],
+            ['key' => 'tools-en-handvatten', 'prefix_key' => 'inspiratie'],
+            ['key' => 'podcasts', 'prefix_key' => 'inspiratie'],
+        ]],
+        ['key' => 'ons-verhaal', 'children' => [
+            ['key' => 'over-ella', 'prefix_key' => 'ons-verhaal'],
+        ]],
+    ];
+
+    $footer_config = [
+        ['key' => 'home'],
+        ['key' => 'in-company'],
+        ['key' => 'groepstrainingen'],
+        ['key' => 'inspiratie'],
+        ['key' => 'ons-verhaal'],
+        ['key' => 'lid-worden'],
+    ];
+
+    // Collect all keys
+    $all_keys = ['home', 'lid-worden'];
+    foreach ($nav_config as $item) {
+        $all_keys[] = $item['key'];
+        foreach ($item['children'] ?? [] as $child) {
+            $all_keys[] = $child['key'];
+        }
+    }
+    $all_keys = array_unique($all_keys);
+
+    // Read stored page IDs (stable across slug changes)
+    $stored_ids = json_decode(get_option('yww_nav_page_ids', '{}'), true) ?: [];
+
+    // Find keys with no stored ID yet — look them up by slug and save
+    $missing_keys = array_values(array_filter($all_keys, fn($k) => !isset($stored_ids[$k])));
+    if (!empty($missing_keys)) {
+        $found = get_posts([
+            'post_type'      => 'page',
+            'post_name__in'  => $missing_keys,
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+        ]);
+        foreach ($found as $page) {
+            if (in_array($page->post_name, $missing_keys)) {
+                $stored_ids[$page->post_name] = $page->ID;
+            }
+        }
+        update_option('yww_nav_page_ids', wp_json_encode($stored_ids));
+    }
+
+    // Fetch all pages via stable IDs
+    $ids = array_values(array_filter($stored_ids));
+    $pages = empty($ids) ? [] : get_posts([
+        'post_type'      => 'page',
+        'post__in'       => $ids,
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+    ]);
+
+    // Build key → { title, slug } map via ID
+    $id_map = [];
+    foreach ($pages as $page) { $id_map[$page->ID] = $page; }
+
+    $page_map = [];
+    foreach ($stored_ids as $key => $id) {
+        if (isset($id_map[$id])) {
+            $page_map[$key] = [
+                'title' => $id_map[$id]->post_title,
+                'slug'  => $id_map[$id]->post_name,
+            ];
+        }
+    }
+
+    // Build href from key(s)
+    $make_href = function($key, $prefix_key = null) use ($page_map) {
+        if ($key === 'home') return '/';
+        $slug = $page_map[$key]['slug'] ?? $key;
+        if ($prefix_key) {
+            $parent = $page_map[$prefix_key]['slug'] ?? $prefix_key;
+            return '/' . $parent . '/' . $slug;
+        }
+        return '/' . $slug;
+    };
+
+    $get_label = fn($key) => $page_map[$key]['title'] ?? $key;
+
+    // Build main nav
+    $nav = [];
+    foreach ($nav_config as $item) {
+        $nav_item = [
+            'href'  => $make_href($item['key']),
+            'label' => $get_label($item['key']),
+        ];
+        if (!empty($item['children'])) {
+            $nav_item['children'] = [];
+            foreach ($item['children'] as $child) {
+                $nav_item['children'][] = [
+                    'href'  => $make_href($child['key'], $child['prefix_key'] ?? null),
+                    'label' => $get_label($child['key']),
+                ];
+            }
+        }
+        $nav[] = $nav_item;
+    }
+
+    // Build footer nav
+    $footer = [];
+    foreach ($footer_config as $item) {
+        $footer[] = [
+            'href'  => $make_href($item['key']),
+            'label' => $get_label($item['key']),
+        ];
+    }
+
+    return rest_ensure_response(['nav' => $nav, 'footer' => $footer]);
+}
+
 function yww_get_seo($request) {
     $slug = $request->get_param('slug');
     $site_name = 'Young Wise Women';
@@ -709,4 +960,75 @@ function yww_get_seo($request) {
         'schema'         => $schema,
         'robots'         => $robots_str,
     ]);
+}
+
+// ─────────────────────────────────────────────
+// 5. AUTO-SYNC BLOG DRAFT PAGES → yww_blog
+// ─────────────────────────────────────────────
+
+add_action('transition_post_status', 'yww_sync_blog_page_to_yww_blog', 10, 3);
+
+function yww_sync_blog_page_to_yww_blog($new_status, $old_status, $post) {
+    static $is_syncing = false;
+    if ($is_syncing) return;
+
+    // Only act when a page is published for the first time (or re-published)
+    if ($new_status !== 'publish' || $post->post_type !== 'page') {
+        return;
+    }
+
+    // Only act on pages that have blog content JSON
+    $json = get_post_meta($post->ID, 'yww_blog_content', true);
+    if (!$json) {
+        return;
+    }
+
+    $data = json_decode($json, true);
+    if (!is_array($data)) {
+        return;
+    }
+
+    $is_syncing = true;
+
+    $slug    = $post->post_name;
+    $title   = $post->post_title;
+    $excerpt = !empty($data['excerpt']) ? $data['excerpt'] : $post->post_excerpt;
+    $image   = !empty($data['image'])   ? $data['image']   : '';
+
+    // Check if a yww_blog post with the same slug already exists
+    $existing = get_posts([
+        'post_type'      => 'yww_blog',
+        'name'           => $slug,
+        'posts_per_page' => 1,
+        'post_status'    => 'any',
+    ]);
+
+    if (!empty($existing)) {
+        $blog_id = $existing[0]->ID;
+        wp_update_post([
+            'ID'           => $blog_id,
+            'post_title'   => $title,
+            'post_excerpt' => $excerpt,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+        ]);
+    } else {
+        $blog_id = wp_insert_post([
+            'post_type'    => 'yww_blog',
+            'post_title'   => $title,
+            'post_excerpt' => $excerpt,
+            'post_name'    => $slug,
+            'post_status'  => 'publish',
+            'post_content' => $post->post_content,
+        ]);
+    }
+
+    if ($blog_id && !is_wp_error($blog_id)) {
+        update_post_meta($blog_id, 'yww_blog_content', $json);
+        if ($image) {
+            update_post_meta($blog_id, 'yww_blog_featured_image', $image);
+        }
+    }
+
+    $is_syncing = false;
 }

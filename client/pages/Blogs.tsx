@@ -6,13 +6,13 @@ import SEOHead from "@/components/SEOHead";
 
 export default function Blogs() {
   const { data: blogItems } = useBlogs();
-  const { data: cms } = usePageContent("blogs");
+  const { data: cms } = usePageContent("tools-en-handvatten");
   return (
     <div className="w-full">
       <SEOHead
         title="Blogs & Artikelen voor Jonge Vrouwen | Young Wise Women"
         description="Praktische en verdiepende artikelen over persoonlijke ontwikkeling, leiderschap en groei voor jonge professionals."
-        path="/inspiratie/blogs"
+        path="/inspiratie/tools-en-handvatten"
       />
       <HeroSection
         backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg"}
@@ -46,7 +46,7 @@ export default function Blogs() {
                     {item.excerpt}
                   </p>
                   <Link
-                    to="/inspiratie/blogs"
+                    to={`/inspiratie/tools-en-handvatten/${item.slug || item.id}`}
                     className="relative self-start mt-5 inline-flex text-sm font-medium text-[#6B705C] origin-right after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-right after:scale-x-100 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-0"
                   >
                     Lees meer

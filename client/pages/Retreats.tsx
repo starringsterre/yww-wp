@@ -11,7 +11,7 @@ export default function Retreats() {
       <SEOHead
         title="Groepstrainingen voor Jonge Vrouwen | Young Wise Women"
         description="Trainingen en workshops voor jonge carrière-gedreven vrouwen. Werk aan persoonlijke ontwikkeling en groei met gelijkgestemden."
-        path="/groepstrainingen"
+        path="/retreats"
       />
       <HeroSection
         backgroundImage={cms?.hero_image || "https://images.pexels.com/photos/906097/pexels-photo-906097.jpeg"}
@@ -60,7 +60,7 @@ export default function Retreats() {
             <article className="h-full rounded-2xl bg-[#B46555]/25 overflow-hidden flex flex-col">
               <div className="p-6 min-h-[190px] md:min-h-[220px] flex flex-col">
                 <Link
-                  to="/groepstrainingen/ontwikkeling-workshops"
+                  to="/retreats/persoonlijke-ontwikkeling-dag-workshops"
                   className="relative self-start inline-flex text-3xl font-semibold text-gray-900 mb-3 origin-left after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-100"
                 >
                   {cms?.card_2_title || "Dag Workshops"}
@@ -69,7 +69,7 @@ export default function Retreats() {
                   {cms?.card_2_text || "1-daagse workshop waarin je direct werkt aan praktische tools voor energie, focus en richting in werk en leven, toegankelijk en direct toepasbaar in je dagelijks leven."}
                 </p>
                 <Link
-                  to="/groepstrainingen/ontwikkeling-workshops"
+                  to="/retreats/persoonlijke-ontwikkeling-dag-workshops"
                   className="relative self-start mt-6 inline-flex text-sm font-medium text-[#6B705C] origin-right after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-full after:origin-right after:scale-x-100 after:bg-[#B46555] after:transition-transform after:duration-300 hover:after:scale-x-0"
                 >
                   Lees meer

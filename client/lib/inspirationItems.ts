@@ -7,7 +7,7 @@ export interface InspirationItem {
 
 export const inspirationItems: InspirationItem[] = [
   {
-    href: "/inspiratie/blogs",
+    href: "/inspiratie/tools-en-handvatten",
     title: "Tools & Handvatten",
     image: "/inspiratie-blogs.png",
     alt: "Tools en handvatten inspiratie",

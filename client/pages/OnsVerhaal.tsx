@@ -169,7 +169,7 @@ export default function OnsVerhaal() {
             wat er in jou zit. Samen groeien we naar onze beste versie.
           </p>
           <Link
-            to="/groepstrainingen"
+            to="/retreats"
             className="inline-block px-8 py-4 bg-primary text-white rounded-lg transition-all duration-300 hover:scale-105 hover:bg-accent font-medium"
           >
             {cms?.cta_text || "Ontdek onze groepstrainingen"}

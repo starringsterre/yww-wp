@@ -270,7 +270,7 @@ export default function EventCalendar({ events = [] }: EventCalendarProps) {
                         const signupHref =
                           category === "weekend-training"
                             ? "/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026"
-                            : "/groepstrainingen/ontwikkeling-workshops";
+                            : "/retreats/persoonlijke-ontwikkeling-dag-workshops";
                         return (
                           <div
                             key={event._id || `${event.year}-${event.month}-${event.type}`}

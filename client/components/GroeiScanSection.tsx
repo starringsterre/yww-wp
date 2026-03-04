@@ -131,7 +131,7 @@ export default function GroeiScanSection() {
       introAdvice,
       pathLabel: "Start met een Dag Workshop als voorproefje en plan daarna de Weekend Training.",
       primaryCta: lowThresholdStart
-        ? "/groepstrainingen/ontwikkeling-workshops"
+        ? "/retreats/persoonlijke-ontwikkeling-dag-workshops"
         : "/persoonlijke-ontwikkeling-weekend-training",
       primaryCtaLabel: lowThresholdStart ? "Bekijk Dag Workshops" : "Bekijk Weekend Trainingen",
     };
@@ -289,7 +289,7 @@ export default function GroeiScanSection() {
                     </a>
                   ) : (
                     <Link
-                      to="/groepstrainingen/ontwikkeling-workshops"
+                      to="/retreats/persoonlijke-ontwikkeling-dag-workshops"
                       className="inline-block px-6 py-2.5 rounded-lg text-sm font-medium text-[#1C2826] border border-[#1C2826]/30 bg-white transition-all duration-300 hover:scale-105 hover:border-[#1C2826]"
                     >
                       Bekijk Dag Workshops

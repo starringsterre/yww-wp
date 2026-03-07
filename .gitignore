@@ -43,3 +43,6 @@ docs/cloud86
 
 # Production env (contains credentials)
 .env.production
+
+# Generated server bundle for Vercel
+api/_server.mjs

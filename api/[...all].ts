@@ -1,4 +1,4 @@
-import serverless from "serverless-http";
-import { createServer } from "../server/index";
+import { createServer } from "./_server.mjs";
 
-export default serverless(createServer());
+const app = createServer();
+export default app;

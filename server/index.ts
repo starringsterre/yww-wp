@@ -1,4 +1,3 @@
-import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
@@ -22,6 +21,18 @@ export function createServer() {
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
     res.json({ message: ping });
+  });
+
+  app.get("/api/debug/env-check", (_req, res) => {
+    res.json({
+      KLAVIYO_PRIVATE_KEY: !!process.env.KLAVIYO_PRIVATE_KEY,
+      KLAVIYO_LIST_ID_NEWSLETTER: !!process.env.KLAVIYO_LIST_ID_NEWSLETTER,
+      KLAVIYO_LIST_ID_NETWERK: !!process.env.KLAVIYO_LIST_ID_NETWERK,
+      KLAVIYO_LIST_ID_TRAININGS: !!process.env.KLAVIYO_LIST_ID_TRAININGS,
+      KLAVIYO_LIST_ID_LEADS: !!process.env.KLAVIYO_LIST_ID_LEADS,
+      KLAVIYO_LIST_ID_BEDRIJFS: !!process.env.KLAVIYO_LIST_ID_BEDRIJFS,
+      KLAVIYO_API_REVISION: process.env.KLAVIYO_API_REVISION || "(default 2024-10-15)",
+    });
   });
 
   app.get("/api/demo", handleDemo);

@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { GroeiScanLeadRequest } from "@shared/api";
+import { createEvent, subscribeProfileToList } from "../lib/klaviyo";
 
-const defaultWebhookUrl = "https://guidocroon.com/n8n/webhook-test/Groeiscan";
+const DEFAULT_KLAVIYO_LEADS_LIST_ID = "R4PSyk";
 
 export async function handleGroeiScanLead(req: Request, res: Response) {
   if (req.method !== "POST") {
@@ -19,42 +20,59 @@ export async function handleGroeiScanLead(req: Request, res: Response) {
     return res.status(400).json({ error: "Answers are required" });
   }
 
-  const webhookUrl = process.env.N8N_GROEISCAN_WEBHOOK_URL ?? defaultWebhookUrl;
+  const leadsListId =
+    process.env.KLAVIYO_LIST_ID_LEADS?.trim() || DEFAULT_KLAVIYO_LEADS_LIST_ID;
 
   try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    const [firstName = "", ...rest] = name.trim().split(" ");
+    const lastName = rest.join(" ");
+
+    const profile = {
+      email: email.trim(),
+      firstName,
+      lastName,
+      properties: {
+        source: "groeiscan",
         lead_type: "groeiscan",
-        name: name.trim(),
-        email: email.trim(),
+        groeiscan_answers_json: JSON.stringify(answers ?? []),
+        groeiscan_answers_count: Array.isArray(answers) ? answers.length : 0,
+        groeiscan_primary_track: recommendation?.primaryTrack ?? "",
+        groeiscan_bridge_track: recommendation?.bridgeTrack ?? "",
+        groeiscan_summary: recommendation?.summary ?? "",
+        groeiscan_weekend_score: recommendation?.weekendScore ?? 0,
+        groeiscan_workshop_score: recommendation?.workshopScore ?? 0,
+        consent_marketing_email: consent?.marketingEmail ?? true,
+        consent_double_opt_in: consent?.doubleOptIn ?? true,
+      },
+    };
+
+    await subscribeProfileToList({
+      listId: leadsListId,
+      profile,
+    });
+
+    await createEvent({
+      metricName: "Groeiscan Ingevuld",
+      profile,
+      properties: {
+        source: "groeiscan",
+        lead_type: "groeiscan",
         answers,
         recommendation,
         consent: {
           marketing_email: consent?.marketingEmail ?? true,
-          double_opt_in: true,
+          double_opt_in: consent?.doubleOptIn ?? true,
         },
-      }),
+      },
     });
 
-    if (!response.ok) {
-      console.error(`Groeiscan webhook error: ${response.status} ${response.statusText}`);
-      return res.status(response.status).json({ error: "Failed to process groeiscan lead" });
-    }
-
-    let result: unknown = null;
-    try {
-      result = await response.json();
-    } catch (_error) {
-      result = { ok: true };
-    }
-
-    return res.json({ success: true, data: result });
+    return res.json({ success: true, listId: leadsListId });
   } catch (error) {
     console.error("Groeiscan submission error:", error);
-    return res.status(500).json({ error: "Failed to process groeiscan lead" });
+    const detail = error instanceof Error ? error.message : "Unknown error";
+    return res.status(500).json({
+      error: "Failed to process groeiscan lead",
+      detail: process.env.NODE_ENV === "production" ? undefined : detail,
+    });
   }
 }

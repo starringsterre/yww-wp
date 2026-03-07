@@ -31,13 +31,6 @@ export async function handleWeekendInschrijving(req: Request, res: Response) {
     paymentRoute,
     platformName,
     companyName,
-    invoiceEmail,
-    kvkNumber,
-    vatNumber,
-    invoiceStreet,
-    invoiceHouseNumber,
-    invoicePostalCode,
-    invoiceCity,
     invoiceReference,
     purchaseOrder,
   } = req.body as Record<string, string>;
@@ -94,13 +87,6 @@ export async function handleWeekendInschrijving(req: Request, res: Response) {
         payment_route: (paymentRoute || "").trim(),
         platform_name: (platformName || "").trim(),
         company_name: (companyName || "").trim(),
-        invoice_email: (invoiceEmail || "").trim(),
-        kvk_number: (kvkNumber || "").trim(),
-        vat_number: (vatNumber || "").trim(),
-        invoice_street: (invoiceStreet || "").trim(),
-        invoice_house_number: (invoiceHouseNumber || "").trim(),
-        invoice_postal_code: (invoicePostalCode || "").trim(),
-        invoice_city: (invoiceCity || "").trim(),
         invoice_reference: (invoiceReference || "").trim(),
         purchase_order: (purchaseOrder || "").trim(),
       },
@@ -112,7 +98,7 @@ export async function handleWeekendInschrijving(req: Request, res: Response) {
     const detail = error instanceof Error ? error.message : "Unknown error";
     return res.status(500).json({
       error: "Failed to process weekend inschrijving",
-      detail: process.env.NODE_ENV === "production" ? undefined : detail,
+      detail,
     });
   }
 }

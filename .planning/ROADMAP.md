@@ -12,7 +12,7 @@ De site is functioneel compleet maar de API routes (formulierverwerking naar Kla
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Vercel API Fix** - Pre-bundle server code zodat alle formulier-endpoints werken op Vercel productie
+- [x] **Phase 1: Vercel API Fix** - Pre-bundle server code zodat alle formulier-endpoints werken op Vercel productie
 - [ ] **Phase 2: Cleanup en Deploy Pipeline** - Debug-code verwijderen, deploy-pipeline betrouwbaar maken, alle endpoints verifi&euml;ren
 - [ ] **Phase 3: Production Hardening** - Input validatie en CORS-beperking voor veilige productie
 
@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 1 plan
 
 Plans:
-- [ ] 01-01-PLAN.md -- Pre-bundle server via esbuild, remove serverless-http, pin Node.js 22.x, deploy and verify
+- [x] 01-01-PLAN.md -- Pre-bundle server via esbuild, remove serverless-http, pin Node.js 22.x, deploy and verify
 
 ### Phase 2: Cleanup en Deploy Pipeline
 **Goal**: De codebase is schoon, de deploy-pipeline werkt betrouwbaar, en alle endpoints zijn geverifieerd op productie
@@ -67,6 +67,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Vercel API Fix | 0/1 | Not started | - |
+| 1. Vercel API Fix | 1/1 | Complete | 2026-03-07 |
 | 2. Cleanup en Deploy Pipeline | 0/? | Not started | - |
 | 3. Production Hardening | 0/? | Not started | - |

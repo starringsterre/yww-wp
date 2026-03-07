@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Vercel API Deployment
 
-- [ ] **VRCL-01**: Server code wordt pre-bundled naar `api/_server.mjs` via esbuild zodat alle API routes werken op Vercel productie
-- [ ] **VRCL-02**: `serverless-http` dependency wordt verwijderd en vervangen door directe Express app export
-- [ ] **VRCL-03**: Node.js runtime wordt gepind op 22.x in package.json engines
+- [x] **VRCL-01**: Server code wordt pre-bundled naar `api/_server.mjs` via esbuild zodat alle API routes werken op Vercel productie
+- [x] **VRCL-02**: `serverless-http` dependency wordt verwijderd en vervangen door directe Express app export
+- [x] **VRCL-03**: Node.js runtime wordt gepind op 22.x in package.json engines
 
 ### Production Cleanup
 
@@ -56,9 +56,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VRCL-01 | Phase 1 | Pending |
-| VRCL-02 | Phase 1 | Pending |
-| VRCL-03 | Phase 1 | Pending |
+| VRCL-01 | Phase 1 | Complete |
+| VRCL-02 | Phase 1 | Complete |
+| VRCL-03 | Phase 1 | Complete |
 | CLEN-01 | Phase 2 | Pending |
 | CLEN-02 | Phase 2 | Pending |
 | CLEN-03 | Phase 2 | Pending |

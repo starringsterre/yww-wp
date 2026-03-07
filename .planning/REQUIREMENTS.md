@@ -56,22 +56,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VRCL-01 | — | Pending |
-| VRCL-02 | — | Pending |
-| VRCL-03 | — | Pending |
-| CLEN-01 | — | Pending |
-| CLEN-02 | — | Pending |
-| CLEN-03 | — | Pending |
-| DEPL-01 | — | Pending |
-| DEPL-02 | — | Pending |
-| HARD-01 | — | Pending |
-| HARD-02 | — | Pending |
+| VRCL-01 | Phase 1 | Pending |
+| VRCL-02 | Phase 1 | Pending |
+| VRCL-03 | Phase 1 | Pending |
+| CLEN-01 | Phase 2 | Pending |
+| CLEN-02 | Phase 2 | Pending |
+| CLEN-03 | Phase 2 | Pending |
+| DEPL-01 | Phase 2 | Pending |
+| DEPL-02 | Phase 2 | Pending |
+| HARD-01 | Phase 3 | Pending |
+| HARD-02 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 10 total
-- Mapped to phases: 0
-- Unmapped: 10
+- Mapped to phases: 10
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-07*
-*Last updated: 2026-03-07 after initial definition*
+*Last updated: 2026-03-07 after roadmap creation*

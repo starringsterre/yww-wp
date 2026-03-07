@@ -19,6 +19,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/wp-json/:path*", "destination": "https://cms.youngwisewomen.nl/wp-json/:path*" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]

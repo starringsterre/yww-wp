@@ -15,6 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Vercel API Fix** - Pre-bundle server code zodat alle formulier-endpoints werken op Vercel productie
 - [ ] **Phase 2: Cleanup en Deploy Pipeline** - Debug-code verwijderen, deploy-pipeline betrouwbaar maken, alle endpoints verifi&euml;ren
 - [ ] **Phase 3: Production Hardening** - Input validatie en CORS-beperking voor veilige productie
+- [ ] **Phase 4: Klaviyo CRM & Flows Setup** - Alle formulieren inventariseren, Klaviyo-lijsten/flows/automations inrichten, welkomstmails, CRM production-ready maken
 
 ## Phase Details
 
@@ -37,15 +38,15 @@ Plans:
 **Depends on**: Phase 1
 **Requirements**: CLEN-01, CLEN-02, CLEN-03, DEPL-01, DEPL-02
 **Success Criteria** (what must be TRUE):
-  1. `api/[...all].ts` bevat alleen een clean import+export van `_server.mjs` -- geen debug wrappers, geen try/catch error logging
+  1. `api/index.ts` bevat alleen een clean import+export van `_server.mjs` -- geen debug wrappers, geen try/catch error logging
   2. `/api/debug/env-check` retourneert een 404 (endpoint verwijderd)
-  3. `npm run deploy` voert alle stappen succesvol uit in een enkele run (Vercel build + CMS sync + PHP rsync + WP pages)
+  3. `npm run deploy` voert alle stappen succesvol uit in een enkele run (Vercel build + CMS sync + PHP rsync + WP pages + health check)
   4. Na een deploy bevestigt een automatische health check dat alle API endpoints bereikbaar zijn
   5. Er zijn geen ongebruikte route-bestanden (mailchimp.ts, demo.ts) meer in de codebase
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md -- Remove dead code/debug endpoints, harden deploy.mjs with collect-errors + health check
 
 ### Phase 3: Production Hardening
 **Goal**: De API is beschermd tegen ongeldige input en ongeautoriseerde origins zodat Klaviyo-data schoon blijft
@@ -63,10 +64,26 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Vercel API Fix | 1/1 | Complete | 2026-03-07 |
-| 2. Cleanup en Deploy Pipeline | 0/? | Not started | - |
+| 2. Cleanup en Deploy Pipeline | 0/1 | Not started | - |
 | 3. Production Hardening | 0/? | Not started | - |
+| 4. Klaviyo CRM & Flows Setup | 0/? | Not started | - |
+
+### Phase 4: Klaviyo CRM & Flows Setup
+**Goal**: Klaviyo is volledig production-ready ingericht: alle formulieren op de site triggeren de juiste flows, bezoekers ontvangen automatisch welkomst-/opvolgmails, en het CRM is professioneel gesegmenteerd
+**Depends on**: Phase 3
+**Requirements**: TBD (research phase needed)
+**Success Criteria** (what must be TRUE):
+  1. Elk formuliertype (newsletter, netwerk, retreat-inschrijving, groeiscan, bedrijfsbrochure, vraagbaak) heeft een bijbehorende Klaviyo-flow met welkomst-/bevestigingsmail
+  2. Klaviyo-lijsten en segmenten zijn logisch ingericht per doelgroep
+  3. Email templates zijn professioneel en on-brand (Young Wise Women huisstijl)
+  4. Een aanmelding via elk formulier op de live site resulteert in de juiste flow-trigger en email-ontvangst
+  5. CRM-profielen bevatten alle relevante data (naam, email, aanmeldtype, bron)
+**Plans**: TBD
+
+Plans:
+- [ ] 04-01: TBD (run /gsd:plan-phase 4 to break down)

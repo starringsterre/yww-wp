@@ -27,10 +27,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Een formulierinzending op de live site resulteert in een nieuw profiel/subscription in de correcte Klaviyo-lijst
   3. `api/_server.mjs` wordt gegenereerd door het build-proces en bevat alle server-dependencies zonder cross-directory imports
   4. `serverless-http` staat niet meer in package.json
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md -- Pre-bundle server via esbuild, remove serverless-http, pin Node.js 22.x, deploy and verify
 
 ### Phase 2: Cleanup en Deploy Pipeline
 **Goal**: De codebase is schoon, de deploy-pipeline werkt betrouwbaar, en alle endpoints zijn geverifieerd op productie
@@ -67,6 +67,6 @@ Phases execute in numeric order: 1 -> 2 -> 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Vercel API Fix | 0/? | Not started | - |
+| 1. Vercel API Fix | 0/1 | Not started | - |
 | 2. Cleanup en Deploy Pipeline | 0/? | Not started | - |
 | 3. Production Hardening | 0/? | Not started | - |

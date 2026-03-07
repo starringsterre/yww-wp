@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
-import type { JSX, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface ScrollFadeInUpProps {
-  as?: keyof JSX.IntrinsicElements;
+  as?: "div" | "h2" | "section" | "span" | "p";
   children: ReactNode;
   className?: string;
-  [key: string]: any;
+  style?: React.CSSProperties;
 }
 
 export default function ScrollFadeInUp({
-  as: Component = "div",
+  as: Tag = "div",
   children,
   className = "",
   ...props
@@ -43,8 +43,8 @@ export default function ScrollFadeInUp({
   }, []);
 
   return (
-    <Component ref={ref} className={className} {...props}>
+    <Tag ref={ref as any} className={className} {...props}>
       {children}
-    </Component>
+    </Tag>
   );
 }

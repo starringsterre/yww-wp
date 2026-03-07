@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 01-01-PLAN.md -- Phase 1 complete, ready for Phase 2
-last_updated: "2026-03-07T15:59:01.768Z"
+stopped_at: Phase 2 context gathered
+last_updated: "2026-03-07T16:17:10.975Z"
 last_activity: 2026-03-07 -- Phase 1 Plan 01 executed successfully
 progress:
-  total_phases: 3
+  total_phases: 4
   completed_phases: 1
   total_plans: 1
   completed_plans: 1
@@ -68,6 +68,10 @@ Recent decisions affecting current work:
 
 None yet.
 
+### Roadmap Evolution
+
+- Phase 4 added: Klaviyo CRM & Flows Setup — volledig Klaviyo inrichten met flows, welkomstmails, segmentatie en professionele email templates
+
 ### Blockers/Concerns
 
 - ~~Express 5 default export compatibility with Vercel Node.js 22.x runtime needs verification~~ (RESOLVED: works)
@@ -76,6 +80,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-07
-Stopped at: Completed 01-01-PLAN.md -- Phase 1 complete, ready for Phase 2
-Resume file: None
+Last session: 2026-03-07T16:17:10.937Z
+Stopped at: Phase 2 context gathered
+Resume file: .planning/phases/02-cleanup-en-deploy-pipeline/02-CONTEXT.md

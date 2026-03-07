@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { useGlobalSettings } from "@/hooks/useGlobalSettings";
+import { resolveSiteLogoUrl, SITE_BASE_URL, toAbsoluteSiteAssetUrl } from "@/lib/siteBranding";
 
 export interface SEOHeadProps {
   title: string;
@@ -12,8 +14,7 @@ export interface SEOHeadProps {
 }
 
 const SITE_NAME = "Young Wise Women";
-const BASE_URL = "https://youngwisewomen.nl";
-const DEFAULT_OG_IMAGE = `${BASE_URL}/Logo-Young-Wise-Women.png`;
+const BASE_URL = SITE_BASE_URL;
 
 export default function SEOHead({
   title,
@@ -24,8 +25,12 @@ export default function SEOHead({
   jsonLd,
   noindex = false,
 }: SEOHeadProps) {
+  const { data: settings } = useGlobalSettings();
   const canonicalUrl = `${BASE_URL}${path}`;
-  const image = ogImage || DEFAULT_OG_IMAGE;
+  const image = toAbsoluteSiteAssetUrl(
+    ogImage || resolveSiteLogoUrl(settings?.site?.logo),
+    BASE_URL,
+  );
 
   return (
     <Helmet>

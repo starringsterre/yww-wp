@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { usePageContent } from "@/hooks/usePageContent";
 import SEOHead from "@/components/SEOHead";
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import HeroSection from "@/components/HeroSection";
 import FloatingBrandsSection from "@/components/FloatingBrandsSection";
+import { renderMultiline } from "@/lib/renderMultiline";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -156,21 +158,26 @@ export default function VoorOrganisaties() {
         subtitle={cms?.hero_subtitle || "Het Netwerk voor jonge vrouwelijke professionals"}
       />
 
-      <section className="py-20 px-4 md:px-8 bg-white">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="w-full py-20 bg-[#fbf9f6] text-center">
+        <div className="px-8 md:px-16">
           <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
             {cms?.intro_heading || "Jaarprogramma voor jonge vrouwelijke professionals"}
           </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            {cms?.intro_text || "We begeleiden groepen jonge vrouwen een jaar lang met een combinatie van 1-op-1 coaching, groepssessies, een dag workshop en een weekend training (intensief). Zo bouwen zij rust, zelfvertrouwen en leiderschap op dat direct impact heeft op werk en welzijn."}
-          </p>
+          {renderMultiline(cms?.intro_text || "We begeleiden groepen jonge vrouwen een jaar lang met een combinatie van 1-op-1 coaching, groepssessies, een dag workshop en een weekend training (intensief). Zo bouwen zij rust, zelfvertrouwen en leiderschap op dat direct impact heeft op werk en welzijn.", "text-lg text-gray-700")}
+          <div className="mt-8">
+            <Link
+              to="/in-company/jaarprogrammas"
+              className="inline-block px-8 py-4 bg-primary text-white rounded-lg transition-all duration-300 hover:scale-105 hover:bg-accent font-medium"
+            >
+              {cms?.intro_cta || "Meer over jaarprogramma's"}
+            </Link>
+          </div>
         </div>
       </section>
 
       <FloatingBrandsSection title={cms?.brands_heading || "talent uit deze organisaties ontwikkelde zich via YWW"} />
 
-      <section className="min-h-screen py-20 px-4 md:px-8 bg-gray-50 flex items-center">
-        <div className="max-w-5xl mx-auto">
+      <section className="min-h-screen py-20 px-8 md:px-16 lg:px-24 bg-gray-50 flex flex-col justify-center">
           <h2 className="text-3xl md:text-4xl font-light text-gray-900 text-center mb-12">
             {cms?.program_heading || "Wat zit er in het programma"}
           </h2>
@@ -180,49 +187,45 @@ export default function VoorOrganisaties() {
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
                 {cms?.program_1_title || "1-op-1 coaching"}
               </h3>
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                {cms?.program_1_text || "Persoonlijke begeleiding op thema's als energie, grenzen, loopbaanrichting en persoonlijk leiderschap."}
-              </p>
+              {renderMultiline(cms?.program_1_text || "Persoonlijke begeleiding op thema's als energie, grenzen, loopbaanrichting en persoonlijk leiderschap.", "text-gray-700 transition-colors duration-300 group-hover:text-white")}
             </div>
 
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
                 {cms?.program_2_title || "Groepssessies"}
               </h3>
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                {cms?.program_2_text || "Interactieve sessies waarin deelnemers van elkaar leren, samen reflecteren en eigenaarschap versterken."}
-              </p>
+              {renderMultiline(cms?.program_2_text || "Interactieve sessies waarin deelnemers van elkaar leren, samen reflecteren en eigenaarschap versterken.", "text-gray-700 transition-colors duration-300 group-hover:text-white")}
             </div>
 
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
                 {cms?.program_3_title || "Dag workshop"}
               </h3>
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                {cms?.program_3_text || "Een verdiepende dag buiten de dagelijkse werkcontext om focus, rust en richting terug te pakken."}
-              </p>
+              {renderMultiline(cms?.program_3_text || "Een verdiepende dag buiten de dagelijkse werkcontext om focus, rust en richting terug te pakken.", "text-gray-700 transition-colors duration-300 group-hover:text-white")}
             </div>
 
             <div className="group p-6 rounded-lg border border-gray-200 bg-[rgba(184,183,163,0.5)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] hover:shadow-xl hover:border-[#B46555] hover:bg-[#B46555]">
               <h3 className="text-xl font-medium text-gray-900 mb-3 transition-colors duration-300 group-hover:text-white">
                 {cms?.program_4_title || "Weekend training (intensief)"}
               </h3>
-              <p className="text-gray-700 transition-colors duration-300 group-hover:text-white">
-                {cms?.program_4_text || "Een intensieve meerdaagse ervaring met ruimte voor reflectie, gedragsverandering en duurzame borging van inzichten."}
-              </p>
+              {renderMultiline(cms?.program_4_text || "Een intensieve meerdaagse ervaring met ruimte voor reflectie, gedragsverandering en duurzame borging van inzichten.", "text-gray-700 transition-colors duration-300 group-hover:text-white")}
             </div>
           </div>
-        </div>
       </section>
 
-      <section className="py-14 px-4 md:px-8 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
+      <section
+        className="relative min-h-screen px-8 md:px-16 lg:px-24 bg-cover bg-center flex items-center"
+        style={{ backgroundImage: `url(${cms?.cta_background_image || "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&q=80"})` }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-[#1c2826]/65" />
+        <div className="relative w-full text-center">
+          <h2 className="text-3xl md:text-5xl font-light text-white mb-6">
             {cms?.cta_heading || "Interesse in een programma op maat?"}
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
-            {cms?.cta_text || "We stemmen inhoud, ritme en groepsgrootte af op jullie organisatie."}
-          </p>
+          <div className="mb-10">
+            {renderMultiline(cms?.cta_text || "We stemmen inhoud, ritme en groepsgrootte af op jullie organisatie.", "text-lg text-white/80")}
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Dialog open={isKennismakingDialogOpen} onOpenChange={setIsKennismakingDialogOpen}>
               <DialogTrigger asChild>
@@ -265,7 +268,7 @@ export default function VoorOrganisaties() {
             </Dialog>
             <Dialog open={isBrochureDialogOpen} onOpenChange={setIsBrochureDialogOpen}>
               <DialogTrigger asChild>
-                <Button size="lg" variant="outline">{cms?.cta_button_2 || "Download brochure"}</Button>
+                <Button size="lg" variant="outline" className="border-primary text-primary bg-white/90 hover:bg-accent hover:text-white hover:border-accent hover:scale-105">{cms?.cta_button_2 || "Download brochure"}</Button>
               </DialogTrigger>
               <DialogContent className="max-w-5xl gap-0 overflow-hidden border-0 bg-[#f7f3ea] p-0 shadow-2xl">
                 <div className="grid max-h-[85vh] grid-cols-1 overflow-y-auto md:grid-cols-[1.08fr_0.92fr]">
@@ -384,6 +387,50 @@ export default function VoorOrganisaties() {
                 </div>
               </DialogContent>
             </Dialog>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f5f0e8]">
+        <div className="flex flex-col md:flex-row">
+          {/* Photo */}
+          <div className="w-full md:w-1/2 relative overflow-hidden flex items-center justify-center" style={{ minHeight: '480px' }}>
+            {cms?.workshops_image ? (
+              <img
+                src={cms.workshops_image}
+                alt="In-company workshops"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-100 border-2 border-dashed border-gray-300">
+                <svg className="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span className="text-sm">workshops_image</span>
+              </div>
+            )}
+          </div>
+
+          {/* Text */}
+          <div className="w-full md:w-1/2 px-8 py-14 md:px-14 md:py-20 flex flex-col justify-center">
+            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
+              {cms?.workshops_heading || "In-company workshops op aanvraag"}
+            </h2>
+            <div className="mb-4">
+              {renderMultiline(cms?.workshops_text || "Wil je jouw team inspireren met een gerichte workshop? We verzorgen maatwerkworkshops op locatie, afgestemd op de thema's die bij jullie leven. Datum en inhoud op aanvraag.", "text-base text-gray-700")}
+            </div>
+            <p className="text-sm text-gray-500 mb-8">
+              {cms?.workshops_date || "Datum op aanvraag"}
+            </p>
+            <div>
+              <Link
+                to="/in-company/workshops-op-maat"
+                className="inline-block px-8 py-4 bg-primary text-white rounded-lg transition-all duration-300 hover:scale-105 hover:bg-accent font-medium"
+              >
+                {cms?.workshops_cta || "Bekijk workshops op maat"}
+              </Link>
+            </div>
           </div>
         </div>
       </section>

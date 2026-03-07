@@ -2,6 +2,11 @@ import { useRef, useState } from "react";
 import { Volume2, VolumeX, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+const DEFAULT_INTRO_VIDEO_SRC =
+  "https://cms.youngwisewomen.nl/wp-content/uploads/2026/03/Young-Wise-Women-2-daagse-ontwikkeling-training.mov";
+const DEFAULT_MODAL_VIDEO_SRC =
+  "https://cms.youngwisewomen.nl/wp-content/uploads/2026/03/Young-Wise-Women-Retreat-Campaign.mov";
+
 interface PromoVideoSectionProps {
   className?: string;
   videoContainerClassName?: string;
@@ -16,8 +21,8 @@ export default function PromoVideoSection({
   videoContainerClassName,
   ctaContainerClassName,
   ctaLabel = "Bekijk de hele video",
-  introVideoSrc = "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df",
-  modalVideoSrc = "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df",
+  introVideoSrc = DEFAULT_INTRO_VIDEO_SRC,
+  modalVideoSrc = DEFAULT_MODAL_VIDEO_SRC,
 }: PromoVideoSectionProps) {
   const [isMuted, setIsMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
@@ -29,11 +34,15 @@ export default function PromoVideoSection({
     const video = videoRef.current;
     if (!video) return;
     const nextMuted = !isMuted;
+    video.defaultMuted = nextMuted;
     video.muted = nextMuted;
-    setIsMuted(nextMuted);
+
     if (!nextMuted) {
+      video.volume = 1;
       await video.play().catch(() => {});
     }
+
+    setIsMuted(nextMuted);
   };
 
   const openModal = () => {
@@ -70,8 +79,8 @@ export default function PromoVideoSection({
             setSoundButtonPos({ x: clampedX, y: clampedY });
           }}
           onPointerLeave={() => setIsHovered(false)}
-          onPointerDown={(event) => {
-            if (event.button !== 0) return;
+          onClick={(event) => {
+            if ("button" in event && event.button !== 0) return;
             void toggleMute();
           }}
           onKeyDown={(event) => {
@@ -80,7 +89,7 @@ export default function PromoVideoSection({
               void toggleMute();
             }
           }}
-          style={{ touchAction: "none" }}
+          style={{ touchAction: "manipulation" }}
         >
           <video
             ref={videoRef}
@@ -101,7 +110,7 @@ export default function PromoVideoSection({
           >
             <button
               type="button"
-              onPointerDown={(event) => {
+              onClick={(event) => {
                 event.stopPropagation();
                 void toggleMute();
               }}

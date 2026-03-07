@@ -109,32 +109,15 @@ export default function OnsVerhaal() {
         </div>
       </section>
 
-      {/* Section 2: Image Left, Text Right (mirrored with parallax) */}
+      {/* Section 2: Text Left, Image Right on mobile; Image Left, Text Right on desktop */}
       <section
         ref={section2Ref}
         className="min-h-screen py-20 px-4 md:px-8 bg-gray-50 overflow-hidden flex items-center"
       >
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Image with Parallax Effect (mirrored position) */}
-            <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg order-2 md:order-1">
-              <img loading="lazy"
-                src={cms?.section_2_image || defaultImage2Url}
-                alt="Young Wise Women Netwerk"
-                className="w-full h-full object-cover"
-                style={
-                  isMobile
-                    ? undefined
-                    : {
-                        transform: `translateY(${getParallaxOffset(section2Ref, "slower")}px)`,
-                        transition: "transform 0.1s ease-out",
-                      }
-                }
-              />
-            </div>
-
-            {/* Text Content (mirrored order) */}
-            <div className="space-y-6 order-1 md:order-2">
+            {/* Text Content — first in DOM so mobile shows text before image */}
+            <div className="space-y-6 md:order-2">
               <h2 className="text-4xl md:text-5xl font-light text-gray-900">
                 {cms?.section_2_heading || "Onze Waarden"}
               </h2>
@@ -153,6 +136,23 @@ export default function OnsVerhaal() {
                 </div>
                 ))}
               </div>
+            </div>
+
+            {/* Image — second in DOM so mobile shows image after text */}
+            <div className="relative h-96 md:h-[500px] overflow-hidden rounded-lg shadow-lg md:order-1">
+              <img loading="lazy"
+                src={cms?.section_2_image || defaultImage2Url}
+                alt="Young Wise Women Netwerk"
+                className="w-full h-full object-cover"
+                style={
+                  isMobile
+                    ? undefined
+                    : {
+                        transform: `translateY(${getParallaxOffset(section2Ref, "slower")}px)`,
+                        transition: "transform 0.1s ease-out",
+                      }
+                }
+              />
             </div>
           </div>
         </div>

@@ -10,6 +10,7 @@ export default function RetreatTestimonialsSection() {
   const carouselItems = useMemo(
     () =>
       (testimonials ?? []).map((item) => ({
+        id: item.id ?? `${item.name}-${item.date}`,
         quote: item.quote,
         photo: item.image,
         name: item.name,
@@ -19,9 +20,9 @@ export default function RetreatTestimonialsSection() {
   );
 
   return (
-    <section className="bg-[#B8B7A3] overflow-hidden">
+    <section className="min-h-screen bg-[#B8B7A3] overflow-hidden flex items-center">
       <div className="w-full px-4 md:px-8 lg:px-12 py-12 lg:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-12 items-center">
           <aside className="lg:col-span-5">
             <h2 className="text-[#1C2826] text-4xl md:text-5xl lg:text-6xl leading-tight">
               Ervaringen van deelneemsters
@@ -50,14 +51,14 @@ export default function RetreatTestimonialsSection() {
             </div>
           </aside>
 
-          <div className="mt-8 lg:col-span-7 lg:mt-0 lg:pt-0">
+          <div className="mt-8 lg:col-span-7 lg:mt-0 lg:self-stretch lg:flex lg:items-center">
             <InfiniteTwoUpCarousel
               testimonials={carouselItems}
               onReady={(api) => {
                 controlsRef.current = api;
               }}
               renderCard={(item) => (
-                <article className="bg-[#FBF9F5] rounded-3xl px-8 pt-8 pb-6 text-[#1C2826] shadow-sm h-auto">
+                <article className="min-h-[20rem] rounded-3xl bg-[#FBF9F5] px-8 pt-8 pb-6 text-[#1C2826] shadow-sm">
                   <img
                     loading="lazy"
                     src="/quotation.svg"
@@ -67,11 +68,16 @@ export default function RetreatTestimonialsSection() {
                   />
                   <p className="mt-4 text-sm leading-relaxed">{item.quote}</p>
                   <div className="mt-6 flex items-center gap-4">
-                    <img loading="lazy"
-                      src={item.photo}
-                      alt={item.name}
-                      className="h-12 w-12 rounded-full object-cover"
-                    />
+                    <div className="h-12 w-12 overflow-hidden rounded-full bg-[#1C2826]/10 flex-shrink-0">
+                      {item.photo ? (
+                        <img
+                          loading="lazy"
+                          src={item.photo}
+                          alt={item.name}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : null}
+                    </div>
                     <div className="leading-tight">
                       <p className="text-lg font-semibold">{item.name}</p>
                       <p className="text-sm text-[#1C2826]/70">{item.role}</p>

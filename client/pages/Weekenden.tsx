@@ -7,6 +7,7 @@ import PromoVideoSection from "@/components/PromoVideoSection";
 import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
+import { renderMultiline } from "@/lib/renderMultiline";
 import SEOHead from "@/components/SEOHead";
 
 export default function Weekenden() {
@@ -160,9 +161,9 @@ export default function Weekenden() {
             <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
               {cms?.pillars_heading || "De Drie Pijlers van de Weekend Training"}
             </h2>
-            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              {cms?.pillars_intro || "Het fundament van onze weekend trainingen rust op drie kernpijlers die samen zorgen voor een diepgaande transformatie."}
-            </p>
+            <div className="mx-auto" style={{ maxWidth: "600px" }}>
+              {renderMultiline(cms?.pillars_intro || "Het fundament van onze weekend trainingen rust op drie kernpijlers die samen zorgen voor een diepgaande transformatie.", "text-gray-600")}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -176,9 +177,7 @@ export default function Weekenden() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.pillar_1_title || "Reflectie"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.pillar_1_text || "De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt."}
-              </p>
+              {renderMultiline(cms?.pillar_1_text || "De ideale omgeving voor reflectie op je persoonlijke doelen, je patronen, je (betekenvolle) werk en je eigen energiehuishouding. Met behulp van een werkboek en trainingen gaan we diep in op wat je echt wilt en wat je tegenhoudt.", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             {/* Pillar 2 */}
@@ -191,9 +190,7 @@ export default function Weekenden() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.pillar_2_title || "Rust & Ruimte"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.pillar_2_text || "Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24-29). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren."}
-              </p>
+              {renderMultiline(cms?.pillar_2_text || "Ervaar de rust en ruimte op een prachtige locatie in een vakantiehuis in Friesland, samen met een groep gelijkgestemde jonge professionals (24-29). Alles is voor je geregeld, zodat je je volledig op jezelf en de groep kunt concentreren.", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             {/* Pillar 3 */}
@@ -206,9 +203,7 @@ export default function Weekenden() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.pillar_3_title || "Inspiratie & Nieuwe Tools"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.pillar_3_text || "Een intensieve weekend training waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en praktische tools krijgt aangereikt voor nu en je toekomst."}
-              </p>
+              {renderMultiline(cms?.pillar_3_text || "Een intensieve weekend training waarin je een nieuwe kijk op jezelf krijgt, je ervaringen en inzichten deelt, en praktische tools krijgt aangereikt voor nu en je toekomst.", "text-sm text-gray-600 leading-relaxed")}
             </div>
           </div>
 
@@ -500,9 +495,7 @@ export default function Weekenden() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.nextstep_heading || "Jouw Volgende Stap"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.nextstep_text || "Kies nu voor betekenisvol, vitaal en gelukkig leven en werken en word die geweldige vrouw die je bedoeld bent te zijn. Niet door harder te werken of te doen wat anderen doen, maar je eigen unieke koers te volgen en bewuste keuzes te maken."}
-                </p>
+                {renderMultiline(cms?.nextstep_text || "Kies nu voor betekenisvol, vitaal en gelukkig leven en werken en word die geweldige vrouw die je bedoeld bent te zijn. Niet door harder te werken of te doen wat anderen doen, maar je eigen unieke koers te volgen en bewuste keuzes te maken.", "text-gray-700")}
               </div>
             </SlideInLeft>
           </div>

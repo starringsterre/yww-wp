@@ -1,6 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import { Link } from "react-router-dom";
 import { usePageContent } from "@/hooks/usePageContent";
+import { renderMultiline } from "@/lib/renderMultiline";
 import SEOHead from "@/components/SEOHead";
 
 export default function Retreats() {
@@ -26,9 +27,11 @@ export default function Retreats() {
             <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
               {cms?.intro_text ? cms.intro_text.split('\n')[0] : "Persoonlijke Ontwikkeling trainingen & Workshops"}
             </h2>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-              {cms?.intro_text ? cms.intro_text.split('\n').slice(1).join(' ') : "Deze pagina is voor particulieren: jonge vrouwen die willen groeien in energie, richting en zelfvertrouwen via onze workshops en weekend trainingen."}
-            </p>
+            <div className="max-w-3xl mx-auto">
+              {cms?.intro_text
+                ? renderMultiline(cms.intro_text.split('\n').slice(1).join('\n'), "text-lg text-gray-700")
+                : <p className="text-lg text-gray-700">{"Deze pagina is voor particulieren: jonge vrouwen die willen groeien in energie, richting en zelfvertrouwen via onze workshops en weekend trainingen."}</p>}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

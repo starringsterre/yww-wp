@@ -21,6 +21,7 @@ export default function TestimonialsCarousel({
   const carouselItems = useMemo(
     () =>
       testimonials.map((testimonial) => ({
+        id: testimonial.name ? `${testimonial.name}-${testimonial.date}` : testimonial.date,
         quote: testimonial.quote,
         name: testimonial.name,
         role: testimonial.date,

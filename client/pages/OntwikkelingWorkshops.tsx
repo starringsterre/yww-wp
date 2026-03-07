@@ -6,6 +6,7 @@ import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
 import { useWorkshops } from "@/hooks/useWorkshops";
+import { renderMultiline } from "@/lib/renderMultiline";
 import SEOHead from "@/components/SEOHead";
 
 // Static image/alt data keyed by index for workshop cards (WPWorkshop has no image field)
@@ -274,10 +275,7 @@ export default function OntwikkelingWorkshops() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.goodbye_heading || "Waar je Afscheid van Neemt"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.goodbye_text ||
-                    "Je laat overbelasting, twijfel en continue aanpassing los, zodat je met meer rust en focus keuzes maakt."}
-                </p>
+                {renderMultiline(cms?.goodbye_text || "Je laat overbelasting, twijfel en continue aanpassing los, zodat je met meer rust en focus keuzes maakt.", "text-gray-700")}
               </div>
             </SlideInLeft>
 
@@ -286,10 +284,7 @@ export default function OntwikkelingWorkshops() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.takeaway_heading || "Wat je Meeneemt"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.takeaway_text ||
-                    "Praktische handvatten, meer energie en heldere prioriteiten die je direct toepast in werk en dagelijks leven."}
-                </p>
+                {renderMultiline(cms?.takeaway_text || "Praktische handvatten, meer energie en heldere prioriteiten die je direct toepast in werk en dagelijks leven.", "text-gray-700")}
               </div>
             </SlideInLeft>
 
@@ -298,10 +293,7 @@ export default function OntwikkelingWorkshops() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.nextstep_heading || "Jouw Volgende Stap"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.nextstep_text ||
-                    "Je gaat naar huis met een concreet actieplan, zodat je ontwikkeling na de workshop direct doorloopt."}
-                </p>
+                {renderMultiline(cms?.nextstep_text || "Je gaat naar huis met een concreet actieplan, zodat je ontwikkeling na de workshop direct doorloopt.", "text-gray-700")}
               </div>
             </SlideInLeft>
           </div>
@@ -314,9 +306,9 @@ export default function OntwikkelingWorkshops() {
             {cms?.for_whom_heading || "Voor wie zijn onze workshops"}
           </h2>
 
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
-            {cms?.for_whom_intro || "Deze workshops zijn speciaal ontworpen voor jonge professionals (24+) die:"}
-          </p>
+          <div className="max-w-2xl mx-auto text-center mb-12">
+            {renderMultiline(cms?.for_whom_intro || "Deze workshops zijn speciaal ontworpen voor jonge professionals (24+) die:", "text-lg text-gray-700")}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {forWhomItems.map((item, index) => (

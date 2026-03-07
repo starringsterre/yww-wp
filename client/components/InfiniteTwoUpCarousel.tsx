@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 type RetreatTestimonial = {
+  id: string | number;
   quote: string;
   photo: string;
   name: string;
@@ -21,7 +22,12 @@ export function InfiniteTwoUpCarousel({
 
   const n = testimonials.length;
 
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined"
+      ? window.matchMedia("(min-width: 1024px)").matches
+      : false,
+  );
+  const [isMeasured, setIsMeasured] = useState(false);
   const [gapPx, setGapPx] = useState(24);
   const [slidePx, setSlidePx] = useState(0);
   const [stepPx, setStepPx] = useState(0);
@@ -30,6 +36,7 @@ export function InfiniteTwoUpCarousel({
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffsetPx, setDragOffsetPx] = useState(0);
   const [disableTransition, setDisableTransition] = useState(false);
+  const hasInitializedRef = useRef(false);
 
   const dragState = useRef<{
     startX: number;
@@ -49,8 +56,9 @@ export function InfiniteTwoUpCarousel({
 
   const realStart = cloneCount;
   const realEnd = cloneCount + (n - 1);
+  const desktopFallbackWidth = "calc((100% - 1.5rem) / 2)";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!viewportRef.current) return;
 
     const update = () => {
@@ -74,9 +82,11 @@ export function InfiniteTwoUpCarousel({
         const forcedSlide = (w - measuredGap) / 2;
         setSlidePx(forcedSlide);
         setStepPx(forcedSlide + measuredGap);
+        setIsMeasured(forcedSlide > 0);
       } else {
         setSlidePx(w);
         setStepPx(w + measuredGap);
+        setIsMeasured(w > 0);
       }
     };
 
@@ -93,35 +103,47 @@ export function InfiniteTwoUpCarousel({
   }, []);
 
   useEffect(() => {
-    if (n === 0) return;
+    if (!isMeasured || n === 0) return;
     setDisableTransition(true);
-    setIndex(realStart);
+    setIndex((current) => {
+      if (!hasInitializedRef.current) {
+        hasInitializedRef.current = true;
+        return realStart;
+      }
+
+      if (n <= 1) {
+        return realStart;
+      }
+
+      const normalized = ((current - realStart) % n + n) % n;
+      return realStart + normalized;
+    });
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setDisableTransition(false));
     });
-  }, [realStart, n]);
+  }, [isMeasured, realStart, n]);
 
-  const prev = () => {
-    if (n <= 1) return;
+  const prev = useCallback(() => {
+    if (!isMeasured || n <= 1) return;
     setDisableTransition(false);
     setIndex((i) => i - 1);
-  };
+  }, [isMeasured, n]);
 
-  const next = () => {
-    if (n <= 1) return;
+  const next = useCallback(() => {
+    if (!isMeasured || n <= 1) return;
     setDisableTransition(false);
     setIndex((i) => i + 1);
-  };
+  }, [isMeasured, n]);
 
   useEffect(() => {
     onReady?.({ next, prev });
-  }, [onReady, n]);
+  }, [onReady, next, prev]);
 
-  const baseOffset = stepPx > 0 ? index * stepPx : 0;
+  const baseOffset = isMeasured && stepPx > 0 ? index * stepPx : 0;
   const transform = `translate3d(-${baseOffset + (isDragging ? dragOffsetPx : 0)}px, 0, 0)`;
 
   const handleTrackTransitionEnd = () => {
-    if (isDragging || disableTransition) return;
+    if (!isMeasured || isDragging || disableTransition) return;
     if (cloneCount === 0) return;
 
     if (index < realStart) {
@@ -143,7 +165,7 @@ export function InfiniteTwoUpCarousel({
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (n <= 1 || stepPx === 0) return;
+    if (!isMeasured || n <= 1 || stepPx === 0) return;
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
 
     dragState.current = {
@@ -194,6 +216,23 @@ export function InfiniteTwoUpCarousel({
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
     >
+      {!isMeasured ? (
+        <div
+          className={
+            isDesktop
+              ? "grid grid-cols-2 gap-6"
+              : "grid grid-cols-1 gap-6"
+          }
+        >
+          {testimonials
+            .slice(0, isDesktop ? 2 : 1)
+            .map((item) => (
+              <div key={item.id} className="shrink-0">
+                {renderCard(item)}
+              </div>
+            ))}
+        </div>
+      ) : (
       <div
         ref={trackRef}
         className={[
@@ -207,16 +246,21 @@ export function InfiniteTwoUpCarousel({
       >
         {extended.map((item, i) => (
           <div
-            key={`${item.name}-${i}`}
+            key={`${item.id}-${i}`}
             className="shrink-0"
             style={{
-              width: isDesktop ? `${slidePx}px` : "100%",
+              width: isDesktop
+                ? slidePx > 0
+                  ? `${slidePx}px`
+                  : desktopFallbackWidth
+                : "100%",
             }}
           >
             {renderCard(item)}
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }

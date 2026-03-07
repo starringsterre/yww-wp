@@ -5,6 +5,7 @@ import HeroSection from "@/components/HeroSection";
 import SlideInLeft from "@/components/SlideInLeft";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import { usePageContent } from "@/hooks/usePageContent";
+import { renderMultiline } from "@/lib/renderMultiline";
 import SEOHead from "@/components/SEOHead";
 
 export default function Jaarprogrammas() {
@@ -165,9 +166,9 @@ export default function Jaarprogrammas() {
             <h2 className="text-4xl md:text-5xl font-light text-white mb-4">
               {cms?.phases_heading || "De Drie Fases van het Jaarprogramma"}
             </h2>
-            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              {cms?.phases_intro || "Elk jaarprogramma is opgebouwd uit drie fases die samen zorgen voor een duurzame transformatie."}
-            </p>
+            <div className="mx-auto" style={{ maxWidth: "600px" }}>
+              {renderMultiline(cms?.phases_intro || "Elk jaarprogramma is opgebouwd uit drie fases die samen zorgen voor een duurzame transformatie.", "text-gray-600")}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -180,9 +181,7 @@ export default function Jaarprogrammas() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.phase_1_title || "Fase 1: Bewustwording"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.phase_1_text || "Je brengt in kaart wie je bent, wat je drijft en waar je naartoe wilt. Door reflectie, coaching en de Motivation Factor test krijg je helder inzicht in je patronen en kwaliteiten."}
-              </p>
+              {renderMultiline(cms?.phase_1_text || "Je brengt in kaart wie je bent, wat je drijft en waar je naartoe wilt. Door reflectie, coaching en de Motivation Factor test krijg je helder inzicht in je patronen en kwaliteiten.", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "#FBF9F5" }}>
@@ -194,9 +193,7 @@ export default function Jaarprogrammas() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.phase_2_title || "Fase 2: Verdieping"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.phase_2_text || "Je werkt actief aan gedragsverandering en leiderschap. In groepssessies en een weekend training ga je dieper in op je blokkades en leer je nieuwe vaardigheden toepassen."}
-              </p>
+              {renderMultiline(cms?.phase_2_text || "Je werkt actief aan gedragsverandering en leiderschap. In groepssessies en een weekend training ga je dieper in op je blokkades en leer je nieuwe vaardigheden toepassen.", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             <div className="rounded-2xl p-8 text-center shadow-sm transition-transform duration-300 hover:scale-105 cursor-pointer" style={{ backgroundColor: "#FBF9F5" }}>
@@ -208,9 +205,7 @@ export default function Jaarprogrammas() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.phase_3_title || "Fase 3: Integratie"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.phase_3_text || "Je borgt je ontwikkeling en maakt het onderdeel van je dagelijks leven. Met een concreet actieplan en terugkomsessies zorg je dat je groei duurzaam doorwerkt."}
-              </p>
+              {renderMultiline(cms?.phase_3_text || "Je borgt je ontwikkeling en maakt het onderdeel van je dagelijks leven. Met een concreet actieplan en terugkomsessies zorg je dat je groei duurzaam doorwerkt.", "text-sm text-gray-600 leading-relaxed")}
             </div>
           </div>
 
@@ -232,9 +227,9 @@ export default function Jaarprogrammas() {
             {cms?.for_whom_heading || "Voor wie zijn onze jaarprogramma's"}
           </h2>
 
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto text-center mb-12">
-            {cms?.for_whom_intro || "Dit programma is speciaal ontworpen voor jonge professionals (24+) die:"}
-          </p>
+          <div className="max-w-2xl mx-auto text-center mb-12">
+            {renderMultiline(cms?.for_whom_intro || "Dit programma is speciaal ontworpen voor jonge professionals (24+) die:", "text-lg text-gray-700")}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {forWhomItems.map((item, index) => (
@@ -352,10 +347,7 @@ export default function Jaarprogrammas() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.goodbye_heading || "Waar je Afscheid van Neemt"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.goodbye_text ||
-                    "Je laat het gevoel van vastlopen, constant aanpassen en twijfelen achter je. Na een jaar heb je helder wat je wilt en de tools om ernaar te handelen."}
-                </p>
+                {renderMultiline(cms?.goodbye_text || "Je laat het gevoel van vastlopen, constant aanpassen en twijfelen achter je. Na een jaar heb je helder wat je wilt en de tools om ernaar te handelen.", "text-gray-700")}
               </div>
             </SlideInLeft>
 
@@ -364,10 +356,7 @@ export default function Jaarprogrammas() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.takeaway_heading || "Wat je Meeneemt"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.takeaway_text ||
-                    "Diepgaand zelfinzicht, sterker leiderschap en een netwerk van gelijkgestemde vrouwen. Je hebt concrete vaardigheden die je dagelijks inzet."}
-                </p>
+                {renderMultiline(cms?.takeaway_text || "Diepgaand zelfinzicht, sterker leiderschap en een netwerk van gelijkgestemde vrouwen. Je hebt concrete vaardigheden die je dagelijks inzet.", "text-gray-700")}
               </div>
             </SlideInLeft>
 
@@ -376,10 +365,7 @@ export default function Jaarprogrammas() {
                 <h3 className="text-2xl font-light text-gray-900 mb-3">
                   {cms?.nextstep_heading || "Jouw Volgende Stap"}
                 </h3>
-                <p className="text-gray-700">
-                  {cms?.nextstep_text ||
-                    "Je sluit het programma af met een concreet actieplan en de zekerheid dat je groei duurzaam doorzet, ondersteund door je community."}
-                </p>
+                {renderMultiline(cms?.nextstep_text || "Je sluit het programma af met een concreet actieplan en de zekerheid dat je groei duurzaam doorzet, ondersteund door je community.", "text-gray-700")}
               </div>
             </SlideInLeft>
           </div>
@@ -430,9 +416,9 @@ export default function Jaarprogrammas() {
           <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-6">
             {cms?.cta_heading || "Klaar om te groeien?"}
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
-            {cms?.cta_text || "Neem contact op voor een vrijblijvend kennismakingsgesprek en ontdek welk programma bij jou past."}
-          </p>
+          <div className="mb-8">
+            {renderMultiline(cms?.cta_text || "Neem contact op voor een vrijblijvend kennismakingsgesprek en ontdek welk programma bij jou past.", "text-lg text-gray-700")}
+          </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"

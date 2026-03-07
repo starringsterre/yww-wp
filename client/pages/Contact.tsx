@@ -49,10 +49,61 @@ export default function Contact() {
       />
 
 
-      {/* One Block with Parallax */}
+      {/* Mobile layout */}
+      <div className="md:hidden">
+        {/* Tekst blok 1 */}
+        <section className="px-6 py-12 bg-[#fbf9f6] text-center space-y-6">
+          <h3 className="text-3xl font-light text-gray-900 tracking-wide">
+            {cms?.block_1_heading || "Ons Gedachtegoed"}
+          </h3>
+          <div className="w-16 h-px bg-gray-400 mx-auto" />
+          <p className="text-sm text-gray-700 leading-relaxed">
+            {cms?.block_1_text || "Het idee voor dit retreat ontstond bij Ella Taal, zelf afkomstig uit Generatie X en moeder van drie dochters uit Generatie Z. Ze zag van dichtbij hoe jonge vrouwen vandaag de dag zoeken naar hun plek in het professionele werkveld, vaak zonder de begeleiding die ze verdienen. Ella voelde de wens om de kracht en wijsheid van eerdere generaties door te geven aan deze nieuwe generatie, die in een complexe wereld op eigenzinnige en bewuste wijze leiding durft te nemen. Zo wil zij bijdragen aan het versterken van vrouwen die leiderschap tonen – iets waar in deze tijd grote behoefte aan is."}
+          </p>
+          <Link
+            to="/ons-verhaal/over-ella"
+            className="inline-block px-8 py-3 rounded-lg font-medium text-white bg-primary transition-all duration-300 hover:scale-105 hover:bg-accent"
+          >
+            Meer over Founder Ella
+          </Link>
+        </section>
+
+        {/* Foto 1 */}
+        <div className="w-full overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
+          <img
+            loading="lazy"
+            src={image1Url}
+            alt="Ella Taal"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Tekst blok 2 */}
+        <section className="px-6 py-12 bg-[#fbf9f7] text-center space-y-6">
+          <h3 className="text-3xl font-light text-gray-900 tracking-wide">
+            {cms?.block_2_heading || "Unieke Kracht"}
+          </h3>
+          <div className="w-16 h-px bg-gray-400 mx-auto" />
+          {(cms?.block_2_text || "Die visie wordt versterkt door de samenwerking met Ella's oudste dochter, Liene Molendijk (Generatie Z). Als voormalig deelnemer kent zij de kracht van het retreat van binnenuit. Inmiddels coördineert zij het programma met enthousiasme, ondersteunt ze de groep waar nodig en brengt ze yoga- en meditatiewijsheden op een toegankelijke manier in.\nSamen vormen Ella en Liene een team dat op een intergenerationele, laagdrempelige en inspirerende manier jonge vrouwen begeleidt. Met hun verschillende perspectieven delen ze persoonlijke ervaringen, denken ze pragmatisch mee en creëren ze een veilige setting voor groei en bewustwording. Dit unieke samenspel van generaties maakt het retreat bijzonder krachtig.").split('\n').filter(Boolean).map((p, i) => (
+            <p key={i} className="text-sm text-gray-700 leading-relaxed">{p}</p>
+          ))}
+        </section>
+
+        {/* Foto 2 */}
+        <div className="w-full overflow-hidden" style={{ aspectRatio: "1 / 1" }}>
+          <img
+            loading="lazy"
+            src={image2Url}
+            alt="Ella en Liene"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+      {/* Desktop layout — ongewijzigd */}
       <section
         ref={blocksRef}
-        className="min-h-screen bg-white"
+        className="min-h-screen bg-white hidden md:block"
         style={{ padding: "9px 0 0" }}
       >
         <div className="flex flex-col md:flex-row relative">
@@ -70,7 +121,7 @@ export default function Contact() {
               </p>
               <div>
                 <Link
-                  to="/ons-verhaal"
+                  to="/ons-verhaal/over-ella"
                   className="inline-block px-8 py-3 rounded-lg font-medium text-white bg-primary transition-all duration-300 hover:scale-105 hover:bg-accent"
                 >
                   Meer over Founder Ella

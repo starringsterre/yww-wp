@@ -9,16 +9,20 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 import InspirationCardsGrid from "@/components/InspirationCardsGrid";
 import RetreatTestimonialsSection from "@/components/RetreatTestimonialsSection";
 import FloatingBrandsSection from "@/components/FloatingBrandsSection";
-import GroeiScanSection from "@/components/GroeiScanSection";
 import PromoVideoSection from "@/components/PromoVideoSection";
 import { Flower, Zap, Heart, Hammer } from "lucide-react";
 import { useCoaches } from "@/hooks/useCoaches";
+import { useGlobalSettings } from "@/hooks/useGlobalSettings";
 import { usePageContent } from "@/hooks/usePageContent";
+import { resolveSiteLogoUrl, toAbsoluteSiteAssetUrl } from "@/lib/siteBranding";
+import { renderMultiline } from "@/lib/renderMultiline";
 import SEOHead from "@/components/SEOHead";
 
 export default function Home() {
   const { data: coaches } = useCoaches();
   const { data: cms } = usePageContent("home");
+  const { data: settings } = useGlobalSettings();
+  const siteLogo = toAbsoluteSiteAssetUrl(resolveSiteLogoUrl(settings?.site?.logo));
   const videoUrl =
     cms?.hero_video_url || "https://cdn.builder.io/o/assets%2F264b1b44affb4c70ba84c30b9a51f9df%2Fc6a83a06db694d329132c995244a4ae5?alt=media&token=37e09b99-1fdb-4c85-a0ff-f319faa2bf31&apiKey=264b1b44affb4c70ba84c30b9a51f9df";
   return (
@@ -32,7 +36,7 @@ export default function Home() {
           "@type": "Organization",
           name: "Young Wise Women",
           url: "https://youngwisewomen.nl",
-          logo: "https://youngwisewomen.nl/Logo-Young-Wise-Women.png",
+          logo: siteLogo,
           description: "Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren.",
           email: "info@youngwisewomen.nl",
         }}
@@ -69,12 +73,12 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-light text-center mb-6 text-gray-900">
             {cms?.atmosphere_heading || "Evenementen voor persoonlijke ontwikkeling"}
           </h2>
-          <p
-            className="text-center text-gray-600 mx-auto mb-12"
+          <div
+            className="text-center mx-auto mb-12"
             style={{ maxWidth: "735px" }}
           >
-            {cms?.atmosphere_text || "Young Wise Women organiseert verschillende evenementen waarin jonge professionals (24+) samenkomen voor persoonlijke groei. Van meerdaagse retreats tot middagjes waar we verhalen en kennis uitwisselen - allemaal onder begeleiding en met gelijkgestemden die dezelfde waarden delen."}
-          </p>
+            {renderMultiline(cms?.atmosphere_text || "Young Wise Women organiseert verschillende evenementen waarin jonge professionals (24+) samenkomen voor persoonlijke groei. Van meerdaagse retreats tot middagjes waar we verhalen en kennis uitwisselen - allemaal onder begeleiding en met gelijkgestemden die dezelfde waarden delen.", "text-gray-600")}
+          </div>
 
           {/* Three Image Cards */}
           <StaggerChildren
@@ -117,6 +121,37 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Bedrijfstrajecten Hero Block */}
+      <section
+        className="relative min-h-screen px-4 md:px-8 flex items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage:
+            `linear-gradient(rgba(28, 40, 38, 0.45), rgba(28, 40, 38, 0.45)), url('${cms?.bedrijf_image || "/incompany-training-vrouw.png"}')`,
+        }}
+      >
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-4xl md:text-6xl font-light mb-4">
+            {cms?.bedrijf_heading || "Bedrijfstrajecten"}
+          </h2>
+          <p className="text-lg md:text-xl text-gray-100 mb-8">
+            {cms?.bedrijf_text || "Voor organisaties die jonge vrouwelijke professionals gericht willen laten groeien in leiderschap, energie en eigenaarschap."}
+          </p>
+          <Button
+            size="lg"
+            className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+            asChild
+          >
+            <a href="/in-company">{cms?.bedrijf_cta || "Bekijk bedrijfstrajecten"}</a>
+          </Button>
+        </div>
+      </section>
+
+      <section className="py-14 px-4 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <PromoVideoSection />
+        </div>
+      </section>
+
       {/* Benefits Section */}
       <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#B8B7A3" }}>
         <div className="max-w-6xl mx-auto">
@@ -124,9 +159,9 @@ export default function Home() {
             <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light text-white mb-4">
               {cms?.benefits_heading || "Wat Young Wise Women trajecten opleveren"}
             </ScrollFadeInUp>
-            <p className="text-gray-600 mx-auto" style={{ maxWidth: "600px" }}>
-              {cms?.benefits_intro || "Of je nu kiest voor een workshop of weekendtraining: je ontwikkelt inzichten en tools die direct doorwerken in je werk en dagelijks leven."}
-            </p>
+            <div className="mx-auto" style={{ maxWidth: "600px" }}>
+              {renderMultiline(cms?.benefits_intro || "Of je nu kiest voor een workshop of weekendtraining: je ontwikkelt inzichten en tools die direct doorwerken in je werk en dagelijks leven.", "text-gray-600")}
+            </div>
           </div>
 
           <StaggerChildren
@@ -144,9 +179,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.benefit_1_title || "Persoonlijke Groei"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.benefit_1_text || "Of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling"}
-              </p>
+              {renderMultiline(cms?.benefit_1_text || "Of je nu net een zaadje plant of al als een stevige boom staat, je maakt altijd een volgende stap in je ontwikkeling", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             {/* Benefit 2 */}
@@ -159,9 +192,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.benefit_2_title || "Eigen Wijsheid"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.benefit_2_text || "De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen"}
-              </p>
+              {renderMultiline(cms?.benefit_2_text || "De andere vrouwen zullen jou spiegelen zodat je uitgedaagd wordt jezelf en je innerlijke wijsheid volledig te omarmen", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             {/* Benefit 3 */}
@@ -174,9 +205,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.benefit_3_title || "Energie & Motivatie"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.benefit_3_text || "Je voelt richting, duidelijkheid en de drive om in beweging te komen"}
-              </p>
+              {renderMultiline(cms?.benefit_3_text || "Je voelt richting, duidelijkheid en de drive om in beweging te komen", "text-sm text-gray-600 leading-relaxed")}
             </div>
 
             {/* Benefit 4 */}
@@ -189,21 +218,13 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-900 mb-3">
                 {cms?.benefit_4_title || "Praktische Handvatten"}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {cms?.benefit_4_text || "Nieuwe, praktische tools die je direct kunt toepassen in je leven en carrière"}
-              </p>
+              {renderMultiline(cms?.benefit_4_text || "Nieuwe, praktische tools die je direct kunt toepassen in je leven en carrière", "text-sm text-gray-600 leading-relaxed")}
             </div>
           </StaggerChildren>
         </div>
       </section>
 
       <FloatingBrandsSection />
-
-      <section className="py-14 px-4 md:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <PromoVideoSection />
-        </div>
-      </section>
 
       {/* Trainingen Spotlight */}
       <section className="min-h-screen py-20 px-4 md:px-8 bg-[#FBF9F5] flex items-center">
@@ -220,30 +241,28 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
                 {cms?.trainingen_heading || "Weekend trainingen & Dag workshops"}
               </h2>
-              <p className="text-gray-700 mb-6">
-                {cms?.trainingen_text || "Kies de vorm die past bij jouw ontwikkelvraag: verdieping in een weekend of direct toepasbare tools in een dagworkshop."}
-              </p>
+              <div className="mb-6">
+                {renderMultiline(cms?.trainingen_text || "Kies de vorm die past bij jouw ontwikkelvraag: verdieping in een weekend of direct toepasbare tools in een dagworkshop.", "text-gray-700")}
+              </div>
               <Button
                 size="lg"
                 className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
                 asChild
               >
-                <a href="/groepstrainingen">{cms?.trainingen_cta || "Meer over persoonlijke ontwikkeling"}</a>
+                <a href="/retreats">{cms?.trainingen_cta || "Meer over persoonlijke ontwikkeling"}</a>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <GroeiScanSection />
-
       <RetreatTestimonialsSection />
 
       {/* Coaches Section */}
-      <section className="min-h-screen py-20 px-4 md:px-8 bg-white flex items-center">
+      <section className="min-h-screen py-14 px-4 md:px-8 bg-white flex items-center">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light mb-4 text-gray-900">
+          <div className="text-center mb-8">
+            <ScrollFadeInUp as="h2" className="text-4xl md:text-5xl font-light mb-3 text-gray-900">
               {cms?.coaches_heading || "Onze Coaches"}
             </ScrollFadeInUp>
             <p className="text-gray-600">
@@ -251,16 +270,16 @@ export default function Home() {
             </p>
           </div>
 
-          <p
-            className="mx-auto text-center text-gray-700 mb-12"
+          <div
+            className="mx-auto text-center mb-8"
             style={{ maxWidth: "817px" }}
           >
-            {cms?.coaches_text || "Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat."}
-          </p>
+            {renderMultiline(cms?.coaches_text || "Onze coaches zijn ervaren en inspirerende vrouwen die zich volledig inzetten voor jouw persoonlijke groei. Met hun diepgaande kennis, warmte en betrokkenheid creëren zij een veilige ruimte waarin jij jezelf volledig mag zijn. Onder hun begeleiding ontdek je je innerlijke wijsheid en krijg je praktische tools mee voor je leven na het retreat.", "text-gray-700")}
+          </div>
 
           <CoachCardsGrid coaches={coaches ?? []} />
 
-          <div className="mt-10 text-center">
+          <div className="mt-8 text-center">
             <Button
               size="lg"
               className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
@@ -269,6 +288,69 @@ export default function Home() {
               <a href="/ons-verhaal">{cms?.coaches_cta || "Lees ons unieke verhaal"}</a>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Trusted by */}
+      <section className="min-h-screen overflow-hidden flex flex-col justify-center py-24" style={{ backgroundColor: "rgba(152, 164, 129, 0.15)" }}>
+        <h2 className="text-3xl md:text-4xl font-light text-center text-gray-800 mb-12 px-4">
+          {cms?.trusted_heading || "Young Wise Women is onderdeel van Awareness in Business"}
+        </h2>
+        <div className="overflow-hidden w-full">
+          <div className="flex w-max animate-logo-marquee items-center gap-12">
+            {[...Array(15)].map((_, i) => {
+              const logo = cms?.[`trusted_logo_${i + 1}` as keyof typeof cms];
+              return (
+                <div
+                  key={`a-${i}`}
+                  className="w-52 h-32 shrink-0 flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50"
+                >
+                  {logo ? (
+                    <img src={logo} alt={`Logo ${i + 1}`} className="h-20 object-contain" loading="lazy" />
+                  ) : (
+                    <span className="text-[10px] text-gray-300 font-mono">logo_{i + 1}</span>
+                  )}
+                </div>
+              );
+            })}
+            {/* Duplicate for seamless loop */}
+            {[...Array(15)].map((_, i) => {
+              const logo = cms?.[`trusted_logo_${i + 1}` as keyof typeof cms];
+              return (
+                <div
+                  key={`b-${i}`}
+                  className="w-52 h-32 shrink-0 flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50"
+                >
+                  {logo ? (
+                    <img src={logo} alt={`Logo ${i + 1}`} className="h-20 object-contain" loading="lazy" />
+                  ) : (
+                    <span className="text-[10px] text-gray-300 font-mono">logo_{i + 1}</span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <p className="text-center text-gray-500 text-sm mt-10 px-4">
+          {cms?.trusted_subtitle || "Trusted partners van Awareness in Business"}
+        </p>
+        <div className="mt-6 flex justify-center px-4">
+          <Button
+            size="lg"
+            className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
+            asChild
+          >
+            <a href={cms?.trusted_cta_url || "https://awarenessinbusiness.com"} target="_blank" rel="noopener noreferrer">
+              {cms?.trusted_cta || "Meer over Awareness in Business"}
+            </a>
+          </Button>
+        </div>
+      </section>
+
+      {/* Inspiration Section */}
+      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#FBF9F5" }}>
+        <div className="max-w-6xl mx-auto">
+          <InspirationCardsGrid showTitle />
         </div>
       </section>
 
@@ -309,22 +391,13 @@ export default function Home() {
                     : (
                       <>
                         <li>✓ Intake met coach</li>
-                        <li>
-                          <p>
-                            <span style={{ fontSize: "14px" }}>✓</span>{" "}
-                            Motivation Factor test (€145 waarde)
-                          </p>
-                        </li>
+                        <li>✓ Motivation Factor test (€145 waarde)</li>
                         <li>✓ Professionele begeleiding van twee coaches</li>
                         <li>✓ Ademsessie (breathwork) met Chris Rauwendaal</li>
                         <li>✓ Yogalessen</li>
                         <li>✓ 2 nachten accommodatie</li>
-                        <li>
-                          <p>✓ Alle maaltijden en dranken</p>
-                        </li>
-                        <li>
-                          <p>✓ Werkboek en praktische tools</p>
-                        </li>
+                        <li>✓ Alle maaltijden en dranken</li>
+                        <li>✓ Werkboek en praktische tools</li>
                       </>
                     )
                   }
@@ -406,38 +479,6 @@ export default function Home() {
             </div>
             </div>
           </ScrollFadeInUp>
-        </div>
-      </section>
-
-      {/* Bedrijfstrajecten Hero Block */}
-      <section
-        className="relative min-h-screen px-4 md:px-8 flex items-center justify-center bg-cover bg-center"
-        style={{
-          backgroundImage:
-            `linear-gradient(rgba(28, 40, 38, 0.45), rgba(28, 40, 38, 0.45)), url('${cms?.bedrijf_image || "/incompany-training-vrouw.png"}')`,
-        }}
-      >
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <h2 className="text-4xl md:text-6xl font-light mb-4">
-            {cms?.bedrijf_heading || "Bedrijfstrajecten"}
-          </h2>
-          <p className="text-lg md:text-xl text-gray-100 mb-8">
-            {cms?.bedrijf_text || "Voor organisaties die jonge vrouwelijke professionals gericht willen laten groeien in leiderschap, energie en eigenaarschap."}
-          </p>
-          <Button
-            size="lg"
-            className="bg-primary text-white transition-all duration-300 hover:scale-105 hover:bg-accent"
-            asChild
-          >
-            <a href="/in-company">{cms?.bedrijf_cta || "Bekijk bedrijfstrajecten"}</a>
-          </Button>
-        </div>
-      </section>
-
-      {/* Inspiration Section */}
-      <section className="min-h-screen py-20 px-4 md:px-8 flex items-center" style={{ backgroundColor: "#FBF9F5" }}>
-        <div className="max-w-6xl mx-auto">
-          <InspirationCardsGrid showTitle />
         </div>
       </section>
 

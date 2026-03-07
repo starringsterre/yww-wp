@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createServer } from "./server";
 
+const WP_TARGET = process.env.WP_TARGET || "https://cms.youngwisewomen.nl";
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
@@ -13,26 +15,11 @@ export default defineConfig(({ mode }) => ({
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
     proxy: {
-      "/wp-admin": {
-        target: "http://localhost:8081",
-        headers: { host: "localhost:8080" },
-      },
-      "/wp-login.php": {
-        target: "http://localhost:8081",
-        headers: { host: "localhost:8080" },
-      },
-      "/wp-json": {
-        target: "http://localhost:8081",
-        headers: { host: "localhost:8080" },
-      },
-      "/wp-content": {
-        target: "http://localhost:8081",
-        headers: { host: "localhost:8080" },
-      },
-      "/wp-includes": {
-        target: "http://localhost:8081",
-        headers: { host: "localhost:8080" },
-      },
+      "/wp-admin": { target: WP_TARGET, changeOrigin: true },
+      "/wp-login.php": { target: WP_TARGET, changeOrigin: true },
+      "/wp-json": { target: WP_TARGET, changeOrigin: true },
+      "/wp-content": { target: WP_TARGET, changeOrigin: true },
+      "/wp-includes": { target: WP_TARGET, changeOrigin: true },
     },
   },
   build: {

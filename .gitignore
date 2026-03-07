@@ -39,3 +39,7 @@ wordpress/wp-content/themes/*
 
 # Sensitive deployment docs (contains credentials)
 docs/CLOUD86-WORDPRESS-DEPLOYMENT.md
+docs/cloud86
+
+# Production env (contains credentials)
+.env.production

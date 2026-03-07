@@ -40,12 +40,14 @@ async function wpFetch(endpoint, options = {}) {
 
 async function getExistingPages() {
   const pages = [];
-  let page = 1;
-  while (true) {
-    const batch = await wpFetch(`pages?per_page=100&page=${page}&status=any`);
-    pages.push(...batch);
-    if (batch.length < 100) break;
-    page++;
+  for (const status of ["publish", "draft"]) {
+    let page = 1;
+    while (true) {
+      const batch = await wpFetch(`pages?per_page=100&page=${page}&status=${status}`);
+      pages.push(...batch);
+      if (batch.length < 100) break;
+      page++;
+    }
   }
   return pages;
 }
@@ -96,7 +98,7 @@ async function main() {
     const body = {
       title: entry.wpTitle,
       slug: entry.wpSlug,
-      status: "draft",
+      status: "publish",
       meta: {
         yww_page_content: "{}",
       },
@@ -113,7 +115,7 @@ async function main() {
         body: JSON.stringify(body),
       });
       console.log(
-        `  ✓ ${entry.wpSlug} — created (ID: ${page.id}, status: draft)`
+        `  ✓ ${entry.wpSlug} — created (ID: ${page.id}, status: publish)`
       );
       created++;
     } catch (err) {

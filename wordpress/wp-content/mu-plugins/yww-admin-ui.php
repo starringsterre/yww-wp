@@ -17,9 +17,9 @@ add_action('admin_enqueue_scripts', function () {
 // 1. META BOXES
 // ─────────────────────────────────────────────
 
-add_action('add_meta_boxes', 'yww_add_meta_boxes');
+add_action('add_meta_boxes', 'yww_add_meta_boxes', 10, 2);
 
-function yww_add_meta_boxes() {
+function yww_add_meta_boxes($post_type, $post = null) {
     // Coach meta box
     add_meta_box('yww_coach_details', 'Coach Details', 'yww_coach_meta_box', 'yww_coach', 'normal', 'high');
 
@@ -35,6 +35,9 @@ function yww_add_meta_boxes() {
     // Blog meta box
     add_meta_box('yww_blog_details', 'Blog Details', 'yww_blog_meta_box', 'yww_blog', 'normal', 'high');
 
+    // Blog structured content meta box
+    add_meta_box('yww_blog_content_details', 'Blog Inhoud (Gestructureerd)', 'yww_blog_content_meta_box', 'yww_blog', 'normal', 'high');
+
     // Workshop meta box
     add_meta_box('yww_workshop_details', 'Workshop Details', 'yww_workshop_meta_box', 'yww_workshop', 'normal', 'high');
 
@@ -43,13 +46,20 @@ function yww_add_meta_boxes() {
 
     // Page content meta box (only on pages with specific slugs)
     add_meta_box('yww_page_content', 'Pagina Teksten (CMS)', 'yww_page_content_meta_box', 'page', 'normal', 'high');
+
+    // Blog content meta box for blog draft pages (created via seed script)
+    if ($post_type === 'page' && $post && get_post_meta($post->ID, 'yww_blog_content', true)) {
+        add_meta_box('yww_blog_content_details', 'Blog Inhoud (Gestructureerd)',
+                     'yww_blog_content_meta_box', 'page', 'normal', 'high');
+    }
 }
 
 // ─── Helper: render a text input ───
-function yww_text_field($post_id, $meta_key, $label, $type = 'text') {
+function yww_text_field($post_id, $meta_key, $label, $type = 'text', $placeholder = '') {
     $value = get_post_meta($post_id, $meta_key, true);
+    $ph = $placeholder ? ' placeholder="' . esc_attr($placeholder) . '"' : '';
     echo '<p><label><strong>' . esc_html($label) . '</strong><br>';
-    echo '<input type="' . esc_attr($type) . '" name="' . esc_attr($meta_key) . '" value="' . esc_attr($value) . '" style="width:100%;" /></label></p>';
+    echo '<input type="' . esc_attr($type) . '" name="' . esc_attr($meta_key) . '" value="' . esc_attr($value) . '"' . $ph . ' style="width:100%;" /></label></p>';
 }
 
 // ─── Helper: render a textarea ───
@@ -125,8 +135,86 @@ function yww_podcast_meta_box($post) {
 // ─── Blog Meta Box ───
 function yww_blog_meta_box($post) {
     wp_nonce_field('yww_save_meta', 'yww_meta_nonce');
-    yww_text_field($post->ID, 'yww_blog_slug', 'Slug (bijv. "motivation-factor")');
-    yww_text_field($post->ID, 'yww_blog_featured_image', 'Featured Image URL');
+    echo '<div style="background:#f0f6ff;border-left:4px solid #2271b1;padding:10px 14px;margin-bottom:14px;font-size:13px;line-height:1.6;">';
+    echo '<strong>Blog structuur (gebaseerd op voorbeeldblog "Persoonlijke Groei")</strong><br><br>';
+    echo '<strong>Titel</strong> → bijv. <em>"Persoonlijke Ontwikkeling en Groei: Wat Het Is en Voorbeelden"</em><br>';
+    echo '<strong>Samenvatting</strong> → bijv. <em>"Concrete persoonlijke ontwikkeling voorbeelden: van zelfbewustzijn en communicatie tot grenzen stellen en jouw persoonlijke roadmap. Ontdek hoe jij groeit."</em><br>';
+    echo '<strong>Inhoud</strong> → gebruik H2- en H3-kopjes met id-attributen (bijv. <code>id="zelfbewustzijn"</code>) voor de automatische inhoudsopgave, aangevuld met alinea\'s en bullet-/nummerlijsten.';
+    echo '</div>';
+    yww_text_field($post->ID, 'yww_blog_slug', 'Slug (URL-deel van het blog)', 'text', 'bijv. persoonlijke-groei-voorbeelden');
+    yww_text_field($post->ID, 'yww_blog_featured_image', 'Featured Image URL (horizontaal, 16:9)', 'text', 'bijv. /persoonlijke-groei-training.jpg');
+}
+
+// ─── Blog Content Field Schema ───
+function yww_get_blog_fields() {
+    return [
+        // Meta
+        'date'              => ['label' => 'Publicatiedatum',                          'section' => 'Meta',        'hint' => 'bijv. "3 maart 2026"'],
+        'category'          => ['label' => 'Categorie',                                                             'hint' => 'bijv. "Persoonlijke ontwikkeling"'],
+        'read_time'         => ['label' => 'Leestijd',                                                              'hint' => 'bijv. "8 min"'],
+        'image'             => ['label' => 'Header foto',                                                           'type' => 'image'],
+        'excerpt'           => ['label' => 'Samenvatting (voor blogoverzicht)',                                      'type' => 'textarea', 'rows' => 3],
+        // Intro
+        'intro'             => ['label' => 'Intro alinea (optioneel, vóór eerste H2)', 'section' => 'Intro',       'type' => 'html', 'rows' => 3],
+        // Sections
+        'section_1_heading' => ['label' => 'Heading',                                  'section' => 'Sectie 1'],
+        'section_1_body'    => ['label' => 'Body HTML (paragrafen, H3, lijsten)',                                   'type' => 'html', 'rows' => 8],
+        'section_2_heading' => ['label' => 'Heading',                                  'section' => 'Sectie 2'],
+        'section_2_body'    => ['label' => 'Body HTML',                                                            'type' => 'html', 'rows' => 6],
+        'section_3_heading' => ['label' => 'Heading',                                  'section' => 'Sectie 3'],
+        'section_3_body'    => ['label' => 'Body HTML (mag H3-subsecties bevatten)',                               'type' => 'html', 'rows' => 16],
+        'section_4_heading' => ['label' => 'Heading',                                  'section' => 'Sectie 4'],
+        'section_4_body'    => ['label' => 'Body HTML',                                                            'type' => 'html', 'rows' => 8],
+        'section_5_heading' => ['label' => 'Heading',                                  'section' => 'Sectie 5'],
+        'section_5_body'    => ['label' => 'Body HTML',                                                            'type' => 'html', 'rows' => 8],
+        'section_6_heading' => ['label' => 'Heading',                                  'section' => 'Sectie 6'],
+        'section_6_body'    => ['label' => 'Body HTML',                                                            'type' => 'html', 'rows' => 6],
+        // CTA
+        'cta_heading'       => ['label' => 'CTA Heading',                              'section' => 'CTA Blok',    'hint' => 'bijv. "Persoonlijke groei ervaren in een retreat"'],
+        'cta_body'          => ['label' => 'CTA Tekst HTML',                                                       'type' => 'html', 'rows' => 6],
+        'cta_button_label'  => ['label' => 'Knoptekst',                                                            'hint' => 'bijv. "Bekijk onze retreats"'],
+        'cta_button_url'    => ['label' => 'Knop URL',                                                             'hint' => 'bijv. "/retreats"'],
+        // Conclusion
+        'conclusion'        => ['label' => 'Conclusie HTML',                           'section' => 'Conclusie',   'type' => 'html', 'rows' => 6],
+    ];
+}
+
+// ─── Blog Content Meta Box ───
+function yww_blog_content_meta_box($post) {
+    wp_nonce_field('yww_save_blog_content', 'yww_blog_content_nonce');
+
+    $fields = yww_get_blog_fields();
+    $json = get_post_meta($post->ID, 'yww_blog_content', true);
+    $data = $json ? json_decode($json, true) : [];
+    if (!is_array($data)) $data = [];
+
+    $current_section = '';
+    foreach ($fields as $key => $field) {
+        if (isset($field['section']) && $field['section'] !== $current_section) {
+            $current_section = $field['section'];
+            echo '<h3 style="margin-top:20px;padding:8px 0;border-bottom:2px solid #2271b1;color:#2271b1;">' . esc_html($current_section) . '</h3>';
+        }
+
+        $value = isset($data[$key]) ? $data[$key] : '';
+        $name  = 'yww_bc_' . $key;
+        $type  = isset($field['type']) ? $field['type'] : 'text';
+
+        echo '<p><label><strong>' . esc_html($field['label']) . '</strong>';
+        if (isset($field['hint'])) {
+            echo ' <span style="color:#666;font-weight:normal;">(' . esc_html($field['hint']) . ')</span>';
+        }
+        echo '<br>';
+
+        if ($type === 'textarea' || $type === 'html') {
+            $rows = isset($field['rows']) ? $field['rows'] : 4;
+            $style = $type === 'html' ? 'width:100%;font-family:monospace;font-size:12px;' : 'width:100%;';
+            echo '<textarea name="' . esc_attr($name) . '" rows="' . $rows . '" style="' . $style . '">' . esc_textarea($value) . '</textarea>';
+        } else {
+            echo '<input type="text" name="' . esc_attr($name) . '" value="' . esc_attr($value) . '" style="width:100%;" />';
+        }
+
+        echo '</label></p>';
+    }
 }
 
 // ─── Workshop Meta Box ───
@@ -189,7 +277,15 @@ function yww_page_content_meta_box($post) {
         }
         echo '<br>';
 
-        if ($type === 'textarea') {
+        if ($type === 'select') {
+            $options = isset($field['options']) ? $field['options'] : [];
+            echo '<select name="' . esc_attr($name) . '" style="width:100%;">';
+            foreach ($options as $opt_val => $opt_label) {
+                $selected = ($value === (string)$opt_val) ? ' selected' : '';
+                echo '<option value="' . esc_attr($opt_val) . '"' . $selected . '>' . esc_html($opt_label) . '</option>';
+            }
+            echo '</select>';
+        } elseif ($type === 'textarea') {
             $rows = isset($field['rows']) ? $field['rows'] : 4;
             echo '<textarea name="' . esc_attr($name) . '" rows="' . $rows . '" style="width:100%;">' . esc_textarea($value) . '</textarea>';
         } elseif ($type === 'image') {
@@ -271,10 +367,35 @@ function yww_get_page_fields($slug) {
             'result_1'             => ['label' => 'Resultaat 1', 'type' => 'textarea'],
             'result_2'             => ['label' => 'Resultaat 2', 'type' => 'textarea'],
             'result_3'             => ['label' => 'Resultaat 3', 'type' => 'textarea'],
+            'show_groeiscan'       => ['label' => 'Groeiscan sectie tonen?', 'section' => 'Groeiscan Sectie', 'type' => 'select', 'options' => ['true' => 'Toon', 'false' => 'Verberg']],
             'bedrijf_heading'      => ['label' => 'Heading', 'section' => 'Bedrijfstrajecten'],
             'bedrijf_text'         => ['label' => 'Tekst', 'type' => 'textarea'],
             'bedrijf_cta'          => ['label' => 'CTA knop tekst'],
             'bedrijf_image'        => ['label' => 'Achtergrond foto', 'type' => 'image'],
+            'trusted_heading'      => ['label' => 'Titel', 'section' => 'Awareness in Business'],
+            'trusted_subtitle'     => ['label' => 'Subtekst onder logo\'s'],
+            'trusted_cta'          => ['label' => 'CTA knop tekst'],
+            'trusted_cta_url'      => ['label' => 'CTA knop URL'],
+            'trusted_logo_1'       => ['label' => 'Logo 1', 'type' => 'image'],
+            'trusted_logo_2'       => ['label' => 'Logo 2', 'type' => 'image'],
+            'trusted_logo_3'       => ['label' => 'Logo 3', 'type' => 'image'],
+            'trusted_logo_4'       => ['label' => 'Logo 4', 'type' => 'image'],
+            'trusted_logo_5'       => ['label' => 'Logo 5', 'type' => 'image'],
+            'trusted_logo_6'       => ['label' => 'Logo 6', 'type' => 'image'],
+            'trusted_logo_7'       => ['label' => 'Logo 7', 'type' => 'image'],
+            'trusted_logo_8'       => ['label' => 'Logo 8', 'type' => 'image'],
+            'trusted_logo_9'       => ['label' => 'Logo 9', 'type' => 'image'],
+            'trusted_logo_10'      => ['label' => 'Logo 10', 'type' => 'image'],
+            'trusted_logo_11'      => ['label' => 'Logo 11', 'type' => 'image'],
+            'trusted_logo_12'      => ['label' => 'Logo 12', 'type' => 'image'],
+            'trusted_logo_13'      => ['label' => 'Logo 13', 'type' => 'image'],
+            'trusted_logo_14'      => ['label' => 'Logo 14', 'type' => 'image'],
+            'trusted_logo_15'      => ['label' => 'Logo 15', 'type' => 'image'],
+                    'bio_text'                      => ['label' => 'Bio Tekst', 'section' => 'Bio Sectie', 'type' => 'textarea'],
+            'hero_image'                    => ['label' => 'Hero Foto', 'section' => 'Hero Sectie', 'type' => 'image'],
+            'profile_photo'                 => ['label' => 'Profile Foto', 'section' => 'Profile Sectie', 'type' => 'image'],
+            'name_heading'                  => ['label' => 'Name Heading', 'section' => 'Name Sectie'],
+            'role_subheading'               => ['label' => 'Role Subheading', 'section' => 'Role Sectie'],
         ],
         'weekenden' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
@@ -470,6 +591,13 @@ function yww_get_page_fields($slug) {
             'cta_text'             => ['label' => 'Tekst'],
             'cta_button_1'         => ['label' => 'Knop 1 tekst'],
             'cta_button_2'         => ['label' => 'Knop 2 tekst'],
+                    'intro_cta'                     => ['label' => 'Introductie CTA', 'section' => 'Introductie'],
+            'cta_background_image'          => ['label' => 'CTA Background Foto', 'section' => 'CTA', 'type' => 'image'],
+            'workshops_image'               => ['label' => 'Workshops Foto', 'section' => 'Workshops Sectie', 'type' => 'image'],
+            'workshops_heading'             => ['label' => 'Workshops Heading'],
+            'workshops_text'                => ['label' => 'Workshops Tekst', 'type' => 'textarea'],
+            'workshops_date'                => ['label' => 'Workshops Date'],
+            'workshops_cta'                 => ['label' => 'Workshops CTA'],
         ],
         'kalender' => [
             'hero_title'           => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
@@ -613,6 +741,51 @@ function yww_get_page_fields($slug) {
             'cta_button_1'         => ['label' => 'Knop 1 tekst'],
             'cta_button_2'         => ['label' => 'Knop 2 tekst'],
         ],
+        'blogs' => [
+            'hero_image'                    => ['label' => 'Hero Foto', 'section' => 'Hero Sectie', 'type' => 'image'],
+            'hero_title'                    => ['label' => 'Hero Titel'],
+            'hero_subtitle'                 => ['label' => 'Hero Subtitel'],
+        ],
+        'podcasts' => [
+            'hero_image'                    => ['label' => 'Hero Foto', 'section' => 'Hero Sectie', 'type' => 'image'],
+            'hero_title'                    => ['label' => 'Hero Titel'],
+            'hero_subtitle'                 => ['label' => 'Hero Subtitel'],
+        ],
+        'over-ella' => [
+            'hero_image'                    => ['label' => 'Hero achtergrond foto', 'section' => 'Hero Sectie', 'type' => 'image'],
+            'hero_title'                    => ['label' => 'Hero Titel', 'section' => 'Hero Sectie'],
+            'hero_subtitle'                 => ['label' => 'Hero Subtitel'],
+            'profile_photo'                 => ['label' => 'Profielfoto (links op pagina)', 'section' => 'Profiel Sectie', 'type' => 'image'],
+            'name_heading'                  => ['label' => 'Naam (H2)', 'section' => 'Naam & Functie'],
+            'role_subheading'               => ['label' => 'Functietitel', 'section' => 'Naam & Functie'],
+            'bio_text'                      => ['label' => 'Biografie', 'section' => 'Bio Sectie', 'type' => 'textarea'],
+        ],
+        'tools-en-handvatten' => [
+            'hero_image'                    => ['label' => 'Hero Foto', 'section' => 'Hero Sectie', 'type' => 'image'],
+            'hero_title'                    => ['label' => 'Hero Titel'],
+            'hero_subtitle'                 => ['label' => 'Hero Subtitel'],
+        ],
+        'workshops-op-maat' => [
+            'for_whom_items'                => ['label' => 'For Whom Items', 'section' => 'Voor Wie', 'type' => 'textarea'],
+            'sidebar_what_items'            => ['label' => 'Sidebar What Items', 'section' => 'Sidebar', 'type' => 'textarea'],
+            'sidebar_practical_items'       => ['label' => 'Sidebar Practical Items', 'type' => 'textarea'],
+            'sidebar_not_for_items'         => ['label' => 'Sidebar Not For Items', 'type' => 'textarea'],
+            'hero_image'                    => ['label' => 'Hero Foto', 'section' => 'Hero Sectie', 'type' => 'image'],
+            'hero_title'                    => ['label' => 'Hero Titel'],
+            'hero_subtitle'                 => ['label' => 'Hero Subtitel'],
+            'transform_heading'             => ['label' => 'Transform Heading', 'section' => 'Transformatie'],
+            'goodbye_heading'               => ['label' => 'Goodbye Heading'],
+            'goodbye_text'                  => ['label' => 'Goodbye Tekst', 'type' => 'textarea'],
+            'takeaway_heading'              => ['label' => 'Takeaway Heading'],
+            'takeaway_text'                 => ['label' => 'Takeaway Tekst', 'type' => 'textarea'],
+            'nextstep_heading'              => ['label' => 'Nextstep Heading'],
+            'nextstep_text'                 => ['label' => 'Nextstep Tekst', 'type' => 'textarea'],
+            'for_whom_heading'              => ['label' => 'For Whom Heading'],
+            'for_whom_intro'                => ['label' => 'For Whom Introductie', 'type' => 'textarea'],
+            'sidebar_what_heading'          => ['label' => 'Sidebar What Heading'],
+            'sidebar_practical_heading'     => ['label' => 'Sidebar Practical Heading'],
+            'sidebar_not_for_heading'       => ['label' => 'Sidebar Not For Heading'],
+        ],
     ];
 
     return isset($pages[$slug]) ? $pages[$slug] : [];
@@ -714,6 +887,41 @@ function yww_save_page_content_data($post_id) {
     update_post_meta($post_id, 'yww_page_content', wp_slash(wp_json_encode($data, JSON_UNESCAPED_UNICODE)));
 }
 
+// ─── Save Blog Content as JSON ───
+add_action('save_post_yww_blog', 'yww_save_blog_content_data');
+add_action('save_post_page', 'yww_save_blog_content_data');
+
+function yww_save_blog_content_data($post_id) {
+    if (!isset($_POST['yww_blog_content_nonce']) || !wp_verify_nonce($_POST['yww_blog_content_nonce'], 'yww_save_blog_content')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    $fields = yww_get_blog_fields();
+    $data   = [];
+
+    foreach ($fields as $key => $field) {
+        $name = 'yww_bc_' . $key;
+        if (isset($_POST[$name])) {
+            $type = isset($field['type']) ? $field['type'] : 'text';
+            if ($type === 'html') {
+                $data[$key] = wp_kses_post(wp_unslash($_POST[$name]));
+            } elseif ($type === 'textarea') {
+                $data[$key] = sanitize_textarea_field(wp_unslash($_POST[$name]));
+            } else {
+                $data[$key] = sanitize_text_field(wp_unslash($_POST[$name]));
+            }
+        }
+    }
+
+    update_post_meta($post_id, 'yww_blog_content', wp_slash(wp_json_encode($data, JSON_UNESCAPED_UNICODE)));
+}
+
 // ─────────────────────────────────────────────
 // 3. OPTIONS PAGE FOR GLOBAL SETTINGS
 // ─────────────────────────────────────────────
@@ -733,6 +941,83 @@ function yww_add_options_page() {
 add_action('admin_init', 'yww_register_settings');
 
 function yww_register_settings() {
+    // Site section
+    add_settings_section('yww_site_section', 'Site', null, 'yww-settings');
+
+    register_setting('yww-settings', 'yww_site_logo', [
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    add_settings_field('yww_site_logo', 'Site logo', function () {
+        $value = get_option('yww_site_logo', '');
+        $has_value = !empty($value);
+
+        echo '<input type="url" id="yww_site_logo" name="yww_site_logo" value="' . esc_attr($value) . '" class="regular-text" />';
+        echo ' <button type="button" class="button" id="yww_site_logo_button">Kies uit mediabibliotheek</button>';
+        echo ' <button type="button" class="button button-link-delete" id="yww_site_logo_clear">Verwijderen</button>';
+        echo '<p class="description">Kies een logo uit de mediabibliotheek of plak handmatig een afbeeldings-URL.</p>';
+        echo '<div style="margin-top: 12px;">';
+        echo '<img id="yww_site_logo_preview" src="' . esc_url($value) . '" alt="" style="max-width: 220px; height: auto; border: 1px solid #dcdcde; padding: 8px; background: #fff; display: ' . ($has_value ? 'block' : 'none') . ';" />';
+        echo '</div>';
+        ?>
+        <script>
+        (function() {
+          const input = document.getElementById("yww_site_logo");
+          const button = document.getElementById("yww_site_logo_button");
+          const clearButton = document.getElementById("yww_site_logo_clear");
+          const preview = document.getElementById("yww_site_logo_preview");
+
+          if (!input || !button || !clearButton || !preview) {
+            return;
+          }
+
+          const updatePreview = (value) => {
+            if (value) {
+              preview.src = value;
+              preview.style.display = "block";
+              return;
+            }
+
+            preview.removeAttribute("src");
+            preview.style.display = "none";
+          };
+
+          button.addEventListener("click", function(event) {
+            event.preventDefault();
+
+            if (typeof wp === "undefined" || !wp.media) {
+              return;
+            }
+
+            const frame = wp.media({
+              title: "Kies een site logo",
+              button: { text: "Gebruik dit logo" },
+              library: { type: "image" },
+              multiple: false
+            });
+
+            frame.on("select", function() {
+              const attachment = frame.state().get("selection").first().toJSON();
+              input.value = attachment.url || "";
+              updatePreview(input.value);
+            });
+
+            frame.open();
+          });
+
+          clearButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            input.value = "";
+            updatePreview("");
+          });
+
+          input.addEventListener("input", function() {
+            updatePreview(input.value.trim());
+          });
+        })();
+        </script>
+        <?php
+    }, 'yww-settings', 'yww_site_section');
+
     // Footer section
     add_settings_section('yww_footer_section', 'Footer', null, 'yww-settings');
 

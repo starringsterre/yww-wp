@@ -2,29 +2,39 @@
  * Pre-renderer for SEO-critical pages.
  * Renders React SPA pages to static HTML using headless Chrome.
  *
- * Requires: puppeteer (devDependency)
- * Usage: PRERENDER_ENABLED=true node scripts/prerender.mjs
+ * Routes are automatically sourced from shared/page-registry.mjs (single source of truth).
+ * Dynamic blog routes are fetched from the WP API at build time.
  *
- * This script:
- * 1. Starts a local HTTP server serving dist/spa/
- * 2. Opens each route in headless Chrome
- * 3. Waits for network idle (API calls complete)
- * 4. Saves rendered HTML as dist/spa/{route}/index.html
- * 5. Stops the server
+ * Usage: node scripts/prerender.mjs
+ *        PRERENDER_ENABLED=false node scripts/prerender.mjs  (to skip)
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { createServer } from "http";
+import { PAGE_REGISTRY } from "../shared/page-registry.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST_DIR = join(__dirname, "..", "dist", "spa");
 const PORT = 4173;
+const WP_API_URL = process.env.VITE_WP_API_URL || "http://localhost:8081/wp-json";
+
+async function fetchBlogRoutes() {
+  try {
+    const res = await fetch(`${WP_API_URL}/yww/v1/blogs`);
+    if (!res.ok) return [];
+    const blogs = await res.json();
+    return blogs.map((b) => `/inspiratie/blogs/${b.id}`);
+  } catch {
+    console.log("WP API not available — skipping dynamic blog routes.");
+    return [];
+  }
+}
 
 async function main() {
-  if (process.env.PRERENDER_ENABLED !== "true") {
-    console.log("Pre-rendering disabled (set PRERENDER_ENABLED=true to enable).");
+  if (process.env.PRERENDER_ENABLED === "false") {
+    console.log("Pre-rendering disabled (PRERENDER_ENABLED=false).");
     return;
   }
 
@@ -36,21 +46,16 @@ async function main() {
     process.exit(1);
   }
 
-  // Load routes config
-  const routesPath = join(__dirname, "prerender-routes.json");
-  let routes;
-  try {
-    routes = JSON.parse(readFileSync(routesPath, "utf-8"));
-  } catch {
-    console.error(`Cannot read ${routesPath}`);
-    process.exit(1);
-  }
+  const staticRoutes = PAGE_REGISTRY.map((p) => p.route);
+  const blogRoutes = await fetchBlogRoutes();
+  const routes = [...new Set([...staticRoutes, ...blogRoutes])];
+
+  console.log(`Pre-rendering ${routes.length} pages...`);
 
   // Start a simple static file server
   const server = createServer((req, res) => {
     let filePath = join(DIST_DIR, req.url === "/" ? "index.html" : req.url);
 
-    // SPA fallback: serve index.html for routes without file extension
     const ext = filePath.split(".").pop();
     if (!ext || ext === filePath.split("/").pop()) {
       filePath = join(DIST_DIR, "index.html");
@@ -72,7 +77,6 @@ async function main() {
       res.writeHead(200, { "Content-Type": mimeTypes[fileExt] || "application/octet-stream" });
       res.end(content);
     } catch {
-      // SPA fallback
       try {
         const indexContent = readFileSync(join(DIST_DIR, "index.html"));
         res.writeHead(200, { "Content-Type": "text/html" });
@@ -84,42 +88,61 @@ async function main() {
     }
   });
 
-  await new Promise((resolve) => server.listen(PORT, resolve));
+  await new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(PORT, "127.0.0.1", resolve);
+  });
   console.log(`Static server running on http://localhost:${PORT}`);
 
-  const browser = await puppeteer.default.launch({ headless: true });
+  let browser;
 
-  for (const route of routes) {
-    console.log(`Pre-rendering: ${route}`);
-    const page = await browser.newPage();
+  try {
+    browser = await puppeteer.default.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
 
-    try {
-      await page.goto(`http://localhost:${PORT}${route}`, {
-        waitUntil: "networkidle0",
-        timeout: 30000,
-      });
+    let ok = 0;
+    let fail = 0;
 
-      // Wait a bit for React to finish rendering
-      await page.waitForSelector("#root", { timeout: 10000 });
+    for (const route of routes) {
+      console.log(`Pre-rendering: ${route}`);
+      const page = await browser.newPage();
 
-      const html = await page.content();
+      try {
+        await page.goto(`http://localhost:${PORT}${route}`, {
+          waitUntil: "networkidle0",
+          timeout: 30000,
+        });
 
-      // Determine output path
-      const routePath = route === "/" ? "" : route;
-      const outputDir = join(DIST_DIR, routePath);
-      mkdirSync(outputDir, { recursive: true });
-      writeFileSync(join(outputDir, "index.html"), html, "utf-8");
-      console.log(`  ✓ Saved: ${routePath}/index.html`);
-    } catch (err) {
-      console.error(`  ✗ Failed: ${route} — ${err.message}`);
-    } finally {
-      await page.close();
+        await page.waitForSelector("#root", { timeout: 10000 });
+
+        const html = await page.content();
+
+        const routePath = route === "/" ? "" : route;
+        const outputDir = join(DIST_DIR, routePath);
+        mkdirSync(outputDir, { recursive: true });
+        writeFileSync(join(outputDir, "index.html"), html, "utf-8");
+        console.log(`  ✓ ${routePath}/index.html`);
+        ok++;
+      } catch (err) {
+        console.error(`  ✗ Failed: ${route} — ${err.message}`);
+        fail++;
+      } finally {
+        await page.close();
+      }
     }
-  }
 
-  await browser.close();
-  server.close();
-  console.log("Pre-rendering complete.");
+    console.log(`\nPre-rendering complete: ${ok} ok, ${fail} failed.`);
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+    await new Promise((resolve) => server.close(resolve));
+  }
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});

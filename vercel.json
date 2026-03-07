@@ -3,6 +3,11 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/spa",
+  "functions": {
+    "api/[...all].ts": {
+      "includeFiles": "server/**,shared/**"
+    }
+  },
   "headers": [
     {
       "source": "/sitemap.xml",

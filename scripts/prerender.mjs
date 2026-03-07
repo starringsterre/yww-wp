@@ -42,8 +42,8 @@ async function main() {
   try {
     puppeteer = await import("puppeteer");
   } catch {
-    console.error("puppeteer not installed. Run: npm install -D puppeteer");
-    process.exit(1);
+    console.log("⚠ puppeteer not available — skipping pre-rendering.");
+    return;
   }
 
   const staticRoutes = PAGE_REGISTRY.map((p) => p.route);
@@ -100,7 +100,12 @@ async function main() {
     browser = await puppeteer.default.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    }).catch((err) => {
+      console.log(`⚠ Chrome not available — skipping pre-rendering. (${err.message})`);
+      server.close();
+      return null;
     });
+    if (!browser) return;
 
     let ok = 0;
     let fail = 0;

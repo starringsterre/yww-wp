@@ -17,6 +17,7 @@ export default function LidWorden() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const benefits = [
     {
@@ -49,9 +50,8 @@ export default function LidWorden() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setError("");
 
-    // Split naam into first and last name
     const nameParts = formData.naam.trim().split(" ");
     const firstName = nameParts[0] || "";
     const lastName = nameParts.slice(1).join(" ") || "";
@@ -72,10 +72,11 @@ export default function LidWorden() {
       });
 
       if (!response.ok) {
-        throw new Error("Netwerk subscription failed");
+        throw new Error("Er ging iets mis. Probeer het later opnieuw.");
       }
     } catch (err) {
       console.error("Netwerk subscription error:", err);
+      setError(err instanceof Error ? err.message : "Er ging iets mis. Probeer het later opnieuw.");
       return;
     }
 
@@ -158,6 +159,12 @@ export default function LidWorden() {
               <p className="text-green-800 text-center font-medium">
                 {cms?.form_success || "✓ Bedankt! We ontvangen je inschrijving en sturen je binnenkort meer informatie."}
               </p>
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-8 p-6 rounded-lg border border-red-200 bg-red-50">
+              <p className="text-red-800 text-center font-medium">{error}</p>
             </div>
           )}
 

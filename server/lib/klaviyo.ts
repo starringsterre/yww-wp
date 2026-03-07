@@ -60,10 +60,28 @@ function profileAttributes(profile: ProfileInput) {
   };
 }
 
+/** Subscription endpoint only accepts email, phone_number, and properties */
+function subscriptionProfileAttributes(profile: ProfileInput) {
+  return {
+    email: profile.email,
+    phone_number: profile.phone || "",
+  };
+}
+
+export async function upsertProfile(profile: ProfileInput) {
+  return klaviyoRequest("/profile-import/", {
+    data: {
+      type: "profile",
+      attributes: profileAttributes(profile),
+    },
+  });
+}
+
 export async function subscribeProfileToList(args: {
   listId: string;
   profile: ProfileInput;
 }) {
+  await upsertProfile(args.profile);
   return klaviyoRequest("/profile-subscription-bulk-create-jobs/", {
     data: {
       type: "profile-subscription-bulk-create-job",
@@ -72,7 +90,7 @@ export async function subscribeProfileToList(args: {
           data: [
             {
               type: "profile",
-              attributes: profileAttributes(args.profile),
+              attributes: subscriptionProfileAttributes(args.profile),
             },
           ],
         },

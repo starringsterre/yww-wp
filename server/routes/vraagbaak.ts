@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { VraagbaakLeadRequest } from "@shared/api";
+import { VraagbaakLeadRequest } from "../../shared/api";
 import { createEvent, subscribeProfileToList } from "../lib/klaviyo";
 
 const DEFAULT_KLAVIYO_LEADS_LIST_ID = "R4PSyk";

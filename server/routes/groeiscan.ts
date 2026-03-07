@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { GroeiScanLeadRequest } from "@shared/api";
+import { GroeiScanLeadRequest } from "../../shared/api";
 import { createEvent, subscribeProfileToList } from "../lib/klaviyo";
 
 const DEFAULT_KLAVIYO_LEADS_LIST_ID = "R4PSyk";

@@ -45,8 +45,36 @@ export async function fetchBlogs(): Promise<WPBlog[]> {
   return wpFetch<WPBlog[]>("blogs");
 }
 
+export async function fetchBlogBySlug(slug: string): Promise<WPBlog | null> {
+  try {
+    return await wpFetch<WPBlog>(`blogs/${slug}`);
+  } catch {
+    return null;
+  }
+}
+
 export async function fetchGlobalOptions(): Promise<WPGlobalOptions> {
   return wpFetch<WPGlobalOptions>("options");
+}
+
+export interface WPNavChild {
+  href: string;
+  label: string;
+}
+
+export interface WPNavItem {
+  href: string;
+  label: string;
+  children?: WPNavChild[];
+}
+
+export interface WPNavMenu {
+  nav: WPNavItem[];
+  footer: WPNavChild[];
+}
+
+export async function fetchNavMenu(): Promise<WPNavMenu> {
+  return wpFetch<WPNavMenu>("nav");
 }
 
 export async function fetchPageContent(

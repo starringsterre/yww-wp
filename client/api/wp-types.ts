@@ -52,15 +52,40 @@ export interface WPPodcast {
   spotifyUrl: string;
 }
 
+export interface WPBlogSection {
+  heading: string;
+  body: string;
+}
+
+export interface WPBlogCta {
+  heading: string;
+  body: string;
+  buttonLabel: string;
+  buttonUrl: string;
+}
+
 export interface WPBlog {
   id: string;
   title: string;
   excerpt: string;
   image: string;
+  slug?: string;
+  // HTML fallback for posts without structured content
   content?: string;
+  // Structured content fields
+  date?: string;
+  category?: string;
+  readTime?: string;
+  intro?: string;
+  sections?: WPBlogSection[];
+  cta?: WPBlogCta;
+  conclusion?: string;
 }
 
 export interface WPGlobalOptions {
+  site: {
+    logo: string;
+  };
   footer: {
     about_text: string;
     copyright: string;

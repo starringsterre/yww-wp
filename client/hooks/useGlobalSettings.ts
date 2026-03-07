@@ -1,8 +1,12 @@
 import { useWPContent } from "./useWPContent";
 import { fetchGlobalOptions } from "@/api/wordpress";
 import type { WPGlobalOptions } from "@/api/wp-types";
+import { DEFAULT_SITE_LOGO } from "@/lib/siteBranding";
 
 const fallbackOptions: WPGlobalOptions = {
+  site: {
+    logo: DEFAULT_SITE_LOGO,
+  },
   footer: {
     about_text:
       "Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren. Ontdek wat je drijft, verstevig je koers en groei met gelijkgestemde vrouwen.",

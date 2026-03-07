@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Menu, X, Instagram, Linkedin, ChevronDown } from "lucide-react";
 import CustomCursor from "@/components/CustomCursor";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
-import VraagbaakWidget from "@/components/VraagbaakWidget";
 import { useIsDesktop } from "@/hooks/useIsDesktop";
 import { useGlobalSettings } from "@/hooks/useGlobalSettings";
+import { useNavMenu } from "@/hooks/useNavMenu";
+import { resolveSiteLogoUrl } from "@/lib/siteBranding";
 
 type NavChild = {
   href: string;
@@ -18,52 +19,18 @@ type NavItem = {
   children?: NavChild[];
 };
 
-const mainNavItems: NavItem[] = [
-  {
-    href: "/groepstrainingen",
-    label: "Persoonlijke ontwikkeling",
-    children: [
-      { href: "/persoonlijke-ontwikkeling-weekend-training", label: "Weekend trainingen" },
-      { href: "/groepstrainingen/ontwikkeling-workshops", label: "Dag workshops" },
-    ],
-  },
-  {
-    href: "/in-company",
-    label: "Bedrijfstrajecten",
-    children: [
-      { href: "/in-company/jaarprogrammas", label: "Jaarprogramma's" },
-      { href: "/in-company/losse-workshops", label: "Losse Workshops" },
-    ],
-  },
-  {
-    href: "/inspiratie",
-    label: "Inspiratie",
-    children: [
-      { href: "/inspiratie/evenementen", label: "Evenementen" },
-      { href: "/inspiratie/blogs", label: "Tools & Handvatten" },
-      { href: "/inspiratie/podcasts", label: "Podcasts" },
-    ],
-  },
-  { href: "/ons-verhaal", label: "Ons Verhaal" },
-];
-
-const footerLinks: NavChild[] = [
-  { href: "/", label: "Home" },
-  { href: "/groepstrainingen", label: "Persoonlijke ontwikkeling" },
-  { href: "/in-company", label: "Bedrijfstrajecten" },
-  { href: "/inspiratie", label: "Inspiratie" },
-  { href: "/ons-verhaal", label: "Ons Verhaal" },
-  { href: "/lid-worden", label: "Netwerk" },
-];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [hasCookieConsent, setHasCookieConsent] = useState(false);
-  const currentYear = new Date().getFullYear();
   const location = useLocation();
   const isDesktop = useIsDesktop();
   const { data: settings } = useGlobalSettings();
+  const { data: navMenu } = useNavMenu();
+  const mainNavItems = navMenu?.nav ?? [];
+  const footerLinks = navMenu?.footer ?? [];
+  const siteLogo = resolveSiteLogoUrl(settings?.site?.logo);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -144,16 +111,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          backgroundColor: location.pathname === "/" && !hasScrolled ? "transparent" : "#FBF9F5",
-          borderBottom: hasScrolled || location.pathname !== "/" ? "1px solid rgba(28, 40, 38, 0.1)" : "none",
+          backgroundColor: location.pathname === "/" && !hasScrolled && !mobileMenuOpen ? "transparent" : "#FBF9F5",
+          borderBottom: hasScrolled || location.pathname !== "/" || mobileMenuOpen ? "1px solid rgba(28, 40, 38, 0.1)" : "none",
         }}
       >
         <div className="max-w-full px-8">
           <div className="flex justify-between items-center h-20">
-            {(location.pathname !== "/" || hasScrolled) && (
+            {(location.pathname !== "/" || hasScrolled || mobileMenuOpen) && (
               <Link to="/" className="flex-shrink-0">
                 <img loading="lazy"
-                  src="/Logo-Young-Wise-Women.png"
+                  src={siteLogo}
                   alt="Young Wise Women"
                   className="h-20 w-auto"
                 />
@@ -248,7 +215,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2"
-              style={{ color: location.pathname === "/" && !hasScrolled ? "white" : "black" }}
+              style={{ color: location.pathname === "/" && !hasScrolled && !mobileMenuOpen ? "white" : "black" }}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -259,39 +226,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               className="md:hidden pb-4 flex flex-col gap-2 border-t pt-4"
               style={{ borderColor: "rgba(28, 40, 38, 0.1)" }}
             >
-              {mainNavItems.map((item) => {
-                if (location.pathname === "/" && !hasScrolled) {
-                  return null;
-                }
-
-                return (
-                  <div key={item.href} className="flex flex-col">
-                    <Link
-                      to={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`text-sm font-medium py-2 transition-colors ${
-                        isItemActive(item) ? "text-primary" : "text-gray-700 hover:text-[#B46555]"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                    {item.children?.map((child) => (
-                      <Link
-                        key={child.href}
-                        to={child.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`text-sm py-1 pl-4 transition-colors ${
-                          isPathActive(child.href)
-                            ? "text-primary"
-                            : "text-gray-600 hover:text-[#B46555]"
-                        }`}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                );
-              })}
+              {mainNavItems.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm font-medium py-2 transition-colors ${
+                    isItemActive(item) ? "text-primary" : "text-gray-700 hover:text-[#B46555]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
 
               <Link
                 to="/lid-worden"
@@ -321,7 +267,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             <div className="flex items-center">
               <img loading="lazy"
-                src="/Logo-Young-Wise-Women.png"
+                src={siteLogo}
                 alt="Young Wise Women"
                 className="h-40 w-auto"
               />
@@ -376,7 +322,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           <div className="border-t border-gray-500 pt-8">
             <p className="text-sm text-gray-600 text-center">
-              © {currentYear} Young Wise Women. Alle rechten voorbehouden. By{" "}
+              © 2026 Young Wise Women - Powered by Awareness in Business. Alle rechten
+              voorbehouden. Developed by{" "}
               <a
                 href="https://www.sterremolendijk.com"
                 target="_blank"
@@ -402,7 +349,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       )}
 
       <CookieConsentBanner />
-      <VraagbaakWidget />
     </div>
   );
 }

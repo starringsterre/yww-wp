@@ -319,13 +319,13 @@ export default function BlogDetail() {
       {((blog?.image && !leadsWithVideo) || isPending) && (
         <div className="bg-[#fbf9f5] px-4 pb-8 md:px-8">
           <div className="mx-auto max-w-6xl">
-            <div className="aspect-[21/9] overflow-hidden rounded-2xl bg-[#ece8df]">
+            <div className="aspect-[3/2] overflow-hidden rounded-2xl bg-[#ece8df]">
               {blog?.image && !leadsWithVideo && (
                 <ImageLightbox
                   src={blog.image}
                   alt={blog.title}
                   containerClassName="h-full w-full"
-                  imgClassName="h-full w-full object-cover"
+                  imgClassName={`h-full w-full object-cover ${blog.image.includes("curling-managers-gen-z") ? "object-[50%_76%]" : ""}`}
                 />
               )}
             </div>

@@ -13,13 +13,14 @@ import {
 } from "lucide-react";
 
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import ImageLightbox from "@/components/ImageLightbox";
 import SEOHead from "@/components/SEOHead";
 import { useBlog } from "@/hooks/useBlog";
 import { useBlogs } from "@/hooks/useBlogs";
 import { useGlobalSettings } from "@/hooks/useGlobalSettings";
 import { resolveSiteLogoUrl, toAbsoluteSiteAssetUrl } from "@/lib/siteBranding";
 
-const SITE_URL = "https://youngwisewomen.nl";
+const SITE_URL = "https://youngwisewomen.com";
 
 function slugify(text: string): string {
   return text
@@ -49,14 +50,14 @@ function BlogCtaBlock({ cta }: { cta: WPBlogCta }) {
             href={cta.buttonUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-6 inline-block rounded-full bg-[#B46555] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#a05448]"
+            className="mt-6 inline-block rounded-full bg-[#6B705C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#5a5f4c]"
           >
             {cta.buttonLabel || "Meer informatie →"}
           </a>
         ) : (
           <Link
             to={cta.buttonUrl}
-            className="mt-6 inline-block rounded-full bg-[#B46555] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#a05448]"
+            className="mt-6 inline-block rounded-full bg-[#6B705C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#5a5f4c]"
           >
             {cta.buttonLabel || "Meer informatie →"}
           </Link>
@@ -78,9 +79,36 @@ function parseToc(html: string): Array<{ id: string; label: string; level: numbe
   }));
 }
 
+function extractFaqItems(
+  sections: Array<{ heading: string; body: string }> | undefined,
+): Array<{ question: string; answer: string }> {
+  if (typeof document === "undefined" || !sections?.length) return [];
+  const faqSection = sections.find((s) => /veelgestelde vragen/i.test(s.heading));
+  if (!faqSection) return [];
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(faqSection.body, "text/html");
+  const items: Array<{ question: string; answer: string }> = [];
+  let current: { question: string; answer: string } | null = null;
+
+  Array.from(doc.body.children).forEach((el) => {
+    if (el.tagName === "H3") {
+      if (current) items.push(current);
+      current = { question: el.textContent?.trim() ?? "", answer: "" };
+      return;
+    }
+    if (!current) return;
+    const text = el.textContent?.trim();
+    if (text) current.answer = current.answer ? `${current.answer} ${text}` : text;
+  });
+  if (current) items.push(current);
+
+  return items.filter((item) => item.question && item.answer);
+}
+
 export default function BlogDetail() {
   const { slug = "" } = useParams<{ slug: string }>();
-  const { data: blog, isLoading } = useBlog(slug);
+  const { data: blog, isPending } = useBlog(slug);
   const { data: allBlogs } = useBlogs();
   const { data: settings } = useGlobalSettings();
   const siteLogo = toAbsoluteSiteAssetUrl(resolveSiteLogoUrl(settings?.site?.logo), SITE_URL);
@@ -93,6 +121,12 @@ export default function BlogDetail() {
   const articleTitle = blog?.title ?? "";
   const articleDescription = blog?.excerpt ?? "";
 
+  // Wanneer het artikel met een ingesloten video begint, is die video de
+  // visuele lead — dan tonen we niet ook nog de cover-foto bovenaan.
+  const leadsWithVideo = /<iframe|youtu\.?be|youtube/i.test(
+    `${blog?.intro ?? ""}${blog?.content ?? ""}`,
+  );
+
   const virtualHtml = useMemo(() => {
     if (blog?.sections?.length) {
       return blog.sections
@@ -103,6 +137,7 @@ export default function BlogDetail() {
   }, [blog?.sections, blog?.content]);
 
   const toc = useMemo(() => parseToc(virtualHtml), [virtualHtml]);
+  const faqItems = useMemo(() => extractFaqItems(blog?.sections), [blog?.sections]);
 
   const otherBlogs = (allBlogs ?? []).filter((b) => (b.slug || b.id) !== slug);
 
@@ -130,11 +165,10 @@ export default function BlogDetail() {
           url: articleUrl,
           inLanguage: "nl-NL",
           image: blog.image ? `${SITE_URL}${blog.image.startsWith("/") ? "" : "/"}${blog.image}` : undefined,
-          author: {
-            "@type": "Organization",
-            name: "Young Wise Women",
-            url: SITE_URL,
-          },
+          datePublished: blog.date || undefined,
+          author: blog.author
+            ? { "@type": "Person", name: blog.author }
+            : { "@type": "Organization", name: "Young Wise Women", url: SITE_URL },
           publisher: {
             "@type": "Organization",
             name: "Young Wise Women",
@@ -158,11 +192,26 @@ export default function BlogDetail() {
             { "@type": "ListItem", position: 4, name: articleTitle, item: articleUrl },
           ],
         },
+        ...(faqItems.length
+          ? [
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: faqItems.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: { "@type": "Answer", text: item.answer },
+                })),
+              },
+            ]
+          : []),
       ]
     : undefined;
 
+  if (isPending) return null;
+
   // Not found / draft state
-  if (!isLoading && !blog) {
+  if (!blog) {
     return (
       <div className="w-full">
         <SEOHead
@@ -182,7 +231,7 @@ export default function BlogDetail() {
           </p>
           <Link
             to="/inspiratie/tools-en-handvatten"
-            className="rounded-full bg-[#B46555] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#a05448]"
+            className="rounded-full bg-[#6B705C] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#5a5f4c]"
           >
             Alle blogs →
           </Link>
@@ -192,7 +241,7 @@ export default function BlogDetail() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full page-fade-in lg:pt-20">
       {blog && (
         <SEOHead
           title={`${articleTitle} | Young Wise Women`}
@@ -245,15 +294,15 @@ export default function BlogDetail() {
       <header className="bg-[#fbf9f5] px-4 pb-6 pt-10 md:px-8">
         <div className="mx-auto max-w-6xl">
           <h1 className="max-w-3xl font-['Lora'] text-3xl font-semibold leading-tight text-[#1c2826] md:text-4xl lg:text-5xl">
-            {isLoading ? <span className="block h-10 w-3/4 animate-pulse rounded bg-[#ece8df]" /> : articleTitle}
+            {isPending ? <span className="block h-10 w-3/4 animate-pulse rounded bg-[#ece8df]" /> : articleTitle}
           </h1>
           {articleDescription && (
             <p className="mt-4 max-w-2xl text-lg text-[#4f5b58]">{articleDescription}</p>
           )}
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            {blog?.category && (
-              <span className="rounded-full bg-[#ece8df] px-3 py-1 text-xs font-medium text-[#4f5b58]">
-                {blog.category}
+            {blog?.author && (
+              <span className="text-sm font-medium text-[#1c2826]">
+                Door {blog.author}
               </span>
             )}
             {blog?.date && (
@@ -262,29 +311,21 @@ export default function BlogDetail() {
             {blog?.readTime && (
               <span className="text-sm text-[#5c6663]">{blog.readTime} lezen</span>
             )}
-            <button
-              type="button"
-              onClick={() => setShareOpen(true)}
-              aria-haspopup="dialog"
-              className="inline-flex items-center gap-2 rounded-full border border-[#d6d0c4] bg-white px-4 py-2 text-sm font-medium text-[#1c2826] transition hover:bg-[#f3efe7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              <Share2 className="h-4 w-4" />
-              Deel artikel
-            </button>
           </div>
         </div>
       </header>
 
-      {/* Cover image */}
-      {(blog?.image || isLoading) && (
+      {/* Cover image — verborgen wanneer het artikel met een video begint */}
+      {((blog?.image && !leadsWithVideo) || isPending) && (
         <div className="bg-[#fbf9f5] px-4 pb-8 md:px-8">
           <div className="mx-auto max-w-6xl">
             <div className="aspect-[21/9] overflow-hidden rounded-2xl bg-[#ece8df]">
-              {blog?.image && (
-                <img
+              {blog?.image && !leadsWithVideo && (
+                <ImageLightbox
                   src={blog.image}
                   alt={blog.title}
-                  className="h-full w-full object-cover"
+                  containerClassName="h-full w-full"
+                  imgClassName="h-full w-full object-cover"
                 />
               )}
             </div>
@@ -311,7 +352,7 @@ export default function BlogDetail() {
               prose-a:text-[#B46555] prose-a:no-underline hover:prose-a:underline
             "
           >
-            {isLoading ? (
+            {isPending ? (
               <div className="space-y-4">
                 {[...Array(6)].map((_, i) => (
                   <div key={i} className="h-4 animate-pulse rounded bg-[#ece8df]" style={{ width: `${70 + (i % 3) * 10}%` }} />
@@ -338,7 +379,7 @@ export default function BlogDetail() {
             ) : null}
 
             {/* Article footer share */}
-            {!isLoading && blog && (
+            {!isPending && blog && (
               <div className="not-prose mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[#e0dbd2] pt-8">
                 <p className="text-sm text-[#5c6663]">Was dit artikel nuttig? Deel het met je netwerk.</p>
                 <button

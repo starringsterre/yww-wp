@@ -61,7 +61,10 @@ export default function HetTeam() {
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-lg md:order-1">
               <img
                 loading="lazy"
-                src={cms?.team_1_image || "/team-ella-taal.svg"}
+                src={
+                  cms?.team_1_image ||
+                  "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fedaf553c26414cd5af248f8c42bec4bb?format=webp&width=4000"
+                }
                 alt="Ella Taal"
                 className="w-full h-full object-cover"
               />
@@ -97,7 +100,10 @@ export default function HetTeam() {
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-lg">
               <img
                 loading="lazy"
-                src={cms?.team_2_image || "/team-liene-molendijk.svg"}
+                src={
+                  cms?.team_2_image ||
+                  "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F11834262257d4b5287de33d164171bdd?format=webp&width=4000"
+                }
                 alt="Liene Molendijk"
                 className="w-full h-full object-cover"
               />
@@ -175,7 +181,7 @@ export default function HetTeam() {
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-lg">
               <img
                 loading="lazy"
-                src={cms?.team_4_image || "/team-julia-weekenstroo.svg"}
+                src={cms?.team_4_image || "/julia-weekenstroo.jpg"}
                 alt="Julia Weekenstroo"
                 className="w-full h-full object-cover"
               />
@@ -197,13 +203,13 @@ export default function HetTeam() {
                   {cms?.team_5_name || "Karen van Bremen"}
                 </h2>
                 <p className="mt-2 text-base font-medium text-[#B46555]">
-                  {cms?.team_5_role || "[Functie invullen]"}
+                  {cms?.team_5_role || "Coach & Trainer"}
                 </p>
               </div>
               <div className="space-y-4">
                 {renderMultiline(
                   cms?.team_5_bio ||
-                    "[Bio tekst voor Karen van Bremen, vul aan via WP Admin]",
+                    "Na ruim 13 jaar als zelfstandig logopedist ontwikkelde Karen zich verder als coach en trainer. De afgelopen 15 jaar gaf ze leiderschapstrainingen in het bedrijfsleven en retraites in Portugal en Nederland, gericht op persoonlijke ontwikkeling, bewustzijn en leiderschap.\nAls moeder van drie dochters ziet ze hoe hard de huidige maatschappij deze generatie aanpakt. Met haar kennis en ervaring ondersteunt ze jonge vrouwen om vrijer en liefdevoller hun weg te vinden.",
                   "text-gray-700 leading-relaxed",
                 )}
               </div>

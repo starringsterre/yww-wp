@@ -12,14 +12,23 @@ if (!defined('ABSPATH')) exit;
 // 0. CORS HEADERS FOR HEADLESS FRONTEND
 // ─────────────────────────────────────────────
 
+// Stop WordPress core from echoing the request Origin into
+// Access-Control-Allow-Origin. LiteSpeed caches REST responses and replays the
+// frozen per-origin header to every visitor (e.g. a stale "http://localhost:4173"
+// from a prerender run), which breaks CORS for the live site. A static wildcard
+// is safe for these public read-only endpoints and is immune to that poisoning.
+add_action('rest_api_init', function() {
+    remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+}, 15);
+
 add_action('rest_pre_serve_request', function() {
-    // LiteSpeed may cache REST responses and replay a previously cached
-    // Access-Control-Allow-Origin header for a different frontend origin.
-    // A wildcard is safe here because these endpoints are public read-only.
     header('Access-Control-Allow-Origin: *');
     header('Access-Control-Allow-Methods: GET, OPTIONS');
-    header('Vary: Origin', false);
-});
+    header('Cache-Control: no-cache, must-revalidate, max-age=0');
+    // LiteSpeed ignores standard Cache-Control; this directive tells it explicitly
+    // not to cache REST responses, preventing future CORS-header poisoning.
+    header('X-LiteSpeed-Cache-Control: no-cache');
+}, 999);
 
 // ─────────────────────────────────────────────
 // 1. REGISTER CUSTOM POST TYPES
@@ -41,7 +50,7 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-groups',
-        'supports'     => ['title', 'thumbnail'],
+        'supports'     => ['title', 'thumbnail', 'custom-fields'],
         'menu_position' => 20,
     ]);
 
@@ -57,7 +66,7 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-format-quote',
-        'supports'     => ['title', 'thumbnail'],
+        'supports'     => ['title', 'thumbnail', 'custom-fields'],
         'menu_position' => 21,
     ]);
 
@@ -73,7 +82,7 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-calendar-alt',
-        'supports'     => ['title'],
+        'supports'     => ['title', 'custom-fields'],
         'menu_position' => 22,
     ]);
 
@@ -89,7 +98,7 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-microphone',
-        'supports'     => ['title', 'thumbnail'],
+        'supports'     => ['title', 'thumbnail', 'custom-fields'],
         'menu_position' => 23,
     ]);
 
@@ -105,7 +114,7 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-admin-post',
-        'supports'     => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'supports'     => ['title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'],
         'menu_position' => 24,
         'rewrite'      => ['slug' => 'blog'],
     ]);
@@ -122,8 +131,24 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-welcome-learn-more',
-        'supports'     => ['title'],
+        'supports'     => ['title', 'custom-fields'],
         'menu_position' => 25,
+    ]);
+
+    // Employer Review
+    register_post_type('yww_employer_review', [
+        'labels' => [
+            'name'          => 'Werkgever Reviews',
+            'singular_name' => 'Werkgever Review',
+            'add_new_item'  => 'Nieuwe werkgever review toevoegen',
+            'edit_item'     => 'Werkgever review bewerken',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'show_in_rest' => true,
+        'menu_icon'    => 'dashicons-businessman',
+        'supports'     => ['title', 'thumbnail', 'custom-fields'],
+        'menu_position' => 27,
     ]);
 
     // FAQ
@@ -138,7 +163,7 @@ function yww_register_post_types() {
         'show_ui'      => true,
         'show_in_rest' => true,
         'menu_icon'    => 'dashicons-editor-help',
-        'supports'     => ['title'],
+        'supports'     => ['title', 'custom-fields'],
         'menu_position' => 26,
     ]);
 }
@@ -146,6 +171,11 @@ function yww_register_post_types() {
 // ─────────────────────────────────────────────
 // 2. REGISTER POST META FIELDS
 // ─────────────────────────────────────────────
+
+// Identity sanitizer for meta values that are already-encoded JSON blobs.
+function yww_passthrough_meta_value($value) {
+    return $value;
+}
 
 add_action('init', 'yww_register_meta_fields');
 
@@ -237,20 +267,37 @@ function yww_register_meta_fields() {
         ]);
     }
 
-    // Blog structured content — single JSON blob, parallel to yww_page_content for pages
+    // Blog structured content — single JSON blob, parallel to yww_page_content for pages.
+    // No sanitize_callback would fall back to sanitize_text_field(), which strips the
+    // <p>/<h2>/<ul>/<li> HTML embedded in the JSON string values and corrupts the JSON
+    // (json_decode fails silently), so every blog falls back to raw content with no
+    // date/category/author/sections. Pass the already-encoded JSON through untouched.
     register_post_meta('yww_blog', 'yww_blog_content', [
-        'show_in_rest'  => true,
-        'single'        => true,
-        'type'          => 'string',
-        'default'       => '',
+        'show_in_rest'      => true,
+        'single'            => true,
+        'type'              => 'string',
+        'default'           => '',
+        'sanitize_callback' => 'yww_passthrough_meta_value',
+        'auth_callback'     => '__return_true',
     ]);
 
     // Blog structured content also registered on page post type (for draft workflow)
     register_post_meta('page', 'yww_blog_content', [
-        'show_in_rest'  => true,
-        'single'        => true,
-        'type'          => 'string',
-        'default'       => '',
+        'show_in_rest'      => true,
+        'single'            => true,
+        'type'              => 'string',
+        'default'           => '',
+        'sanitize_callback' => 'yww_passthrough_meta_value',
+        'auth_callback'     => '__return_true',
+    ]);
+
+    // Page CMS content JSON — required so cms-sync REST POSTs persist
+    register_post_meta('page', 'yww_page_content', [
+        'show_in_rest'      => true,
+        'single'            => true,
+        'type'              => 'string',
+        'default'           => '',
+        'auth_callback'     => '__return_true',
     ]);
 
     // Workshop meta
@@ -276,6 +323,24 @@ function yww_register_meta_fields() {
         ]);
     }
 
+    // Employer Review meta
+    $employer_review_meta = [
+        'yww_employer_review_name'    => 'string',
+        'yww_employer_review_role'    => 'string',
+        'yww_employer_review_company' => 'string',
+        'yww_employer_review_quote'   => 'string',
+        'yww_employer_review_image'   => 'string',
+        'yww_employer_review_order'   => 'integer',
+    ];
+    foreach ($employer_review_meta as $key => $type) {
+        register_post_meta('yww_employer_review', $key, [
+            'show_in_rest'  => true,
+            'single'        => true,
+            'type'          => $type,
+            'default'       => $type === 'integer' ? 0 : '',
+        ]);
+    }
+
     // FAQ meta
     $faq_meta = [
         'yww_faq_answer'   => 'string',
@@ -294,11 +359,50 @@ function yww_register_meta_fields() {
     // Page content meta — register for the built-in 'page' post type
     // We use a single meta key that stores all fields as JSON
     register_post_meta('page', 'yww_page_content', [
-        'show_in_rest'  => true,
+        'show_in_rest'  => false,
         'single'        => true,
         'type'          => 'string',
         'default'       => '',
     ]);
+}
+
+// Custom REST endpoint as fallback when standard meta REST writes don't persist
+add_action('rest_api_init', function () {
+    register_rest_route('yww/v1', '/pages/(?P<slug>[a-z0-9-]+)/content', [
+        'methods'             => 'POST',
+        'callback'            => 'yww_set_page_content',
+        'permission_callback' => function () {
+            return current_user_can('edit_posts');
+        },
+    ]);
+});
+
+function yww_set_page_content($request) {
+    $slug = $request->get_param('slug');
+    $aliases = [
+        'retreats' => 'groepstrainingen',
+        'weekenden' => 'persoonlijke-ontwikkeling-weekend-training',
+        'weekend-intensive' => 'weekend-intensive-juni-2026',
+        'workshops' => 'ontwikkeling-workshops',
+        'bedrijfstrajecten' => 'in-company',
+        'kalender' => 'evenementen',
+    ];
+    $slug = $aliases[$slug] ?? $slug;
+    $pages = get_posts([
+        'post_type' => 'page',
+        'name' => $slug,
+        'posts_per_page' => 1,
+        'post_status' => 'any',
+    ]);
+    if (empty($pages)) {
+        return new WP_Error('not_found', "Page not found: $slug", ['status' => 404]);
+    }
+    $content = $request->get_json_params();
+    if (!is_array($content)) {
+        return new WP_Error('bad_request', 'Body must be JSON object', ['status' => 400]);
+    }
+    update_post_meta($pages[0]->ID, 'yww_page_content', wp_slash(wp_json_encode($content, JSON_UNESCAPED_UNICODE)));
+    return rest_ensure_response(['success' => true, 'page_id' => $pages[0]->ID, 'fields' => count($content)]);
 }
 
 // ─────────────────────────────────────────────
@@ -409,6 +513,13 @@ function yww_register_rest_routes() {
     register_rest_route($namespace, '/nav', [
         'methods'             => 'GET',
         'callback'            => 'yww_get_nav',
+        'permission_callback' => '__return_true',
+    ]);
+
+    // GET /yww/v1/employer-reviews
+    register_rest_route($namespace, '/employer-reviews', [
+        'methods'             => 'GET',
+        'callback'            => 'yww_get_employer_reviews',
         'permission_callback' => '__return_true',
     ]);
 
@@ -588,6 +699,7 @@ function yww_build_blog_data($post) {
     return array_merge($base, [
         'content'    => apply_filters('the_content', $post->post_content), // HTML fallback for old posts
         'date'       => isset($data['date'])       ? $data['date']       : '',
+        'author'     => isset($data['author'])     ? $data['author']     : '',
         'category'   => isset($data['category'])   ? $data['category']   : '',
         'readTime'   => isset($data['read_time'])  ? $data['read_time']  : '',
         'intro'      => isset($data['intro'])      ? $data['intro']      : '',
@@ -637,7 +749,7 @@ function yww_get_options() {
             'logo' => get_option('yww_site_logo', '/Logo-Young-Wise-Women.png'),
         ],
         'footer' => [
-            'about_text'    => get_option('yww_footer_about', 'Het netwerk waar jonge vrouwen reflectie, rust en ruimte ervaren. Ontdek wat je drijft, verstevig je koers en groei met gelijkgestemde vrouwen.'),
+            'about_text'    => get_option('yww_footer_about', 'Young Wise Women helpt organisaties om jong vrouwelijk talent te begrijpen, ontwikkelen en behouden.'),
             'copyright'     => get_option('yww_footer_copyright', ''),
         ],
         'contact' => [
@@ -663,7 +775,7 @@ function yww_get_page_content($request) {
         'weekenden'         => 'persoonlijke-ontwikkeling-weekend-training',
         'weekend-intensive' => 'weekend-intensive-juni-2026',
         'workshops'         => 'ontwikkeling-workshops',
-        'voor-organisaties' => 'in-company',
+        'bedrijfstrajecten' => 'in-company',
         'kalender'          => 'evenementen',
     ];
     $slug = $aliases[$slug] ?? $slug;
@@ -725,6 +837,32 @@ function yww_get_workshops() {
     return rest_ensure_response($data);
 }
 
+function yww_get_employer_reviews() {
+    $posts = get_posts([
+        'post_type'      => 'yww_employer_review',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+        'meta_key'       => 'yww_employer_review_order',
+        'orderby'        => 'meta_value_num',
+        'order'          => 'ASC',
+    ]);
+
+    $data = [];
+    foreach ($posts as $post) {
+        $data[] = [
+            'id'      => $post->ID,
+            'name'    => get_post_meta($post->ID, 'yww_employer_review_name', true),
+            'role'    => get_post_meta($post->ID, 'yww_employer_review_role', true),
+            'company' => get_post_meta($post->ID, 'yww_employer_review_company', true),
+            'quote'   => get_post_meta($post->ID, 'yww_employer_review_quote', true),
+            'image'   => get_post_meta($post->ID, 'yww_employer_review_image', true),
+            'order'   => (int) get_post_meta($post->ID, 'yww_employer_review_order', true),
+        ];
+    }
+
+    return rest_ensure_response($data);
+}
+
 function yww_get_faqs($request) {
     $page_slug = $request->get_param('page');
 
@@ -765,30 +903,28 @@ function yww_get_faqs($request) {
 function yww_get_nav() {
     // Nav config with stable 'key' per page (unchanged even if WP slug changes)
     $nav_config = [
-        ['key' => 'in-company', 'children' => [
-            ['key' => 'jaarprogrammas', 'prefix_key' => 'in-company'],
-            ['key' => 'workshops-op-maat', 'prefix_key' => 'in-company'],
+        ['key' => 'in-company', 'href_override' => '/bedrijfstrajecten', 'label_override' => 'Bedrijfstrajecten', 'children' => [
+            ['key' => 'jaarprogrammas', 'href_override' => '/bedrijfstrajecten#jaarprogrammas', 'label_override' => "Jaarprogramma's"],
+            ['key' => 'workshops-op-maat', 'href_override' => '/bedrijfstrajecten#workshops', 'label_override' => 'Workshops'],
         ]],
-        ['key' => 'groepstrainingen', 'children' => [
-            ['key' => 'persoonlijke-ontwikkeling-weekend-training', 'prefix_key' => 'groepstrainingen'],
-            ['key' => 'ontwikkeling-workshops', 'prefix_key' => 'groepstrainingen'],
-        ]],
+        ['key' => 'groepstrainingen'],
         ['key' => 'inspiratie', 'children' => [
-            ['key' => 'evenementen', 'prefix_key' => 'inspiratie'],
+            // ['key' => 'evenementen', 'prefix_key' => 'inspiratie'], // tijdelijk verborgen — uncomment om terug te zetten
             ['key' => 'tools-en-handvatten', 'prefix_key' => 'inspiratie'],
             ['key' => 'podcasts', 'prefix_key' => 'inspiratie'],
         ]],
-        ['key' => 'ons-verhaal', 'children' => [
+        ['key' => 'ons-verhaal', 'label_override' => 'Ons Verhaal', 'children' => [
             ['key' => 'over-ella', 'prefix_key' => 'ons-verhaal'],
+            ['key' => 'het-team', 'prefix_key' => 'ons-verhaal'],
         ]],
     ];
 
     $footer_config = [
         ['key' => 'home'],
-        ['key' => 'in-company'],
+        ['key' => 'in-company', 'label_override' => 'Bedrijfstrajecten', 'href_override' => '/bedrijfstrajecten'],
         ['key' => 'groepstrainingen'],
         ['key' => 'inspiratie'],
-        ['key' => 'ons-verhaal'],
+        ['key' => 'ons-verhaal', 'label_override' => 'Ons Verhaal'],
         ['key' => 'lid-worden'],
     ];
 
@@ -799,6 +935,9 @@ function yww_get_nav() {
         foreach ($item['children'] ?? [] as $child) {
             $all_keys[] = $child['key'];
         }
+    }
+    foreach ($footer_config as $item) {
+        $all_keys[] = $item['key'];
     }
     $all_keys = array_unique($all_keys);
 
@@ -862,15 +1001,15 @@ function yww_get_nav() {
     $nav = [];
     foreach ($nav_config as $item) {
         $nav_item = [
-            'href'  => $make_href($item['key']),
-            'label' => $get_label($item['key']),
+            'href'  => $item['href_override'] ?? $make_href($item['key']),
+            'label' => $item['label_override'] ?? $get_label($item['key']),
         ];
         if (!empty($item['children'])) {
             $nav_item['children'] = [];
             foreach ($item['children'] as $child) {
                 $nav_item['children'][] = [
-                    'href'  => $make_href($child['key'], $child['prefix_key'] ?? null),
-                    'label' => $get_label($child['key']),
+                    'href'  => $child['href_override'] ?? $make_href($child['key'], $child['prefix_key'] ?? null),
+                    'label' => $child['label_override'] ?? $get_label($child['key']),
                 ];
             }
         }
@@ -882,7 +1021,7 @@ function yww_get_nav() {
     foreach ($footer_config as $item) {
         $footer[] = [
             'href'  => $make_href($item['key']),
-            'label' => $get_label($item['key']),
+            'label' => $item['label_override'] ?? $get_label($item['key']),
         ];
     }
 
@@ -892,7 +1031,18 @@ function yww_get_nav() {
 function yww_get_seo($request) {
     $slug = $request->get_param('slug');
     $site_name = 'Young Wise Women';
-    $site_url  = 'https://youngwisewomen.nl';
+    $site_url  = 'https://youngwisewomen.com';
+
+    // Lokale SEOHead-slug → productie WP-paginaslug (zelfde mapping als /pages/{slug}/content)
+    $aliases = [
+        'retreats'           => 'groepstrainingen',
+        'weekenden'          => 'persoonlijke-ontwikkeling-weekend-training',
+        'weekend-intensive'  => 'weekend-intensive-juni-2026',
+        'workshops'          => 'ontwikkeling-workshops',
+        'bedrijfstrajecten'  => 'in-company',
+        'kalender'           => 'evenementen',
+    ];
+    $slug = $aliases[$slug] ?? $slug;
 
     // Try to find a page with this slug
     $pages = get_posts([
@@ -909,6 +1059,13 @@ function yww_get_seo($request) {
     $post = $pages[0];
     $post_id = $post->ID;
 
+    // CMS SEO-velden uit yww_page_content (door redacteur ingevuld) hebben voorrang.
+    $page_content = json_decode(get_post_meta($post_id, 'yww_page_content', true) ?: '{}', true);
+    if (!is_array($page_content)) { $page_content = []; }
+    $cms_title    = isset($page_content['seo_title']) ? trim($page_content['seo_title']) : '';
+    $cms_desc     = isset($page_content['seo_description']) ? trim($page_content['seo_description']) : '';
+    $cms_og_image = isset($page_content['seo_og_image']) ? trim($page_content['seo_og_image']) : '';
+
     // Read Yoast meta fields directly (custom titles/descriptions set by user)
     $custom_title = get_post_meta($post_id, '_yoast_wpseo_title', true);
     $custom_desc  = get_post_meta($post_id, '_yoast_wpseo_metadesc', true);
@@ -916,9 +1073,10 @@ function yww_get_seo($request) {
     $canonical    = get_post_meta($post_id, '_yoast_wpseo_canonical', true);
     $robots_meta  = get_post_meta($post_id, '_yoast_wpseo_meta-robots-noindex', true);
 
-    // Use custom Yoast title, or fallback to page title + site name
-    $title = $custom_title ?: ($post->post_title . ' | ' . $site_name);
-    $description = $custom_desc ?: '';
+    // Precedentie: CMS-veld > Yoast-meta > paginatitel-fallback
+    $title = $cms_title ?: ($custom_title ?: ($post->post_title . ' | ' . $site_name));
+    $description = $cms_desc ?: ($custom_desc ?: '');
+    if ($cms_og_image) { $og_image = $cms_og_image; }
 
     // Get schema from Yoast API if available
     $schema = null;

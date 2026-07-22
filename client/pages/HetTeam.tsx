@@ -1,6 +1,8 @@
 // @cms-page slug="het-team" route="/ons-verhaal/het-team" title="Het Team" menuParent="Ons Verhaal" menuLabel="Het Team"
 
+import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
 import SEOHead from "@/components/SEOHead";
 import { usePageContent } from "@/hooks/usePageContent";
@@ -8,28 +10,96 @@ import { renderMultiline } from "@/lib/renderMultiline";
 
 export default function HetTeam() {
   const { data: cms, isPending } = usePageContent("het-team");
+  const sectionRefs = useRef<Array<HTMLElement | null>>([]);
   if (isPending) return null;
+
+  const members = [
+    {
+      name: cms?.team_1_name || "Ella Taal",
+      image:
+        cms?.team_1_image ||
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2Fedaf553c26414cd5af248f8c42bec4bb?format=webp&width=4000",
+    },
+    {
+      name: cms?.team_2_name || "Liene Molendijk",
+      image:
+        cms?.team_2_image ||
+        "https://cdn.builder.io/api/v1/image/assets%2F5a9469c697e2499eab1b2d92d6c4e731%2F11834262257d4b5287de33d164171bdd?format=webp&width=4000",
+    },
+    {
+      name: cms?.team_3_name || "Marloes Versteeg",
+      image: cms?.team_3_image || "/marloes-versteeg.jpg",
+    },
+    {
+      name: cms?.team_4_name || "Julia Weekenstroo",
+      image: cms?.team_4_image || "/julia-weekenstroo.jpg",
+    },
+    {
+      name: cms?.team_5_name || "Karen van Bremen",
+      image: cms?.team_5_image || "/karen-van-bremen.jpg",
+    },
+  ];
+
+  const scrollToMember = (index: number) => {
+    sectionRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="w-full">
       <SEOHead
         slug="het-team"
         title="Het Team | Young Wise Women"
-        description="Maak kennis met het team van Young Wise Women: coaches van Generatie X en Generatie Z die samen persoonlijke groei en leiderschap begeleiden."
+        description="Maak kennis met het team van Young Wise Women: ervaren coaches van meerdere generaties die samen persoonlijke groei en leiderschap begeleiden."
         path="/ons-verhaal/het-team"
       />
 
       <HeroSection
         backgroundImage={cms?.hero_image || "/incompany-training-vrouw.png"}
-        title={cms?.hero_title || "Twee generaties, één missie"}
+        title={cms?.hero_title || "Meerdere generaties, één missie"}
         subtitle={
           cms?.hero_subtitle ||
           "Ontdek het team van Young Wise Women: ervaren trainsters met een scherpe blik op hoofd én lichaam, voor coaching die echt beklijft."
         }
       />
 
+      {/* Mobiel: horizontaal scrollbare trainer-nav, tikken scrollt naar de sectie */}
+      <div className="md:hidden relative bg-white px-4 py-6">
+        <div className="-mx-4 overflow-x-auto px-4 scrollbar-none">
+          <div className="flex w-max gap-5">
+            {members.map((member, i) => (
+              <button
+                key={member.name}
+                type="button"
+                onClick={() => scrollToMember(i)}
+                className="flex w-20 shrink-0 flex-col items-center gap-2"
+              >
+                <span className="h-16 w-16 overflow-hidden rounded-full ring-2 ring-[#ece8df]">
+                  <img
+                    loading="lazy"
+                    src={member.image}
+                    alt={member.name}
+                    className="h-full w-full object-cover"
+                  />
+                </span>
+                <span className="text-center text-xs font-medium leading-tight text-gray-700">
+                  {member.name.split(" ")[0]}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex w-14 items-center justify-end bg-gradient-to-l from-white via-white/80 to-transparent pr-1">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#6B705C] shadow-sm">
+            <ChevronRight size={16} />
+          </span>
+        </div>
+      </div>
+
       {/* Ella Taal — foto links */}
-      <section className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-white flex items-center">
+      <section
+        ref={(el) => (sectionRefs.current[0] = el)}
+        className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-white flex items-center"
+      >
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 md:order-2">
@@ -74,7 +144,10 @@ export default function HetTeam() {
       </section>
 
       {/* Liene Molendijk — foto rechts */}
-      <section className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-[#FBF9F5] flex items-center">
+      <section
+        ref={(el) => (sectionRefs.current[1] = el)}
+        className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-[#FBF9F5] flex items-center"
+      >
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -113,7 +186,10 @@ export default function HetTeam() {
       </section>
 
       {/* Marloes Versteeg — foto links */}
-      <section className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-white flex items-center">
+      <section
+        ref={(el) => (sectionRefs.current[2] = el)}
+        className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-white flex items-center"
+      >
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 md:order-2">
@@ -155,7 +231,10 @@ export default function HetTeam() {
       </section>
 
       {/* Julia Weekenstroo — foto rechts */}
-      <section className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-[#FBF9F5] flex items-center">
+      <section
+        ref={(el) => (sectionRefs.current[3] = el)}
+        className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-[#FBF9F5] flex items-center"
+      >
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -191,7 +270,10 @@ export default function HetTeam() {
       </section>
 
       {/* Karen van Bremen — foto links */}
-      <section className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-white flex items-center">
+      <section
+        ref={(el) => (sectionRefs.current[4] = el)}
+        className="min-h-screen py-20 md:py-24 px-4 md:px-8 bg-white flex items-center"
+      >
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 md:order-2">

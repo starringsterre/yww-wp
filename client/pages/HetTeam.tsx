@@ -20,11 +20,11 @@ export default function HetTeam() {
       />
 
       <HeroSection
-        backgroundImage={cms?.hero_image || "/workshop-persoonlijke-ontwikkeling.jpg"}
-        title={cms?.hero_title || "Twee generaties, één aanpak"}
+        backgroundImage={cms?.hero_image || "/incompany-training-vrouw.png"}
+        title={cms?.hero_title || "Twee generaties, één missie"}
         subtitle={
           cms?.hero_subtitle ||
-          "Bij Young Wise Women combineren we de ervaring van Generatie X met de frisse blik van Generatie Z, voor coaching die aansluit bij iedere levensfase."
+          "Ontdek het team van Young Wise Women: ervaren trainsters met een scherpe blik op hoofd én lichaam, voor coaching die echt beklijft."
         }
       />
 
@@ -34,6 +34,9 @@ export default function HetTeam() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 md:order-2">
               <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
+                  {cms?.team_1_generation || "Generatie X"}
+                </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_1_name || "Ella Taal"}
                 </h2>
@@ -73,17 +76,20 @@ export default function HetTeam() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
+                  {cms?.team_2_generation || "Generatie Z"}
+                </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_2_name || "Liene Molendijk"}
                 </h2>
                 <p className="mt-2 text-base font-medium text-[#B46555]">
-                  {cms?.team_2_role || "[Functie invullen]"}
+                  {cms?.team_2_role || "Coach & Trainer"}
                 </p>
               </div>
               <div className="space-y-4">
                 {renderMultiline(
                   cms?.team_2_bio ||
-                    "[Bio tekst voor Liene Molendijk, vul aan via WP Admin]",
+                    "Liene (1997) heeft een achtergrond in Psychologie en Leiderschap & Verandering en werkt inmiddels drie jaar bij grote organisatieadviesbureaus. Ze begeleidt uiteenlopende verandertrajecten in het publieke domein, van teams die anders willen samenwerken tot individuen die zoeken naar persoonlijke groei. De mens staat altijd centraal in haar werk.\nDaarnaast verdiepte ze zich in yoga- en meditatiefilosofie, wat ze meeneemt in het retreat. Zelf bevindt ze zich op de grens van Gen Z en Millennial, waardoor ze zich goed kan inleven in de uitdagingen en verlangens van jonge professionals.",
                   "text-gray-700 leading-relaxed",
                 )}
               </div>
@@ -106,6 +112,9 @@ export default function HetTeam() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 md:order-2">
               <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
+                  {cms?.team_3_generation || "Generatie X"}
+                </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_3_name || "Marloes Versteeg"}
                 </h2>
@@ -145,6 +154,9 @@ export default function HetTeam() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
+                  {cms?.team_4_generation || "Generatie Z"}
+                </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_4_name || "Julia Weekenstroo"}
                 </h2>
@@ -178,6 +190,9 @@ export default function HetTeam() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 md:order-2">
               <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
+                  {cms?.team_5_generation || "Generatie X"}
+                </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_5_name || "Karen van Bremen"}
                 </h2>

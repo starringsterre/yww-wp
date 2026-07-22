@@ -80,7 +80,7 @@ export default function HetTeam() {
             <div className="space-y-6">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
-                  {cms?.team_2_generation || "Generatie Z"}
+                  {cms?.team_2_generation || "Zillennial (grens Gen Z en Millennial)"}
                 </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_2_name || "Liene Molendijk"}
@@ -119,7 +119,7 @@ export default function HetTeam() {
             <div className="space-y-6 md:order-2">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#6B705C]">
-                  {cms?.team_3_generation || "Generatie X"}
+                  {cms?.team_3_generation || "Generatie Y (beter bekend als Millennials)"}
                 </p>
                 <h2 className="text-3xl md:text-4xl font-light text-gray-900">
                   {cms?.team_3_name || "Marloes Versteeg"}
@@ -217,7 +217,7 @@ export default function HetTeam() {
             <div className="relative h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-lg md:order-1">
               <img
                 loading="lazy"
-                src={cms?.team_5_image || "/team-karen-van-bremen.svg"}
+                src={cms?.team_5_image || "/karen-van-bremen.jpg"}
                 alt="Karen van Bremen"
                 className="w-full h-full object-cover"
               />

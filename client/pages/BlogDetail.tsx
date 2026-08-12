@@ -164,7 +164,7 @@ export default function BlogDetail() {
           description: articleDescription,
           url: articleUrl,
           inLanguage: "nl-NL",
-          image: blog.image ? `${SITE_URL}${blog.image.startsWith("/") ? "" : "/"}${blog.image}` : undefined,
+          image: blog.image ? toAbsoluteSiteAssetUrl(blog.image, SITE_URL) : undefined,
           datePublished: blog.date || undefined,
           author: blog.author
             ? { "@type": "Person", name: blog.author }

@@ -1,93 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://youngwisewomen.nl/</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/groepstrainingen</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/aanbod/workshops</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/groepstrainingen/ontwikkeling-workshops</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://youngwisewomen.nl/persoonlijke-ontwikkeling-weekend-training</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/aanbod/workshops/jaarprogramma</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/voor-consultancy</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/aanbod/business-retreats</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-juni-2026</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/in-company</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://youngwisewomen.nl/in-company/jaarprogrammas</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://youngwisewomen.nl/in-company/losse-workshops</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://youngwisewomen.nl/inspiratie</loc>
-    <lastmod>2026-03-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://youngwisewomen.nl/inspiratie/evenementen</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/persoonlijke-ontwikkeling-training-vrouwen-weekend-intensive-oktober-2026</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/introductie-workshop-persoonlijk-leiderschap-april-2026</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/onze-aanpak</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/inspiratie/blogs</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/inspiratie/podcasts</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/inspiratie/podcasts</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/ons-verhaal</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/inspiratie/evenementen</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/ons-verhaal</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/ons-verhaal/over-ella</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/ons-verhaal/over-ella</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://youngwisewomen.nl/lid-worden</loc>
-    <lastmod>2026-03-04</lastmod>
+    <loc>https://www.youngwisewomen.com/contact</loc>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/lid-worden</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/ons-verhaal/het-team</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/mariska-meijer-zus-en-zorg</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/gen-z-wil-geen-curling-manager</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/gen-z-op-de-werkvloer-generatieprobleem-of-spiegel</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/het-verhaal-van-young-wise-women</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/persoonlijke-groei-voorbeelden</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/vrouwelijk-leiderschap-zichtbaar-en-authentiek</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/de-motivation-factor-als-tool-voor-richting</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.youngwisewomen.com/inspiratie/tools-en-handvatten/eerste-vijf-jaar-carriere-jonge-vrouwen</loc>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

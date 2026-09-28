@@ -226,6 +226,8 @@ cat > "$TMPDIR/voor-organisaties.json" << 'JSONEOF'
   "hero_subtitle": "Het Netwerk voor jonge vrouwelijke professionals",
   "intro_heading": "Jaarprogramma voor jonge vrouwelijke professionals",
   "intro_text": "We begeleiden groepen jonge vrouwen een jaar lang met een combinatie van 1-op-1 coaching, groepssessies, een dag workshop en een weekend training (intensief). Zo bouwen zij rust, zelfvertrouwen en leiderschap op dat direct impact heeft op werk en welzijn.",
+  "intro_callout_badge": "Tijdelijke actie · t/m 30 september",
+  "intro_callout_text": "Vraag vóór 30 september een offerte aan voor onze introductieworkshop tegen gereduceerd tarief en ervaar zelf wat onze aanpak doet met jouw jonge talent. Slechts 5 organisaties per maand. Daarna terug naar het standaardtarief. Geen risico, alleen het bewijs dat het werkt.",
   "brands_heading": "talent uit deze organisaties ontwikkelde zich via YWW",
   "program_heading": "Wat zit er in het programma",
   "program_1_title": "1-op-1 coaching",
